@@ -3,7 +3,7 @@ import { CustomSelector } from "components/new";
 import { getAspectTitleQuestions, updateAspectRating } from "../../../services/PersonalService";
 
 const Circulo = ({ title }) => {
-    const user_info_id = 8;
+    const user_info_id = 10;
     const effectRan = useRef(false);
     const [questions, setQuestionsValue] = useState([]);
 

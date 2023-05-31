@@ -1,46 +1,33 @@
-import React, { useEffect, useState, useRef } from "react";
+import React from "react";
 import { Card } from "components/ui";
-import { getSkills } from "../../../services/PersonalService";
 import DialogForm from "../Skills/DialogForm";
 import DialogList from "../Skills/DialogList";
 
-const CardWithDialog = (props) => {
-    const effectRan = useRef(false);
-    const [skills, setSkills] = useState([]);
-    const [skillsCount, setSkillsCount] = useState(0);
-
-    useEffect(() => {
-        if (effectRan.current === false) {
-            const fetchDashData = async () => {
-                try {
-                    const resp = await getSkills();
-                    if (resp.data) {
-                        const skills  = resp.data;
-                        setSkills(skills)
-                        setSkillsCount(skills.length)
-                    }
-                } catch (errors) {
-                    console.log(errors);
-                }
-            };
-            fetchDashData();
-            return () => {
-                effectRan.current = true;
-            };
-        }
-    }, []);
+const CardWithDialog = props => {
+    const {
+        title,
+        itemType,
+        itemList,
+        setItemList,
+        itemCount,
+        setItemCount
+    } = props;
 
     const cardFooter = (
         <div className="flex justify-between">
-            <DialogList skills={skills}
-                        setSkills={setSkills}
-                        skillsCount={skillsCount}
-                        setSkillsCount={setSkillsCount}
+            <DialogList
+                itemType={itemType}
+                itemList={itemList}
+                setItemList={setItemList}
+                itemCount={itemCount}
+                setItemCount={setItemCount}
             />
-            <DialogForm skills={skills}
-                        setSkills={setSkills}
-                        skillsCount={skillsCount}
-                        setSkillsCount={setSkillsCount}
+            <DialogForm
+                itemType={itemType}
+                skills={itemList}
+                setSkills={setItemList}
+                skillsCount={itemCount}
+                setSkillsCount={setItemCount}
             />
         </div>
     );
@@ -53,8 +40,8 @@ const CardWithDialog = (props) => {
                 footer={cardFooter}
             >
                 <div className="grid justify-items-center">
-                    <h5 className={"mb-4"}>{props.title}</h5>
-                    <h1>{skillsCount}</h1>
+                    <h5 className={"mb-4"}>{title}</h5>
+                    <h1>{itemCount}</h1>
                 </div>
             </Card>
         </div>

@@ -11,7 +11,8 @@ import {
     ASPECTS_TYPES,
     ASPECTS_QUESTIONS_SHORT
 } from "constants/aspects.constant";
-import { getDashboardData } from "../../services/PersonalService";
+import { getAchievements, getDashboardData, getSkills } from "../../services/PersonalService";
+import { CardWithDialog } from "../../components/new";
 
 function hex_color_switch(value) {
     switch (value) {
@@ -34,41 +35,62 @@ function hex_color_switch(value) {
 
 const Dashboard = () => {
     const effectRan = useRef(false);
-    const user_info_id = 8;
+    const user_info_id = 10;
     const [ratings, setRatings] = useState([]);
     const [radarData, setRadarData] = useState([]);
+    const [skills, setSkills] = useState([]);
     const [skillsCount, setSkillsCount] = useState(0);
+    const [achievements, setAchievements] = useState([]);
     const [achievementsCount, setAchievementsCount] = useState(0);
     const [shortQuestions, setShortQuestions] = useState(ASPECTS_QUESTIONS_SHORT);
+
     useEffect(() => {
         if (effectRan.current === false) {
             const fetchDashData = async () => {
                 try {
                     const resp = await getDashboardData(user_info_id);
                     if (resp.data) {
-                        const { radar_data, ratings, skills_count,
-                            achievements_count, short_questions } = resp.data;
+                        const { radar_data, ratings, short_questions } = resp.data;
                         setRadarData(radar_data);
                         setRatings(ratings);
-                        setSkillsCount(skills_count);
-                        setAchievementsCount(achievements_count);
                         setShortQuestions(short_questions)
                     }
                 } catch (errors) {
                     console.log(errors);
                 }
             };
+            const fetchSkillsData = async () => {
+                try {
+                    const resp = await getSkills();
+                    if (resp.data) {
+                        const skills  = resp.data;
+                        setSkills(skills)
+                        setSkillsCount(skills.length)
+                    }
+                } catch (errors) {
+                    console.log(errors);
+                }
+            };
+            const fetchAchievementsData = async () => {
+                try {
+                    const resp = await getAchievements();
+                    if (resp.data) {
+                        const achievements  = resp.data;
+                        setAchievements(achievements)
+                        setAchievementsCount(achievements.length)
+                    }
+                } catch (errors) {
+                    console.log(errors);
+                }
+            };
             fetchDashData();
+            fetchSkillsData();
+            fetchAchievementsData();
             return () => {
                 effectRan.current = true;
             };
         }
     }, []);
-
-    const getRadarColor = () => {
-        const sum = radarData.reduce((partialSum, a) => partialSum + a, 0);
-        return hex_color_switch(Math.round(sum / 5));
-    };
 
     return (
         <div>
@@ -93,20 +115,24 @@ const Dashboard = () => {
                     </Card>
                 </div>
                 <div>
-                    <Card className="w-80">
-                        <div className="grid justify-items-center">
-                            <h5>Conquistas</h5>
-                            <h1>{achievementsCount}</h1>
-                        </div>
-                    </Card>
+                    <CardWithDialog
+                        title={"Conquistas"}
+                        itemType={"achievements"}
+                        itemList={achievements}
+                        setItemList={setAchievements}
+                        itemCount={achievementsCount}
+                        setItemCount={setAchievementsCount}
+                    />
                 </div>
                 <div>
-                    <Card className="w-80">
-                        <div className="grid justify-items-center">
-                            <h5>Habilidades Cadastradas</h5>
-                            <h1>{skillsCount}</h1>
-                        </div>
-                    </Card>
+                    <CardWithDialog
+                        title={"Habilidades Cadastradas"}
+                        itemType={"skills"}
+                        itemList={skills}
+                        setItemList={setSkills}
+                        itemCount={skillsCount}
+                        setItemCount={setSkillsCount}
+                    />
                 </div>
             </div>
 
@@ -139,13 +165,13 @@ const Dashboard = () => {
                             dataLabels: {
                                 enabled: true,
                                 style: {
-                                    colors: [getRadarColor()]
+                                    colors: [getRadarColor(radarData)]
                                 }
                             },
                             fill: {
                                 type: "solid",
                                 opacity: 0.5,
-                                colors: [getRadarColor()]
+                                colors: [getRadarColor(radarData)]
                             },
                             xaxis: {
                                 categories: ASPECTS_TYPES,
@@ -165,11 +191,11 @@ const Dashboard = () => {
                             stroke: {
                                 show: true,
                                 width: 2,
-                                colors: [getRadarColor()],
+                                colors: [getRadarColor(radarData)],
                                 dashArray: 0
                             },
                             markers: {
-                                colors: [getRadarColor()]
+                                colors: [getRadarColor(radarData)]
                             }
                         }}
                     />
@@ -242,3 +268,9 @@ const Dashboard = () => {
 };
 
 export default Dashboard;
+
+
+const getRadarColor = (data) => {
+    const sum = data.reduce((partialSum, a) => partialSum + a, 0);
+    return hex_color_switch(Math.round(sum / 5));
+};

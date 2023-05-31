@@ -1,13 +1,24 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Dialog, Select } from "components/ui";
 import { FaPlusSquare } from "react-icons/fa";
-import { aptidoesOptions } from "../../../views/auto-conhecimento/form.options";
-import { postSkills } from "../../../services/PersonalService";
+import { aptidoesOptions, conquistasGroupedOptions } from "../../../views/auto-conhecimento/form.options";
+import { postItem } from "../../../services/PersonalService";
 import CreatableSelect from "react-select/creatable";
+import { HiCheck } from "react-icons/hi";
+import { components } from "react-select";
+const { MultiValueLabel } = components
 
-const DialogForm = ({ skills, setSkills, skillsCount, setSkillsCount }) => {
+const DialogForm = props => {
     const [dialogIsOpen, setIsOpen] = useState(false);
-    const [newSkill, setNewSkill] = useState("");
+    const [newItem, setNewItem] = useState("");
+    const {
+        itemType,
+        itemList,
+        setItemList,
+        itemCount,
+        setItemCount
+    } = props;
+
     const user_info_id = 8;
     const openDialog = () => {
         setIsOpen(true);
@@ -19,17 +30,18 @@ const DialogForm = ({ skills, setSkills, skillsCount, setSkillsCount }) => {
 
     const onDialogOk = (e) => {
         setIsOpen(false);
-        addSkill(user_info_id, newSkill);
+        addItem(user_info_id, newItem);
     };
 
-    const addSkill = (id, value) => {
+    const addItem = (id, value) => {
         const update = async () => {
             try {
-                const resp = await postSkills({ user: id, skill: value });
+                console.log(itemType, { user: id, value: value })
+                const resp = await postItem(itemType, { user: id, value: value });
                 if (resp.data) {
                     console.log(resp.data);
-                    setSkillsCount(skillsCount + 1);
-                    setSkills([...skills, resp.data]);
+                    setItemCount(itemCount + 1);
+                    setItemList([...itemList, resp.data]);
                 }
             } catch (errors) {
                 console.log(errors);
@@ -38,9 +50,48 @@ const DialogForm = ({ skills, setSkills, skillsCount, setSkillsCount }) => {
         update();
     };
 
-    const filteredSkillsOptions = aptidoesOptions.filter(ad =>
-        skills.every(fd => fd.skill !== ad.label)
-    );
+    // const newoptions1 = aptidoesOptions.filter(ad =>
+    //     itemList.every(fd => fd.value !== ad.label)
+    // );
+    // const newoptions = conquistasGroupedOptions.filter(ad =>
+    //     itemList.every(fd => fd.value !== ad.label)
+    // );
+
+    const CustomSelectOption = ({ innerProps, label, data, isSelected }) => {
+        return (
+            <div
+                className={`flex items-center justify-between p-2 ${
+                    isSelected
+                        ? 'bg-gray-100 dark:bg-gray-500'
+                        : 'hover:bg-gray-50 dark:hover:bg-gray-600'
+                }`}
+                {...innerProps}
+            >
+                <div className="flex items-center">
+                    {data.icon}
+                    <span className="ml-2 rtl:mr-2">{label}</span>
+                </div>
+                {isSelected && <HiCheck className="text-emerald-500 text-xl" />}
+            </div>
+        )
+    }
+    const CustomControlMulti = ({ children, data, ...props }) => {
+        const { icon } = data
+        return (
+            <MultiValueLabel {...props}>
+                <div className="inline-flex items-center">
+                    {icon} &nbsp;
+                    {children}
+                </div>
+            </MultiValueLabel>
+        )
+    }
+    const formatGroupLabel = (data) => (
+        <div className="font-bold text-xs uppercase text-gray-800 dark:text-white my-2">
+            {data.label}
+        </div>
+    )
+
     return (
         <div>
             <Button
@@ -56,15 +107,39 @@ const DialogForm = ({ skills, setSkills, skillsCount, setSkillsCount }) => {
             >
                 <h5 className="mb-4">Cadastrar Nova Habilidade</h5>
                 <div>
-                    <span>Lista de Habilidades</span>
-                    <Select
-                        isClearable={false}
-                        isMulti={false}
-                        placeholder="Lista de Aptidoes"
-                        options={filteredSkillsOptions}
-                        onChange={({ label }) => setNewSkill(label)}
-                        componentAs={CreatableSelect}
-                    />
+                    {
+                        itemType === 'skills' ?
+                            <>
+                                <span>Lista de Habilidades</span>
+                                <Select
+                                    isClearable={false}
+                                    isMulti={false}
+                                    placeholder="Lista de Aptidoes"
+                                    options={aptidoesOptions}
+                                    onChange={({ label }) => setNewItem(label)}
+                                    componentAs={CreatableSelect}
+                                />
+
+                            </>
+                            :
+                            <>
+                                <span>Lista de Conquistas</span>
+                                <Select
+                                    isMulti
+                                    placeholder="Lista de Conquistas"
+                                    options={conquistasGroupedOptions}
+                                    components={{
+                                        Option: CustomSelectOption,
+                                        MultiValueLabel: CustomControlMulti
+                                    }}
+                                    formatGroupLabel={formatGroupLabel}
+                                    className="mb-4"
+                                />
+                            </>
+
+                    }
+
+
                 </div>
                 <div className="text-right mt-6">
                     <Button

@@ -58,7 +58,6 @@ export const VERY_HIGH = {
 };
 
 export const ASPECTS = [
-    NOT_RATED,
     VERY_LOW,
     LOW,
     REGULAR,

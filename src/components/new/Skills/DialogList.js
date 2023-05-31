@@ -2,11 +2,17 @@ import React, { useState } from "react";
 import { Button, Dialog } from "components/ui";
 import { FaListUl } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
-import { deleteSkill } from "../../../services/PersonalService";
+import { deleteItem } from "../../../services/PersonalService";
 
 const DialogList = (props) => {
     const [dialogIsOpen, setIsOpen] = useState(false);
-    const { skills, setSkills, skillsCount, setSkillsCount } = props;
+    const {
+        itemType,
+        itemList,
+        setItemList,
+        itemCount,
+        setItemCount
+    } = props;
 
     const openDialog = () => {
         setIsOpen(true);
@@ -27,30 +33,30 @@ const DialogList = (props) => {
         };
 
         const onDialogOk = () => {
-            const deleteItem = (key) => {
-                setSkills((current) =>
+            const deleteItemFromState = (key) => {
+                setItemList((current) =>
                     current.filter(
                         ({ id }) => id !== key
                     )
                 );
-                setSkillsCount(skillsCount - 1);
+                setItemCount(itemCount - 1);
             };
-            const delSkill = async () => {
+            const delItem = async () => {
                 try {
-                    const resp = await deleteSkill(item.id);
+                    const resp = await deleteItem(itemType, item.id);
                     if (resp.status === 204) {
-                        deleteItem(item.id);
+                        deleteItemFromState(item.id);
                     }
                 } catch (errors) {
                     console.log(errors);
                 }
-            }
-            delSkill();
+            };
+            delItem();
             setIsOpen(false);
         };
         return (
             <div className="flex justify-between my-2">
-                <h5>{item.skill}</h5>
+                <h5>{item.value}</h5>
                 <Button
                     shape="circle"
                     color={"red-500"}
@@ -66,7 +72,7 @@ const DialogList = (props) => {
                     <h5 className="mb-4">Excluir Habilidade</h5>
                     <p>
                         Tem certeza que deseja excluir a Habilidade:
-                        <h6> {item.skill}?</h6>
+                        <h6> {item.value}?</h6>
                     </p>
                     <div className="text-right mt-6">
                         <Button
@@ -102,7 +108,7 @@ const DialogList = (props) => {
             >
                 <h5 className="mb-4">Lista de Habilidades</h5>
                 <div className="max-h-96 overflow-y-auto">
-                    {skills.map((item) =>
+                    {itemList.map((item) =>
                         <ItemRow key={item.id}
                                  item={item}
                         />

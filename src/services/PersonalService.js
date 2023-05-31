@@ -53,3 +53,41 @@ export async function deleteSkill (skill_id) {
         method: 'delete',
     })
 }
+
+export async function getAchievements () {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/achievements/`,
+        method: 'get'
+    })
+}
+
+
+export async function postAchievements (data) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/achievements/`,
+        method: 'post',
+        data
+    })
+}
+
+export async function deleteAchievement (achievement_id) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/achievements/${achievement_id}`,
+        method: 'delete',
+    })
+}
+
+export async function deleteItem (item_type, skill_id) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/${item_type}/${skill_id}`,
+        method: 'delete',
+    })
+}
+
+export async function postItem (item_type, data) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/${item_type}/`,
+        method: 'post',
+        data
+    })
+}
