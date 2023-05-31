@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Button, Dialog, Select } from "components/ui";
 import { FaPlusSquare } from "react-icons/fa";
 import { aptidoesOptions, conquistasGroupedOptions } from "../../../views/auto-conhecimento/form.options";
@@ -96,7 +96,7 @@ const DialogForm = props => {
         <div>
             <Button
                 shape="circle"
-                size="sm"
+                size="xs"
                 variant="twoTone"
                 icon={<FaPlusSquare />}
                 onClick={() => openDialog()} />

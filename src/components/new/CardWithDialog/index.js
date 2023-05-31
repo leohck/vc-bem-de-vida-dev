@@ -13,34 +13,32 @@ const CardWithDialog = props => {
         setItemCount
     } = props;
 
-    const cardFooter = (
-        <div className="flex justify-between">
-            <DialogList
-                itemType={itemType}
-                itemList={itemList}
-                setItemList={setItemList}
-                itemCount={itemCount}
-                setItemCount={setItemCount}
-            />
-            <DialogForm
-                itemType={itemType}
-                skills={itemList}
-                setSkills={setItemList}
-                skillsCount={itemCount}
-                setSkillsCount={setItemCount}
-            />
-        </div>
-    );
-
     return (
         <div>
             <Card
-                className="w-80"
-                bodyClass="text-center"
-                footer={cardFooter}
+                header={title}
+                headerClass="flex items-center justify-center"
+                // className="w-64 h-40 shadow-md shadow-yellow-400/50"
+                className="w-64 h-40 shadow-md shadow-blue-900/50"
+                bodyClass="grid grid-cols-3 items-center justify-center"
             >
-                <div className="grid justify-items-center">
-                    <h5 className={"mb-4"}>{title}</h5>
+                <div className="flex flex-col gap-2 w-10 max-w-10">
+                    <DialogList
+                        itemType={itemType}
+                        itemList={itemList}
+                        setItemList={setItemList}
+                        itemCount={itemCount}
+                        setItemCount={setItemCount}
+                    />
+                    <DialogForm
+                        itemType={itemType}
+                        skills={itemList}
+                        setSkills={setItemList}
+                        skillsCount={itemCount}
+                        setSkillsCount={setItemCount}
+                    />
+                </div>
+                <div className="flex items-center col-span-2 ml-7">
                     <h1>{itemCount}</h1>
                 </div>
             </Card>

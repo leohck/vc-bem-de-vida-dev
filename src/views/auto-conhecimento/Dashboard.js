@@ -1,5 +1,4 @@
 import React, {useEffect, useState, useRef} from "react";
-import { Card } from "../../components/ui";
 import { Chart } from "../../components/shared";
 import {
     HEX_COLOR_NOT_RATED,
@@ -99,20 +98,24 @@ const Dashboard = () => {
             </div>
             <div className="flex flex-row gap-4 justify-between">
                 <div>
-                    <Card className="w-80">
-                        <div className="grid justify-items-center">
-                            <h5>Ações em Andamento</h5>
-                            <h1>0</h1>
-                        </div>
-                    </Card>
+                    <CardWithDialog
+                        title={"Ações em Andamento"}
+                        itemType={"achievements"}
+                        itemList={achievements}
+                        setItemList={setAchievements}
+                        itemCount={achievementsCount}
+                        setItemCount={setAchievementsCount}
+                    />
                 </div>
                 <div>
-                    <Card className="w-80">
-                        <div className="grid justify-items-center">
-                            <h5>Metas</h5>
-                            <h1>0</h1>
-                        </div>
-                    </Card>
+                    <CardWithDialog
+                        title={"Metas"}
+                        itemType={"achievements"}
+                        itemList={achievements}
+                        setItemList={setAchievements}
+                        itemCount={achievementsCount}
+                        setItemCount={setAchievementsCount}
+                    />
                 </div>
                 <div>
                     <CardWithDialog
@@ -126,7 +129,7 @@ const Dashboard = () => {
                 </div>
                 <div>
                     <CardWithDialog
-                        title={"Habilidades Cadastradas"}
+                        title={"Habilidades"}
                         itemType={"skills"}
                         itemList={skills}
                         setItemList={setSkills}

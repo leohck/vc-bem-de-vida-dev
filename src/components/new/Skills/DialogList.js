@@ -97,7 +97,7 @@ const DialogList = (props) => {
         <div>
             <Button
                 shape="circle"
-                size="sm"
+                size="xs"
                 variant="twoTone"
                 icon={<FaListUl />}
                 onClick={() => openDialog()} />
