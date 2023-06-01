@@ -13,7 +13,7 @@ import {
 import { getAchievements, getDashboardData, getSkills } from "../../services/PersonalService";
 import { CardWithDialog } from "../../components/new";
 import { useDispatch, useSelector } from "react-redux";
-import {getApiData, selectAllSkills} from "../../store/user/skillsSlice";
+// import {getApiData, selectAllSkills} from "../../store/user/skillsSlice";
 
 function hex_color_switch(value) {
     switch (value) {
@@ -45,15 +45,15 @@ const Dashboard = () => {
     const [achievementsCount, setAchievementsCount] = useState(0);
     const [shortQuestions, setShortQuestions] = useState(ASPECTS_QUESTIONS_SHORT);
 
-    const new_skills = useSelector(selectAllSkills);
-    console.log(new_skills)
-    const skills_loading = useSelector(state => state.user.skills.loading);
-    const dispatch = useDispatch();
-    useEffect(() => {
-        if (skills_loading === false) {
-            dispatch(getApiData())
-        }
-    }, [skills_loading, dispatch]);
+    // const new_skills = useSelector(selectAllSkills);
+    // console.log(new_skills)
+    // const skills_loading = useSelector(state => state.user.skills.loading);
+    // const dispatch = useDispatch();
+    // useEffect(() => {
+    //     if (skills_loading === false) {
+    //         dispatch(getApiData())
+    //     }
+    // }, [skills_loading, dispatch]);
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -95,7 +95,7 @@ const Dashboard = () => {
                 }
             };
             fetchDashData();
-            // fetchSkillsData();
+            fetchSkillsData();
             fetchAchievementsData();
             return () => {
                 effectRan.current = true;
