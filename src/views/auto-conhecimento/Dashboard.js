@@ -12,6 +12,8 @@ import {
 } from "constants/aspects.constant";
 import { getAchievements, getDashboardData, getSkills } from "../../services/PersonalService";
 import { CardWithDialog } from "../../components/new";
+import { useDispatch, useSelector } from "react-redux";
+import {getApiData, selectAllSkills} from "../../store/user/skillsSlice";
 
 function hex_color_switch(value) {
     switch (value) {
@@ -34,7 +36,7 @@ function hex_color_switch(value) {
 
 const Dashboard = () => {
     const effectRan = useRef(false);
-    const user_info_id = 10;
+    const {user_info_id} = useSelector((state) => state.user.user);
     const [ratings, setRatings] = useState([]);
     const [radarData, setRadarData] = useState([]);
     const [skills, setSkills] = useState([]);
@@ -42,6 +44,16 @@ const Dashboard = () => {
     const [achievements, setAchievements] = useState([]);
     const [achievementsCount, setAchievementsCount] = useState(0);
     const [shortQuestions, setShortQuestions] = useState(ASPECTS_QUESTIONS_SHORT);
+
+    const new_skills = useSelector(selectAllSkills);
+    console.log(new_skills)
+    const skills_loading = useSelector(state => state.user.skills.loading);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        if (skills_loading === false) {
+            dispatch(getApiData())
+        }
+    }, [skills_loading, dispatch]);
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -83,7 +95,7 @@ const Dashboard = () => {
                 }
             };
             fetchDashData();
-            fetchSkillsData();
+            // fetchSkillsData();
             fetchAchievementsData();
             return () => {
                 effectRan.current = true;
@@ -96,7 +108,7 @@ const Dashboard = () => {
             <div className="mb-8 grid justify-items-center">
                 <h3>Resumo de suas Atividades</h3>
             </div>
-            <div className="flex flex-row gap-4 justify-between">
+            <div className="flex flex-row gap-2 justify-between">
                 <div>
                     <CardWithDialog
                         title={"Ações em Andamento"}
@@ -189,7 +201,8 @@ const Dashboard = () => {
                             },
                             yaxis: {
                                 min: 0,
-                                max: 5
+                                max: 5,
+                                forceNiceScale: true
                             },
                             stroke: {
                                 show: true,

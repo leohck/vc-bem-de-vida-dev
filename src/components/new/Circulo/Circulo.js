@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CustomSelector } from "components/new";
 import { getAspectTitleQuestions, updateAspectRating } from "../../../services/PersonalService";
+import { useSelector } from "react-redux";
+
 
 const Circulo = ({ title }) => {
-    const user_info_id = 10;
+    const {user_info_id} = useSelector((state) => state.user.user);
     const effectRan = useRef(false);
     const [questions, setQuestionsValue] = useState([]);
 
@@ -25,7 +27,7 @@ const Circulo = ({ title }) => {
                 effectRan.current = true;
             };
         }
-    }, [title]);
+    }, [user_info_id, title]);
 
 
     const updateState = (question_id, value) => {
