@@ -7,7 +7,7 @@ import * as Yup from 'yup'
 import useAuth from 'utils/hooks/useAuth'
 
 const validationSchema = Yup.object().shape({
-    userName: Yup.string().required('Please enter your user name'),
+    userName: Yup.string().required('Please enter your userinfo name'),
     email: Yup.string()
         .email('Invalid email')
         .required('Please enter your email'),

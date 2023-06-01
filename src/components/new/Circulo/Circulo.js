@@ -1,13 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import { CustomSelector } from "components/new";
 import { getAspectTitleQuestions, updateAspectRating } from "../../../services/PersonalService";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {injectReducer} from "../../../store";
+import reducer from "../../../store/userinfo";
+import {fetchUserInfo} from "../../../store/userinfo/userInfoSlice";
 
-
+injectReducer('userInfo', reducer)
 const Circulo = ({ title }) => {
-    const {user_info_id} = useSelector((state) => state.user.user);
+    const dispatch = useDispatch();
+    const user_info_id = useSelector((state) => state.userInfo.userInfoState.currentUser.id);
     const effectRan = useRef(false);
     const [questions, setQuestionsValue] = useState([]);
+
+    useEffect(() => {
+        dispatch(fetchUserInfo());
+    }, [])
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -28,7 +36,6 @@ const Circulo = ({ title }) => {
             };
         }
     }, [user_info_id, title]);
-
 
     const updateState = (question_id, value) => {
         const newState = questions.map(obj => {

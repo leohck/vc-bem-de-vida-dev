@@ -27,7 +27,7 @@ const Card = React.forwardRef((props, ref) => {
         'card',
         className,
         bordered ? `card-border` : `card-shadow`,
-        clickable && 'cursor-pointer user-select-none'
+        clickable && 'cursor-pointer userinfo-select-none'
     )
 
     const cardBodyClasss = classNames('card-body', bodyClass)

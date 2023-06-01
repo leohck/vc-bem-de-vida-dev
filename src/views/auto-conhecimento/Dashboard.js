@@ -13,7 +13,11 @@ import {
 import { getAchievements, getDashboardData, getSkills } from "../../services/PersonalService";
 import { CardWithDialog } from "../../components/new";
 import { useDispatch, useSelector } from "react-redux";
-// import {getApiData, selectAllSkills} from "../../store/user/skillsSlice";
+import { fetchUserInfo } from "../../store/userinfo/userInfoSlice";
+import {injectReducer} from "../../store/index";
+import reducer from "../../store/userinfo";
+
+
 
 function hex_color_switch(value) {
     switch (value) {
@@ -34,9 +38,11 @@ function hex_color_switch(value) {
     }
 }
 
+injectReducer('userInfo', reducer)
 const Dashboard = () => {
+    const dispatch = useDispatch();
     const effectRan = useRef(false);
-    const {user_info_id} = useSelector((state) => state.user.user);
+    const user_info_id = useSelector((state) => state.userInfo.userInfoState.currentUser.id);
     const [ratings, setRatings] = useState([]);
     const [radarData, setRadarData] = useState([]);
     const [skills, setSkills] = useState([]);
@@ -45,15 +51,9 @@ const Dashboard = () => {
     const [achievementsCount, setAchievementsCount] = useState(0);
     const [shortQuestions, setShortQuestions] = useState(ASPECTS_QUESTIONS_SHORT);
 
-    // const new_skills = useSelector(selectAllSkills);
-    // console.log(new_skills)
-    // const skills_loading = useSelector(state => state.user.skills.loading);
-    // const dispatch = useDispatch();
-    // useEffect(() => {
-    //     if (skills_loading === false) {
-    //         dispatch(getApiData())
-    //     }
-    // }, [skills_loading, dispatch]);
+    useEffect(() => {
+        dispatch(fetchUserInfo());
+    }, []);
 
     useEffect(() => {
         if (effectRan.current === false) {
@@ -101,7 +101,7 @@ const Dashboard = () => {
                 effectRan.current = true;
             };
         }
-    }, []);
+    }, [user_info_id]);
 
     return (
         <div>

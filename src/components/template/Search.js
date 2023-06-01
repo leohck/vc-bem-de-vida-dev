@@ -48,7 +48,7 @@ const ListItem = (props) => {
         <Link to={url} onClick={onNavigate}>
             <div
                 className={classNames(
-                    'flex items-center justify-between rounded-lg p-3.5 cursor-pointer user-select',
+                    'flex items-center justify-between rounded-lg p-3.5 cursor-pointer userinfo-select',
                     'bg-gray-50 dark:bg-gray-700/60 hover:bg-gray-100 dark:hover:bg-gray-700/90',
                     !isLast && 'mb-3'
                 )}

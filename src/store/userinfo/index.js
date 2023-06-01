@@ -1,10 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit'
-import user from './userSlice'
+import userInfo from './userInfoSlice'
 import skills from './skillsSlice'
 
 const reducer = combineReducers({
-    user,
-    skills,
+    userInfoState: userInfo,
+    userSkillsState: skills,
 })
 
 export default reducer;
