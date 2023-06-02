@@ -43,16 +43,6 @@ const navigationConfig = [
                 authority: [],
                 subMenu: []
             },
-            {
-                key: 'dashboard2',
-                path: '/dashboard2',
-                title: 'Dashboard 2',
-                translateKey: '',
-                icon: '',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: []
-            },
         ]
     },
     {
@@ -108,6 +98,47 @@ const navigationConfig = [
                 key: 'circulo-financeira',
                 path: '/circulo/financeira',
                 title: 'Gestao Financeira',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: []
+            }
+        ]
+    },
+    {
+        key: 'gestao-rotina',
+        path: '/gestao-rotina',
+        title: 'Gestão de Rotinas e Recursos',
+        translateKey: '',
+        icon: 'gestao_rotina',
+        type: NAV_ITEM_TYPE_COLLAPSE,
+        authority: [],
+        subMenu: [
+            {
+                key: 'gestao-rotina-dashboard',
+                path: '/gestao-rotina/dashboard',
+                title: 'Dashboard',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: []
+            },
+            {
+                key: 'gestao-rotina-form-rotina',
+                path: '/formulario/rotina',
+                title: 'Cadastrar Ação de Rotina',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: []
+            },
+            {
+                key: 'gestao-rotina-form-pagamento',
+                path: '/formulario/pagamento',
+                title: 'Cadastrar Pagamento de Rotina',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,

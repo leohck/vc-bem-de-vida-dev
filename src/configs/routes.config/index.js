@@ -17,12 +17,6 @@ export const protectedRoutes = [
         authority: [],
     },
     {
-        key: 'dashboard2',
-        path: '/dashboard2',
-        component: React.lazy(() => import('views/auto-conhecimento/Dashboard2')),
-        authority: [],
-    },
-    {
         key: 'auto-conhecimento',
         path: '/auto-conhecimento',
         component: React.lazy(() => import('views/auto-conhecimento/Home')),
@@ -68,6 +62,24 @@ export const protectedRoutes = [
         key: 'circulo-financeira',
         path: '/circulo/financeira',
         component: React.lazy(() => import('views/auto-conhecimento/circulo/GestaoFinanceira')),
+        authority: [],
+    },
+    {
+        key: 'gestao-rotina-dashboard',
+        path: '/gestao-rotina/dashboard',
+        component: React.lazy(() => import('views/gestao-rotina/dashboard')),
+        authority: [],
+    },
+    {
+        key: 'gestao-rotina-form-rotina',
+        path: '/formulario/rotina',
+        component: React.lazy(() => import('views/gestao-rotina/formulario-rotina')),
+        authority: [],
+    },
+    {
+        key: 'gestao-rotina-form-pagamento',
+        path: '/formulario/pagamento',
+        component: React.lazy(() => import('views/gestao-rotina/formulario-pagamento')),
         authority: [],
     },
 ]
