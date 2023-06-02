@@ -154,7 +154,7 @@ const Dashboard = () => {
                 </div>
             </div>
 
-            <div className="mt-24 flex mb-20">
+            <div className="flex mb-20 mt-24">
                 <div className="w-1/2">
                     <div className="mb-8 grid justify-items-center">
                         <h3>Radar de Qualidade de Vida</h3>
@@ -165,21 +165,9 @@ const Dashboard = () => {
                             data: radarData
                         }]}
                         height={600}
+                        width={800}
                         type="radar"
                         options={{
-                            responsive: [
-                                {
-                                    breakpoint: 480,
-                                    options: {
-                                        chart: {
-                                            width: 200
-                                        },
-                                        legend: {
-                                            position: "left"
-                                        }
-                                    }
-                                }
-                            ],
                             dataLabels: {
                                 enabled: true,
                                 style: {
