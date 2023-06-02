@@ -269,7 +269,9 @@ const Dashboard = () => {
                                 categories: shortQuestions
                             },
                             yaxis: {
-                                reversed: false,
+                                min: 0,
+                                max: 5,
+                                forceNiceScale: true,
                                 axisTicks: {
                                     show: true
                                 }
