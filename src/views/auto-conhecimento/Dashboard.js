@@ -1,4 +1,4 @@
-import React, {useEffect, useState, useRef} from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Chart } from "../../components/shared";
 import {
     HEX_COLOR_NOT_RATED,
@@ -14,9 +14,6 @@ import { getAchievements, getDashboardData, getSkills } from "../../services/Per
 import { CardWithDialog } from "../../components/new";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../store/userinfo/userInfoSlice";
-import {injectReducer} from "../../store/index";
-import reducer from "../../store/userinfo";
-
 
 
 function hex_color_switch(value) {
@@ -38,11 +35,10 @@ function hex_color_switch(value) {
     }
 }
 
-injectReducer('userInfo', reducer)
 const Dashboard = () => {
     const dispatch = useDispatch();
     const effectRan = useRef(false);
-    const user_info_id = useSelector((state) => state.userInfo.userInfoState.currentUser.id);
+    const user_info_id = useSelector((state) => state.userinfo.userInfoState.currentUser.id);
     const [ratings, setRatings] = useState([]);
     const [radarData, setRadarData] = useState([]);
     const [skills, setSkills] = useState([]);
@@ -64,7 +60,7 @@ const Dashboard = () => {
                         const { radar_data, ratings, short_questions } = resp.data;
                         setRadarData(radar_data);
                         setRatings(ratings);
-                        setShortQuestions(short_questions)
+                        setShortQuestions(short_questions);
                     }
                 } catch (errors) {
                     console.log(errors);
@@ -74,9 +70,9 @@ const Dashboard = () => {
                 try {
                     const resp = await getSkills();
                     if (resp.data) {
-                        const skills  = resp.data;
-                        setSkills(skills)
-                        setSkillsCount(skills.length)
+                        const skills = resp.data;
+                        setSkills(skills);
+                        setSkillsCount(skills.length);
                     }
                 } catch (errors) {
                     console.log(errors);
@@ -86,9 +82,9 @@ const Dashboard = () => {
                 try {
                     const resp = await getAchievements();
                     if (resp.data) {
-                        const achievements  = resp.data;
-                        setAchievements(achievements)
-                        setAchievementsCount(achievements.length)
+                        const achievements = resp.data;
+                        setAchievements(achievements);
+                        setAchievementsCount(achievements.length);
                     }
                 } catch (errors) {
                     console.log(errors);
@@ -195,7 +191,7 @@ const Dashboard = () => {
                                     style: {
                                         colors: ["#a8a8a8"],
                                         fontSize: "15px",
-                                        fontFamily: 'Arial'
+                                        fontFamily: "Arial"
                                     }
                                 }
                             },

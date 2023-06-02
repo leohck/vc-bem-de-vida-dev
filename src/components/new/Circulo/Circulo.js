@@ -2,40 +2,38 @@ import React, { useState, useEffect, useRef } from "react";
 import { CustomSelector } from "components/new";
 import { getAspectTitleQuestions, updateAspectRating } from "../../../services/PersonalService";
 import { useDispatch, useSelector } from "react-redux";
-import {injectReducer} from "../../../store";
-import reducer from "../../../store/userinfo";
-import {fetchUserInfo} from "../../../store/userinfo/userInfoSlice";
+import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
 
-injectReducer('userInfo', reducer)
+
 const Circulo = ({ title }) => {
     const dispatch = useDispatch();
-    const user_info_id = useSelector((state) => state.userInfo.userInfoState.currentUser.id);
-    const effectRan = useRef(false);
+    const user_info = useSelector((state) => state.userinfo.userInfoState);
+    const [user_info_id, setUserInfoID] = useState(null);
     const [questions, setQuestionsValue] = useState([]);
 
     useEffect(() => {
         dispatch(fetchUserInfo());
-    }, [])
+        if (!user_info.loading && user_info.currentUser) {
+            setUserInfoID(user_info.currentUser.id);
+        }
+    }, []);
 
     useEffect(() => {
-        if (effectRan.current === false) {
-            const fetchQuestions = async () => {
-                try {
-                    const resp = await getAspectTitleQuestions(user_info_id, title);
-                    if (resp.data) {
-                        const { questions } = resp.data;
-                        setQuestionsValue(questions);
-                    }
-                } catch (errors) {
-                    console.log(errors);
+        const fetchQuestions = async () => {
+            try {
+                const resp = await getAspectTitleQuestions(user_info_id, title);
+                if (resp.data) {
+                    const { questions } = resp.data;
+                    setQuestionsValue(questions);
                 }
-            };
+            } catch (errors) {
+                console.log(errors);
+            }
+        };
+        if (user_info_id) {
             fetchQuestions();
-            return () => {
-                effectRan.current = true;
-            };
         }
-    }, [user_info_id, title]);
+    }, [user_info_id]);
 
     const updateState = (question_id, value) => {
         const newState = questions.map(obj => {

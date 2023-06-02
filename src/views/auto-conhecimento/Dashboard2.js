@@ -1,13 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../store/userinfo/userInfoSlice";
-import {injectReducer} from "../../store/index";
-import reducer from "../../store/userinfo";
 
-injectReducer('userInfo', reducer)
 const Dashboard2 = () => {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.userInfo.userInfoState);
+    const user = useSelector(state => state.userinfo.userInfoState);
 
     useEffect(() => {
         dispatch(fetchUserInfo());
