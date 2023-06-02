@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useReducer, useCallback } from "react";
 import {
     Input,
     Button,
@@ -10,74 +10,132 @@ import WeekdaySegment from "./components/WeekdaySegment";
 import EnergyLevelSegment from "./components/EnergyLevelSegment";
 import ActionMoneySegment from "./components/ActionMoneySegment";
 
-const Layout = () => {
+const RoutineForm = () => {
+        const [lifeAspect, setLifeAspect] = useState([]);
+        const [weekDay, setWeekDay] = useState([]);
+        const [energyLevel, setEnergyLevel] = useState([]);
+        const [actionMoney, setActionMoney] = useState([]);
 
-    const cardFooter = (
-        <div className="flex justify-items-end">
-            <Button size="sm" variant="solid">
-                Salvar
-            </Button>
-        </div>
-    );
+        const handleLifeAspectChange = useCallback(
+            val => {
+                setLifeAspect(val);
+            },
+            []
+        );
 
-    return (
-        <div>
-            <div className="mb-8 grid justify-items-center">
-                <h3>Cadastrar Ação de Rotina</h3>
-            </div>
+        const handleWeekDayChange = useCallback(
+            val => {
+                setWeekDay(val);
+            },
+            []
+        );
 
-            <Card footer={cardFooter}>
+        const handleEnergyLevelChange = useCallback(
+            val => {
+                setEnergyLevel(val);
+            },
+            []
+        );
 
-                <div className="flex flex-row items-center">
-                    <p className="font-bold text-lg">Ação de Rotina: </p>
-                    <Input className="max-w-sm ml-16"
-                           placeholder="Nome da Ação de Rotina" />
+        const handleActionMoneyChange = useCallback(
+            val => {
+                setActionMoney(val);
+            },
+            []
+        );
+
+        const [formData, setFormData] = useReducer(
+            (state, newState) => ({ ...state, ...newState })
+        );
+
+        const handleFormData = event => {
+            const { name, value } = event.target;
+            setFormData({ [name]: value });
+        };
+
+        const handleFormSubmit = () => {
+            console.log(formData);
+            console.log(lifeAspect);
+            console.log(weekDay);
+            console.log(energyLevel);
+            console.log(actionMoney);
+        };
+
+        return (
+            <div>
+                <div className="mb-8 grid justify-items-center">
+                    <h3>Cadastrar Ação de Rotina</h3>
                 </div>
 
-                <div className="flex flex-col justify-items-center mt-10">
-                    <p className="font-bold text-lg">Aspecto de Vida Influenciado pela Ação: </p>
-                    <LifeAspectSegment />
-                </div>
+                <Card
+                    footer={
+                        <div className="flex justify-items-end">
+                            <Button size="sm"
+                                    variant="solid"
+                                    onClick={handleFormSubmit}
+                            >
+                                Salvar
+                            </Button>
+                        </div>}>
 
-                <div className="flex flex-row items-center mt-10">
-                    <p className="font-bold text-lg">Quantas horas / dia são necessárias para esta ação: </p>
-                    <Input className="max-w-sm ml-16"
-                           type="number"
-                           step={0.5}
-                           min={1}
-                           max={24}
-                           placeholder="Quantas horas são necessárias" />
-                </div>
-
-                <div className="flex flex-col justify-items-center mt-10">
-                    <p className="font-bold text-lg">Em quais dias da semana esta ação é executada? </p>
-                    <WeekdaySegment />
-                </div>
-
-                <div className="flex flex-col justify-items-center mt-10">
-                    <p className="font-bold text-lg">Considerando a escala abaixo, como você classifica o nível de energia (esforço/atenção) despendido nesta ação? </p>
-                    <EnergyLevelSegment />
-                </div>
-
-                <div className="flex flex-row items-center gap-[200px] mt-10">
-                    <div className="flex flex-col">
-                        <p className="font-bold text-lg">Esta Ação?</p>
-                        <ActionMoneySegment />
+                    <div className="flex flex-row items-center">
+                        <p className="font-bold text-lg">Ação de Rotina: </p>
+                        <Input className="max-w-sm ml-16"
+                               placeholder="Nome da Ação de Rotina"
+                               name="routine_action"
+                               onChange={handleFormData} />
                     </div>
-                    <div className="flex flex-col items-center">
-                        <p className="font-bold text-lg">Quanto por mês é gasto com esta ação? </p>
-                        <Input className="max-w-sm"
+
+                    <div className="flex flex-col justify-items-center mt-10">
+                        <p className="font-bold text-lg">Aspecto de Vida Influenciado pela Ação: </p>
+                        <LifeAspectSegment onChange={handleLifeAspectChange} />
+                    </div>
+
+                    <div className="flex flex-row items-center mt-10">
+                        <p className="font-bold text-lg">Quantas horas / dia são necessárias para esta ação: </p>
+                        <Input className="max-w-sm ml-16"
+                               name="hours_per_day"
+                               onChange={handleFormData}
                                type="number"
-                               prefix="R$"/>
+                               step={0.5}
+                               min={1}
+                               max={24}
+                               placeholder="Quantas horas são necessárias" />
                     </div>
 
-                </div>
+                    <div className="flex flex-col justify-items-center mt-10">
+                        <p className="font-bold text-lg">Em quais dias da semana esta ação é executada? </p>
+                        <WeekdaySegment onChange={handleWeekDayChange} />
+                    </div>
 
-            </Card>
+                    <div className="flex flex-col justify-items-center mt-10">
+                        <p className="font-bold text-lg">Considerando a escala abaixo, como você classifica o nível de
+                            energia (esforço/atenção) despendido nesta ação? </p>
+                        <EnergyLevelSegment onChange={handleEnergyLevelChange}/>
+                    </div>
 
-        </div>
-    );
-};
+                    <div className="flex flex-row items-center gap-[200px] mt-10">
+                        <div className="flex flex-col">
+                            <p className="font-bold text-lg">Esta Ação?</p>
+                            <ActionMoneySegment onChange={handleActionMoneyChange} />
+                        </div>
+                        <div className="flex flex-col items-center">
+                            <p className="font-bold text-lg">Quanto por mês é gasto com esta ação? </p>
+                            <Input className="max-w-sm"
+                                   name="how_much_action_cost"
+                                   onChange={handleFormData}
+                                   type="number"
+                                   prefix="R$" />
+                        </div>
 
-export default Layout;
+                    </div>
+
+                </Card>
+
+            </div>
+        );
+    }
+;
+
+export default RoutineForm;
 

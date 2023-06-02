@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import { SegmentItemOption } from "components/shared";
 import { Segment } from "components/ui";
 import { FcCalendar } from "react-icons/fc";
@@ -14,16 +14,9 @@ const week_days_options = [
     { label: "Sábado",  value: "6", icon: <FcCalendar /> }
 ];
 
-const WeekdaySegment = () => {
-    const [value, setValue] = useState([]);
-
-    const handleChange = (val) => {
-        console.log("val", val);
-        setValue(val);
-    };
-
+const WeekdaySegment = ({value, onChange}) => {
     return (
-        <Segment value={value} onChange={handleChange} selectionType="multiple">
+        <Segment value={value} onChange={onChange} selectionType="multiple">
             <div className="flex flex-col xl:flex-row items-center gap-4">
                 {week_days_options.map((item) => (
                     <Segment.Item

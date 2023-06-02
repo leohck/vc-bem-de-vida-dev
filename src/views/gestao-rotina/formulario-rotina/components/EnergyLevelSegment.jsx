@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Segment } from "components/ui";
 import { RiBatteryChargeLine } from "react-icons/ri";
 import classNames from "classnames";
@@ -19,16 +19,9 @@ const energy_level_options = [
 ];
 
 
-const EnergyLevelSegment = () => {
-    const [value, setValue] = useState([]);
-
-    const handleChange = (val) => {
-        console.log("val", val);
-        setValue(val);
-    };
-
+const EnergyLevelSegment = ({value, onChange}) => {
     return (
-        <Segment value={value} onChange={handleChange} selectionType="single">
+        <Segment value={value} onChange={onChange} selectionType="single">
             <div className="flex flex-col xl:flex-row items-center gap-4">
                 {energy_level_options.map((item) => (
                     <Segment.Item

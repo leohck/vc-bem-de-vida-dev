@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React  from "react";
 import { Segment } from "components/ui";
 import { RiBatteryChargeLine } from "react-icons/ri";
 import classNames from "classnames";
@@ -17,17 +17,10 @@ const action_money_options = [
 ];
 
 
-const ActionMoneySegment = () => {
-    const [value, setValue] = useState([]);
-
-    const handleChange = (val) => {
-        console.log("val", val);
-        setValue(val);
-    };
-
+const ActionMoneySegment = ({ value, onChange }) => {
     return (
         <Segment value={value}
-                 onChange={handleChange}
+                 onChange={onChange}
                  selectionType="single"
         >
             <div className="flex flex-col xl:flex-row items-center gap-4">
@@ -42,18 +35,18 @@ const ActionMoneySegment = () => {
                                 <div ref={ref}
                                      onClick={onSegmentItemClick}
                                      className={classNames(
-                                         'flex',
-                                         'ring-1',
-                                         'items-center',
-                                         'justify-between',
-                                         'border',
-                                         'rounded-md ',
-                                         'border-gray-300',
-                                         'py-5 px-4',
-                                         'cursor-pointer',
-                                         'select-none',
-                                         'w-100',
-                                         'md:w-[200px]',
+                                         "flex",
+                                         "ring-1",
+                                         "items-center",
+                                         "justify-between",
+                                         "border",
+                                         "rounded-md ",
+                                         "border-gray-300",
+                                         "py-5 px-4",
+                                         "cursor-pointer",
+                                         "select-none",
+                                         "w-100",
+                                         "md:w-[200px]",
                                          "h-16",
                                          "md:h-[16px]",
                                          active
@@ -66,10 +59,10 @@ const ActionMoneySegment = () => {
                                         <h6>{item.label}</h6>
                                         {active && item.value === "0" ? (
                                             <MdMoneyOff className={`text-${item.color} text-xl`} />
-                                        ): null}
+                                        ) : null}
                                         {active && item.value === "1" ? (
                                             <MdAttachMoney className={`text-${item.color} text-xl`} />
-                                        ): null}
+                                        ) : null}
 
                                     </>
                                 </div>
