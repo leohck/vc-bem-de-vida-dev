@@ -18,7 +18,6 @@ const DialogForm = props => {
         itemCount,
         setItemCount
     } = props;
-
     const user_info_id = 8;
     const openDialog = () => {
         setIsOpen(true);
@@ -32,7 +31,6 @@ const DialogForm = props => {
         setIsOpen(false);
         addItem(user_info_id, newItem);
     };
-
     const addItem = (id, value) => {
         const update = async () => {
             try {

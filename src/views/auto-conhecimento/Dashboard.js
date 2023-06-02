@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Chart } from "../../components/shared";
 import {
     HEX_COLOR_NOT_RATED,
@@ -37,8 +37,10 @@ function hex_color_switch(value) {
 
 const Dashboard = () => {
     const dispatch = useDispatch();
-    const effectRan = useRef(false);
-    const user_info_id = useSelector((state) => state.userinfo.userInfoState.currentUser.id);
+    const userInfoLoaded = useRef(false);
+    const user_info = useSelector((state) => state.userinfo.userInfoState);
+    const [user_info_id, setUserInfoID] = useState(null);
+
     const [ratings, setRatings] = useState([]);
     const [radarData, setRadarData] = useState([]);
     const [skills, setSkills] = useState([]);
@@ -48,54 +50,59 @@ const Dashboard = () => {
     const [shortQuestions, setShortQuestions] = useState(ASPECTS_QUESTIONS_SHORT);
 
     useEffect(() => {
-        dispatch(fetchUserInfo());
-    }, []);
+        if (!userInfoLoaded.current) {
+            dispatch(fetchUserInfo());
+        }
+        if (!user_info.loading && user_info.currentUser) {
+            setUserInfoID(user_info.currentUser.id);
+            return () => {
+                userInfoLoaded.current = true;
+            }
+        }
+    }, [user_info]);
 
     useEffect(() => {
-        if (effectRan.current === false) {
-            const fetchDashData = async () => {
-                try {
-                    const resp = await getDashboardData(user_info_id);
-                    if (resp.data) {
-                        const { radar_data, ratings, short_questions } = resp.data;
-                        setRadarData(radar_data);
-                        setRatings(ratings);
-                        setShortQuestions(short_questions);
-                    }
-                } catch (errors) {
-                    console.log(errors);
+        const fetchDashData = async () => {
+            try {
+                const resp = await getDashboardData(user_info_id);
+                if (resp.data) {
+                    const { radar_data, ratings, short_questions } = resp.data;
+                    setRadarData(radar_data);
+                    setRatings(ratings);
+                    setShortQuestions(short_questions);
                 }
-            };
-            const fetchSkillsData = async () => {
-                try {
-                    const resp = await getSkills();
-                    if (resp.data) {
-                        const skills = resp.data;
-                        setSkills(skills);
-                        setSkillsCount(skills.length);
-                    }
-                } catch (errors) {
-                    console.log(errors);
+            } catch (errors) {
+                console.log(errors);
+            }
+        };
+        const fetchSkillsData = async () => {
+            try {
+                const resp = await getSkills();
+                if (resp.data) {
+                    const skills = resp.data;
+                    setSkills(skills);
+                    setSkillsCount(skills.length);
                 }
-            };
-            const fetchAchievementsData = async () => {
-                try {
-                    const resp = await getAchievements();
-                    if (resp.data) {
-                        const achievements = resp.data;
-                        setAchievements(achievements);
-                        setAchievementsCount(achievements.length);
-                    }
-                } catch (errors) {
-                    console.log(errors);
+            } catch (errors) {
+                console.log(errors);
+            }
+        };
+        const fetchAchievementsData = async () => {
+            try {
+                const resp = await getAchievements();
+                if (resp.data) {
+                    const achievements = resp.data;
+                    setAchievements(achievements);
+                    setAchievementsCount(achievements.length);
                 }
-            };
+            } catch (errors) {
+                console.log(errors);
+            }
+        };
+        if (user_info_id){
             fetchDashData();
             fetchSkillsData();
             fetchAchievementsData();
-            return () => {
-                effectRan.current = true;
-            };
         }
     }, [user_info_id]);
 

@@ -7,16 +7,23 @@ import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
 
 const Circulo = ({ title }) => {
     const dispatch = useDispatch();
+    const userInfoLoaded = useRef(false);
     const user_info = useSelector((state) => state.userinfo.userInfoState);
     const [user_info_id, setUserInfoID] = useState(null);
+
     const [questions, setQuestionsValue] = useState([]);
 
     useEffect(() => {
-        dispatch(fetchUserInfo());
+        if (!userInfoLoaded.current) {
+            dispatch(fetchUserInfo());
+        }
         if (!user_info.loading && user_info.currentUser) {
             setUserInfoID(user_info.currentUser.id);
+            return () => {
+                userInfoLoaded.current = true;
+            }
         }
-    }, []);
+    }, [user_info]);
 
     useEffect(() => {
         const fetchQuestions = async () => {
