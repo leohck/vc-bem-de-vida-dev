@@ -15,7 +15,7 @@ const week_days_options = [
 ];
 
 const WeekdaySegment = () => {
-    const [value, setValue] = useState([week_days_options[1].value]);
+    const [value, setValue] = useState([]);
 
     const handleChange = (val) => {
         console.log("val", val);
@@ -39,7 +39,7 @@ const WeekdaySegment = () => {
                                     active={active}
                                     disabled={disabled}
                                     onSegmentItemClick={onSegmentItemClick}
-                                    className="bg-white dark:bg-gray-800 w-[165px] h-16"
+                                    className="bg-white w-[165px] h-14"
                                 >
                                     <div className="flex items-center gap-3">
                                         <span className="text-2xl">

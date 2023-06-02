@@ -20,7 +20,7 @@ const energy_level_options = [
 
 
 const EnergyLevelSegment = () => {
-    const [value, setValue] = useState([energy_level_options[0].value]);
+    const [value, setValue] = useState([]);
 
     const handleChange = (val) => {
         console.log("val", val);
@@ -51,9 +51,10 @@ const EnergyLevelSegment = () => {
                                              : "py-1 px-1",
                                          "cursor-pointer",
                                          "select-none",
-                                         "w-100",
-                                         "md:w-[100px]",
+                                         "w-96",
+                                         "md:w-[96px]",
                                          "font-bold",
+                                         "h-12",
                                          active
                                              ? `text-white ring-${item.color} border-${item.color} bg-${item.color}`
                                              : "ring-transparent",
@@ -62,7 +63,7 @@ const EnergyLevelSegment = () => {
                                 >
                                     {item.value === "0" ? (
                                         <RiBatteryChargeLine size="5em"
-                                                             className="h-16" />
+                                                             className="h-12" />
                                     ) : (
                                         <p className={classNames(
                                             "text-lg",

@@ -21,7 +21,7 @@ const life_aspect_options = [
 ];
 
 const LifeAspectSegment = () => {
-    const [value, setValue] = useState([life_aspect_options[0].value]);
+    const [value, setValue] = useState([]);
 
     const handleChange = (val) => {
         console.log("val", val);

@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Segment } from "components/ui";
 import { RiBatteryChargeLine } from "react-icons/ri";
 import classNames from "classnames";
-import { HiCheckCircle } from "react-icons/hi";
 import { MdAttachMoney, MdMoneyOff } from "react-icons/md";
 
 
@@ -19,7 +18,7 @@ const action_money_options = [
 
 
 const ActionMoneySegment = () => {
-    const [value, setValue] = useState([action_money_options[0].value]);
+    const [value, setValue] = useState([]);
 
     const handleChange = (val) => {
         console.log("val", val);
@@ -45,6 +44,7 @@ const ActionMoneySegment = () => {
                                      className={classNames(
                                          'flex',
                                          'ring-1',
+                                         'items-center',
                                          'justify-between',
                                          'border',
                                          'rounded-md ',
@@ -53,7 +53,9 @@ const ActionMoneySegment = () => {
                                          'cursor-pointer',
                                          'select-none',
                                          'w-100',
-                                         'md:w-[260px]',
+                                         'md:w-[200px]',
+                                         "h-16",
+                                         "md:h-[16px]",
                                          active
                                              ? `ring-${item.color} border-${item.color}`
                                              : "ring-transparent",

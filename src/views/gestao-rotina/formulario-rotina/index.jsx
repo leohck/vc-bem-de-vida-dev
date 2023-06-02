@@ -64,11 +64,11 @@ const Layout = () => {
                         <p className="font-bold text-lg">Esta Ação?</p>
                         <ActionMoneySegment />
                     </div>
-                    <div className="flex flex-row items-center">
+                    <div className="flex flex-col items-center">
                         <p className="font-bold text-lg">Quanto por mês é gasto com esta ação? </p>
-                        <Input className="max-w-sm ml-16"
+                        <Input className="max-w-sm"
                                type="number"
-                               placeholder="R$" />
+                               prefix="R$"/>
                     </div>
 
                 </div>
