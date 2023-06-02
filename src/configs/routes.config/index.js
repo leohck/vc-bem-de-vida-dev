@@ -73,7 +73,7 @@ export const protectedRoutes = [
     {
         key: 'gestao-rotina-form-rotina',
         path: '/formulario/rotina',
-        component: React.lazy(() => import('views/gestao-rotina/formulario-rotina')),
+        component: React.lazy(() => import('views/gestao-rotina/formulario-rotina/index')),
         authority: [],
     },
     {
