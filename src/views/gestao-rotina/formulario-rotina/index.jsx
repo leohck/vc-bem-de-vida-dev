@@ -9,6 +9,7 @@ import LifeAspectSegment from "../components/LifeAspectSegment";
 import WeekdaySegment from "./components/WeekdaySegment";
 import EnergyLevelSegment from "./components/EnergyLevelSegment";
 import ActionMoneySegment from "./components/ActionMoneySegment";
+import WeeklyRoutineChart from "../components/WeeklyRoutineChart";
 
 const RoutineForm = () => {
     const [lifeAspect, setLifeAspect] = useState([]);
@@ -124,6 +125,8 @@ const RoutineForm = () => {
                         </div>
                     ) : null}
                 </div>
+
+                <WeeklyRoutineChart />
 
             </Card>
 
