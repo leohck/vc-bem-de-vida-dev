@@ -3,6 +3,7 @@ import { CustomSelector } from "components/new";
 import { getAspectTitleQuestions, updateAspectRating } from "../../../services/PersonalService";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
+import { Button } from "../../ui";
 
 
 const Circulo = ({ title }) => {
@@ -68,10 +69,10 @@ const Circulo = ({ title }) => {
 
     return (
         <div>
-            <h2 className="items-center">{title}</h2>
+            <h2 className="grid justify-items-center">{title}</h2>
             {questions.map((question, index) =>
-                <div key={index}>
-                    <h6>{question.question}</h6>
+                <div key={index} className="mt-10">
+                    <h6 className="mb-2">{question.question}</h6>
                     <CustomSelector
                         id={question.id}
                         value={question.rating}
@@ -80,6 +81,9 @@ const Circulo = ({ title }) => {
                     <br />
                 </div>
             )}
+            <Button size="sm" variant="solid">
+                Salvar
+            </Button>
         </div>
     );
 };
