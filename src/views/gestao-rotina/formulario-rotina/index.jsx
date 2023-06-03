@@ -5,7 +5,7 @@ import {
     Card
 } from "components/ui";
 
-import LifeAspectSegment from "./components/LifeAspectSegment";
+import LifeAspectSegment from "../components/LifeAspectSegment";
 import WeekdaySegment from "./components/WeekdaySegment";
 import EnergyLevelSegment from "./components/EnergyLevelSegment";
 import ActionMoneySegment from "./components/ActionMoneySegment";
