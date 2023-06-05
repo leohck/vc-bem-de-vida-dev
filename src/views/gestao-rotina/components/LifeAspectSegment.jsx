@@ -2,7 +2,7 @@ import React from "react";
 import { SegmentItemOption } from "components/shared";
 import { Segment } from "components/ui";
 
-import { GiHealthPotion } from "react-icons/gi";
+import { GiHealthNormal } from "react-icons/gi";
 import { RiMentalHealthFill, RiCoinsLine } from "react-icons/ri";
 import { MdGroups } from "react-icons/md";
 import { FaHandshake } from "react-icons/fa";
@@ -10,7 +10,7 @@ import { FaHandshake } from "react-icons/fa";
 const life_aspect_options = [
     {
         label: "Saúde Física", value: "Saude Fisica",
-        icon: <GiHealthPotion />
+        icon: <GiHealthNormal />
     },
     {
         label: "Saúde Mental", value: "Saude Mental",

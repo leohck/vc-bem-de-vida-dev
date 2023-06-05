@@ -5,7 +5,7 @@ import { MdMoreTime } from "react-icons/md";
 import { RiRestTimeLine } from "react-icons/ri";
 
 const GroupedBigNumberCards = () => {
-    const tagValue = -100;
+    const tagValue = 100;
     return (
         <div>
             <div className="grid grid-cols-2 gap-4 max-w-[500px] ">
@@ -31,6 +31,7 @@ const GroupedBigNumberCards = () => {
                     label="Horas Livres / Semana"
                     tagValue={-15}
                     tagSuffix=" horas"
+                    gray={true}
                 />
                 <BigNumberCard
                     icon={<GiTakeMyMoney size="2.5em" />}
@@ -38,6 +39,7 @@ const GroupedBigNumberCards = () => {
                     label="Custo / Hora Não Rentável"
                     tagValue={50}
                     tagPrefix="R$ "
+                    gray={true}
                 />
             </div>
         </div>

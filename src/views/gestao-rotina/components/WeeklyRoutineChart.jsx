@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React  from "react";
 import Chart from "react-apexcharts";
-import ApexCharts from "apexcharts";
-import { Segment } from "../../../components/ui";
 
 
 const WeeklyRoutineChart = () => {
@@ -16,64 +14,12 @@ const WeeklyRoutineChart = () => {
         data: [2, 8, 8, 8, 8, 8, 8]
     };
 
-    const [chartFilter, setChartFilter] = useState(["time_spent"]);
-    const [chartData, setChartData] = useState([time_spent]);
-
-    const handleChartFilterChange = (val) => {
-        setChartFilter(val);
-        switch (val[0]) {
-            case "time_spent":
-                setChartData([time_spent]);
-                ApexCharts.exec(chartID, "updateOptions", {
-                    series: [time_spent],
-                    colors: ["#2563eb"],
-                    tooltip: {
-                        y: {
-                            formatter: (val) => `${val} Horas`
-                        }
-                    }
-                });
-                break;
-            case "energy_spent":
-                setChartData([energy_spent]);
-                ApexCharts.exec(chartID, "updateOptions", {
-                    series: [energy_spent],
-                    colors: ["#f59e0b"],
-                    tooltip: {
-                        y: {
-                            formatter: (val) => `${val} %`
-                        }
-                    }
-                });
-                break;
-            case "both":
-                setChartData([time_spent, energy_spent]);
-                ApexCharts.exec(chartID, "updateOptions", {
-                    series: [time_spent, energy_spent],
-                    colors: ["#2563eb", "#f59e0b"],
-                    tooltip: {
-                        y: {
-                            formatter: (val) => val
-                        }
-                    }
-                });
-        }
-    };
-
-    const GraphSegment = () => (
-        <Segment onChange={handleChartFilterChange}
-                 size={"xs"} value={chartFilter}>
-            <Segment.Item value="time_spent">Tempo</Segment.Item>
-            <Segment.Item value="energy_spent">Energia</Segment.Item>
-            <Segment.Item value="both">Tempo & Energia</Segment.Item>
-        </Segment>
-    );
+    const chartData = [time_spent, energy_spent];
 
     return (
         <div>
             <div className="grid justify-items-center">
                 <h4>Rotina Semanal Tempo & Energia</h4>
-                <GraphSegment />
             </div>
 
             <Chart
@@ -97,7 +43,7 @@ const WeeklyRoutineChart = () => {
                             }
                         }
                     },
-                    colors: ["#2563eb"],
+                    colors: ["#2563eb", "#f59e0b"],
                     dataLabels: {
                         enabled: true
                     },
@@ -127,11 +73,6 @@ const WeeklyRoutineChart = () => {
                     },
                     fill: {
                         opacity: 1
-                    },
-                    tooltip: {
-                        y: {
-                            formatter: (val) => `${val} Horas`
-                        }
                     }
                 }}
             />

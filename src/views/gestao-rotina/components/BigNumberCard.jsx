@@ -9,7 +9,8 @@ const BigNumberCard = props => {
         label,
         tagValue,
         tagPrefix,
-        tagSuffix
+        tagSuffix,
+        gray
     } = props;
     return (
         <Card className="max-w-[240px] max-h-[240px] shadow-md shadow-blue-900/50">
@@ -26,7 +27,8 @@ const BigNumberCard = props => {
                 <div>
                     <GrowShrinkTag value={tagValue}
                                    prefix={tagPrefix}
-                                   suffix={tagSuffix} />
+                                   suffix={tagSuffix}
+                                   gray={gray} />
                 </div>
             </div>
         </Card>
