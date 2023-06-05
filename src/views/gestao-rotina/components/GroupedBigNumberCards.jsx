@@ -35,7 +35,7 @@ const GroupedBigNumberCards = () => {
                 <BigNumberCard
                     icon={<GiTakeMyMoney size="2.5em" />}
                     value="R$ 50"
-                    label="Custo / Hora Não Rentalvel"
+                    label="Custo / Hora Não Rentável"
                     tagValue={50}
                     tagPrefix="R$ "
                 />
