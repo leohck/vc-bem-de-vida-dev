@@ -91,3 +91,12 @@ export async function postItem (item_type, data) {
         data
     })
 }
+
+
+export async function postRoutinePayment (data) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/user_routine_payment/`,
+        method: 'post',
+        data
+    })
+}
