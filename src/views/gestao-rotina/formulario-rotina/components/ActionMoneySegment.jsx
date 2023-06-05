@@ -7,13 +7,13 @@ import { MdAttachMoney, MdMoneyOff } from "react-icons/md";
 
 const action_money_options = [
     {
+        label: "Gera Dinheiro", value: "1",
+        color: "green-600", icon: <RiBatteryChargeLine />
+    },
+    {
         label: "Custa Dinheiro", value: "0",
         color: "red-700", icon: <RiBatteryChargeLine />
     },
-    {
-        label: "Gera Dinheiro", value: "1",
-        color: "green-600", icon: <RiBatteryChargeLine />
-    }
 ];
 
 
@@ -21,7 +21,7 @@ const ActionMoneySegment = ({ value, onChange }) => {
     return (
         <Segment value={value}
                  onChange={onChange}
-                 selectionType="single"
+                 selectionType="multiple"
         >
             <div className="flex flex-col xl:flex-row items-center gap-4">
                 {action_money_options.map((item) => (
