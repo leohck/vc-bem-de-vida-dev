@@ -22,7 +22,8 @@ const Dashboard = () => {
             "Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"
         ],
         time_spent: [],
-        energy_spent: []
+        energy_spent: [],
+        average_energy_by_time: 0,
     });
 
     const fetchDashData = async () => {

@@ -1,5 +1,6 @@
 import React from "react";
 import Chart from "react-apexcharts";
+import { Card } from "../../../components/ui";
 
 
 const WeeklyRoutineChart = (props) => {
@@ -22,6 +23,11 @@ const WeeklyRoutineChart = (props) => {
         <div>
             <div className="grid justify-items-center">
                 <h4>Rotina Semanal Tempo & Energia</h4>
+                <Card className="mt-5">
+                    <div className="flex flex-row max-h-[60px] max-w-[250px]">
+                        <h6>Media de Energia / Tempo: {data.average_energy_by_time}</h6>
+                    </div>
+                </Card>
             </div>
 
             <Chart
