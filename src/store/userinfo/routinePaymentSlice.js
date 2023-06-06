@@ -45,6 +45,5 @@ export const routinePaymentSlice = createSlice({
     }
 });
 
-export const { addNewPayment } =
-    routinePaymentSlice.actions
+export const { addNewPayment } = routinePaymentSlice.actions
 export default routinePaymentSlice.reducer

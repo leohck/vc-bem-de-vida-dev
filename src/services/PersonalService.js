@@ -108,3 +108,12 @@ export async function postRoutineAction (data) {
         data
     })
 }
+
+
+export async function putUserInfo (user_info_id, data) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/user_info/${user_info_id}/`,
+        method: 'put',
+        data
+    })
+}
