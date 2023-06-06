@@ -5,7 +5,10 @@ import CostBenefitChart from "../components/CostBenefitChart";
 import ActionResourcesChart from "../components/ActionResourcesChart";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "store/userinfo/userInfoSlice";
-import { getDashboard2Data } from "../../../services/PersonalService";
+import {
+    getDashboard2Data,
+    getDashboard2ActionData
+} from "../../../services/PersonalService";
 
 
 const Dashboard = () => {
@@ -23,14 +26,27 @@ const Dashboard = () => {
         ],
         time_spent: [],
         energy_spent: [],
-        average_energy_by_time: 0,
+        average_energy_by_time: 0
+    });
+    const [actionResourceChartData, setActionResourceChartData] = useState({
+        top_5_ra_by_money: {
+            categories: [],
+            data: []
+        },
+        top_5_ra_by_time_spent: {
+            categories: [],
+            data: []
+        },
+        top_5_ra_by_energy_spent: {
+            categories: [],
+            data: []
+        }
     });
 
     const fetchDashData = async () => {
         try {
             const resp = await getDashboard2Data(user_info_id);
             if (resp.data) {
-                console.log(resp.data);
                 const {
                     monthly_financial_balance, hourly_active_income,
                     hourly_unprofitable_cost, weekly_free_time,
@@ -41,6 +57,20 @@ const Dashboard = () => {
                 setCard3Value({ value: weekly_free_time, tagValue: 0 });
                 setCard4Value({ value: hourly_unprofitable_cost, tagValue: 0 });
                 setWeeklyRoutineChartData(weekly_routine_time_and_energy);
+            }
+        } catch (errors) {
+            console.log(errors);
+        }
+        try {
+            const resp = await getDashboard2ActionData(user_info_id);
+            if (resp.data) {
+                const {
+                    top_5_ra_by_money,
+                    top_5_ra_by_time_spent,
+                    top_5_ra_by_energy_spent
+                } = resp.data;
+                setActionResourceChartData({ top_5_ra_by_money,
+                    top_5_ra_by_time_spent, top_5_ra_by_energy_spent });
             }
         } catch (errors) {
             console.log(errors);
@@ -72,8 +102,9 @@ const Dashboard = () => {
                 />
             </div>
             <WeeklyRoutineChart data={weeklyRoutineChartData} />
-            <CostBenefitChart />
-            <ActionResourcesChart />
+            {/*<CostBenefitChart />*/}
+            <h6>Custo X Beneficio </h6>
+            <ActionResourcesChart data={actionResourceChartData} />
         </div>
     );
 };

@@ -10,7 +10,8 @@ const ActionResourceChart = (props) => {
     } = props;
     const data1 = [
         {
-            data: [1380, 1200, 1100, 470, 540]
+            name: "Custo",
+            data: data
         }
     ];
     return (
@@ -29,13 +30,7 @@ const ActionResourceChart = (props) => {
                     enabled: false
                 },
                 xaxis: {
-                    categories: [
-                        "South Korea",
-                        "Canada",
-                        "United Kingdom",
-                        "Netherlands",
-                        "Italy"
-                    ]
+                    categories: categories
                 }
             }}
         />

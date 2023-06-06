@@ -38,6 +38,13 @@ export async function getDashboard2Data (user_info_id) {
     })
 }
 
+export async function getDashboard2ActionData (user_info_id) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/dashboard2_actions/${user_info_id}/`,
+        method: 'get'
+    })
+}
+
 
 export async function getSkills () {
     return ApiService.fetchData({

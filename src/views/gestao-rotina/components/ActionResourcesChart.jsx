@@ -3,8 +3,8 @@ import { Segment } from "../../../components/ui";
 import ActionResourceChart from "./ActionResourceChart";
 
 
-const ActionResourcesChart = () => {
-
+const ActionResourcesChart = (props) => {
+    const {data} = props;
 
     const [chartFilter, setChartFilter] = useState(["money_spent"]);
     const [chartType, setChartType] = useState("money_spent");
@@ -30,11 +30,20 @@ const ActionResourcesChart = () => {
                 <GraphSegment />
             </div>
             {chartType === "money_spent"
-                ? <ActionResourceChart color={"#16a34a"} /> : null}
+                ? <ActionResourceChart
+                    data={data.top_5_ra_by_money.data}
+                    categories={data.top_5_ra_by_money.categories}
+                    color={"#16a34a"} /> : null}
             {chartType === "time_spent"
-                ? <ActionResourceChart color={"#2563eb"} /> : null}
+                ? <ActionResourceChart
+                    data={data.top_5_ra_by_time_spent.data}
+                    categories={data.top_5_ra_by_time_spent.categories}
+                    color={"#2563eb"} /> : null}
             {chartType === "energy_spent"
-                ? <ActionResourceChart color={"#f59e0b"} /> : null}
+                ? <ActionResourceChart
+                    data={data.top_5_ra_by_energy_spent.data}
+                    categories={data.top_5_ra_by_energy_spent.categories}
+                    color={"#f59e0b"} /> : null}
 
         </div>
     );
