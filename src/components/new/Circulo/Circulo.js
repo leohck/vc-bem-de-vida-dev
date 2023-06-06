@@ -3,7 +3,7 @@ import { CustomSelector } from "components/new";
 import { getAspectTitleQuestions, updateAspectRating } from "../../../services/PersonalService";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
-import { Button } from "../../ui";
+import { Button, Card } from "../../ui";
 
 
 const Circulo = ({ title }) => {
@@ -22,7 +22,7 @@ const Circulo = ({ title }) => {
             setUserInfoID(user_info.currentUser.id);
             return () => {
                 userInfoLoaded.current = true;
-            }
+            };
         }
     }, [user_info]);
 
@@ -69,21 +69,25 @@ const Circulo = ({ title }) => {
 
     return (
         <div>
-            <h2 className="grid justify-items-center">{title}</h2>
-            {questions.map((question, index) =>
-                <div key={index} className="mt-10">
-                    <h6 className="mb-2">{question.question}</h6>
-                    <CustomSelector
-                        id={question.id}
-                        value={question.rating}
-                        setValue={updateQuestionRating}
-                    />
-                    <br />
-                </div>
-            )}
-            <Button size="sm" variant="solid">
-                Salvar
-            </Button>
+            <h2 className="mb-8 grid justify-items-center">{title}</h2>
+            <Card footer={(
+                <Button size="sm" variant="solid">
+                    Salvar
+                </Button>
+            )}>
+                {questions.map((question, index) =>
+                    <div key={index} className="mt-10">
+                        <h6 className="mb-2">{question.question}</h6>
+                        <CustomSelector
+                            id={question.id}
+                            value={question.rating}
+                            setValue={updateQuestionRating}
+                        />
+                        <br />
+                    </div>
+                )}
+            </Card>
+
         </div>
     );
 };

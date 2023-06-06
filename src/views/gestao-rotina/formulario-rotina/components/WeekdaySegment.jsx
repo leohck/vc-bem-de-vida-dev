@@ -56,7 +56,7 @@ const WeekdaySegment = ({ value, onChange }) => {
                                 );
                             }}
                         </Segment.Item>
-                        <CounterCard value={item.value} key={item.value} />
+                        <CounterCard value={item.value} key={item.value + "x"} />
                     </div>
                 ))}
             </div>

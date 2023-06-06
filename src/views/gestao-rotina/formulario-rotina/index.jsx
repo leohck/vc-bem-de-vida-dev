@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useCallback } from "react";
+import React, { useState, useReducer, useCallback, useRef, useEffect } from "react";
 import {
     Input,
     Button,
@@ -9,8 +9,35 @@ import LifeAspectSegment from "../components/LifeAspectSegment";
 import WeekdaySegment from "./components/WeekdaySegment";
 import EnergyLevelSegment from "./components/EnergyLevelSegment";
 import ActionMoneySegment from "./components/ActionMoneySegment";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
+import { fetchRoutineActions, addNewAction } from "store/userinfo/routineActionSlice";
+import { postRoutineAction } from "../../../services/PersonalService";
+
 
 const RoutineForm = () => {
+    const dispatch = useDispatch();
+    const userInfoLoaded = useRef(false);
+    const user_info = useSelector((state) => state.userinfo.userInfoState);
+    const routine_actions = useSelector(state => state.userinfo.routineActionSlice);
+    const [user_info_id, setUserInfoID] = useState(null);
+
+    useEffect(() => {
+        if (!userInfoLoaded.current) {
+            dispatch(fetchUserInfo());
+        }
+        if (!user_info.loading && user_info.currentUser) {
+            setUserInfoID(user_info.currentUser.id);
+            return () => {
+                userInfoLoaded.current = true;
+            };
+        }
+        if (userInfoLoaded.current) {
+            dispatch(fetchRoutineActions());
+        }
+        console.log(routine_actions);
+    }, [user_info, routine_actions]);
+
     const [lifeAspect, setLifeAspect] = useState([]);
     const [weekDay, setWeekDay] = useState([]);
     const [energyLevel, setEnergyLevel] = useState([]);
@@ -47,12 +74,38 @@ const RoutineForm = () => {
         setFormData({ [name]: value });
     };
 
+    const addNewRoutinePayment = (data) => {
+        const update = async () => {
+            try {
+                const resp = await postRoutineAction(data);
+                if (resp.data) {
+                    dispatch(addNewAction(data));
+                }
+            } catch (errors) {
+                console.log(errors);
+            }
+        };
+        update();
+    };
+
     const handleFormSubmit = () => {
-        console.log(formData);
-        console.log(lifeAspect);
-        console.log(weekDay);
-        console.log(energyLevel);
-        console.log(actionMoney);
+        const action_generate_money = actionMoney.includes('1')
+        const action_cost_money = actionMoney.includes('0')
+        const action_cost = action_cost_money ? formData.action_cost : 0
+
+        const data = {
+            "user": user_info_id,
+            "value": formData.routine_action,
+            "life_aspect": lifeAspect.toString(),
+            "time_spent": formData.time_spent,
+            "days_of_week": weekDay.toString(),
+            "energy_spent": energyLevel.toString(),
+            "action_cost": action_cost,
+            "action_generate_money": action_generate_money,
+            "action_cost_money": action_cost_money
+        }
+        console.log(data);
+        addNewRoutinePayment(data);
     };
 
     return (
@@ -88,7 +141,7 @@ const RoutineForm = () => {
                 <div className="flex flex-row items-center mt-10">
                     <p className="font-bold text-lg">Quantas horas / dia são necessárias para esta ação: </p>
                     <Input className="max-w-sm ml-16"
-                           name="hours_per_day"
+                           name="time_spent"
                            onChange={handleFormData}
                            type="number"
                            step={0.5}
@@ -113,11 +166,11 @@ const RoutineForm = () => {
                         <p className="font-bold text-lg">Esta Ação?</p>
                         <ActionMoneySegment onChange={handleActionMoneyChange} />
                     </div>
-                    {actionMoney[0] === "0" ? (
+                    {actionMoney.includes('0') ? (
                         <div className="flex flex-col items-center">
                             <p className="font-bold text-lg">Quanto por mês é gasto com esta ação? </p>
                             <Input className="max-w-sm"
-                                   name="how_much_action_cost"
+                                   name="action_cost"
                                    onChange={handleFormData}
                                    type="number"
                                    prefix="R$" />

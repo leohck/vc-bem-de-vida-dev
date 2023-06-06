@@ -100,3 +100,11 @@ export async function postRoutinePayment (data) {
         data
     })
 }
+
+export async function postRoutineAction (data) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/user_routine_action/`,
+        method: 'post',
+        data
+    })
+}
