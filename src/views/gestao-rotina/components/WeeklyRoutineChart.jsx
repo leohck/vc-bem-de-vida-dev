@@ -1,17 +1,19 @@
-import React  from "react";
+import React from "react";
 import Chart from "react-apexcharts";
 
 
-const WeeklyRoutineChart = () => {
+const WeeklyRoutineChart = (props) => {
+    const { data } = props;
+
     const chartID = "weekly_time_and_energy_spent_chart";
     const time_spent = {
         name: "Tempo Consumido",
-        data: [4, 12, 12, 14, 14, 14, 8]
+        data: data.time_spent
     };
 
     const energy_spent = {
         name: "Energia Consumida",
-        data: [2, 8, 8, 8, 8, 8, 8]
+        data: data.energy_spent
     };
 
     const chartData = [time_spent, energy_spent];
@@ -53,15 +55,7 @@ const WeeklyRoutineChart = () => {
                         colors: ["transparent"]
                     },
                     xaxis: {
-                        categories: [
-                            "Domingo",
-                            "Segunda",
-                            "Terça",
-                            "Quarta",
-                            "Quinta",
-                            "Sexta",
-                            "Sábado"
-                        ]
+                        categories: data.categories
                     },
                     yaxis: {
                         title: {

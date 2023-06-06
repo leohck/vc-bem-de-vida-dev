@@ -15,8 +15,8 @@ const RoutinePaymentForm = () => {
     const dispatch = useDispatch();
     const userInfoLoaded = useRef(false);
     const user_info = useSelector((state) => state.userinfo.userInfoState);
-    const routine_payments = useSelector(state => state.userinfo.routinePaymentSlice);
     const [user_info_id, setUserInfoID] = useState(null);
+    const routine_payments = useSelector(state => state.userinfo.routinePaymentSlice);
 
     useEffect(() => {
         if (!userInfoLoaded.current) {

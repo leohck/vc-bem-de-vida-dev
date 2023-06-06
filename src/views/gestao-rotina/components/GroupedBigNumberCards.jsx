@@ -4,40 +4,45 @@ import { GiReceiveMoney, GiPayMoney, GiTakeMyMoney } from "react-icons/gi";
 import { MdMoreTime } from "react-icons/md";
 import { RiRestTimeLine } from "react-icons/ri";
 
-const GroupedBigNumberCards = () => {
-    const tagValue = 100;
+const GroupedBigNumberCards = (props) => {
+    const {
+        card1Value,
+        card2Value,
+        card3Value,
+        card4Value
+    } = props;
     return (
         <div>
             <div className="grid grid-cols-2 gap-4 max-w-[500px] ">
                 <BigNumberCard
-                    icon={tagValue > 0
+                    icon={card1Value.value > 0
                         ? <GiReceiveMoney size="2.5em" />
                         : <GiPayMoney size="2.5em" />}
-                    value="R$ 280"
+                    value={"R$ " + card1Value.value}
                     label="Saldo Financeiro Mensal"
-                    tagValue={tagValue}
+                    tagValue={card1Value.tagValue}
                     tagPrefix="R$ "
                 />
                 <BigNumberCard
                     icon={<MdMoreTime size="2.5em" />}
-                    value="12"
+                    value={"R$ " + card2Value.value}
                     label="Renda Ativa / Hora"
-                    tagValue={4}
+                    tagValue={card2Value.tagValue}
                     tagSuffix=" horas"
                 />
                 <BigNumberCard
                     icon={<RiRestTimeLine size="2.5em" />}
-                    value="108"
+                    value={card3Value.value}
                     label="Horas Livres / Semana"
-                    tagValue={-15}
+                    tagValue={card3Value.tagValue}
                     tagSuffix=" horas"
                     gray={true}
                 />
                 <BigNumberCard
                     icon={<GiTakeMyMoney size="2.5em" />}
-                    value="R$ 50"
+                    value={"R$ " + card4Value.value}
                     label="Custo / Hora Não Rentável"
-                    tagValue={50}
+                    tagValue={card4Value.tagValue}
                     tagPrefix="R$ "
                     gray={true}
                 />
