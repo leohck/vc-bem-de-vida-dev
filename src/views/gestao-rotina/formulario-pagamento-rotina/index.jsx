@@ -8,7 +8,7 @@ import {
 import LifeAspectSegment from "../components/LifeAspectSegment";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "store/userinfo/userInfoSlice";
-import { fetchRoutinePayments, addNewPayment } from "store/userinfo/routinePaymentSlice";
+import { addNewPayment } from "store/userinfo/routinePaymentSlice";
 import { postRoutinePayment } from "../../../services/PersonalService";
 
 const RoutinePaymentForm = () => {
@@ -16,7 +16,6 @@ const RoutinePaymentForm = () => {
     const userInfoLoaded = useRef(false);
     const user_info = useSelector((state) => state.userinfo.userInfoState);
     const [user_info_id, setUserInfoID] = useState(null);
-    const routine_payments = useSelector(state => state.userinfo.routinePaymentSlice);
 
     useEffect(() => {
         if (!userInfoLoaded.current) {
@@ -28,11 +27,7 @@ const RoutinePaymentForm = () => {
                 userInfoLoaded.current = true;
             };
         }
-        if (userInfoLoaded.current) {
-            dispatch(fetchRoutinePayments());
-        }
-        console.log(routine_payments);
-    }, [user_info, routine_payments]);
+    }, [user_info]);
 
     const [lifeAspect, setLifeAspect] = useState([]);
     const [paymentGenerateMoney, setPaymentGenerateMoney] = useState(false);
@@ -59,6 +54,7 @@ const RoutinePaymentForm = () => {
                 const resp = await postRoutinePayment(data);
                 if (resp.data) {
                     dispatch(addNewPayment(data));
+                    alert("Sucesso");
                 }
             } catch (errors) {
                 console.log(errors);
@@ -126,18 +122,6 @@ const RoutinePaymentForm = () => {
                 </div>
 
             </Card>
-
-            <div>
-                Pagamentos Registrados
-                {!routine_payments.loading && routine_payments.routine_payments
-                    ? routine_payments.routine_payments.map((item) =>
-                            <div key={item.id}>
-                                {item.value} - R${item.monthly_amount_investing}
-                            </div>
-                        )
-                    : null
-                }
-            </div>
         </div>
     );
 };

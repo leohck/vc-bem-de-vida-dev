@@ -27,6 +27,11 @@ export const routinePaymentSlice = createSlice({
         addNewPayment: (state, action) => {
             state.routine_payments = [...state.routine_payments, action.payload]
         },
+        deletePayment: (state, action) => {
+            state.routine_payments = state.routine_payments.filter(
+                el => el.id !== action.payload
+            )
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchRoutinePayments.pending, (state) => {
@@ -45,5 +50,5 @@ export const routinePaymentSlice = createSlice({
     }
 });
 
-export const { addNewPayment } = routinePaymentSlice.actions
+export const { addNewPayment, deletePayment } = routinePaymentSlice.actions
 export default routinePaymentSlice.reducer

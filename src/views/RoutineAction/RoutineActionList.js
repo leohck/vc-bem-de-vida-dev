@@ -3,7 +3,12 @@ import { Button, Card, Table } from "../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchRoutineActions } from "../../store/userinfo/routineActionSlice";
+import {
+    fetchRoutineActions,
+    deleteAction
+} from "../../store/userinfo/routineActionSlice";
+import { RoutineActionDelete } from "../../services/PersonalService";
+import { deletePayment } from "../../store/userinfo/routinePaymentSlice";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -21,6 +26,21 @@ const RoutineActionList = () => {
             routine_actions_loaded.current = true;
         }
     }, []);
+
+    const delRoutineAction = (id) => {
+        const del = async () => {
+            try {
+                const resp = await RoutineActionDelete(id);
+                if (resp.status === 204) {
+                    dispatch(deleteAction(id));
+                    alert("Sucesso");
+                }
+            } catch (errors) {
+                console.log(errors);
+            }
+        };
+        del();
+    };
 
     const ItemRow = ({ item }) => {
         return (
@@ -41,7 +61,7 @@ const RoutineActionList = () => {
                             size="sm"
                             variant="twoTone"
                             icon={<MdDeleteForever />}
-                            // onClick={() => delSourceIncome(item.id)}
+                            onClick={() => delRoutineAction(item.id)}
                         />
 
                         <Button

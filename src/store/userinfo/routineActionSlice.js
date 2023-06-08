@@ -27,6 +27,11 @@ export const routineActionSlice = createSlice({
         addNewAction: (state, action) => {
             state.routine_actions = [...state.routine_actions, action.payload]
         },
+        deleteAction: (state, action) => {
+            state.routine_actions = state.routine_actions.filter(
+                el => el.id !== action.payload
+            )
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchRoutineActions.pending, (state) => {
@@ -45,6 +50,6 @@ export const routineActionSlice = createSlice({
     }
 });
 
-export const { addNewAction } = routineActionSlice.actions
+export const { addNewAction, deleteAction } = routineActionSlice.actions
 
 export default routineActionSlice.reducer

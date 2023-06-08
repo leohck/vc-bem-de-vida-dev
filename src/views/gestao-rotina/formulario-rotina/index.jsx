@@ -80,6 +80,7 @@ const RoutineForm = () => {
                 const resp = await postRoutineAction(data);
                 if (resp.data) {
                     dispatch(addNewAction(data));
+                    alert("Sucesso");
                 }
             } catch (errors) {
                 console.log(errors);

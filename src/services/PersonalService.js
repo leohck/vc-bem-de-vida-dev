@@ -139,6 +139,19 @@ export async function SourceIncomeDelete(id) {
     });
 }
 
+export async function RoutinePaymentDelete(id) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/user_routine_payment/${id}/`,
+        method: 'delete'
+    });
+}
+
+export async function RoutineActionDelete(id) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/user_routine_action/${id}/`,
+        method: 'delete'
+    });
+}
 
 export async function putUserInfo(user_info_id, data) {
     return ApiService.fetchData({
