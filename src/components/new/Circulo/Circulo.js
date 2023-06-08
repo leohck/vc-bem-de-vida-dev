@@ -4,9 +4,10 @@ import { getAspectTitleQuestions, updateAspectRating } from "../../../services/P
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
 import { Button, Card } from "../../ui";
+import { Icon } from "../../template/VerticalMenuContent/VerticalMenuIcon";
 
 
-const Circulo = ({ title }) => {
+const Circulo = ({ title, icon }) => {
     const dispatch = useDispatch();
     const userInfoLoaded = useRef(false);
     const user_info = useSelector((state) => state.userinfo.userInfoState);
@@ -69,7 +70,12 @@ const Circulo = ({ title }) => {
 
     return (
         <div>
-            <h2 className="mb-8 grid justify-items-center">{title}</h2>
+            <div className="mb-8 grid justify-items-center">
+                <div className="flex items-center gap-3">
+                    {icon}
+                    <h2>{title}</h2>
+                </div>
+            </div>
             <Card footer={(
                 <Button size="sm" variant="solid">
                     Salvar
