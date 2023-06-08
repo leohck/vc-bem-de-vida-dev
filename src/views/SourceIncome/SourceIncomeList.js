@@ -50,7 +50,7 @@ const SourceIncomeList = (props) => {
                 <Td>{item.income_type}</Td>
                 <Td>R${item.income}</Td>
                 <Td>
-                    <div className="flex flex-row justify-evenly">
+                    <div className="flex flex-row gap-4 justify-center">
                         <Button
                             shape="circle"
                             color="red-500"

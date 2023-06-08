@@ -26,10 +26,11 @@ const RoutinePaymentList = () => {
         return (
             <Tr key={item.id} style={{ textAlign: "center" }}>
                 <Td>{item.value}</Td>
+                <Td>{item.life_aspect}</Td>
                 <Td>R${item.monthly_amount_investing}</Td>
                 <Td>{item.payment_generate_money ? "SIM" : "NÃO"}</Td>
                 <Td>
-                    <div className="flex flex-row justify-evenly">
+                    <div className="flex flex-row gap-4 justify-center">
                         <Button
                             shape="circle"
                             color="red-500"
@@ -59,6 +60,7 @@ const RoutinePaymentList = () => {
                 <THead style={{ textAlign: "center" }}>
                     <Tr>
                         <Td><h6>Pagamento</h6></Td>
+                        <Td><h6>Aspectos de Vida</h6></Td>
                         <Td><h6>Valor</h6></Td>
                         <Td><h6>Gera Dinheiro?</h6></Td>
                         <Td><h6>Ações</h6></Td>

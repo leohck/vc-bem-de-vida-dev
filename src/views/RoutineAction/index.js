@@ -4,7 +4,6 @@ import RoutineActionList from "./RoutineActionList";
 const RoutineAction = () => {
     return (
         <div>
-            RoutineAction
             <RoutineActionList />
         </div>
     );
