@@ -39,7 +39,7 @@ export const routineActionSlice = createSlice({
         })
         builder.addCase(fetchRoutineActions.rejected, (state, action) => {
             state.loading = false
-            state.routine_payments = []
+            state.routine_actions = []
             state.errors = action.error.message
         })
     }

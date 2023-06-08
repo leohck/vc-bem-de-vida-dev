@@ -4,7 +4,6 @@ import RoutinePaymentList from "./RoutinePaymentList";
 const RoutinePayment = () => {
     return (
         <div>
-            RoutinePayment
             <RoutinePaymentList/>
         </div>
     );
