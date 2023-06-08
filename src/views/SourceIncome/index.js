@@ -1,13 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import SourceIncomeForm from './SourceIncomeForm'
 import SourceIncomeList from './SourceIncomeList'
-import { useDispatch, useSelector } from "react-redux";
 
 const SourceIncome = () => {
-    const dispatch = useDispatch();
-    const userInfoLoaded = useRef(false);
-    const user_info = useSelector((state) => state.userinfo.userInfoState);
-    const [user_info_id, setUserInfoID] = useState(null);
     const [itemID, setItemID] = useState(null);
     const [formTitle, setFormTitle] = useState('Cadastrar');
 
