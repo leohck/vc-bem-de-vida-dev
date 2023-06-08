@@ -53,9 +53,9 @@ const Dashboard = () => {
                     weekly_routine_time_and_energy
                 } = resp.data;
                 setCard1Value({ value: monthly_financial_balance, tagValue: 8000 });
-                setCard2Value({ value: hourly_active_income, tagValue: 0 });
-                setCard3Value({ value: weekly_free_time, tagValue: 0 });
-                setCard4Value({ value: hourly_unprofitable_cost, tagValue: 0 });
+                setCard2Value({ value: hourly_active_income, tagValue: 72.85 });
+                setCard3Value({ value: weekly_free_time, tagValue: -28 });
+                setCard4Value({ value: hourly_unprofitable_cost, tagValue: 11 });
                 setWeeklyRoutineChartData(weekly_routine_time_and_energy);
             }
         } catch (errors) {

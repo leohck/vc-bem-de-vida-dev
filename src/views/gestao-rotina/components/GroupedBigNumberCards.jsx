@@ -28,7 +28,7 @@ const GroupedBigNumberCards = (props) => {
                     value={"R$ " + card2Value.value}
                     label="Renda Ativa / Hora"
                     tagValue={card2Value.tagValue}
-                    tagSuffix=" horas"
+                    tagPrefix="R$ "
                 />
                 <BigNumberCard
                     icon={<RiRestTimeLine size="2.5em" />}
@@ -44,7 +44,7 @@ const GroupedBigNumberCards = (props) => {
                     label="Custo / Hora Não Rentável"
                     tagValue={card4Value.tagValue}
                     tagPrefix="R$ "
-                    gray={true}
+                    reverse={true}
                 />
             </div>
         </div>

@@ -1,8 +1,13 @@
-export default function growShrinkColor(value, type, gray) {
+export default function growShrinkColor(value, type, gray, reverse) {
+
     if (gray) {
         return type === 'bg'
             ? 'bg-gray-100 dark:bg-gray-500/20 dark:text-gray-100'
             : 'text-gray-600 dark:text-gray-400'
+    }
+
+    if (reverse) {
+        value = value * -1
     }
 
     if (value > 0) {

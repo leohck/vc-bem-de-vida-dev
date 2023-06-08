@@ -6,15 +6,15 @@ import { HiArrowUp, HiArrowDown } from 'react-icons/hi'
 import growShrinkColor from 'utils/growShrinkColor'
 
 const GrowShrinkTag = forwardRef((props, ref) => {
-    const { value, className, prefix, suffix, showIcon, gray } = props
+    const { value, className, prefix, suffix, showIcon, gray, reverse } = props
 
     return (
         <Tag
             ref={ref}
             className={classNames(
                 'gap-1 font-bold border-0',
-                growShrinkColor(value, 'text', gray),
-                growShrinkColor(value, 'bg', gray),
+                growShrinkColor(value, 'text', gray, reverse),
+                growShrinkColor(value, 'bg', gray, reverse),
                 className
             )}
         >
