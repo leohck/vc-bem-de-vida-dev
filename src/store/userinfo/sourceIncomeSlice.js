@@ -31,6 +31,11 @@ export const SourceIncomeSlice = createSlice({
             state.source_incomes = state.source_incomes.map(
                 el => el.id === action.payload.id ? action.payload : el
             )
+        },
+        deleteSourceIncome: (state, action) => {
+            state.source_incomes = state.source_incomes.filter(
+                el => el.id !== action.payload
+            )
         }
     },
     extraReducers: (builder) => {
@@ -52,6 +57,7 @@ export const SourceIncomeSlice = createSlice({
 
 export const {
     addNewSourceIncome,
-    updateSourceIncome
+    updateSourceIncome,
+    deleteSourceIncome
 } = SourceIncomeSlice.actions;
 export default SourceIncomeSlice.reducer;

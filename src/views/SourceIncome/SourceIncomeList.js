@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Button, Card, Table } from "../../components/ui";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSourceIncomes } from "../../store/userinfo/sourceIncomeSlice";
+import { deleteSourceIncome, fetchSourceIncomes } from "../../store/userinfo/sourceIncomeSlice";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
+import { SourceIncomeDelete } from "../../services/PersonalService";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -26,6 +27,22 @@ const SourceIncomeList = (props) => {
         }
     }, []);
 
+    const delSourceIncome = (id) => {
+        const del = async () => {
+            try {
+                const resp = await SourceIncomeDelete(id);
+                if (resp.status === 204) {
+                    dispatch(deleteSourceIncome(id));
+                    alert("Sucesso");
+                }
+            } catch (errors) {
+                console.log(errors);
+            }
+        }
+        del();
+    }
+
+
     const ItemRow = ({ item }) => {
         return (
             <Tr key={item.id} style={{ textAlign: "center" }}>
@@ -40,6 +57,7 @@ const SourceIncomeList = (props) => {
                             size="sm"
                             variant="twoTone"
                             icon={<MdDeleteForever />}
+                            onClick={() => delSourceIncome(item.id)}
                         />
 
                         <Button

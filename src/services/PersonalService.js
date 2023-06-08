@@ -132,6 +132,13 @@ export async function postSourceIncome(data, id = null) {
     });
 }
 
+export async function SourceIncomeDelete(id) {
+    return ApiService.fetchData({
+        url: `http://127.0.0.1:8000/user_source_income/${id}/`,
+        method: 'delete'
+    });
+}
+
 
 export async function putUserInfo(user_info_id, data) {
     return ApiService.fetchData({
