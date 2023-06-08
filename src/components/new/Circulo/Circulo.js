@@ -4,7 +4,7 @@ import { getAspectTitleQuestions, updateAspectRating } from "../../../services/P
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
 import { Button, Card } from "../../ui";
-import { Icon } from "../../template/VerticalMenuContent/VerticalMenuIcon";
+
 
 
 const Circulo = ({ title, icon }) => {

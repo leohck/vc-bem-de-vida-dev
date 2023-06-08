@@ -33,6 +33,16 @@ const navigationConfig = [
                 authority: [],
                 subMenu: []
             },
+            {
+                key: 'source-incomes',
+                path: '/source-incomes',
+                title: 'Fontes de Renda',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: []
+            },
         ]
     },
     {
