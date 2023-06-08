@@ -22,12 +22,20 @@ const ActionResourceChart = (props) => {
             options={{
                 plotOptions: {
                     bar: {
-                        horizontal: true
+                        horizontal: true,
+                        dataLabels: {
+                            position: "top"
+                        }
                     }
                 },
                 colors: [color],
                 dataLabels: {
-                    enabled: false
+                    enabled: true,
+                    offsetX: -6,
+                    style: {
+                        fontSize: '12px',
+                        colors: ['#fff']
+                    }
                 },
                 xaxis: {
                     categories: categories
