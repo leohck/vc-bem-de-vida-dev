@@ -24,16 +24,6 @@ const navigationConfig = [
         authority: [],
         subMenu: [
             {
-                key: 'auto-conhecimento-cadastro',
-                path: '/conhecimento/cadastro',
-                title: 'Cadastro Inicial',
-                translateKey: 'nav.auto_conhecimento_cadastro',
-                icon: 'auto_conhecimento_cadastro',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: []
-            },
-            {
                 key: 'dashboard',
                 path: '/dashboard',
                 title: 'Dashboard',
