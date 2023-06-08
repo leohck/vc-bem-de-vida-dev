@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState, useReducer, useCallback } from "react";
-import { Button, Card, Input, Segment, Tooltip } from "components/ui";
-import { HiOutlineExclamationCircle, HiOutlineUser } from "react-icons/hi";
+import React, { useEffect, useRef, useState, useCallback } from "react";
+import { Button, Card, Input, Segment } from "components/ui";
+import { HiOutlineUser } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../store/userinfo/userInfoSlice";
 import { putUserInfo } from "../../services/PersonalService";
@@ -104,36 +104,6 @@ const Cadastro = () => {
                         <Segment.Item value="Viuvo">Viuvo</Segment.Item>
                     </Segment>
                 </div>
-                <div>
-                    <span>Renda Mensal</span>
-                    <div className="mb-4">
-                        <Input
-                            placeholder="Renda Mensal"
-                            prefix="R$"
-                            suffix=".00"
-                            type="number"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <Input
-                            placeholder="Tipo de Renda"
-                            suffix={
-                                <Tooltip title="Aluguel, Freelancer, CLT">
-                                    <HiOutlineExclamationCircle className="text-lg cursor-pointer ml-1" />
-                                </Tooltip>
-                            }
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <span>Classificar Renda</span>
-                        <Segment>
-                            <Segment.Item value="1">Ativa</Segment.Item>
-                            <Segment.Item value="2">Passiva</Segment.Item>
-                            <Segment.Item value="3">Compartilhada</Segment.Item>
-                        </Segment>
-                    </div>
-                </div>
-
             </Card>
         </div>
     );
