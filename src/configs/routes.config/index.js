@@ -88,4 +88,16 @@ export const protectedRoutes = [
         component: React.lazy(() => import('views/gestao-rotina/formulario-pagamento-rotina')),
         authority: [],
     },
+    {
+        key: 'routine-actions',
+        path: '/routine/actions',
+        component: React.lazy(() => import('views/RoutineAction')),
+        authority: [],
+    },
+    {
+        key: 'routine-payments',
+        path: '/routine/payments',
+        component: React.lazy(() => import('views/RoutinePayment')),
+        authority: [],
+    },
 ]

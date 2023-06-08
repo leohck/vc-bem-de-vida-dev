@@ -126,6 +126,26 @@ const navigationConfig = [
                 subMenu: []
             },
             {
+                key: 'routine-actions',
+                path: '/routine/actions',
+                title: 'Ações de Rotina',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: []
+            },
+            {
+                key: 'routine-payments',
+                path: '/routine/payments',
+                title: 'Pagamentos de Rotina',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: []
+            },
+            {
                 key: 'gestao-rotina-form-rotina',
                 path: '/formulario/rotina',
                 title: 'Cadastrar Ação de Rotina',
