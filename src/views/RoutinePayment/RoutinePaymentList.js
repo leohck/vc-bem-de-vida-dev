@@ -8,12 +8,15 @@ import {
     deletePayment
 } from "../../store/userinfo/routinePaymentSlice";
 import { RoutinePaymentDelete } from "../../services/PersonalService";
+import {useNavigate} from "react-router-dom";
+
 
 const { Tr, Td, THead, TBody } = Table;
 
 
 const RoutinePaymentList = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const routine_payments_loaded = useRef(false);
     const routine_payments = useSelector(
         state => state.userinfo.routinePaymentSlice
@@ -41,6 +44,10 @@ const RoutinePaymentList = () => {
         del();
     };
 
+
+    const handleEditPayment = (id) => {
+        navigate("/formulario/pagamento", {replace: true, state: {itemID: id}})
+    }
     const ItemRow = ({ item }) => {
         return (
             <Tr key={item.id} style={{ textAlign: "center" }}>
@@ -65,7 +72,7 @@ const RoutinePaymentList = () => {
                             size="sm"
                             variant="twoTone"
                             icon={<AiOutlineEdit />}
-                            // onClick={() => {setItemID(item.id)}}
+                            onClick={() => {handleEditPayment(item.id)}}
                         />
                     </div>
                 </Td>

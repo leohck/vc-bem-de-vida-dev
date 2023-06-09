@@ -108,10 +108,10 @@ export async function postItem(item_type, data) {
 }
 
 
-export async function postRoutinePayment(data) {
+export async function postRoutinePayment(data, id = null) {
     return ApiService.fetchData({
-        url: `http://127.0.0.1:8000/user_routine_payment/`,
-        method: "post",
+        url: `http://127.0.0.1:8000/user_routine_payment/${ id ? id + '/' : ''}`,
+        method: id ? 'put' : 'post',
         data
     });
 }

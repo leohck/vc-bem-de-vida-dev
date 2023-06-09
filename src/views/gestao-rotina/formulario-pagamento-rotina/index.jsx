@@ -10,12 +10,45 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "store/userinfo/userInfoSlice";
 import { addNewPayment } from "store/userinfo/routinePaymentSlice";
 import { postRoutinePayment } from "../../../services/PersonalService";
+import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const RoutinePaymentForm = () => {
+const RoutinePaymentForm = (props) => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const userInfoLoaded = useRef(false);
     const user_info = useSelector((state) => state.userinfo.userInfoState);
     const [user_info_id, setUserInfoID] = useState(null);
+    const [itemID, setItemID] = useState(null);
+    const { state } = useLocation();
+
+    const [paymentValue, setPaymentValue] = useState();
+    const [paymentAmount, setPaymentAmount] = useState();
+
+    const [lifeAspect, setLifeAspect] = useState([]);
+    const [paymentGenerateMoney, setPaymentGenerateMoney] = useState(false);
+
+    useEffect(() => {
+        try {
+            const { itemID } = state;
+            setItemID(itemID);
+        } catch (e) {
+            setItemID(null);
+        }
+    }, [itemID]);
+
+    useEffect(() => {
+        if (itemID) {
+            axios
+                .get(`http://127.0.0.1:8000/user_routine_payment/${itemID}/`)
+                .then(response => {
+                    setLifeAspect(response.data.life_aspect.split(","));
+                    setPaymentGenerateMoney(response.data.payment_generate_money);
+                    setPaymentAmount(response.data.monthly_amount_investing);
+                    setPaymentValue(response.data.value);
+                });
+        }
+    }, [itemID]);
 
     useEffect(() => {
         if (!userInfoLoaded.current) {
@@ -29,11 +62,6 @@ const RoutinePaymentForm = () => {
         }
     }, [user_info]);
 
-    const [lifeAspect, setLifeAspect] = useState([]);
-    const [paymentGenerateMoney, setPaymentGenerateMoney] = useState(false);
-    const [formData, setFormData] = useReducer(
-        (state, newState) => ({ ...state, ...newState })
-    );
     const handleLifeAspectChange = useCallback(
         val => {
             setLifeAspect(val);
@@ -43,18 +71,15 @@ const RoutinePaymentForm = () => {
     const onSwitcherToggle = (val) => {
         setPaymentGenerateMoney(!val);
     };
-    const handleFormData = event => {
-        const { name, value } = event.target;
-        setFormData({ [name]: value });
-    };
 
     const addNewRoutinePayment = (data) => {
         const update = async () => {
             try {
-                const resp = await postRoutinePayment(data);
+                const resp = await postRoutinePayment(data, itemID);
                 if (resp.data) {
                     dispatch(addNewPayment(data));
                     alert("Sucesso");
+                    navigate("/routine/payments", { replace: true });
                 }
             } catch (errors) {
                 console.log(errors);
@@ -66,11 +91,11 @@ const RoutinePaymentForm = () => {
     const handleFormSubmit = () => {
         const data = {
             "user": user_info_id,
-            "value": formData.routine_payment,
-            "life_aspect": lifeAspect[0],
-            "monthly_amount_investing": formData.payment_monthly_cost,
+            "value": paymentValue,
+            "life_aspect": lifeAspect.toString(),
+            "monthly_amount_investing": paymentAmount,
             "payment_generate_money": paymentGenerateMoney
-        }
+        };
         addNewRoutinePayment(data);
     };
     return (
@@ -91,29 +116,39 @@ const RoutinePaymentForm = () => {
 
                 <div className="flex flex-row items-center">
                     <p className="font-bold text-lg">Pagamento de Rotina: </p>
-                    <Input className="max-w-sm ml-16"
-                           placeholder="Nome do Pagamento de Rotina"
-                           name="routine_payment"
-                           onChange={handleFormData} />
+                    <Input
+                        value={paymentValue}
+                        className="max-w-sm ml-16"
+                        placeholder="Nome do Pagamento de Rotina"
+                        name="routine_payment"
+                        onChange={(e) => {
+                            setPaymentValue(e.target.value);
+                        }} />
                 </div>
 
                 <div className="flex flex-col justify-items-center mt-10">
                     <p className="font-bold text-lg">Aspecto de Vida Influenciado pelo Pagamento: </p>
-                    <LifeAspectSegment onChange={handleLifeAspectChange} />
+                    <LifeAspectSegment
+                        value={lifeAspect}
+                        onChange={handleLifeAspectChange} />
                 </div>
 
                 <div className="flex flex-row items-center mt-10">
                     <p className="font-bold text-lg">Qual o valor mensal investido neste pagamento? </p>
-                    <Input className="max-w-sm ml-10"
-                           name="payment_monthly_cost"
-                           onChange={handleFormData}
-                           type="number"
-                           prefix="R$" />
+                    <Input
+                        value={paymentAmount}
+                        className="max-w-sm ml-10"
+                        name="payment_monthly_cost"
+                        onChange={(e) => {
+                            setPaymentAmount(e.target.value);
+                        }}
+                        type="number"
+                        prefix="R$" />
                 </div>
 
                 <div className="flex flex-row items-center mt-10">
                     <p className="font-bold text-lg">Este pagamento / investimento gera dinheiro? </p>
-                    <Switcher value={paymentGenerateMoney}
+                    <Switcher checked={paymentGenerateMoney}
                               name="payment_generate_money"
                               color="green-500"
                               className="ml-10"

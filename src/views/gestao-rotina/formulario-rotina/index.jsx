@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
 import { fetchRoutineActions, addNewAction } from "store/userinfo/routineActionSlice";
 import { postRoutineAction } from "../../../services/PersonalService";
+import { useLocation } from "react-router-dom";
+import axios from "axios";
 
 
 const RoutineForm = () => {
@@ -21,6 +23,29 @@ const RoutineForm = () => {
     const user_info = useSelector((state) => state.userinfo.userInfoState);
     const routine_actions = useSelector(state => state.userinfo.routineActionSlice);
     const [user_info_id, setUserInfoID] = useState(null);
+    const [itemID, setItemID] = useState(null);
+    const { state } = useLocation();
+
+    useEffect(() => {
+        try {
+            const { itemID } = state;
+            setItemID(itemID);
+        } catch (e) {
+            setItemID(null);
+        }
+    }, [])
+
+    useEffect(() => {
+        if (itemID) {
+            axios
+                .get(`http://127.0.0.1:8000/user_source_income/${itemID}/`)
+                .then(response => {
+                    setIncomeFrom(response.data.income_from);
+                    setIncomeType([response.data.income_type]);
+                    setIncomeValue(response.data.income);
+                });
+        }
+    }, [itemID]);
 
     useEffect(() => {
         if (!userInfoLoaded.current) {
