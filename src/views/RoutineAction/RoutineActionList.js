@@ -83,8 +83,22 @@ const RoutineActionList = () => {
         );
     };
 
+    const headerExtraContent = (
+        <span className="flex items-center">
+            <Button className="mr-2"
+                    variant="twoTone"
+                    onClick={() => {
+                        navigate("/formulario/rotina", {replace: true})
+                    }}
+            >
+                <span>Nova Ação</span>
+            </Button>
+        </span>
+    )
+
     return (
-        <Card header="Minhas Ações de Rotina">
+        <Card header="Minhas Ações de Rotina"
+              headerExtra={headerExtraContent}>
             <Table>
                 <THead style={{ textAlign: "center" }}>
                     <Tr>

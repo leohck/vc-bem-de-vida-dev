@@ -80,8 +80,22 @@ const RoutinePaymentList = () => {
         );
     };
 
+    const headerExtraContent = (
+        <span className="flex items-center">
+            <Button className="mr-2"
+                    variant="twoTone"
+                    onClick={() => {
+                        navigate("/formulario/pagamento", {replace: true})
+                    }}
+            >
+                <span>Novo Pagamento</span>
+            </Button>
+        </span>
+    )
+
     return (
-        <Card header="Meus Pagamentos de Rotina">
+        <Card header="Meus Pagamentos de Rotina"
+              headerExtra={headerExtraContent}>
             <Table>
                 <THead style={{ textAlign: "center" }}>
                     <Tr>
