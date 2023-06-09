@@ -8,13 +8,14 @@ import {
     deleteAction
 } from "../../store/userinfo/routineActionSlice";
 import { RoutineActionDelete } from "../../services/PersonalService";
-import { deletePayment } from "../../store/userinfo/routinePaymentSlice";
+import { useNavigate } from "react-router-dom";
 
 const { Tr, Td, THead, TBody } = Table;
 
 
 const RoutineActionList = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const routine_actions_loaded = useRef(false);
     const routine_actions = useSelector(
         state => state.userinfo.routineActionSlice
@@ -41,6 +42,10 @@ const RoutineActionList = () => {
         };
         del();
     };
+
+    const handleEditAction = (id) => {
+        navigate("/formulario/rotina", {replace: true, state: {itemID: id}})
+    }
 
     const ItemRow = ({ item }) => {
         return (
@@ -70,7 +75,7 @@ const RoutineActionList = () => {
                             size="sm"
                             variant="twoTone"
                             icon={<AiOutlineEdit />}
-                            // onClick={() => {setItemID(item.id)}}
+                            onClick={() => {handleEditAction(item.id)}}
                         />
                     </div>
                 </Td>

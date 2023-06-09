@@ -116,10 +116,10 @@ export async function postRoutinePayment(data, id = null) {
     });
 }
 
-export async function postRoutineAction(data) {
+export async function postRoutineAction(data, id = null) {
     return ApiService.fetchData({
-        url: `http://127.0.0.1:8000/user_routine_action/`,
-        method: "post",
+        url: `http://127.0.0.1:8000/user_routine_action/${ id ? id + '/' : ''}`,
+        method: id ? 'put' : 'post',
         data
     });
 }

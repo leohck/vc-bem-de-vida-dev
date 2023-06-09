@@ -11,20 +11,29 @@ import EnergyLevelSegment from "./components/EnergyLevelSegment";
 import ActionMoneySegment from "./components/ActionMoneySegment";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../../store/userinfo/userInfoSlice";
-import { fetchRoutineActions, addNewAction } from "store/userinfo/routineActionSlice";
+import { addNewAction } from "store/userinfo/routineActionSlice";
 import { postRoutineAction } from "../../../services/PersonalService";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 
 const RoutineForm = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const userInfoLoaded = useRef(false);
     const user_info = useSelector((state) => state.userinfo.userInfoState);
-    const routine_actions = useSelector(state => state.userinfo.routineActionSlice);
     const [user_info_id, setUserInfoID] = useState(null);
     const [itemID, setItemID] = useState(null);
     const { state } = useLocation();
+
+    const [lifeAspect, setLifeAspect] = useState([]);
+    const [weekDay, setWeekDay] = useState([]);
+    const [energyLevel, setEnergyLevel] = useState([]);
+    const [actionMoney, setActionMoney] = useState([]);
+    const [actionValue, setActionValue] = useState();
+    const [timeSpent, setTimeSpent] = useState();
+    const [actionCost, setActionCost] = useState();
+
 
     useEffect(() => {
         try {
@@ -33,16 +42,28 @@ const RoutineForm = () => {
         } catch (e) {
             setItemID(null);
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         if (itemID) {
             axios
-                .get(`http://127.0.0.1:8000/user_source_income/${itemID}/`)
+                .get(`http://127.0.0.1:8000/user_routine_action/${itemID}/`)
                 .then(response => {
-                    setIncomeFrom(response.data.income_from);
-                    setIncomeType([response.data.income_type]);
-                    setIncomeValue(response.data.income);
+                    console.log(response.data);
+                    const action_money = []
+                    if (response.data.action_generate_money) {
+                        action_money.push("1")
+                    }
+                    if (response.data.action_cost_money) {
+                        action_money.push("0")
+                    }
+                    setActionValue(response.data.value);
+                    setTimeSpent(response.data.time_spent);
+                    setLifeAspect(response.data.life_aspect.split(","));
+                    setWeekDay(response.data.days_of_week.split(","));
+                    setEnergyLevel([response.data.energy_spent.toString()]);
+                    setActionMoney(action_money);
+                    setActionCost(response.data.action_cost);
                 });
         }
     }, [itemID]);
@@ -57,19 +78,8 @@ const RoutineForm = () => {
                 userInfoLoaded.current = true;
             };
         }
-        if (userInfoLoaded.current) {
-            dispatch(fetchRoutineActions());
-        }
-        console.log(routine_actions);
-    }, [user_info, routine_actions]);
+    }, [user_info]);
 
-    const [lifeAspect, setLifeAspect] = useState([]);
-    const [weekDay, setWeekDay] = useState([]);
-    const [energyLevel, setEnergyLevel] = useState([]);
-    const [actionMoney, setActionMoney] = useState([]);
-    const [formData, setFormData] = useReducer(
-        (state, newState) => ({ ...state, ...newState })
-    );
     const handleLifeAspectChange = useCallback(
         val => {
             setLifeAspect(val);
@@ -79,7 +89,7 @@ const RoutineForm = () => {
     const handleWeekDayChange = useCallback(
         val => {
             setWeekDay(val);
-        },[]
+        }, []
     );
 
     const handleEnergyLevelChange = useCallback(
@@ -94,18 +104,14 @@ const RoutineForm = () => {
         }, []
     );
 
-    const handleFormData = event => {
-        const { name, value } = event.target;
-        setFormData({ [name]: value });
-    };
-
     const addNewRoutinePayment = (data) => {
         const update = async () => {
             try {
-                const resp = await postRoutineAction(data);
+                const resp = await postRoutineAction(data, itemID);
                 if (resp.data) {
                     dispatch(addNewAction(data));
                     alert("Sucesso");
+                    navigate("/routine/actions", { replace: true });
                 }
             } catch (errors) {
                 console.log(errors);
@@ -115,22 +121,21 @@ const RoutineForm = () => {
     };
 
     const handleFormSubmit = () => {
-        const action_generate_money = actionMoney.includes('1')
-        const action_cost_money = actionMoney.includes('0')
-        const action_cost = action_cost_money ? formData.action_cost : 0
+        const action_generate_money = actionMoney.includes("1");
+        const action_cost_money = actionMoney.includes("0");
+        const action_cost = action_cost_money ? actionCost : 0;
 
         const data = {
             "user": user_info_id,
-            "value": formData.routine_action,
+            "value": actionValue,
             "life_aspect": lifeAspect.toString(),
-            "time_spent": formData.time_spent,
+            "time_spent": timeSpent,
             "days_of_week": weekDay.toString(),
             "energy_spent": energyLevel.toString(),
             "action_cost": action_cost,
             "action_generate_money": action_generate_money,
             "action_cost_money": action_cost_money
-        }
-        console.log(data);
+        };
         addNewRoutinePayment(data);
     };
 
@@ -156,19 +161,23 @@ const RoutineForm = () => {
                     <Input className="max-w-sm ml-16"
                            placeholder="Nome da Ação de Rotina"
                            name="routine_action"
-                           onChange={handleFormData} />
+                           value={actionValue}
+                           onChange={(e) => {setActionValue(e.target.value)}} />
                 </div>
 
                 <div className="flex flex-col justify-items-center mt-10">
                     <p className="font-bold text-lg">Aspecto de Vida Influenciado pela Ação: </p>
-                    <LifeAspectSegment onChange={handleLifeAspectChange} />
+                    <LifeAspectSegment
+                        value={lifeAspect}
+                        onChange={handleLifeAspectChange} />
                 </div>
 
                 <div className="flex flex-row items-center mt-10">
                     <p className="font-bold text-lg">Quantas horas / dia são necessárias para esta ação: </p>
                     <Input className="max-w-sm ml-16"
                            name="time_spent"
-                           onChange={handleFormData}
+                           value={timeSpent}
+                           onChange={(e) => {setTimeSpent(e.target.value)}}
                            type="number"
                            step={0.5}
                            min={1}
@@ -178,26 +187,33 @@ const RoutineForm = () => {
 
                 <div className="flex flex-col justify-items-center mt-10">
                     <p className="font-bold text-lg">Em quais dias da semana esta ação é executada? </p>
-                    <WeekdaySegment onChange={handleWeekDayChange} />
+                    <WeekdaySegment
+                        value={weekDay}
+                        onChange={handleWeekDayChange} />
                 </div>
 
                 <div className="flex flex-col justify-items-center mt-10">
                     <p className="font-bold text-lg">Considerando a escala abaixo, como você classifica o nível de
                         energia (esforço/atenção) despendido nesta ação? </p>
-                    <EnergyLevelSegment onChange={handleEnergyLevelChange} />
+                    <EnergyLevelSegment
+                        value={energyLevel}
+                        onChange={handleEnergyLevelChange} />
                 </div>
 
                 <div className="flex flex-row items-center gap-[200px] mt-10">
                     <div className="flex flex-col">
                         <p className="font-bold text-lg">Esta Ação?</p>
-                        <ActionMoneySegment onChange={handleActionMoneyChange} />
+                        <ActionMoneySegment
+                            value={actionMoney}
+                            onChange={handleActionMoneyChange} />
                     </div>
-                    {actionMoney.includes('0') ? (
+                    {actionMoney.includes("0") ? (
                         <div className="flex flex-col items-center">
                             <p className="font-bold text-lg">Quanto por mês é gasto com esta ação? </p>
                             <Input className="max-w-sm"
                                    name="action_cost"
-                                   onChange={handleFormData}
+                                   value={actionCost}
+                                   onChange={(e) => {setActionCost(e.target.value)}}
                                    type="number"
                                    prefix="R$" />
                         </div>
