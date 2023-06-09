@@ -33,7 +33,7 @@ const RoutineForm = () => {
     const [actionValue, setActionValue] = useState();
     const [timeSpent, setTimeSpent] = useState();
     const [actionCost, setActionCost] = useState();
-
+    const [weeklyHoursSpentCount, setWeeklyHoursSpentCount] = useState([0, 0, 0, 0, 0, 0, 0]);
 
     useEffect(() => {
         try {
@@ -50,12 +50,12 @@ const RoutineForm = () => {
                 .get(`http://127.0.0.1:8000/user_routine_action/${itemID}/`)
                 .then(response => {
                     console.log(response.data);
-                    const action_money = []
+                    const action_money = [];
                     if (response.data.action_generate_money) {
-                        action_money.push("1")
+                        action_money.push("1");
                     }
                     if (response.data.action_cost_money) {
-                        action_money.push("0")
+                        action_money.push("0");
                     }
                     setActionValue(response.data.value);
                     setTimeSpent(response.data.time_spent);
@@ -79,6 +79,14 @@ const RoutineForm = () => {
             };
         }
     }, [user_info]);
+
+    useEffect(() => {
+        axios
+            .get(`http://127.0.0.1:8000/weekly_hours_spent/1/`)
+            .then(response => {
+                setWeeklyHoursSpentCount(response.data.weekly_hours_spent);
+            });
+    }, [])
 
     const handleLifeAspectChange = useCallback(
         val => {
@@ -162,7 +170,9 @@ const RoutineForm = () => {
                            placeholder="Nome da Ação de Rotina"
                            name="routine_action"
                            value={actionValue}
-                           onChange={(e) => {setActionValue(e.target.value)}} />
+                           onChange={(e) => {
+                               setActionValue(e.target.value);
+                           }} />
                 </div>
 
                 <div className="flex flex-col justify-items-center mt-10">
@@ -177,7 +187,9 @@ const RoutineForm = () => {
                     <Input className="max-w-sm ml-16"
                            name="time_spent"
                            value={timeSpent}
-                           onChange={(e) => {setTimeSpent(e.target.value)}}
+                           onChange={(e) => {
+                               setTimeSpent(e.target.value);
+                           }}
                            type="number"
                            step={0.5}
                            min={1}
@@ -189,7 +201,9 @@ const RoutineForm = () => {
                     <p className="font-bold text-lg">Em quais dias da semana esta ação é executada? </p>
                     <WeekdaySegment
                         value={weekDay}
-                        onChange={handleWeekDayChange} />
+                        onChange={handleWeekDayChange}
+                        weeklyHoursSpentCount={weeklyHoursSpentCount}
+                    />
                 </div>
 
                 <div className="flex flex-col justify-items-center mt-10">
@@ -213,7 +227,9 @@ const RoutineForm = () => {
                             <Input className="max-w-sm"
                                    name="action_cost"
                                    value={actionCost}
-                                   onChange={(e) => {setActionCost(e.target.value)}}
+                                   onChange={(e) => {
+                                       setActionCost(e.target.value);
+                                   }}
                                    type="number"
                                    prefix="R$" />
                         </div>

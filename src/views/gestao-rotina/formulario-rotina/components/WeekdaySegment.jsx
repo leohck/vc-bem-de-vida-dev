@@ -1,6 +1,6 @@
 import React from "react";
 import { SegmentItemOption } from "components/shared";
-import { Card, Segment } from "components/ui";
+import { Badge, Card, Segment } from "components/ui";
 import { FcCalendar } from "react-icons/fc";
 
 
@@ -14,12 +14,17 @@ const week_days_options = [
     { label: "Sábado", value: "6", icon: <FcCalendar /> }
 ];
 
-const WeekdaySegment = ({ value, onChange }) => {
+const WeekdaySegment = ({ value, onChange, weeklyHoursSpentCount }) => {
 
     const CounterCard = ({ value }) => {
+        let bg = "shadow-blue-900/50";
+        if (value >= 24) {
+            bg = "bg-red-100 shadow-red-900/50";
+        }
         return (
-            <Card className="max-w-[165pk] max-h-[60px] shadow-md shadow-blue-900/50">
-                <div className="grid justify-items-center items-center">
+            <Card className={"max-w-[165px] max-h-[70px] shadow-sm " + bg}>
+                <div className="flex flex-col justify-items-center items-center">
+                    <p>Horas Registradas</p>
                     {value}
                 </div>
             </Card>
@@ -47,16 +52,19 @@ const WeekdaySegment = ({ value, onChange }) => {
                                         className="bg-white w-[165px] h-14"
                                     >
                                         <div className="flex items-center gap-3">
-                                        <span className="text-2xl">
-                                            {item.icon}
-                                        </span>
+                                            <span className="text-2xl">
+                                                {item.icon}
+                                            </span>
                                             <h6>{item.label}</h6>
                                         </div>
                                     </SegmentItemOption>
                                 );
                             }}
                         </Segment.Item>
-                        <CounterCard value={item.value} key={item.value + "x"} />
+                        <CounterCard
+                            key={item.value + "x"}
+                            value={weeklyHoursSpentCount[parseInt(item.value)]}
+                        />
                     </div>
                 ))}
             </div>
