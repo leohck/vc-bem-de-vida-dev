@@ -1,37 +1,47 @@
-import React, { useState } from "react";
-import { Radio } from "../../../components/ui";
+import React, { useCallback, useState } from "react";
+import { Radio, Segment } from "../../../components/ui";
 import { Chart } from "../../../components/shared";
 
 
 const CostBenefitChart = () => {
-    const [value, setValue] = useState('Banana')
+    const [lifeAspect, setLifeAspect] = useState('Saude Fisica');
 
-    const onChange = (val) => {
-        setValue(val)
-    }
+    const handleFormInput = useCallback(
+        (val) => {
+            setLifeAspect(val)
+        },
+        [lifeAspect]
+    )
+
     const data = [
         {
-            name: 'Net Profit',
-            data: [44, 55, 57, 56, 61, 58, 63, 60, 66],
+            name: 'Dinheiro',
+            data: [44],
         },
         {
-            name: 'Revenue',
-            data: [76, 85, 101, 98, 87, 105, 91, 114, 94],
+            name: 'Tempo',
+            data: [76],
         },
         {
-            name: 'Free Cash Flow',
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41],
+            name: 'Energia',
+            data: [35],
         },
     ]
 
     return (
-        <div className="grid grid-cols-2 justify-between items-center">
+        <div className="flex flex-col justify-items-center">
             <div>
-                <Radio.Group vertical value={value} onChange={onChange}>
-                    <Radio value={'Apple'}>Apple</Radio>
-                    <Radio value={'Banana'}>Banana</Radio>
-                    <Radio value={'Cherry'}>Cherry</Radio>
-                </Radio.Group>
+                <Segment
+                    size='sm'
+                    value={lifeAspect}
+                    onChange={(val) => handleFormInput(val)}
+                >
+                    <Segment.Item value="Saude Fisica">Saude Fisica</Segment.Item>
+                    <Segment.Item value="Saude Mental">Saude Mental</Segment.Item>
+                    <Segment.Item value="Vida Social">Vida Social</Segment.Item>
+                    <Segment.Item value="Vida Profissional">Vida Profissional</Segment.Item>
+                    <Segment.Item value="Gestao Financeira">Gestao Financeira</Segment.Item>
+                </Segment>
             </div>
             <div>
                 <Chart
@@ -54,15 +64,7 @@ const CostBenefitChart = () => {
                         },
                         xaxis: {
                             categories: [
-                                'Feb',
-                                'Mar',
-                                'Apr',
-                                'May',
-                                'Jun',
-                                'Jul',
-                                'Aug',
-                                'Sep',
-                                'Oct',
+                                lifeAspect
                             ],
                         },
                         fill: {

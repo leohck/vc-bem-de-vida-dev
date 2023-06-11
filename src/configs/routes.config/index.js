@@ -7,7 +7,7 @@ export const protectedRoutes = [
     {
         key: 'home',
         path: '/home',
-        component: React.lazy(() => import('views/Home')),
+        component: React.lazy(() => import('views/auto-conhecimento/Dashboard')),
         authority: [],
     },
     {

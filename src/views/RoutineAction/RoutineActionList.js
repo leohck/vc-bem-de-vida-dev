@@ -51,12 +51,12 @@ const RoutineActionList = () => {
         return (
             <Tr key={item.id} style={{ textAlign: "center" }}>
                 <Td>{item.value}</Td>
-                <Td>{item.life_aspect}</Td>
-                <Td>{item.days_of_week}</Td>
+                {/*<Td>{item.life_aspect}</Td>*/}
+                {/*<Td>{item.days_of_week}</Td>*/}
                 <Td>{item.time_spent}</Td>
                 <Td>{item.energy_spent}</Td>
-                <Td>{item.action_generate_money ? "SIM" : "NÃO"}</Td>
-                <Td>{item.action_cost_money ? "SIM" : "NÃO"}</Td>
+                {/*<Td>{item.action_generate_money ? "SIM" : "NÃO"}</Td>*/}
+                {/*<Td>{item.action_cost_money ? "SIM" : "NÃO"}</Td>*/}
                 <Td>R${item.action_cost}</Td>
                 <Td>
                     <div className="flex flex-row gap-4 justify-center">
@@ -103,13 +103,13 @@ const RoutineActionList = () => {
                 <THead style={{ textAlign: "center" }}>
                     <Tr>
                         <Td><h6>Ação</h6></Td>
-                        <Td><h6>Aspectos de vida</h6></Td>
-                        <Td><h6>Dias da Semana</h6></Td>
+                        {/*<Td><h6>Aspectos de vida</h6></Td>*/}
+                        {/*<Td><h6>Dias da Semana</h6></Td>*/}
                         <Td><h6>Tempo Consumido</h6></Td>
                         <Td><h6>Energia Consumida</h6></Td>
-                        <Td><h6>Gera Dinheiro?</h6></Td>
-                        <Td><h6>Custa Dinheiro?</h6></Td>
-                        <Td><h6>Custo</h6></Td>
+                        {/*<Td><h6>Gera Dinheiro?</h6></Td>*/}
+                        {/*<Td><h6>Custa Dinheiro?</h6></Td>*/}
+                        <Td><h6>Custo Financeiro</h6></Td>
                         <Td><h6>Ações</h6></Td>
                     </Tr>
                 </THead>

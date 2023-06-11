@@ -23,6 +23,8 @@ const ActionResourceChart = (props) => {
                 plotOptions: {
                     bar: {
                         horizontal: true,
+                        columnWidth: "50%",
+                        endingShape: "rounded",
                         dataLabels: {
                             position: "top"
                         }
@@ -33,7 +35,7 @@ const ActionResourceChart = (props) => {
                     enabled: true,
                     offsetX: -6,
                     style: {
-                        fontSize: '12px',
+                        fontSize: '20px',
                         colors: ['#fff']
                     }
                 },

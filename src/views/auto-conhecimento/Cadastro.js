@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useCallback } from "react";
-import { Button, Card, Input, Segment } from "components/ui";
+import { Button, Card, DatePicker, Input, Segment } from "components/ui";
 import { HiOutlineUser } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserInfo } from "../../store/userinfo/userInfoSlice";
@@ -95,6 +95,15 @@ const Cadastro = () => {
                            value={age}
                            onChange={e => {setAge(e.target.value)}} />
                 </div>
+
+                <div className="max-w-[200px]">
+                    <DatePicker
+                        inputtable
+                        locale="ko"
+                        inputFormat="DD/MMMM/YYYY"
+                        placeholder="Data de Nascimento" />
+                </div>
+
                 <div className="flex flex-col justify-items-center">
                     <p className="font-bold text-lg">Estado Civil</p>
                     <Segment onChange={handleMaritalStatusChange} value={maritalStatus}>
