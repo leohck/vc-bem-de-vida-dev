@@ -7,7 +7,7 @@ const navigationConfig = [
     {
         key: 'home',
         path: '/home',
-        title: 'Home',
+        title: 'Tela Inicial',
         translateKey: 'nav.home',
         icon: 'home',
         type: NAV_ITEM_TYPE_ITEM,
@@ -17,7 +17,7 @@ const navigationConfig = [
     {
         key: 'auto-conhecimento',
         path: '/auto-conhecimento',
-        title: 'Auto-Conhecimento',
+        title: 'Cadastro',
         translateKey: 'nav.auto_conhecimento',
         icon: 'auto_conhecimento',
         type: NAV_ITEM_TYPE_COLLAPSE,
@@ -33,22 +33,12 @@ const navigationConfig = [
                 authority: [],
                 subMenu: []
             },
-            {
-                key: 'source-incomes',
-                path: '/source-incomes',
-                title: 'Fontes de Renda',
-                translateKey: '',
-                icon: '',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: []
-            },
         ]
     },
     {
         key: 'circulo',
         path: '/circulo',
-        title: 'Circulos da Vida',
+        title: 'Satisfação Pessoal',
         translateKey: '',
         icon: 'auto_conhecimento_cadastro_circulo',
         type: NAV_ITEM_TYPE_COLLAPSE,
@@ -109,7 +99,7 @@ const navigationConfig = [
     {
         key: 'gestao-rotina',
         path: '/gestao-rotina',
-        title: 'Gestão de Rotinas e Recursos',
+        title: 'Mapeamento de Rotina e Recursos',
         translateKey: '',
         icon: 'gestao_rotina',
         type: NAV_ITEM_TYPE_COLLAPSE,
@@ -119,6 +109,16 @@ const navigationConfig = [
                 key: 'gestao-rotina-dashboard',
                 path: '/gestao-rotina/dashboard',
                 title: 'Dashboard',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: []
+            },
+            {
+                key: 'source-incomes',
+                path: '/source-incomes',
+                title: 'Fontes de Renda',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
