@@ -1,27 +1,27 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import axios from 'axios'
 
-const user_info_id = 1;
+const user_info_id = 1
 
 const initialState = {
     loading: false,
     routine_actions: [],
     error: '',
-};
-
+}
 
 export const fetchRoutineActions = createAsyncThunk(
     'userinfo/fetchRoutineActions',
     () => {
         return axios
-            .get(`http://127.0.0.1:8000/user_routine_action/?user_info_id=${user_info_id}`)
-            .then(response => response.data)
+            .get(
+                `http://127.0.0.1:8000/user_routine_action/?user_info_id=${user_info_id}`
+            )
+            .then((response) => response.data)
     }
 )
 
-
 export const routineActionSlice = createSlice({
-    name: "routine_action",
+    name: 'routine_action',
     initialState,
     reducers: {
         addNewAction: (state, action) => {
@@ -29,9 +29,9 @@ export const routineActionSlice = createSlice({
         },
         deleteAction: (state, action) => {
             state.routine_actions = state.routine_actions.filter(
-                el => el.id !== action.payload
+                (el) => el.id !== action.payload
             )
-        }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetchRoutineActions.pending, (state) => {
@@ -47,8 +47,8 @@ export const routineActionSlice = createSlice({
             state.routine_actions = []
             state.errors = action.error.message
         })
-    }
-});
+    },
+})
 
 export const { addNewAction, deleteAction } = routineActionSlice.actions
 

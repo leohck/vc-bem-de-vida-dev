@@ -1,52 +1,52 @@
-import React, { useState } from "react";
-import { Button, Dialog, Select } from "components/ui";
-import { FaPlusSquare } from "react-icons/fa";
-import { aptidoesOptions, conquistasGroupedOptions } from "../../../views/auto-conhecimento/form.options";
-import { postItem } from "../../../services/PersonalService";
-import CreatableSelect from "react-select/creatable";
-import { HiCheck } from "react-icons/hi";
-import { components } from "react-select";
+import React, { useState } from 'react'
+import { Button, Dialog, Select } from 'components/ui'
+import { FaPlusSquare } from 'react-icons/fa'
+import {
+    aptidoesOptions,
+    conquistasGroupedOptions,
+} from '../../../views/auto-conhecimento/form.options'
+import { postItem } from '../../../services/PersonalService'
+import CreatableSelect from 'react-select/creatable'
+import { HiCheck } from 'react-icons/hi'
+import { components } from 'react-select'
 const { MultiValueLabel } = components
 
-const DialogForm = props => {
-    const [dialogIsOpen, setIsOpen] = useState(false);
-    const [newItem, setNewItem] = useState("");
-    const {
-        itemType,
-        itemList,
-        setItemList,
-        itemCount,
-        setItemCount
-    } = props;
-    const user_info_id = 8;
+const DialogForm = (props) => {
+    const [dialogIsOpen, setIsOpen] = useState(false)
+    const [newItem, setNewItem] = useState('')
+    const { itemType, itemList, setItemList, itemCount, setItemCount } = props
+    const user_info_id = 8
     const openDialog = () => {
-        setIsOpen(true);
-    };
+        setIsOpen(true)
+    }
 
     const onDialogClose = (e) => {
-        setIsOpen(false);
-    };
+        setIsOpen(false)
+    }
 
     const onDialogOk = (e) => {
-        setIsOpen(false);
-        addItem(user_info_id, newItem);
-    };
+        setIsOpen(false)
+        addItem(user_info_id, newItem)
+    }
     const addItem = (id, value) => {
         const update = async () => {
             try {
                 console.log(itemType, { user: id, value: value })
-                const resp = await postItem(itemType, { user: id, value: value });
+                const resp = await postItem(itemType, {
+                    user: id,
+                    value: value,
+                })
                 if (resp.data) {
-                    console.log(resp.data);
-                    setItemCount(itemCount + 1);
-                    setItemList([...itemList, resp.data]);
+                    console.log(resp.data)
+                    setItemCount(itemCount + 1)
+                    setItemList([...itemList, resp.data])
                 }
             } catch (errors) {
-                console.log(errors);
+                console.log(errors)
             }
-        };
-        update();
-    };
+        }
+        update()
+    }
 
     // const newoptions1 = aptidoesOptions.filter(ad =>
     //     itemList.every(fd => fd.value !== ad.label)
@@ -97,7 +97,8 @@ const DialogForm = props => {
                 size="xs"
                 variant="twoTone"
                 icon={<FaPlusSquare />}
-                onClick={() => openDialog()} />
+                onClick={() => openDialog()}
+            />
             <Dialog
                 isOpen={dialogIsOpen}
                 onClose={onDialogClose}
@@ -105,39 +106,34 @@ const DialogForm = props => {
             >
                 <h5 className="mb-4">Cadastrar Nova Habilidade</h5>
                 <div>
-                    {
-                        itemType === 'skills' ?
-                            <>
-                                <span>Lista de Habilidades</span>
-                                <Select
-                                    isClearable={false}
-                                    isMulti={false}
-                                    placeholder="Lista de Aptidoes"
-                                    options={aptidoesOptions}
-                                    onChange={({ label }) => setNewItem(label)}
-                                    componentAs={CreatableSelect}
-                                />
-
-                            </>
-                            :
-                            <>
-                                <span>Lista de Conquistas</span>
-                                <Select
-                                    isMulti
-                                    placeholder="Lista de Conquistas"
-                                    options={conquistasGroupedOptions}
-                                    components={{
-                                        Option: CustomSelectOption,
-                                        MultiValueLabel: CustomControlMulti
-                                    }}
-                                    formatGroupLabel={formatGroupLabel}
-                                    className="mb-4"
-                                />
-                            </>
-
-                    }
-
-
+                    {itemType === 'skills' ? (
+                        <>
+                            <span>Lista de Habilidades</span>
+                            <Select
+                                isClearable={false}
+                                isMulti={false}
+                                placeholder="Lista de Aptidoes"
+                                options={aptidoesOptions}
+                                onChange={({ label }) => setNewItem(label)}
+                                componentAs={CreatableSelect}
+                            />
+                        </>
+                    ) : (
+                        <>
+                            <span>Lista de Conquistas</span>
+                            <Select
+                                isMulti
+                                placeholder="Lista de Conquistas"
+                                options={conquistasGroupedOptions}
+                                components={{
+                                    Option: CustomSelectOption,
+                                    MultiValueLabel: CustomControlMulti,
+                                }}
+                                formatGroupLabel={formatGroupLabel}
+                                className="mb-4"
+                            />
+                        </>
+                    )}
                 </div>
                 <div className="text-right mt-6">
                     <Button
@@ -153,8 +149,7 @@ const DialogForm = props => {
                 </div>
             </Dialog>
         </div>
-    );
-};
+    )
+}
 
-export default DialogForm;
-
+export default DialogForm

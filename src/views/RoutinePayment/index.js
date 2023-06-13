@@ -1,11 +1,11 @@
-import React from "react";
-import RoutinePaymentList from "./RoutinePaymentList";
+import React from 'react'
+import RoutinePaymentList from './RoutinePaymentList'
 
 const RoutinePayment = () => {
     return (
         <div>
-            <RoutinePaymentList/>
+            <RoutinePaymentList />
         </div>
-    );
-};
-export default RoutinePayment;
+    )
+}
+export default RoutinePayment

@@ -1,32 +1,32 @@
-import React from "react";
-import { Avatar, Dropdown } from "components/ui";
-import withHeaderItem from "utils/hoc/withHeaderItem";
-import useAuth from "utils/hooks/useAuth";
+import React from 'react'
+import { Avatar, Dropdown } from 'components/ui'
+import withHeaderItem from 'utils/hoc/withHeaderItem'
+import useAuth from 'utils/hooks/useAuth'
 // import { useSelector } from 'react-redux'
-import { Link } from "react-router-dom";
-import classNames from "classnames";
-import { HiOutlineUser, HiOutlineLogout } from "react-icons/hi";
-import { CiSettings } from "react-icons/ci";
-import { setCurrentRouteKey } from "../../store/base/commonSlice";
-import { useDispatch } from "react-redux";
+import { Link } from 'react-router-dom'
+import classNames from 'classnames'
+import { HiOutlineUser, HiOutlineLogout } from 'react-icons/hi'
+import { CiSettings } from 'react-icons/ci'
+import { setCurrentRouteKey } from '../../store/base/commonSlice'
+import { useDispatch } from 'react-redux'
 
-const dropdownItemList = [];
+const dropdownItemList = []
 
 export const UserDropdown = ({ className }) => {
     // bind this
     // const userInfo = useSelector((state) => state.auth.userinfo)
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
 
-    const { signOut } = useAuth();
+    const { signOut } = useAuth()
     const UserAvatar = (
-        <div className={classNames(className, "flex items-center gap-2")}>
+        <div className={classNames(className, 'flex items-center gap-2')}>
             <Avatar size={32} shape="circle" icon={<HiOutlineUser />} />
             <div className="hidden md:block">
                 <div className="text-xs capitalize">admin</div>
                 <div className="font-bold">User01</div>
             </div>
         </div>
-    );
+    )
 
     return (
         <div>
@@ -68,20 +68,23 @@ export const UserDropdown = ({ className }) => {
 
                 <Dropdown.Item
                     onClick={() => {
-                        dispatch(setCurrentRouteKey("auto-conhecimento-cadastro"));
+                        dispatch(
+                            setCurrentRouteKey('auto-conhecimento-cadastro')
+                        )
                     }}
                     eventKey="auto-conhecimento-cadastro"
                     className="gap-2"
                 >
-                    <Link className="flex gap-2 items-center"
-                          to='/conhecimento/cadastro'>
+                    <Link
+                        className="flex gap-2 items-center"
+                        to="/conhecimento/cadastro"
+                    >
                         <span className="text-xl opacity-50">
                             <CiSettings />
                         </span>
                         <span>Cadastro</span>
                     </Link>
                 </Dropdown.Item>
-
 
                 <Dropdown.Item variant="divider" />
 
@@ -97,7 +100,7 @@ export const UserDropdown = ({ className }) => {
                 </Dropdown.Item>
             </Dropdown>
         </div>
-    );
-};
+    )
+}
 
-export default withHeaderItem(UserDropdown);
+export default withHeaderItem(UserDropdown)

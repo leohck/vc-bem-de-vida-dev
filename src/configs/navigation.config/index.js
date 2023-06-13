@@ -1,6 +1,6 @@
 import {
     NAV_ITEM_TYPE_ITEM,
-    NAV_ITEM_TYPE_COLLAPSE
+    NAV_ITEM_TYPE_COLLAPSE,
 } from 'constants/navigation.constant'
 
 const navigationConfig = [
@@ -31,9 +31,9 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
-        ]
+        ],
     },
     {
         key: 'circulo',
@@ -52,7 +52,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'circulo-fisica',
@@ -62,7 +62,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'circulo-profissional',
@@ -72,7 +72,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'circulo-mental',
@@ -82,7 +82,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'circulo-financeira',
@@ -92,9 +92,9 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
-            }
-        ]
+                subMenu: [],
+            },
+        ],
     },
     {
         key: 'gestao-rotina',
@@ -113,7 +113,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'source-incomes',
@@ -123,7 +123,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'routine-actions',
@@ -133,7 +133,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'routine-payments',
@@ -143,7 +143,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'gestao-rotina-form-rotina',
@@ -153,7 +153,7 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
+                subMenu: [],
             },
             {
                 key: 'gestao-rotina-form-pagamento',
@@ -163,9 +163,9 @@ const navigationConfig = [
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
-                subMenu: []
-            }
-        ]
+                subMenu: [],
+            },
+        ],
     },
 ]
 

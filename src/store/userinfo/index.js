@@ -10,7 +10,7 @@ const reducer = combineReducers({
     userSkillState: skills,
     routinePaymentSlice: routine_payment,
     routineActionSlice: routine_action,
-    sourceIncomeSlice: source_income
+    sourceIncomeSlice: source_income,
 })
 
-export default reducer;
+export default reducer

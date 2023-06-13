@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Dialog } from 'components/ui'
-import { FaPlusSquare } from "react-icons/fa";
+import { FaPlusSquare } from 'react-icons/fa'
 
 const SkillCardForm = () => {
     const [dialogIsOpen, setIsOpen] = useState(false)
@@ -50,4 +50,3 @@ const SkillCardForm = () => {
 }
 
 export default SkillCardForm
-

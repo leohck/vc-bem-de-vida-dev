@@ -1,40 +1,43 @@
-import React from "react";
-import { SegmentItemOption } from "components/shared";
-import { Segment } from "components/ui";
+import React from 'react'
+import { SegmentItemOption } from 'components/shared'
+import { Segment } from 'components/ui'
 
-import { GiHealthNormal } from "react-icons/gi";
-import { RiMentalHealthFill, RiCoinsLine } from "react-icons/ri";
-import { MdGroups } from "react-icons/md";
-import { FaHandshake } from "react-icons/fa";
+import { GiHealthNormal } from 'react-icons/gi'
+import { RiMentalHealthFill, RiCoinsLine } from 'react-icons/ri'
+import { MdGroups } from 'react-icons/md'
+import { FaHandshake } from 'react-icons/fa'
 
 const life_aspect_options = [
     {
-        label: "Saúde Física", value: "Saude Fisica",
-        icon: <GiHealthNormal />
+        label: 'Saúde Física',
+        value: 'Saude Fisica',
+        icon: <GiHealthNormal />,
     },
     {
-        label: "Saúde Mental", value: "Saude Mental",
-        icon: <RiMentalHealthFill />
+        label: 'Saúde Mental',
+        value: 'Saude Mental',
+        icon: <RiMentalHealthFill />,
     },
     {
-        label: "Vida Social", value: "Vida Social",
-        icon: <MdGroups />
+        label: 'Vida Social',
+        value: 'Vida Social',
+        icon: <MdGroups />,
     },
     {
-        label: "Vida Profissional", value: "Vida Profissional",
-        icon: <FaHandshake />
+        label: 'Vida Profissional',
+        value: 'Vida Profissional',
+        icon: <FaHandshake />,
     },
     {
-        label: "Gestão Financeira", value: "Gestao Financeira",
-        icon: <RiCoinsLine />
-    }
-];
+        label: 'Gestão Financeira',
+        value: 'Gestao Financeira',
+        icon: <RiCoinsLine />,
+    },
+]
 
 const LifeAspectSegment = ({ value, onChange }) => {
     return (
-        <Segment value={value}
-                 selectionType="multiple"
-                 onChange={onChange}>
+        <Segment value={value} selectionType="multiple" onChange={onChange}>
             <div className="flex flex-col xl:flex-row items-center gap-4">
                 {life_aspect_options.map((item) => (
                     <Segment.Item
@@ -59,14 +62,13 @@ const LifeAspectSegment = ({ value, onChange }) => {
                                         <h6>{item.label}</h6>
                                     </div>
                                 </SegmentItemOption>
-                            );
+                            )
                         }}
                     </Segment.Item>
                 ))}
             </div>
         </Segment>
-    );
-};
+    )
+}
 
-export default LifeAspectSegment;
-
+export default LifeAspectSegment

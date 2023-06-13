@@ -18,19 +18,17 @@ const DefaultOption = ({
     selectProps,
     isSelected,
     isDisabled,
-    isFocused
+    isFocused,
 }) => {
     const { themeColor } = selectProps
     return (
         <div
-            className={
-                classNames(
-                    'select-option', 
-                    isSelected && 'selected', 
-                    isDisabled && 'disabled',
-                    isFocused && 'focused'
-                )
-            }
+            className={classNames(
+                'select-option',
+                isSelected && 'selected',
+                isDisabled && 'disabled',
+                isFocused && 'focused'
+            )}
             {...innerProps}
         >
             <span className="ml-2">{label}</span>
@@ -167,7 +165,7 @@ const Select = React.forwardRef((props, ref) => {
                             ? twColor.gray['600']
                             : twColor.gray['300'],
                     neutral80: twColor.gray['700'],
-                    neutral10: 
+                    neutral10:
                         mode === 'dark'
                             ? twColor.gray['600']
                             : twColor.gray['300'],

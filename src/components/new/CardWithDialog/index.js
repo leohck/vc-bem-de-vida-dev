@@ -1,17 +1,11 @@
-import React from "react";
-import { Card } from "components/ui";
-import DialogForm from "../Skills/DialogForm";
-import DialogList from "../Skills/DialogList";
+import React from 'react'
+import { Card } from 'components/ui'
+import DialogForm from '../Skills/DialogForm'
+import DialogList from '../Skills/DialogList'
 
-const CardWithDialog = props => {
-    const {
-        title,
-        itemType,
-        itemList,
-        setItemList,
-        itemCount,
-        setItemCount
-    } = props;
+const CardWithDialog = (props) => {
+    const { title, itemType, itemList, setItemList, itemCount, setItemCount } =
+        props
 
     return (
         <div>
@@ -43,7 +37,7 @@ const CardWithDialog = props => {
                 </div>
             </Card>
         </div>
-    );
-};
+    )
+}
 
-export default CardWithDialog;
+export default CardWithDialog

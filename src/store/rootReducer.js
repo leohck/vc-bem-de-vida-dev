@@ -2,7 +2,7 @@ import { combineReducers } from 'redux'
 import theme from './theme/themeSlice'
 import auth from './auth'
 import base from './base'
-import userinfo from "./userinfo";
+import userinfo from './userinfo'
 import locale from './locale/localeSlice'
 
 const rootReducer = (asyncReducers) => (state, action) => {

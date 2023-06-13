@@ -1,10 +1,9 @@
-import React, { useCallback, useState } from "react";
-import { Radio, Segment } from "../../../components/ui";
-import { Chart } from "../../../components/shared";
-
+import React, { useCallback, useState } from 'react'
+import { Radio, Segment } from '../../../components/ui'
+import { Chart } from '../../../components/shared'
 
 const CostBenefitChart = () => {
-    const [lifeAspect, setLifeAspect] = useState('Saude Fisica');
+    const [lifeAspect, setLifeAspect] = useState('Saude Fisica')
 
     const handleFormInput = useCallback(
         (val) => {
@@ -32,15 +31,23 @@ const CostBenefitChart = () => {
         <div className="flex flex-col justify-items-center">
             <div>
                 <Segment
-                    size='sm'
+                    size="sm"
                     value={lifeAspect}
                     onChange={(val) => handleFormInput(val)}
                 >
-                    <Segment.Item value="Saude Fisica">Saude Fisica</Segment.Item>
-                    <Segment.Item value="Saude Mental">Saude Mental</Segment.Item>
+                    <Segment.Item value="Saude Fisica">
+                        Saude Fisica
+                    </Segment.Item>
+                    <Segment.Item value="Saude Mental">
+                        Saude Mental
+                    </Segment.Item>
                     <Segment.Item value="Vida Social">Vida Social</Segment.Item>
-                    <Segment.Item value="Vida Profissional">Vida Profissional</Segment.Item>
-                    <Segment.Item value="Gestao Financeira">Gestao Financeira</Segment.Item>
+                    <Segment.Item value="Vida Profissional">
+                        Vida Profissional
+                    </Segment.Item>
+                    <Segment.Item value="Gestao Financeira">
+                        Gestao Financeira
+                    </Segment.Item>
                 </Segment>
             </div>
             <div>
@@ -53,7 +60,7 @@ const CostBenefitChart = () => {
                                 endingShape: 'rounded',
                             },
                         },
-                        colors: ["#16a34a", "#2563eb", "#f59e0b"],
+                        colors: ['#16a34a', '#2563eb', '#f59e0b'],
                         dataLabels: {
                             enabled: false,
                         },
@@ -63,9 +70,7 @@ const CostBenefitChart = () => {
                             colors: ['transparent'],
                         },
                         xaxis: {
-                            categories: [
-                                lifeAspect
-                            ],
+                            categories: [lifeAspect],
                         },
                         fill: {
                             opacity: 1,
@@ -82,7 +87,7 @@ const CostBenefitChart = () => {
                 />
             </div>
         </div>
-    );
-};
+    )
+}
 
-export default CostBenefitChart;
+export default CostBenefitChart

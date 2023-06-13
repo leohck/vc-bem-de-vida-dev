@@ -1,5 +1,4 @@
 export default function growShrinkColor(value, type, gray, reverse) {
-
     if (gray) {
         return type === 'bg'
             ? 'bg-gray-100 dark:bg-gray-500/20 dark:text-gray-100'

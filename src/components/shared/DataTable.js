@@ -1,4 +1,11 @@
-import React, { forwardRef, useMemo, useRef, useEffect, useState, useImperativeHandle } from 'react'
+import React, {
+    forwardRef,
+    useMemo,
+    useRef,
+    useEffect,
+    useState,
+    useImperativeHandle,
+} from 'react'
 import classNames from 'classnames'
 import PropTypes from 'prop-types'
 import { Table, Pagination, Select, Checkbox, Alert } from 'components/ui'
@@ -15,9 +22,14 @@ import {
 
 const { Tr, Th, Td, THead, TBody, Sorter } = Table
 
-const IndeterminateCheckbox = ((props) => {
-
-    const { indeterminate, onChange, onCheckBoxChange, onIndeterminateCheckBoxChange, ...rest } = props
+const IndeterminateCheckbox = (props) => {
+    const {
+        indeterminate,
+        onChange,
+        onCheckBoxChange,
+        onIndeterminateCheckBoxChange,
+        ...rest
+    } = props
 
     const ref = useRef(null)
 
@@ -34,8 +46,15 @@ const IndeterminateCheckbox = ((props) => {
         onIndeterminateCheckBoxChange?.(e)
     }
 
-    return <Checkbox className="mb-0" ref={ref} onChange={(_, e) => handleChange(e)} {...rest} />
-})
+    return (
+        <Checkbox
+            className="mb-0"
+            ref={ref}
+            onChange={(_, e) => handleChange(e)}
+            {...rest}
+        />
+    )
+}
 
 const DataTable = forwardRef((props, ref) => {
     const {
@@ -93,17 +112,19 @@ const DataTable = forwardRef((props, ref) => {
 
     useEffect(() => {
         if (Array.isArray(sorting)) {
-            const sortOrder =  sorting.length > 0 ? sorting[0].desc ?  'desc' : 'asc' : ''
+            const sortOrder =
+                sorting.length > 0 ? (sorting[0].desc ? 'desc' : 'asc') : ''
             const id = sorting.length > 0 ? sorting[0].id : ''
             onSort?.({ order: sortOrder, key: id })
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sorting])
 
-    const hasOldColumnMetaKey = columnsProp.some(col => col.Header || col.accessor || col.Cell)
+    const hasOldColumnMetaKey = columnsProp.some(
+        (col) => col.Header || col.accessor || col.Cell
+    )
 
     const finalColumns = useMemo(() => {
-
         const columns = columnsProp
 
         if (selectable) {
@@ -138,7 +159,7 @@ const DataTable = forwardRef((props, ref) => {
                         />
                     ),
                 },
-                ...columns
+                ...columns,
             ]
         }
         return columns
@@ -162,28 +183,26 @@ const DataTable = forwardRef((props, ref) => {
 
     const resetSorting = () => {
         table.resetSorting()
-    };
+    }
 
     const resetSelected = () => {
-        table.toggleAllRowsSelected(false);
+        table.toggleAllRowsSelected(false)
     }
 
     useImperativeHandle(ref, () => ({
         resetSorting,
-        resetSelected
-    }));
-    
-    if (hasOldColumnMetaKey) {
+        resetSelected,
+    }))
 
-        const message = 'You are using old react-table v7 column config, please use v8 column config instead, refer to our demo or https://tanstack.com/table/v8'
-        
+    if (hasOldColumnMetaKey) {
+        const message =
+            'You are using old react-table v7 column config, please use v8 column config instead, refer to our demo or https://tanstack.com/table/v8'
+
         if (process.env.NODE_ENV === 'development') {
             console.warn(message)
         }
-        
-        return (
-            <Alert>{message}</Alert>
-        )
+
+        return <Alert>{message}</Alert>
     }
 
     return (
@@ -200,12 +219,12 @@ const DataTable = forwardRef((props, ref) => {
                                     >
                                         {header.isPlaceholder ? null : (
                                             <div
-                                                className={
-                                                    classNames(
-                                                        header.column.getCanSort() && 'cursor-pointer select-none point',
-                                                        loading && 'pointer-events-none'
-                                                    )
-                                                }
+                                                className={classNames(
+                                                    header.column.getCanSort() &&
+                                                        'cursor-pointer select-none point',
+                                                    loading &&
+                                                        'pointer-events-none'
+                                                )}
                                                 onClick={header.column.getToggleSortingHandler()}
                                             >
                                                 {flexRender(
@@ -213,7 +232,11 @@ const DataTable = forwardRef((props, ref) => {
                                                         .header,
                                                     header.getContext()
                                                 )}
-                                                {header.column.getCanSort() && <Sorter sort={header.column.getIsSorted()} />}
+                                                {header.column.getCanSort() && (
+                                                    <Sorter
+                                                        sort={header.column.getIsSorted()}
+                                                    />
+                                                )}
                                             </div>
                                         )}
                                     </Th>
@@ -241,7 +264,8 @@ const DataTable = forwardRef((props, ref) => {
                                             return (
                                                 <Td key={cell.id}>
                                                     {flexRender(
-                                                        cell.column.columnDef.cell,
+                                                        cell.column.columnDef
+                                                            .cell,
                                                         cell.getContext()
                                                     )}
                                                 </Td>

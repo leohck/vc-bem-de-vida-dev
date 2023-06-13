@@ -1,19 +1,14 @@
-import React  from "react";
-import { Chart } from "../../../components/shared";
-
+import React from 'react'
+import { Chart } from '../../../components/shared'
 
 const ActionResourceChart = (props) => {
-    const {
-        data,
-        categories,
-        color
-    } = props;
+    const { data, categories, color } = props
     const data1 = [
         {
-            name: "Custo",
-            data: data
-        }
-    ];
+            name: 'Custo',
+            data: data,
+        },
+    ]
     return (
         <Chart
             series={data1}
@@ -23,12 +18,12 @@ const ActionResourceChart = (props) => {
                 plotOptions: {
                     bar: {
                         horizontal: true,
-                        columnWidth: "50%",
-                        endingShape: "rounded",
+                        columnWidth: '50%',
+                        endingShape: 'rounded',
                         dataLabels: {
-                            position: "top"
-                        }
-                    }
+                            position: 'top',
+                        },
+                    },
                 },
                 colors: [color],
                 dataLabels: {
@@ -36,15 +31,15 @@ const ActionResourceChart = (props) => {
                     offsetX: -6,
                     style: {
                         fontSize: '20px',
-                        colors: ['#fff']
-                    }
+                        colors: ['#fff'],
+                    },
                 },
                 xaxis: {
-                    categories: categories
-                }
+                    categories: categories,
+                },
             }}
         />
-    );
-};
+    )
+}
 
-export default ActionResourceChart;
+export default ActionResourceChart

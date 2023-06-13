@@ -37,7 +37,7 @@ const BasePicker = forwardRef((props, ref) => {
         onClear,
         disabled,
         type,
-        placement="bottom-start",
+        placement = 'bottom-start',
     } = props
 
     const handleInputClick = () => {

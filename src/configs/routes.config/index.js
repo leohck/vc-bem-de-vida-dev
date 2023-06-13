@@ -7,7 +7,9 @@ export const protectedRoutes = [
     {
         key: 'home',
         path: '/home',
-        component: React.lazy(() => import('views/auto-conhecimento/Dashboard')),
+        component: React.lazy(() =>
+            import('views/auto-conhecimento/Dashboard')
+        ),
         authority: [],
     },
     {
@@ -37,31 +39,41 @@ export const protectedRoutes = [
     {
         key: 'circulo-social',
         path: '/circulo/social',
-        component: React.lazy(() => import('views/auto-conhecimento/circulo/VidaSocial')),
+        component: React.lazy(() =>
+            import('views/auto-conhecimento/circulo/VidaSocial')
+        ),
         authority: [],
     },
     {
         key: 'circulo-fisica',
         path: '/circulo/fisica',
-        component: React.lazy(() => import('views/auto-conhecimento/circulo/SaudeFisica')),
+        component: React.lazy(() =>
+            import('views/auto-conhecimento/circulo/SaudeFisica')
+        ),
         authority: [],
     },
     {
         key: 'circulo-profissional',
         path: '/circulo/profissional',
-        component: React.lazy(() => import('views/auto-conhecimento/circulo/VidaProfissional')),
+        component: React.lazy(() =>
+            import('views/auto-conhecimento/circulo/VidaProfissional')
+        ),
         authority: [],
     },
     {
         key: 'circulo-mental',
         path: '/circulo/mental',
-        component: React.lazy(() => import('views/auto-conhecimento/circulo/SaudeMental')),
+        component: React.lazy(() =>
+            import('views/auto-conhecimento/circulo/SaudeMental')
+        ),
         authority: [],
     },
     {
         key: 'circulo-financeira',
         path: '/circulo/financeira',
-        component: React.lazy(() => import('views/auto-conhecimento/circulo/GestaoFinanceira')),
+        component: React.lazy(() =>
+            import('views/auto-conhecimento/circulo/GestaoFinanceira')
+        ),
         authority: [],
     },
     {
@@ -73,13 +85,17 @@ export const protectedRoutes = [
     {
         key: 'gestao-rotina-form-rotina',
         path: '/formulario/rotina',
-        component: React.lazy(() => import('views/gestao-rotina/formulario-rotina/index')),
+        component: React.lazy(() =>
+            import('views/gestao-rotina/formulario-rotina/index')
+        ),
         authority: [],
     },
     {
         key: 'gestao-rotina-form-pagamento',
         path: '/formulario/pagamento',
-        component: React.lazy(() => import('views/gestao-rotina/formulario-pagamento-rotina')),
+        component: React.lazy(() =>
+            import('views/gestao-rotina/formulario-pagamento-rotina')
+        ),
         authority: [],
     },
     {

@@ -1,60 +1,60 @@
-import React, { useEffect, useRef } from "react";
-import { Button, Card, Table } from "../../components/ui";
-import { MdDeleteForever } from "react-icons/md";
-import { AiOutlineEdit } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useRef } from 'react'
+import { Button, Card, Table } from '../../components/ui'
+import { MdDeleteForever } from 'react-icons/md'
+import { AiOutlineEdit } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux'
 import {
     fetchRoutinePayments,
-    deletePayment
-} from "../../store/userinfo/routinePaymentSlice";
-import { RoutinePaymentDelete } from "../../services/PersonalService";
-import {useNavigate} from "react-router-dom";
+    deletePayment,
+} from '../../store/userinfo/routinePaymentSlice'
+import { RoutinePaymentDelete } from '../../services/PersonalService'
+import { useNavigate } from 'react-router-dom'
 
-
-const { Tr, Td, THead, TBody } = Table;
-
+const { Tr, Td, THead, TBody } = Table
 
 const RoutinePaymentList = () => {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const routine_payments_loaded = useRef(false);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const routine_payments_loaded = useRef(false)
     const routine_payments = useSelector(
-        state => state.userinfo.routinePaymentSlice
-    );
+        (state) => state.userinfo.routinePaymentSlice
+    )
 
     useEffect(() => {
         if (!routine_payments_loaded.current) {
-            dispatch(fetchRoutinePayments());
-            routine_payments_loaded.current = true;
+            dispatch(fetchRoutinePayments())
+            routine_payments_loaded.current = true
         }
-    }, []);
+    }, [])
 
     const delRoutinePayment = (id) => {
         const del = async () => {
             try {
-                const resp = await RoutinePaymentDelete(id);
+                const resp = await RoutinePaymentDelete(id)
                 if (resp.status === 204) {
-                    dispatch(deletePayment(id));
-                    alert("Sucesso");
+                    dispatch(deletePayment(id))
+                    alert('Sucesso')
                 }
             } catch (errors) {
-                console.log(errors);
+                console.log(errors)
             }
-        };
-        del();
-    };
-
+        }
+        del()
+    }
 
     const handleEditPayment = (id) => {
-        navigate("/formulario/pagamento", {replace: true, state: {itemID: id}})
+        navigate('/formulario/pagamento', {
+            replace: true,
+            state: { itemID: id },
+        })
     }
     const ItemRow = ({ item }) => {
         return (
-            <Tr key={item.id} style={{ textAlign: "center" }}>
+            <Tr key={item.id} style={{ textAlign: 'center' }}>
                 <Td>{item.value}</Td>
                 <Td>{item.life_aspect}</Td>
                 <Td>R${item.monthly_amount_investing}</Td>
-                <Td>{item.payment_generate_money ? "SIM" : "NÃO"}</Td>
+                <Td>{item.payment_generate_money ? 'SIM' : 'NÃO'}</Td>
                 <Td>
                     <div className="flex flex-row gap-4 justify-center">
                         <Button
@@ -72,21 +72,24 @@ const RoutinePaymentList = () => {
                             size="sm"
                             variant="twoTone"
                             icon={<AiOutlineEdit />}
-                            onClick={() => {handleEditPayment(item.id)}}
+                            onClick={() => {
+                                handleEditPayment(item.id)
+                            }}
                         />
                     </div>
                 </Td>
             </Tr>
-        );
-    };
+        )
+    }
 
     const headerExtraContent = (
         <span className="flex items-center">
-            <Button className="mr-2"
-                    variant="twoTone"
-                    onClick={() => {
-                        navigate("/formulario/pagamento", {replace: true})
-                    }}
+            <Button
+                className="mr-2"
+                variant="twoTone"
+                onClick={() => {
+                    navigate('/formulario/pagamento', { replace: true })
+                }}
             >
                 <span>Novo Pagamento</span>
             </Button>
@@ -94,29 +97,41 @@ const RoutinePaymentList = () => {
     )
 
     return (
-        <Card header="Meus Pagamentos de Rotina"
-              headerExtra={headerExtraContent}>
+        <Card
+            header="Meus Pagamentos de Rotina"
+            headerExtra={headerExtraContent}
+        >
             <Table>
-                <THead style={{ textAlign: "center" }}>
+                <THead style={{ textAlign: 'center' }}>
                     <Tr>
-                        <Td><h6>Pagamento</h6></Td>
-                        <Td><h6>Aspectos de Vida</h6></Td>
-                        <Td><h6>Valor</h6></Td>
-                        <Td><h6>Gera Dinheiro?</h6></Td>
-                        <Td><h6>Ações</h6></Td>
+                        <Td>
+                            <h6>Pagamento</h6>
+                        </Td>
+                        <Td>
+                            <h6>Aspectos de Vida</h6>
+                        </Td>
+                        <Td>
+                            <h6>Valor</h6>
+                        </Td>
+                        <Td>
+                            <h6>Gera Dinheiro?</h6>
+                        </Td>
+                        <Td>
+                            <h6>Ações</h6>
+                        </Td>
                     </Tr>
                 </THead>
                 <TBody>
-                    {!routine_payments.loading && routine_payments.routine_payments
-                        ? routine_payments.routine_payments.map((item) =>
-                            <ItemRow item={item} />
-                        )
-                        : null
-                    }
+                    {!routine_payments.loading &&
+                    routine_payments.routine_payments
+                        ? routine_payments.routine_payments.map((item) => (
+                              <ItemRow item={item} />
+                          ))
+                        : null}
                 </TBody>
             </Table>
         </Card>
-    );
-};
+    )
+}
 
-export default RoutinePaymentList;
+export default RoutinePaymentList

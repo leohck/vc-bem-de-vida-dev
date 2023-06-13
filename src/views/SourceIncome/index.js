@@ -3,13 +3,12 @@ import SourceIncomeForm from './SourceIncomeForm'
 import SourceIncomeList from './SourceIncomeList'
 
 const SourceIncome = () => {
-    const [itemID, setItemID] = useState(null);
-    const [formTitle, setFormTitle] = useState('Cadastrar');
-
+    const [itemID, setItemID] = useState(null)
+    const [formTitle, setFormTitle] = useState('Cadastrar')
 
     const handleItemIDChange = (value) => {
-        setItemID(value);
-        setFormTitle('Alterar');
+        setItemID(value)
+        setFormTitle('Alterar')
     }
 
     return (
@@ -21,9 +20,9 @@ const SourceIncome = () => {
                 formTitle={formTitle}
                 setFormTitle={setFormTitle}
             />
-            <SourceIncomeList user_info_id={1} setItemID={handleItemIDChange}/>
+            <SourceIncomeList user_info_id={1} setItemID={handleItemIDChange} />
         </div>
     )
 }
 
-export default SourceIncome;
+export default SourceIncome
