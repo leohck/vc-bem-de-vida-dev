@@ -43,6 +43,7 @@ const WeeklyRoutineChart = (props) => {
                     },
                     plotOptions: {
                         bar: {
+                            borderRadius: 4,
                             horizontal: false,
                             columnWidth: "65%",
                             endingShape: "rounded",
