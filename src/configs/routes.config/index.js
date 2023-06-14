@@ -19,8 +19,8 @@ export const protectedRoutes = [
         authority: [],
     },
     {
-        key: 'auto-conhecimento-cadastro',
-        path: '/conhecimento/cadastro',
+        key: 'user-info',
+        path: '/userinfo',
         component: React.lazy(() => import('views/auto-conhecimento/Cadastro')),
         authority: [],
     },

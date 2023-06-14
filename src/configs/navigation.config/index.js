@@ -24,9 +24,9 @@ const navigationConfig = [
         authority: [],
         subMenu: [
             {
-                key: 'dashboard',
-                path: '/dashboard',
-                title: 'Dashboard',
+                key: 'user-info',
+                path: '/userinfo',
+                title: 'Informações',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
