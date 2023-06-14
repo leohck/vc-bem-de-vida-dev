@@ -56,13 +56,16 @@ const Cadastro = () => {
     }
 
     const handleFormSubmit = () => {
+
         const data = {
             id: user_info_id,
             name: name,
-            birthdate: birthdate.toISOString().split('T')[0],
+            birthdate: birthdate,
             marital_status: maritalStatus[0],
         }
-        console.log(data);
+        if (typeof birthdate !== "string") {
+            data.birthdate = birthdate.toISOString().split('T')[0]
+        }
         saveUserInfo(data)
     }
 
@@ -105,6 +108,7 @@ const Cadastro = () => {
                 <div className="flex flex-row items-center max-w-[400px]">
                     <p className="font-bold text-lg mr-6">Data de Nascimento: </p>
                     <DatePicker
+                        inputtable
                         value={birthdate}
                         onChange={setBirthdate}
                         locale={dayjs.locale('pt-br')}
