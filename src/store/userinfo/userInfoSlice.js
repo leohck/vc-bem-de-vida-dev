@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { getUserInfo } from "../../services/UserInfoService";
 
 const user_info_id = 1
 
@@ -9,10 +9,9 @@ const initialState = {
     error: '',
 }
 
-export const fetchUserInfo = createAsyncThunk('userinfo/fetchUserInfo', () => {
-    return axios
-        .get(`http://127.0.0.1:8000/user_info/${user_info_id}`)
-        .then((response) => response.data)
+export const fetchUserInfo = createAsyncThunk('userinfo/fetchUserInfo', async () => {
+    const response = await getUserInfo(user_info_id)
+    return response.data
 })
 
 export const userInfoSlice = createSlice({

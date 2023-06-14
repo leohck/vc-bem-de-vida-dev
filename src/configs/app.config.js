@@ -1,5 +1,5 @@
 const appConfig = {
-    apiPrefix: '/api',
+    apiPrefix: 'https://vcbemdevida-back.herokuapp.com/',
     authenticatedEntryPath: '/home',
     unAuthenticatedEntryPath: '/sign-in',
     tourPath: '/',

@@ -2,7 +2,7 @@
   "name": "vc-bem-de-vida",
   "version": "1.0.0",
   "private": true,
-  "proxy": "http://127.0.0.1:8000",
+  "proxy": "https://vcbemdevida-back.herokuapp.com",
   "dependencies": {
     "@fullcalendar/daygrid": "^5.10.1",
     "@fullcalendar/interaction": "^5.10.1",
