@@ -4,29 +4,19 @@ import {
     getAspectTitleQuestions,
     updateAspectRating,
 } from '../../../services/PersonalService'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchUserInfo } from '../../../store/userinfo/userInfoSlice'
 import { Button, Card } from '../../ui'
+import store from "../../../store";
 
 const Circulo = ({ title, icon }) => {
-    const dispatch = useDispatch()
-    const userInfoLoaded = useRef(false)
-    const user_info = useSelector((state) => state.userinfo.userInfoState)
     const [user_info_id, setUserInfoID] = useState(null)
 
     const [questions, setQuestionsValue] = useState([])
 
     useEffect(() => {
-        if (!userInfoLoaded.current) {
-            dispatch(fetchUserInfo())
-        }
-        if (!user_info.loading && user_info.currentUser) {
-            setUserInfoID(user_info.currentUser.id)
-            return () => {
-                userInfoLoaded.current = true
-            }
-        }
-    }, [user_info])
+        const {auth} = store.getState()
+        const user_info_id = auth.user.user_info_id
+        setUserInfoID(user_info_id)
+    }, [])
 
     useEffect(() => {
         const fetchQuestions = async () => {

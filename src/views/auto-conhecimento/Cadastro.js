@@ -13,7 +13,7 @@ const Cadastro = () => {
     const user_info = useSelector((state) => state.userinfo.userInfoState)
     const [user_info_id, setUserInfoID] = useState(null)
     const [maritalStatus, setMaritalStatus] = useState([])
-    const [age, setAge] = useState()
+    const [birthdate, setBirthdate] = useState()
     const [name, setName] = useState()
 
 
@@ -26,7 +26,7 @@ const Cadastro = () => {
         if (!user_info.loading && user_info.currentUser) {
             setUserInfoID(user_info.currentUser.id)
             setName(user_info.currentUser.name)
-            setAge(user_info.currentUser.age)
+            setBirthdate(user_info.currentUser.birthdate)
             setMaritalStatus([user_info.currentUser.marital_status])
 
             return () => {
@@ -50,10 +50,12 @@ const Cadastro = () => {
     }
 
     const handleFormSubmit = () => {
+        console.log(birthdate.toISOString().split('T'));
+
         const data = {
             id: user_info_id,
             name: name,
-            age: age,
+            birthdate: birthdate.toLocaleString(),
             marital_status: maritalStatus[0],
         }
         saveUserInfo(data)
@@ -95,26 +97,22 @@ const Cadastro = () => {
                         }}
                     />
                 </div>
-                <div className="flex flex-row items-center max-w-[200px]">
-                    <p className="font-bold text-lg">Idade: </p>
-                    <Input
-                        className="max-w-sm ml-16"
-                        name="age"
-                        type="number"
-                        value={age}
-                        onChange={(e) => {
-                            setAge(e.target.value)
-                        }}
+                <div className="flex flex-row items-center max-w-[400px]">
+                    <p className="font-bold text-lg mr-6">Data de Nascimento: </p>
+                    <DatePicker
+                        value={birthdate}
+                        onChange={setBirthdate}
+                        inputtable
+                        locale="ko"
+                        inputFormat="YYYY/MMMM/DD"
+                        labelFormat="DD/MMMM/YYYY"
+                        Format
+                        placeholder="Data de Nascimento"
                     />
                 </div>
 
                 <div className="max-w-[200px]">
-                    <DatePicker
-                        inputtable
-                        locale="ko"
-                        inputFormat="DD/MMMM/YYYY"
-                        placeholder="Data de Nascimento"
-                    />
+
                 </div>
 
                 <div className="flex flex-col justify-items-center">
