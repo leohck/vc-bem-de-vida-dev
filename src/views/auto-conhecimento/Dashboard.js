@@ -16,8 +16,7 @@ import {
     getSkills,
 } from '../../services/PersonalService'
 import { CardWithDialog } from '../../components/new'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchUserInfo } from '../../store/userinfo/userInfoSlice'
+import store from "../../store";
 
 function hex_color_switch(value) {
     switch (value) {
@@ -39,9 +38,6 @@ function hex_color_switch(value) {
 }
 
 const Dashboard = () => {
-    const dispatch = useDispatch()
-    const userInfoLoaded = useRef(false)
-    const user_info = useSelector((state) => state.userinfo.userInfoState)
     const [user_info_id, setUserInfoID] = useState(null)
 
     const [ratings, setRatings] = useState([])
@@ -55,16 +51,10 @@ const Dashboard = () => {
     )
 
     useEffect(() => {
-        if (!userInfoLoaded.current) {
-            dispatch(fetchUserInfo())
-        }
-        if (!user_info.loading && user_info.currentUser) {
-            setUserInfoID(user_info.currentUser.id)
-            return () => {
-                userInfoLoaded.current = true
-            }
-        }
-    }, [user_info])
+        const {auth} = store.getState()
+        const user_info_id = auth.user.user_info_id
+        setUserInfoID(user_info_id)
+    }, [])
 
     useEffect(() => {
         const fetchDashData = async () => {
