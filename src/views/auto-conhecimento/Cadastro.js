@@ -6,9 +6,13 @@ import { fetchUserInfo } from '../../store/userinfo/userInfoSlice'
 import { putUserInfo } from '../../services/PersonalService'
 import { setCurrentUser } from '../../store/userinfo/userInfoSlice'
 import store from "../../store";
+import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
+
 
 const Cadastro = () => {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const userInfoLoaded = useRef(false)
     const user_info = useSelector((state) => state.userinfo.userInfoState)
     const [user_info_id, setUserInfoID] = useState(null)
@@ -41,6 +45,8 @@ const Cadastro = () => {
                 const resp = await putUserInfo(user_info_id, data)
                 if (resp.data) {
                     dispatch(setCurrentUser(data))
+                    alert("sucesso!");
+                    navigate('dashboard', {replace: true})
                 }
             } catch (errors) {
                 console.log(errors)
@@ -53,9 +59,10 @@ const Cadastro = () => {
         const data = {
             id: user_info_id,
             name: name,
-            birthdate: birthdate.toLocaleString(),
+            birthdate: birthdate.toISOString().split('T')[0],
             marital_status: maritalStatus[0],
         }
+        console.log(data);
         saveUserInfo(data)
     }
 
@@ -100,12 +107,10 @@ const Cadastro = () => {
                     <DatePicker
                         value={birthdate}
                         onChange={setBirthdate}
-                        inputtable
-                        locale="ko"
-                        inputFormat="YYYY/MMMM/DD"
-                        labelFormat="DD/MMMM/YYYY"
-                        Format
-                        placeholder="Data de Nascimento"
+                        locale={dayjs.locale('pt-br')}
+                        inputFormat="YYYY-MMMM-DD"
+                        labelFormat="DD-MMMM-YYYY"
+                        placeholder={birthdate}
                     />
                 </div>
 
