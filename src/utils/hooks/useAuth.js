@@ -27,9 +27,12 @@ function useAuth() {
 						setUser(
 							{
 								avatar: "",
-								userName: resp.data.user.name,
-								authority: ["USER"],
-								email: resp.data.user.email
+								user_id: "",
+								user_info_id: "",
+								username: resp.data.user.name,
+								name: resp.data.user.name,
+								email: resp.data.user.email,
+								authority: ["USER"]
 							}
 						)
 					);

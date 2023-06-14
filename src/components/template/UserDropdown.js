@@ -2,7 +2,6 @@ import React from 'react'
 import { Avatar, Dropdown } from 'components/ui'
 import withHeaderItem from 'utils/hoc/withHeaderItem'
 import useAuth from 'utils/hooks/useAuth'
-// import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import classNames from 'classnames'
 import { HiOutlineUser, HiOutlineLogout } from 'react-icons/hi'
@@ -13,9 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 const dropdownItemList = []
 
 export const UserDropdown = ({ className }) => {
-
-    const userInfo = useSelector((state) => state.auth.userinfo)
-
+    const userInfo = useSelector((state) => state.auth.user)
     const dispatch = useDispatch()
 
     const { signOut } = useAuth()
@@ -23,8 +20,8 @@ export const UserDropdown = ({ className }) => {
         <div className={classNames(className, 'flex items-center gap-2')}>
             <Avatar size={32} shape="circle" icon={<HiOutlineUser />} />
             <div className="hidden md:block">
-                <div className="text-xs capitalize">admin</div>
-                <div className="font-bold">User01</div>
+                <div className="text-xs capitalize">{userInfo.username}</div>
+                <div className="font-bold">{userInfo.name}</div>
             </div>
         </div>
     )
@@ -41,9 +38,9 @@ export const UserDropdown = ({ className }) => {
                         <Avatar shape="circle" icon={<HiOutlineUser />} />
                         <div>
                             <div className="font-bold text-gray-900 dark:text-gray-100">
-                                User01
+                                {userInfo.name}
                             </div>
-                            <div className="text-xs">user01@mail.com</div>
+                            <div className="text-xs">{userInfo.email}</div>
                         </div>
                     </div>
                 </Dropdown.Item>
