@@ -8,13 +8,14 @@ import classNames from 'classnames'
 import { HiOutlineUser, HiOutlineLogout } from 'react-icons/hi'
 import { CiSettings } from 'react-icons/ci'
 import { setCurrentRouteKey } from '../../store/base/commonSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from "react-redux";
 
 const dropdownItemList = []
 
 export const UserDropdown = ({ className }) => {
-    // bind this
-    // const userInfo = useSelector((state) => state.auth.userinfo)
+
+    const userInfo = useSelector((state) => state.auth.userinfo)
+
     const dispatch = useDispatch()
 
     const { signOut } = useAuth()

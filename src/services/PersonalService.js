@@ -1,11 +1,5 @@
 import ApiService from './ApiService'
 
-export async function yourApi() {
-    return ApiService.fetchData({
-        url: 'http://127.0.0.1:8000/questions/',
-        method: 'get',
-    })
-}
 
 export async function getAspectTitleQuestions(user_info_id, title) {
     return ApiService.fetchData({

@@ -2,7 +2,7 @@ import ApiService from './ApiService'
 
 export async function apiSignIn(data) {
     return ApiService.fetchData({
-        url: '/sign-in',
+        url: '/sign-in/',
         method: 'post',
         data,
     })
@@ -16,11 +16,10 @@ export async function apiSignUp(data) {
     })
 }
 
-export async function apiSignOut(data) {
+export async function apiSignOut() {
     return ApiService.fetchData({
-        url: '/sign-out',
-        method: 'post',
-        data,
+        url: '/api-auth/logout/',
+        method: 'get',
     })
 }
 
