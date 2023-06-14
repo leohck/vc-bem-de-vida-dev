@@ -112,7 +112,7 @@ Chart.propTypes = {
     donutTitle: PropTypes.string,
     height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     series: PropTypes.array.isRequired,
-    type: PropTypes.oneOf(['line', 'bar', 'area', 'donut']),
+    type: PropTypes.oneOf(['line', 'bar', 'area', 'donut', 'radar']),
     width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     xAxis: PropTypes.array,
 }

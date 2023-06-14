@@ -7,6 +7,9 @@ export const apexLineChartDefaultOption = {
         },
         toolbar: {
             show: false,
+            tools: {
+                download: false
+            }
         },
     },
     colors: [...COLORS],

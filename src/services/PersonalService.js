@@ -3,7 +3,7 @@ import ApiService from './ApiService'
 
 export async function getAspectTitleQuestions(user_info_id, title) {
     return ApiService.fetchData({
-        url: `/questions?user_info_id=${user_info_id}&title=${title}`,
+        url: `/questions/?user_info_id=${user_info_id}&title=${title}`,
         method: 'get',
     })
 }

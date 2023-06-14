@@ -30,7 +30,7 @@ const initialState = {
     mode: themeConfig.mode,
     primaryColorLevel: themeConfig.primaryColorLevel,
     panelExpand: themeConfig.panelExpand,
-    navMode: initialNavMode(),
+    navMode: NAV_MODE_THEMED,
     layout: themeConfig.layout,
 }
 
