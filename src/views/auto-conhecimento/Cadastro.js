@@ -21,10 +21,6 @@ const Cadastro = () => {
         if (!userInfoLoaded.current) {
             const {auth} = store.getState()
             const user_id = auth.user.user_info_id
-            console.log(auth);
-
-            console.log(user_id);
-
             dispatch(fetchUserInfo({ user_info_id: user_id }))
         }
         if (!user_info.loading && user_info.currentUser) {
