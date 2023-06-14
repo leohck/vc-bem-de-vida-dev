@@ -8,7 +8,7 @@ const navigationConfig = [
         key: 'home',
         path: '/home',
         title: 'Tela Inicial',
-        translateKey: 'nav.home',
+        translateKey: '',
         icon: 'home',
         type: NAV_ITEM_TYPE_ITEM,
         authority: [],
