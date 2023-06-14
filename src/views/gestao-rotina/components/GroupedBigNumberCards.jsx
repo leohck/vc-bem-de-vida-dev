@@ -8,6 +8,9 @@ const GroupedBigNumberCards = (props) => {
     const { card1Value, card2Value, card3Value, card4Value } = props
     return (
         <div>
+            <div className="grid justify-items-center mb-12">
+                <h4>Gestão Financeira</h4>
+            </div>
             <div className="grid grid-cols-2 gap-4 max-w-[500px] ">
                 <BigNumberCard
                     icon={

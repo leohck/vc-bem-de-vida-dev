@@ -19,7 +19,8 @@ const ActionResourceChart = (props) => {
                     bar: {
                         horizontal: true,
                         columnWidth: '50%',
-                        endingShape: 'rounded',
+                        // endingShape: 'rounded',
+                        borderRadius: 4,
                         dataLabels: {
                             position: 'top',
                         },
@@ -36,6 +37,15 @@ const ActionResourceChart = (props) => {
                 },
                 xaxis: {
                     categories: categories,
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['transparent'],
+                },
+                fill: {
+                    type: 'gradient',
+                    opacity: 1,
                 },
             }}
         />

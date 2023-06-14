@@ -54,7 +54,16 @@ const WeeklyRoutineChart = (props) => {
                             },
                         },
                     },
-                    colors: ['#2563eb', '#f59e0b'],
+
+                    // colors: ['#2563eb', '#f59e0b'],
+                    colors: [function ({ value }) {
+                        switch (value) {
+                            case value > 24:
+                                return ['#eb3525']
+                            default:
+                                return ['#2563eb', '#f59e0b']
+                        }
+                    },],
                     dataLabels: {
                         enabled: true,
                     },
@@ -75,6 +84,7 @@ const WeeklyRoutineChart = (props) => {
                         forceNiceScale: true,
                     },
                     fill: {
+                        type: 'gradient',
                         opacity: 1,
                     },
                 }}

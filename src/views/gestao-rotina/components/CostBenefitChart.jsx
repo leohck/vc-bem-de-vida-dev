@@ -55,14 +55,19 @@ const CostBenefitChart = () => {
                     options={{
                         plotOptions: {
                             bar: {
+                                borderRadius: 4,
                                 horizontal: false,
                                 columnWidth: '55%',
                                 endingShape: 'rounded',
+                                dataLabels: {
+                                    position: 'top'
+                                },
                             },
                         },
                         colors: ['#16a34a', '#2563eb', '#f59e0b'],
                         dataLabels: {
-                            enabled: false,
+                            enabled: true,
+                            position: 'top'
                         },
                         stroke: {
                             show: true,
@@ -73,8 +78,10 @@ const CostBenefitChart = () => {
                             categories: [lifeAspect],
                         },
                         fill: {
+                            type: 'gradient',
                             opacity: 1,
                         },
+
                         tooltip: {
                             y: {
                                 formatter: (val) => `$${val} thousands`,

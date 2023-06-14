@@ -50,8 +50,6 @@ const Cadastro = () => {
     }
 
     const handleFormSubmit = () => {
-        console.log(birthdate.toISOString().split('T'));
-
         const data = {
             id: user_info_id,
             name: name,
