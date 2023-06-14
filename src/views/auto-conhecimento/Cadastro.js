@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserInfo } from '../../store/userinfo/userInfoSlice'
 import { putUserInfo } from '../../services/PersonalService'
 import { setCurrentUser } from '../../store/userinfo/userInfoSlice'
+import store from "../../store";
 
 const Cadastro = () => {
     const dispatch = useDispatch()
@@ -15,9 +16,16 @@ const Cadastro = () => {
     const [age, setAge] = useState()
     const [name, setName] = useState()
 
+
     useEffect(() => {
         if (!userInfoLoaded.current) {
-            dispatch(fetchUserInfo())
+            const {auth} = store.getState()
+            const user_id = auth.user.user_info_id
+            console.log(auth);
+
+            console.log(user_id);
+
+            dispatch(fetchUserInfo({ user_info_id: user_id }))
         }
         if (!user_info.loading && user_info.currentUser) {
             setUserInfoID(user_info.currentUser.id)
