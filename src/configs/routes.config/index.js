@@ -19,6 +19,12 @@ export const protectedRoutes = [
         authority: [],
     },
     {
+        key: 'skills-achievements',
+        path: '/skills-achievements',
+        component: React.lazy(() => import('views/SkillAndAchievement')),
+        authority: [],
+    },
+    {
         key: 'user-info',
         path: '/userinfo',
         component: React.lazy(() => import('views/auto-conhecimento/Cadastro')),

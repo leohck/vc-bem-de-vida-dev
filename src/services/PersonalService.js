@@ -39,9 +39,9 @@ export async function getDashboard2ActionData(user_info_id) {
     })
 }
 
-export async function getSkills() {
+export async function getSkills(user_info_id) {
     return ApiService.fetchData({
-        url: `/skills/`,
+        url: `/skills/?user_id=${user_info_id}`,
         method: 'get',
     })
 }
@@ -61,9 +61,9 @@ export async function deleteSkill(skill_id) {
     })
 }
 
-export async function getAchievements() {
+export async function getAchievements(user_info_id) {
     return ApiService.fetchData({
-        url: `/achievements/`,
+        url: `/achievements/?user_id=${user_info_id}`,
         method: 'get',
     })
 }

@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { getSkills } from '../../services/PersonalService'
 
-export const getApiData = createAsyncThunk(
-    'skills/getApiData',
-    async (data) => {
-        const response = await getSkills()
+export const fetchSkills = createAsyncThunk(
+    'skills/fetchSkills',
+    async ({ user_id }) => {
+        const response = await getSkills(user_id)
         return response.data
     }
 )
@@ -24,14 +24,14 @@ export const skillsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(getApiData.fulfilled, (state, action) => {
+            .addCase(fetchSkills.fulfilled, (state, action) => {
                 state.skills = action.payload
                 state.loading = false
             })
-            .addCase(getApiData.pending, (state) => {
+            .addCase(fetchSkills.pending, (state) => {
                 state.loading = true
             })
-            .addCase(getApiData.rejected, (state) => {
+            .addCase(fetchSkills.rejected, (state) => {
                 state.loading = false
             })
     },
@@ -40,5 +40,3 @@ export const skillsSlice = createSlice({
 export const { addSkill } = skillsSlice.actions
 
 export default skillsSlice.reducer
-
-export const selectAllSkills = (state) => state.skills
