@@ -51,37 +51,40 @@ export const conquistasGroupedOptions = [
     {
         label: 'Saúde Física',
         options: [
-            { value: '1', label: 'Condição do Corpo', icon: <FaWeight /> },
-            { value: '2', label: 'Disposição / Força', icon: <FaHandRock /> },
-            { value: '3', label: 'Longevidade', icon: <FaHourglassHalf /> },
+            { life_aspect: 'Saude Fisica', value: '1', label: 'Condição do Corpo', icon: <FaWeight /> },
+            { life_aspect: 'Saude Fisica', value: '2', label: 'Disposição / Força', icon: <FaHandRock /> },
+            { life_aspect: 'Saude Fisica', value: '3', label: 'Longevidade', icon: <FaHourglassHalf /> },
         ],
     },
     {
         label: 'Saúde Mental',
         options: [
-            { value: '1.1', label: 'Viagem', icon: <FaPlaneDeparture /> },
-            { value: '2.1', label: 'Carro', icon: <FaCarSide /> },
-            { value: '3.1', label: 'Casa', icon: <FaHouseUser /> },
-            { value: '4', label: 'Conhecimento', icon: <FaBook /> },
-            { value: '5', label: 'Religião', icon: <FaPrayingHands /> },
-            { value: '6', label: 'Premiação', icon: <FaTrophy /> },
-            { value: '7', label: 'Comprar algo', icon: <FaGift /> },
+            { life_aspect: 'Saude Mental', value: '1.1', label: 'Viagem', icon: <FaPlaneDeparture /> },
+            { life_aspect: 'Saude Mental', value: '2.1', label: 'Carro', icon: <FaCarSide /> },
+            { life_aspect: 'Saude Mental', value: '3.1', label: 'Casa', icon: <FaHouseUser /> },
+            { life_aspect: 'Saude Mental', value: '4', label: 'Conhecimento', icon: <FaBook /> },
+            { life_aspect: 'Saude Mental', value: '5', label: 'Religião', icon: <FaPrayingHands /> },
+            { life_aspect: 'Saude Mental', value: '6', label: 'Premiação', icon: <FaTrophy /> },
+            { life_aspect: 'Saude Mental', value: '7', label: 'Comprar algo', icon: <FaGift /> },
         ],
     },
     {
         label: 'Saúde Financeira',
         options: [
             {
+                life_aspect: 'Saude Financeira',
                 value: '8',
                 label: 'Reserva Financeira',
                 icon: <FaMoneyBillAlt />,
             },
             {
+                life_aspect: 'Saude Financeira',
                 value: '10',
                 label: 'Liberdade Financeira',
                 icon: <GiReceiveMoney />,
             },
             {
+                life_aspect: 'Saude Financeira',
                 value: '11',
                 label: 'Diversas Fontes de Renda',
                 icon: <GrMoney />,
@@ -91,22 +94,23 @@ export const conquistasGroupedOptions = [
     {
         label: 'Vida Social',
         options: [
-            { value: '12', label: 'Filho(a)', icon: <FaBabyCarriage /> },
-            { value: '13', label: 'Parceiro(a)', icon: <FaHeart /> },
-            { value: '14', label: 'Filantropia', icon: <FaHandHoldingHeart /> },
-            { value: '15', label: 'Pet', icon: <FaPaw /> },
+            { life_aspect: 'Vida Social', value: '12', label: 'Filho(a)', icon: <FaBabyCarriage /> },
+            { life_aspect: 'Vida Social', value: '13', label: 'Parceiro(a)', icon: <FaHeart /> },
+            { life_aspect: 'Vida Social', value: '14', label: 'Filantropia', icon: <FaHandHoldingHeart /> },
+            { life_aspect: 'Vida Social', value: '15', label: 'Pet', icon: <FaPaw /> },
         ],
     },
     {
         label: 'Vida Profissional',
         options: [
             {
+                life_aspect: 'Vida Profissional',
                 value: '16',
                 label: 'Reconhecimento Profissional',
                 icon: <FaAward />,
             },
-            { value: '17', label: 'Graduação', icon: <FaGraduationCap /> },
-            { value: '18', label: 'Cargo / Posição', icon: <FaBriefcase /> },
+            { life_aspect: 'Vida Profissional', value: '17', label: 'Graduação', icon: <FaGraduationCap /> },
+            { life_aspect: 'Vida Profissional', value: '18', label: 'Cargo / Posição', icon: <FaBriefcase /> },
         ],
     },
 ]

@@ -55,7 +55,7 @@ export async function getAchievements(user_info_id) {
 
 export async function deleteItem(item_type, skill_id) {
     return ApiService.fetchData({
-        url: `/${item_type}/${skill_id}`,
+        url: `/${item_type}/${skill_id}/`,
         method: 'delete',
     })
 }

@@ -19,8 +19,18 @@ export const skillsSlice = createSlice({
     initialState,
     reducers: {
         addSkill: (state, action) => {
-            state.skills = action.payload
+            state.skills = [...state.skills, action.payload]
         },
+        updateSkill: (state, action) => {
+            state.skills = state.skills.map((el) =>
+                el.id === action.payload.id ? action.payload : el
+            );
+        },
+        deleteSkill: (state, action) => {
+            state.skills = state.skills.filter(
+                (el) => el.id !== action.payload
+            );
+        }
     },
     extraReducers: (builder) => {
         builder
@@ -37,6 +47,6 @@ export const skillsSlice = createSlice({
     },
 })
 
-export const { addSkill } = skillsSlice.actions
+export const { addSkill, deleteSkill, updateSkill } = skillsSlice.actions
 
 export default skillsSlice.reducer
