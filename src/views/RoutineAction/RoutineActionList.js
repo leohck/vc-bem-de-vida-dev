@@ -118,7 +118,7 @@ const RoutineActionList = () => {
 				<TBody>
 					{!routine_actions.loading && routine_actions.routine_actions
 						? routine_actions.routine_actions.map((item) => (
-							<ItemRow item={item} />
+							<ItemRow item={item} key={item.id}/>
 						))
 						: null}
 				</TBody>

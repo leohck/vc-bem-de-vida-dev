@@ -77,8 +77,8 @@ export const protectedRoutes = [
 		authority: []
 	},
 	{
-		key: "gestao-rotina-dashboard",
-		path: "/gestao-rotina/dashboard",
+		key: "routine-dashboard",
+		path: "/routine/dashboard",
 		component: React.lazy(() => import("views/gestao-rotina/dashboard")),
 		authority: []
 	},

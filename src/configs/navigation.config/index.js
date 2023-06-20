@@ -116,8 +116,8 @@ const navigationConfig = [
         authority: [],
         subMenu: [
             {
-                key: 'gestao-rotina-dashboard',
-                path: '/gestao-rotina/dashboard',
+                key: 'routine-dashboard',
+                path: '/routine/dashboard',
                 title: 'Dashboard',
                 translateKey: '',
                 icon: '',

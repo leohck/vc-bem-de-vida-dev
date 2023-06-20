@@ -48,6 +48,8 @@ const Dashboard = () => {
 		try {
 			const resp = await getDashboard2Data(user_info_id);
 			if (resp.data) {
+				console.log(resp.data);
+
 				const {
 					monthly_financial_balance,
 					hourly_active_income,
@@ -57,11 +59,11 @@ const Dashboard = () => {
 				} = resp.data;
 				setCard1Value({
 					value: monthly_financial_balance,
-					tagValue: 8000
+					tagValue: 0
 				});
-				setCard2Value({ value: hourly_active_income, tagValue: 72.85 });
-				setCard3Value({ value: weekly_free_time, tagValue: -28 });
-				setCard4Value({ value: hourly_unprofitable_cost, tagValue: 11 });
+				setCard2Value({ value: hourly_active_income, tagValue: 0 });
+				setCard3Value({ value: weekly_free_time, tagValue: 0 });
+				setCard4Value({ value: hourly_unprofitable_cost, tagValue: 0 });
 				setWeeklyRoutineChartData(weekly_routine_time_and_energy);
 			}
 		} catch (errors) {
@@ -107,7 +109,7 @@ const Dashboard = () => {
 			</div>
 			<WeeklyRoutineChart data={weeklyRoutineChartData} />
 			{/*<CostBenefitChart />*/}
-			{/*<ActionResourcesChart data={actionResourceChartData} />*/}
+			<ActionResourcesChart data={actionResourceChartData} />
 		</div>
 	);
 };

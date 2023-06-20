@@ -93,7 +93,7 @@ const SourceIncomeList = (props) => {
 				<TBody>
 					{!source_incomes.loading && source_incomes.source_incomes
 						? source_incomes.source_incomes.map((item) => (
-							<ItemRow item={item} />
+							<ItemRow item={item} key={item.id}/>
 						))
 						: null}
 				</TBody>

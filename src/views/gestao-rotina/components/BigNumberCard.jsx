@@ -2,6 +2,7 @@ import React from 'react'
 import { Card } from '../../../components/ui'
 import { GrowShrinkTag } from 'components/shared'
 
+
 const BigNumberCard = (props) => {
     const {
         icon,
