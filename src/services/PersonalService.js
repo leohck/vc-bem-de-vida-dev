@@ -114,20 +114,9 @@ export async function postRoutineAction(data, id = null) {
     })
 }
 
-export async function postSourceIncome(data, id = null) {
-    return ApiService.fetchData({
-        url: `/user_source_income/${id ? id + '/' : ''}`,
-        method: id ? 'put' : 'post',
-        data,
-    })
-}
 
-export async function SourceIncomeDelete(id) {
-    return ApiService.fetchData({
-        url: `/user_source_income/${id}/`,
-        method: 'delete',
-    })
-}
+
+
 
 export async function RoutinePaymentDelete(id) {
     return ApiService.fetchData({

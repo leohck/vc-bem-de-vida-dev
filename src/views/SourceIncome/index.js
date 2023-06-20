@@ -20,7 +20,7 @@ const SourceIncome = () => {
                 formTitle={formTitle}
                 setFormTitle={setFormTitle}
             />
-            <SourceIncomeList user_info_id={1} setItemID={handleItemIDChange} />
+            <SourceIncomeList setItemID={handleItemIDChange} />
         </div>
     )
 }

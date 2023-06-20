@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { Button, Card, Input, Segment, Tooltip } from '../../components/ui'
 import { HiOutlineExclamationCircle } from 'react-icons/hi'
 import { useDispatch } from 'react-redux'
@@ -6,8 +6,7 @@ import {
     addNewSourceIncome,
     updateSourceIncome,
 } from '../../store/userinfo/sourceIncomeSlice'
-import { postSourceIncome } from '../../services/PersonalService'
-import axios from 'axios'
+import { getSourceIncome, postSourceIncome } from "../../services/SourceIncomeService";
 
 const SourceIncomeForm = (props) => {
     const { user_info_id, itemID, setItemID, formTitle, setFormTitle } = props
@@ -25,15 +24,18 @@ const SourceIncomeForm = (props) => {
     }
 
     useEffect(() => {
-        if (itemID) {
-            axios
-                .get(`http://127.0.0.1:8000/user_source_income/${itemID}/`)
-                .then((response) => {
-                    setIncomeFrom(response.data.income_from)
-                    setIncomeType([response.data.income_type])
-                    setIncomeValue(response.data.income)
-                })
+        const get_sc = async () => {
+            if (itemID) {
+                await getSourceIncome(itemID).then(
+                    response => {
+                        setIncomeFrom(response.data.income_from)
+                        setIncomeType([response.data.income_type])
+                        setIncomeValue(response.data.income)
+                    }
+                )
+            }
         }
+        get_sc()
     }, [itemID])
 
     const handleIncomeTypeChange = useCallback((val) => {
