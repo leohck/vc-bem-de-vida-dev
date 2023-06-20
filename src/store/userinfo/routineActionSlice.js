@@ -1,7 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios'
+import { getRoutineActionList } from "../../services/RoutineActionService";
 
-const user_info_id = 1
 
 const initialState = {
     loading: false,
@@ -11,12 +10,9 @@ const initialState = {
 
 export const fetchRoutineActions = createAsyncThunk(
     'userinfo/fetchRoutineActions',
-    () => {
-        return axios
-            .get(
-                `http://127.0.0.1:8000/user_routine_action/?user_info_id=${user_info_id}`
-            )
-            .then((response) => response.data)
+        async ({ user_id }) => {
+            const response = await getRoutineActionList(user_id);
+            return response.data;
     }
 )
 

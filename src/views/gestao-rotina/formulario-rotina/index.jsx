@@ -14,7 +14,7 @@ import ActionMoneySegment from './components/ActionMoneySegment'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchUserInfo } from '../../../store/userinfo/userInfoSlice'
 import { addNewAction } from 'store/userinfo/routineActionSlice'
-import { postRoutineAction } from '../../../services/PersonalService'
+import { postRoutineAction } from '../../../services/RoutineActionService'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 

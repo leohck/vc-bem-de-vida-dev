@@ -46,40 +46,10 @@ export async function getSkills(user_info_id) {
     })
 }
 
-export async function postSkills(data) {
-    return ApiService.fetchData({
-        url: `/skills/`,
-        method: 'post',
-        data,
-    })
-}
-
-export async function deleteSkill(skill_id) {
-    return ApiService.fetchData({
-        url: `/skills/${skill_id}`,
-        method: 'delete',
-    })
-}
-
 export async function getAchievements(user_info_id) {
     return ApiService.fetchData({
         url: `/achievements/?user_id=${user_info_id}`,
         method: 'get',
-    })
-}
-
-export async function postAchievements(data) {
-    return ApiService.fetchData({
-        url: `/achievements/`,
-        method: 'post',
-        data,
-    })
-}
-
-export async function deleteAchievement(achievement_id) {
-    return ApiService.fetchData({
-        url: `/achievements/${achievement_id}`,
-        method: 'delete',
     })
 }
 
@@ -106,28 +76,10 @@ export async function postRoutinePayment(data, id = null) {
     })
 }
 
-export async function postRoutineAction(data, id = null) {
-    return ApiService.fetchData({
-        url: `/user_routine_action/${id ? id + '/' : ''}`,
-        method: id ? 'put' : 'post',
-        data,
-    })
-}
-
-
-
-
 
 export async function RoutinePaymentDelete(id) {
     return ApiService.fetchData({
         url: `/user_routine_payment/${id}/`,
-        method: 'delete',
-    })
-}
-
-export async function RoutineActionDelete(id) {
-    return ApiService.fetchData({
-        url: `/user_routine_action/${id}/`,
         method: 'delete',
     })
 }

@@ -1,0 +1,24 @@
+import ApiService from "./ApiService";
+
+export async function getRoutineActionList(user_id) {
+	return ApiService.fetchData({
+		url: `/user_routine_action/?user_id=${user_id}`,
+		method: 'get',
+	})
+}
+
+
+export async function RoutineActionDelete(id) {
+	return ApiService.fetchData({
+		url: `/user_routine_action/${id}/`,
+		method: 'delete',
+	})
+}
+
+export async function postRoutineAction(data, id = null) {
+	return ApiService.fetchData({
+		url: `/user_routine_action/${id ? id + '/' : ''}`,
+		method: id ? 'put' : 'post',
+		data,
+	})
+}
