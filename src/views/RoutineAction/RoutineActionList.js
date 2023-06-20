@@ -42,7 +42,7 @@ const RoutineActionList = () => {
 	};
 
 	const handleEditAction = (id) => {
-		navigate("/formulario/rotina", { replace: true, state: { itemID: id } });
+		navigate("/routine/action/form", { replace: true, state: { itemID: id } });
 	};
 
 	const ItemRow = ({ item }) => {
@@ -85,7 +85,7 @@ const RoutineActionList = () => {
 	            className="mr-2"
 	            variant="twoTone"
 	            onClick={() => {
-		            navigate("/formulario/rotina", { replace: true });
+		            navigate("/routine/action/form", { replace: true });
 	            }}
             >
                 <span>Nova Ação</span>
