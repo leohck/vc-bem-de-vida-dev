@@ -72,7 +72,7 @@ const Dashboard = () => {
 		};
 		const fetchSkillsData = async () => {
 			try {
-				const resp = await getSkills();
+				const resp = await getSkills(user_info_id);
 				if (resp.data) {
 					const skills = resp.data;
 					setSkills(skills);
@@ -84,7 +84,7 @@ const Dashboard = () => {
 		};
 		const fetchAchievementsData = async () => {
 			try {
-				const resp = await getAchievements();
+				const resp = await getAchievements(user_info_id);
 				if (resp.data) {
 					const achievements = resp.data;
 					setAchievements(achievements);
@@ -110,41 +110,29 @@ const Dashboard = () => {
 				<div>
 					<CardWithDialog
 						title={"Ações em Andamento"}
-						itemType={"achievements"}
-						itemList={achievements}
-						setItemList={setAchievements}
-						itemCount={achievementsCount}
-						setItemCount={setAchievementsCount}
+						itemCount={0}
+						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
 				<div>
 					<CardWithDialog
 						title={"Metas"}
-						itemType={"achievements"}
-						itemList={achievements}
-						setItemList={setAchievements}
-						itemCount={achievementsCount}
-						setItemCount={setAchievementsCount}
+						itemCount={0}
+						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
 				<div>
 					<CardWithDialog
 						title={"Conquistas"}
-						itemType={"achievements"}
-						itemList={achievements}
-						setItemList={setAchievements}
 						itemCount={achievementsCount}
-						setItemCount={setAchievementsCount}
+						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
 				<div>
 					<CardWithDialog
 						title={"Habilidades"}
-						itemType={"skills"}
-						itemList={skills}
-						setItemList={setSkills}
 						itemCount={skillsCount}
-						setItemCount={setSkillsCount}
+						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
 			</div>
@@ -190,7 +178,7 @@ const Dashboard = () => {
 							yaxis: {
 								min: 0,
 								max: 5,
-								forceNiceScale: true
+								forceNiceScale: false
 							},
 							stroke: {
 								show: true,
