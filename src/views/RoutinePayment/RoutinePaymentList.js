@@ -7,7 +7,7 @@ import {
 	fetchRoutinePayments,
 	deletePayment
 } from "../../store/userinfo/routinePaymentSlice";
-import { RoutinePaymentDelete } from "../../services/PersonalService";
+import {RoutinePaymentDelete} from "../../services/RoutinePaymentService";
 import { useNavigate } from "react-router-dom";
 import store from "../../store";
 
@@ -24,7 +24,7 @@ const RoutinePaymentList = () => {
 		const { auth } = store.getState();
 		const user_info_id = auth.user.user_info_id;
 		if (user_info_id) {
-			dispatch(fetchRoutinePayments({ user_info_id: user_info_id }));
+			dispatch(fetchRoutinePayments({ user_id: user_info_id }));
 		}
 	}, []);
 
@@ -44,7 +44,7 @@ const RoutinePaymentList = () => {
 	};
 
 	const handleEditPayment = (id) => {
-		navigate("/formulario/pagamento", {
+		navigate("/routine/payment/form", {
 			replace: true,
 			state: { itemID: id }
 		});
@@ -89,7 +89,7 @@ const RoutinePaymentList = () => {
 	            className="mr-2"
 	            variant="twoTone"
 	            onClick={() => {
-		            navigate("/formulario/pagamento", { replace: true });
+		            navigate("/routine/payment/form", { replace: true });
 	            }}
             >
                 <span>Novo Pagamento</span>

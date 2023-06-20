@@ -156,8 +156,8 @@ const navigationConfig = [
                 subMenu: [],
             },
             {
-                key: 'gestao-rotina-form-rotina',
-                path: '/formulario/rotina',
+                key: 'routine-action-form',
+                path: '/routine/action/form',
                 title: 'Cadastrar Ação de Rotina',
                 translateKey: '',
                 icon: '',
@@ -166,8 +166,8 @@ const navigationConfig = [
                 subMenu: [],
             },
             {
-                key: 'gestao-rotina-form-pagamento',
-                path: '/formulario/pagamento',
+                key: 'routine-payment-form',
+                path: '/routine/payment/form',
                 title: 'Cadastrar Pagamento de Rotina',
                 translateKey: '',
                 icon: '',

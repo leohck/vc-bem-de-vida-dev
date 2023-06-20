@@ -68,21 +68,6 @@ export async function postItem(item_type, data) {
     })
 }
 
-export async function postRoutinePayment(data, id = null) {
-    return ApiService.fetchData({
-        url: `/user_routine_payment/${id ? id + '/' : ''}`,
-        method: id ? 'put' : 'post',
-        data,
-    })
-}
-
-
-export async function RoutinePaymentDelete(id) {
-    return ApiService.fetchData({
-        url: `/user_routine_payment/${id}/`,
-        method: 'delete',
-    })
-}
 
 export async function putUserInfo(user_info_id, data) {
     return ApiService.fetchData({

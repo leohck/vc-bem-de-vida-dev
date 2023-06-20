@@ -11,8 +11,8 @@ const initialState = {
 
 export const fetchRoutinePayments = createAsyncThunk(
 	"userinfo/fetchRoutinePayments",
-	async ({ user_info_id }) => {
-		const response = await getRoutinePayments(user_info_id);
+	async ({ user_id }) => {
+		const response = await getRoutinePayments(user_id);
 		return response.data;
 	}
 );
