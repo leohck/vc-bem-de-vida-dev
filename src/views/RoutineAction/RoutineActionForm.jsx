@@ -1,28 +1,23 @@
 import React, {
     useState,
-    useReducer,
     useCallback,
-    useRef,
     useEffect,
 } from 'react'
 import { Input, Button, Card } from 'components/ui'
 
-import LifeAspectSegment from '../components/LifeAspectSegment'
+import LifeAspectSegment from '../gestao-rotina/components/LifeAspectSegment'
 import WeekdaySegment from './components/WeekdaySegment'
 import EnergyLevelSegment from './components/EnergyLevelSegment'
 import ActionMoneySegment from './components/ActionMoneySegment'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchUserInfo } from '../../../store/userinfo/userInfoSlice'
+import { useDispatch } from 'react-redux'
 import { addNewAction } from 'store/userinfo/routineActionSlice'
-import { postRoutineAction } from '../../../services/RoutineActionService'
+import { getRoutineAction, getWeeklyHoursSpent, postRoutineAction } from "../../services/RoutineActionService";
 import { useLocation, useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import store from "../../store";
 
 const RoutineForm = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const userInfoLoaded = useRef(false)
-    const user_info = useSelector((state) => state.userinfo.userInfoState)
     const [user_info_id, setUserInfoID] = useState(null)
     const [itemID, setItemID] = useState(null)
     const { state } = useLocation()
@@ -39,57 +34,60 @@ const RoutineForm = () => {
     ])
 
     useEffect(() => {
+        const { auth } = store.getState();
+        const user_id = auth.user.user_info_id;
+        setUserInfoID(user_id);
+    }, [])
+
+    useEffect(() => {
         try {
             const { itemID } = state
             setItemID(itemID)
         } catch (e) {
             setItemID(null)
         }
-    }, [])
+    }, [state])
 
     useEffect(() => {
-        if (itemID) {
-            axios
-                .get(`http://127.0.0.1:8000/user_routine_action/${itemID}/`)
-                .then((response) => {
-                    console.log(response.data)
-                    const action_money = []
-                    if (response.data.action_generate_money) {
-                        action_money.push('1')
+        const get_ra = async () => {
+            if (itemID) {
+                await getRoutineAction(itemID).then(
+                    response => {
+                        const action_money = []
+                        if (response.data.action_generate_money) {
+                            action_money.push('1')
+                        }
+                        if (response.data.action_cost_money) {
+                            action_money.push('0')
+                        }
+                        setActionValue(response.data.value)
+                        setTimeSpent(response.data.time_spent)
+                        setLifeAspect(response.data.life_aspect.split(','))
+                        setWeekDay(response.data.days_of_week.split(','))
+                        setEnergyLevel([response.data.energy_spent.toString()])
+                        setActionMoney(action_money)
+                        setActionCost(response.data.action_cost)
                     }
-                    if (response.data.action_cost_money) {
-                        action_money.push('0')
-                    }
-                    setActionValue(response.data.value)
-                    setTimeSpent(response.data.time_spent)
-                    setLifeAspect(response.data.life_aspect.split(','))
-                    setWeekDay(response.data.days_of_week.split(','))
-                    setEnergyLevel([response.data.energy_spent.toString()])
-                    setActionMoney(action_money)
-                    setActionCost(response.data.action_cost)
-                })
+                )
+            }
         }
+        get_ra()
     }, [itemID])
 
     useEffect(() => {
-        if (!userInfoLoaded.current) {
-            dispatch(fetchUserInfo())
-        }
-        if (!user_info.loading && user_info.currentUser) {
-            setUserInfoID(user_info.currentUser.id)
-            return () => {
-                userInfoLoaded.current = true
+        const get_wh = async () => {
+            try {
+                await getWeeklyHoursSpent(user_info_id).then(
+                    response => {
+                        setWeeklyHoursSpentCount(response.data.weekly_hours_spent)
+                    }
+                )
+            } catch (e) {
+                console.log(e);
             }
         }
-    }, [user_info])
-
-    useEffect(() => {
-        axios
-            .get(`http://127.0.0.1:8000/weekly_hours_spent/1/`)
-            .then((response) => {
-                setWeeklyHoursSpentCount(response.data.weekly_hours_spent)
-            })
-    }, [])
+        get_wh()
+    }, [user_info_id])
 
     const handleLifeAspectChange = useCallback((val) => {
         setLifeAspect(val)
