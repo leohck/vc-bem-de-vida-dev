@@ -48,8 +48,6 @@ const Dashboard = () => {
 		try {
 			const resp = await getDashboard2Data(user_info_id);
 			if (resp.data) {
-				console.log(resp.data);
-
 				const {
 					monthly_financial_balance,
 					hourly_active_income,
@@ -109,7 +107,7 @@ const Dashboard = () => {
 			</div>
 			<WeeklyRoutineChart data={weeklyRoutineChartData} />
 			<CostBenefitChart />
-			<ActionResourcesChart data={actionResourceChartData} />
+			{/*<ActionResourcesChart data={actionResourceChartData} />*/}
 		</div>
 	);
 };

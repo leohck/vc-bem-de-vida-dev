@@ -18,10 +18,6 @@ const WeeklyRoutineChart = (props) => {
 
 	const chartData = [time_spent, energy_spent];
 
-	useEffect(() => {
-		console.log(data);
-
-	}, [])
 	return (
 		<div>
 			<div className="grid justify-items-center">
