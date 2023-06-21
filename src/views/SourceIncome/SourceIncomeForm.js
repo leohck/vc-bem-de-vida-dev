@@ -7,14 +7,17 @@ import {
     updateSourceIncome,
 } from '../../store/userinfo/sourceIncomeSlice'
 import { getSourceIncome, postSourceIncome } from "../../services/SourceIncomeService";
+import store from "../../store";
 
 const SourceIncomeForm = (props) => {
-    const { user_info_id, itemID, setItemID, formTitle, setFormTitle } = props
+    const { itemID, setItemID, formTitle, setFormTitle } = props
 
     const dispatch = useDispatch()
     const [incomeFrom, setIncomeFrom] = useState()
     const [incomeType, setIncomeType] = useState()
     const [incomeValue, setIncomeValue] = useState()
+    const [user_info_id, setUserId] = useState();
+
 
     const cleanForm = () => {
         setIncomeFrom(null)
@@ -22,6 +25,12 @@ const SourceIncomeForm = (props) => {
         setIncomeValue(null)
         setItemID(null)
     }
+    useEffect(() => {
+        const { auth } = store.getState();
+        const user_id = auth.user.user_info_id;
+        setUserId(user_id);
+    }, []);
+
 
     useEffect(() => {
         const get_sc = async () => {
@@ -105,9 +114,8 @@ const SourceIncomeForm = (props) => {
                     }}
                     name="income"
                     className="max-w-[400px]"
-                    placeholder="Renda Mensal"
+                    placeholder="Renda Líquida Mensal"
                     prefix="R$"
-                    suffix=".00"
                     type="number"
                 />
                 <Button variant="solid" onClick={handleFormSubmit}>

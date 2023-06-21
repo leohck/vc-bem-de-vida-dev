@@ -14,7 +14,6 @@ const SourceIncome = () => {
     return (
         <div className="flex flex-col gap-4">
             <SourceIncomeForm
-                user_info_id={1}
                 itemID={itemID}
                 setItemID={setItemID}
                 formTitle={formTitle}

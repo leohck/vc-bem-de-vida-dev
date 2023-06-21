@@ -71,7 +71,7 @@ const WeeklyRoutineChart = (props) => {
 							text: "Horas Disponíveis"
 						},
 						min: 0,
-						max: 40,
+						max: 24,
 						forceNiceScale: true
 					},
 					fill: {

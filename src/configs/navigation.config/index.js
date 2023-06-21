@@ -154,27 +154,7 @@ const navigationConfig = [
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
                 subMenu: [],
-            },
-            {
-                key: 'routine-action-form',
-                path: '/routine/action/form',
-                title: 'Cadastrar Ação de Rotina',
-                translateKey: '',
-                icon: '',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: [],
-            },
-            {
-                key: 'routine-payment-form',
-                path: '/routine/payment/form',
-                title: 'Cadastrar Pagamento de Rotina',
-                translateKey: '',
-                icon: '',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: [],
-            },
+            }
         ],
     },
 ]
