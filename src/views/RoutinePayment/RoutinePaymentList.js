@@ -10,6 +10,7 @@ import {
 import {RoutinePaymentDelete} from "../../services/RoutinePaymentService";
 import { useNavigate } from "react-router-dom";
 import store from "../../store";
+import convertToReal from "../../utils/moneyWrapper";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -54,7 +55,7 @@ const RoutinePaymentList = () => {
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td>{item.value}</Td>
 				<Td>{item.life_aspect}</Td>
-				<Td>R${item.monthly_amount_investing}</Td>
+				<Td>{convertToReal(item.monthly_amount_investing)}</Td>
 				<Td>{item.payment_generate_money ? "SIM" : "NÃO"}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">

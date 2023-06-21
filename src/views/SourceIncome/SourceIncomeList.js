@@ -9,6 +9,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
 import { SourceIncomeDelete } from "../../services/SourceIncomeService";
 import store from "../../store";
+import convertToReal from "../../utils/moneyWrapper";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -43,7 +44,7 @@ const SourceIncomeList = (props) => {
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td>{item.income_from}</Td>
 				<Td>{item.income_type}</Td>
-				<Td>R${item.income}</Td>
+				<Td>{convertToReal(item.income)}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
 						<Button

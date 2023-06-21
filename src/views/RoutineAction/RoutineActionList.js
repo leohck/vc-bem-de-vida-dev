@@ -10,6 +10,7 @@ import {
 import { RoutineActionDelete } from "../../services/RoutineActionService";
 import { useNavigate } from "react-router-dom";
 import store from "../../store";
+import convertToReal from "../../utils/moneyWrapper";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -51,7 +52,7 @@ const RoutineActionList = () => {
 				<Td>{item.value}</Td>
 				<Td>{item.time_spent}</Td>
 				<Td>{item.energy_spent}</Td>
-				<Td>R${item.action_cost}</Td>
+				<Td>{convertToReal(item.action_cost)}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
 						<Button

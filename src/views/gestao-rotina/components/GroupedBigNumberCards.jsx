@@ -3,13 +3,7 @@ import BigNumberCard from "../components/BigNumberCard";
 import { GiReceiveMoney, GiPayMoney, GiTakeMyMoney } from "react-icons/gi";
 import { MdMoreTime } from "react-icons/md";
 import { RiRestTimeLine } from "react-icons/ri";
-
-function convertToReal(number) {
-	return Intl.NumberFormat(
-		"pt-br",
-		{ style: "currency", currency: "BRL" }
-	).format(number);
-}
+import convertToReal from "../../../utils/moneyWrapper";
 
 
 const GroupedBigNumberCards = (props) => {
