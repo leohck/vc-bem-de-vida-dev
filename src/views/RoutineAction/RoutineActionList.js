@@ -80,6 +80,20 @@ const RoutineActionList = () => {
 		);
 	};
 
+	const TotalCost = () => {
+		let total_income = 0;
+		routine_actions.routine_actions.map(item => {
+			total_income += item.action_cost
+		})
+		return (
+			<Card className="mb-8">
+				<div>
+					<h6>Custo Total Das Suas Ações: {convertToReal(total_income)}</h6>
+				</div>
+			</Card>
+		)
+	}
+
 	const headerExtraContent = (
 		<span className="flex items-center">
             <Button
@@ -96,6 +110,9 @@ const RoutineActionList = () => {
 
 	return (
 		<Card header="Minhas Ações de Rotina" headerExtra={headerExtraContent}>
+			{!routine_actions.loading && routine_actions.routine_actions && (
+				<TotalCost />
+			)}
 			<Table>
 				<THead style={{ textAlign: "center" }}>
 					<Tr>

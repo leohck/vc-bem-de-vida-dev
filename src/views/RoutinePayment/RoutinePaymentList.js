@@ -98,11 +98,28 @@ const RoutinePaymentList = () => {
         </span>
 	);
 
+	const TotalCost = () => {
+		let total_income = 0;
+		routine_payments.routine_payments.map(item => {
+			total_income += item.monthly_amount_investing
+		})
+		return (
+			<Card className="mb-8">
+				<div>
+					<h6>Custo Total Dos Seus Pagamentos: {convertToReal(total_income)}</h6>
+				</div>
+			</Card>
+		)
+	}
+
 	return (
 		<Card
 			header="Meus Pagamentos de Rotina"
 			headerExtra={headerExtraContent}
 		>
+			{!routine_payments.loading && routine_payments.routine_payments && (
+				<TotalCost />
+			)}
 			<Table>
 				<THead style={{ textAlign: "center" }}>
 					<Tr>

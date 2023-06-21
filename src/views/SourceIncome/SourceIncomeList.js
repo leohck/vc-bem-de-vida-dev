@@ -72,8 +72,25 @@ const SourceIncomeList = (props) => {
 		);
 	};
 
+	const TotalIncome = () => {
+		let total_income = 0;
+		source_incomes.source_incomes.map(item => {
+			total_income += item.income
+		})
+	    return (
+		    <Card className="mb-8">
+			    <div>
+				    <h6>Sua Renda Total: {convertToReal(total_income)}</h6>
+			    </div>
+		    </Card>
+	    )
+	}
+
 	return (
 		<Card header="Minhas Fontes de Renda">
+			{!source_incomes.loading && source_incomes.source_incomes && (
+				<TotalIncome />
+			)}
 			<Table>
 				<THead style={{ textAlign: "center" }}>
 					<Tr>
