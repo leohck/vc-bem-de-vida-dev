@@ -108,7 +108,7 @@ const Dashboard = () => {
 				/>
 			</div>
 			<WeeklyRoutineChart data={weeklyRoutineChartData} />
-			{/*<CostBenefitChart />*/}
+			<CostBenefitChart />
 			<ActionResourcesChart data={actionResourceChartData} />
 		</div>
 	);

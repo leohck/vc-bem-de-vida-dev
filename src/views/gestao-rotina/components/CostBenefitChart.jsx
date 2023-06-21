@@ -1,34 +1,50 @@
-import React, { useCallback, useState } from 'react'
-import { Radio, Segment } from '../../../components/ui'
+import React, { useCallback, useEffect, useState } from "react";
+import { Card, Radio, Segment } from "../../../components/ui";
 import { Chart } from '../../../components/shared'
+import store from "../../../store";
+import { getCostBenefitChartData } from "../../../services/PersonalService";
 
 const CostBenefitChart = () => {
     const [lifeAspect, setLifeAspect] = useState('Saude Fisica')
+    const [chartData, setChartData] = useState([]);
+    const [chartMainData, setChartMainData] = useState({});
 
     const handleFormInput = useCallback(
         (val) => {
+            setChartData(chartMainData[lifeAspect])
             setLifeAspect(val)
         },
         [lifeAspect]
     )
 
-    const data = [
-        {
-            name: 'Dinheiro',
-            data: [44],
-        },
-        {
-            name: 'Tempo',
-            data: [76],
-        },
-        {
-            name: 'Energia',
-            data: [35],
-        },
-    ]
+    useEffect(() => {
+        const { auth } = store.getState();
+        const user_id = auth.user.user_info_id;
+        const getData = async () => {
+            await getCostBenefitChartData(user_id).then(
+                response => {
+                    console.log(response.data);
+                    setChartMainData(response.data);
+                }
+            )
+        }
+        try {
+            getData();
+        } catch (e) {
+            console.log(e);
+        }
+    }, [])
+
+    useEffect(() => {
+        setChartData(chartMainData[lifeAspect])
+        console.log(chartData);
+    }, [lifeAspect, chartMainData])
 
     return (
         <div className="flex flex-col justify-items-center">
+            <div className="grid justify-items-center mb-4">
+                <h4>Custo x Beneficio</h4>
+            </div>
             <div>
                 <Segment
                     size="sm"
@@ -50,8 +66,15 @@ const CostBenefitChart = () => {
                     </Segment.Item>
                 </Segment>
             </div>
-            <div>
+            <div className="flex flex-row gap-4 justify-evenly">
+                <div>
+                    {chartMainData.ratings['Saude Fisica']}
+                </div>
+                <div>
                 <Chart
+                    series={chartData}
+                    height={500}
+                    type="bar"
                     options={{
                         plotOptions: {
                             bar: {
@@ -80,18 +103,10 @@ const CostBenefitChart = () => {
                         fill: {
                             type: 'gradient',
                             opacity: 1,
-                        },
-
-                        tooltip: {
-                            y: {
-                                formatter: (val) => `$${val} thousands`,
-                            },
-                        },
+                        }
                     }}
-                    series={data}
-                    height={500}
-                    type="bar"
                 />
+            </div>
             </div>
         </div>
     )

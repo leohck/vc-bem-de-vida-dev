@@ -76,3 +76,10 @@ export async function putUserInfo(user_info_id, data) {
         data,
     })
 }
+
+export async function getCostBenefitChartData(user_info_id) {
+    return ApiService.fetchData({
+        url: `/cost_benefit_chart_data/${user_info_id}/`,
+        method: 'get',
+    })
+}

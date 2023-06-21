@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Card } from "../../../components/ui";
 
@@ -54,16 +54,7 @@ const WeeklyRoutineChart = (props) => {
 							}
 						}
 					},
-
-					colors: ['#2563eb', '#f59e0b'],
-					// colors: [function({ value }) {
-					// 	switch (value) {
-					// 		case value > 24:
-					// 			return ["#eb3525"];
-					// 		default:
-					// 			return ["#2563eb", "#f59e0b"];
-					// 	}
-					// }],
+					colors: ["#2563eb", "#f59e0b"],
 					dataLabels: {
 						enabled: true
 					},
@@ -80,7 +71,7 @@ const WeeklyRoutineChart = (props) => {
 							text: "Horas Disponíveis"
 						},
 						min: 0,
-						max: 24,
+						max: 40,
 						forceNiceScale: true
 					},
 					fill: {
