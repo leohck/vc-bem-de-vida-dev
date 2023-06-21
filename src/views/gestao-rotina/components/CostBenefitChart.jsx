@@ -121,6 +121,16 @@ const CostBenefitChart = () => {
 								xaxis: {
 									categories: [lifeAspect]
 								},
+								yaxis: {
+									min: 0,
+									max: 100,
+									forceNiceScale: false,
+									labels: {
+										formatter: function(val) {
+											return Math.floor(val)
+										}
+									}
+								},
 								fill: {
 									type: "gradient",
 									opacity: 1
