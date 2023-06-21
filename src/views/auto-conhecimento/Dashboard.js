@@ -17,6 +17,7 @@ import {
 } from "../../services/PersonalService";
 import { CardWithDialog } from "../../components/new";
 import store from "../../store";
+import { getRoutineActionList } from "../../services/RoutineActionService";
 
 function hex_color_switch(value) {
 	switch (value) {
@@ -42,9 +43,8 @@ const Dashboard = () => {
 
 	const [ratings, setRatings] = useState([]);
 	const [radarData, setRadarData] = useState([]);
-	const [skills, setSkills] = useState([]);
+	const [actionsCount, setActionsCount] = useState(0);
 	const [skillsCount, setSkillsCount] = useState(0);
-	const [achievements, setAchievements] = useState([]);
 	const [achievementsCount, setAchievementsCount] = useState(0);
 	const [shortQuestions, setShortQuestions] = useState(
 		ASPECTS_QUESTIONS_SHORT
@@ -75,7 +75,6 @@ const Dashboard = () => {
 				const resp = await getSkills(user_info_id);
 				if (resp.data) {
 					const skills = resp.data;
-					setSkills(skills);
 					setSkillsCount(skills.length);
 				}
 			} catch (errors) {
@@ -87,8 +86,18 @@ const Dashboard = () => {
 				const resp = await getAchievements(user_info_id);
 				if (resp.data) {
 					const achievements = resp.data;
-					setAchievements(achievements);
 					setAchievementsCount(achievements.length);
+				}
+			} catch (errors) {
+				console.log(errors);
+			}
+		};
+		const fetchRoutineActionsData = async () => {
+			try {
+				const resp = await getRoutineActionList(user_info_id);
+				if (resp.data) {
+					const actions = resp.data;
+					setActionsCount(actions.length);
 				}
 			} catch (errors) {
 				console.log(errors);
@@ -98,6 +107,7 @@ const Dashboard = () => {
 			fetchDashData();
 			fetchSkillsData();
 			fetchAchievementsData();
+			fetchRoutineActionsData();
 		}
 	}, [user_info_id]);
 
@@ -110,7 +120,7 @@ const Dashboard = () => {
 				<div>
 					<CardWithDialog
 						title={"Ações em Andamento"}
-						itemCount={0}
+						itemCount={actionsCount}
 						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
