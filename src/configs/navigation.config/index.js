@@ -118,7 +118,7 @@ const navigationConfig = [
             {
                 key: 'routine-dashboard',
                 path: '/routine/dashboard',
-                title: 'Dashboard',
+                title: 'Painel - Sua Rotina',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
