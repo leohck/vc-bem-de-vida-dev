@@ -21,16 +21,11 @@ const BigNumberCard = (props) => {
         <Card className="max-w-[240px] max-h-[240px] shadow-md shadow-blue-900/50">
             <div className="flex flex-col items-center justify-items-center justify-evenly gap-2">
                 <div>{icon}</div>
-                <div>
-                    {showPercentage ? (
-                        <div className="flex flex-row gap-2 items-center">
-                            <h2 className="basis-1/2">{value}</h2>
-                            <span className="basis-1/4">({percentage}%)</span>
-                        </div>
-                    ): (
-                        <h2>{value}</h2>
-                    )}
-                </div>
+                {showPercentage ? (
+                        <h2>{percentage}%</h2>
+                ) : (
+                    <h2>{value}</h2>
+                )}
                 <div>
                     <p>{label}</p>
                 </div>

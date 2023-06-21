@@ -47,13 +47,11 @@ const CostBenefitChart = () => {
 		const img_src_path = "/img/ratings/";
 		return (
 			<div>
-				<h1>
-					<img src={`${img_src_path}rating-${rating_value}.png`}
-					     alt={`life-aspect-rating-${rating_value}`}
-					     width={50}
-					     height={50}
-					/>
-				</h1>
+				<img src={`${img_src_path}rating-${rating_value}.png`}
+				     alt={`life-aspect-rating-${rating_value}`}
+				     width={70}
+				     height={70}
+				/>
 			</div>
 		);
 	};
@@ -63,7 +61,7 @@ const CostBenefitChart = () => {
 			<div className="grid justify-items-center mb-4">
 				<h4>Custo x Beneficio</h4>
 			</div>
-			<div className="flex flex-row gap-4 justify-evenly">
+			<div className="flex flex-row gap-4 justify-evenly ">
 				<Segment
 					size="sm"
 					value={lifeAspect}
@@ -84,7 +82,7 @@ const CostBenefitChart = () => {
 						Gestao Financeira
 					</Segment.Item>
 				</Segment>
-				<div className="flex flex-col gap-2">
+				<Card className="flex flex-col gap-2">
 					<div className="grid justify-items-center">
 						{ratings && (
 							<LifeAspectRating />
@@ -138,7 +136,7 @@ const CostBenefitChart = () => {
 							}}
 						/>
 					</div>
-				</div>
+				</Card>
 			</div>
 		</div>
 	);
