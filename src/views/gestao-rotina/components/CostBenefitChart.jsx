@@ -51,7 +51,7 @@ const CostBenefitChart = () => {
 					<img src={`${img_src_path}rating-${rating_value}.png`}
 					     alt={`life-aspect-rating-${rating_value}`}
 					     width={50}
-					     height={500}
+					     height={50}
 					/>
 				</h1>
 			</div>

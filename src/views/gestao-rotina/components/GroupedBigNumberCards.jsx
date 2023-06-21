@@ -36,7 +36,9 @@ const GroupedBigNumberCards = (props) => {
 				/>
 				<BigNumberCard
 					icon={<RiRestTimeLine size="2.5em" />}
-					value={card3Value.value}
+					value={card3Value.value.value}
+					showPercentage
+					percentage={card3Value.value.percentage}
 					label="Horas Livres / Semana"
 					tagValue={card3Value.tagValue}
 					tagSuffix=" horas"

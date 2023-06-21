@@ -13,7 +13,7 @@ const Dashboard = () => {
 	const [user_info_id, setUserInfoID] = useState(null);
 	const [card1Value, setCard1Value] = useState({ value: 0, tagValue: 0 });
 	const [card2Value, setCard2Value] = useState({ value: 0, tagValue: 0 });
-	const [card3Value, setCard3Value] = useState({ value: 0, tagValue: 0 });
+	const [card3Value, setCard3Value] = useState({ value: { value: 0, percentage: 0 }, tagValue: 0 });
 	const [card4Value, setCard4Value] = useState({ value: 0, tagValue: 0 });
 	const [weeklyRoutineChartData, setWeeklyRoutineChartData] = useState({
 		categories: [
@@ -107,7 +107,7 @@ const Dashboard = () => {
 			</div>
 			<WeeklyRoutineChart data={weeklyRoutineChartData} />
 			<CostBenefitChart />
-			{/*<ActionResourcesChart data={actionResourceChartData} />*/}
+			<ActionResourcesChart data={actionResourceChartData} />
 		</div>
 	);
 };
