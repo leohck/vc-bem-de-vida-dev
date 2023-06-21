@@ -67,9 +67,9 @@ const CostBenefitChart = () => {
                 </Segment>
             </div>
             <div className="flex flex-row gap-4 justify-evenly">
-                <div>
-                    {chartMainData.ratings['Saude Fisica']}
-                </div>
+                {/*<div>*/}
+                {/*    {chartMainData.ratings['Saude Fisica']}*/}
+                {/*</div>*/}
                 <div>
                 <Chart
                     series={chartData}
