@@ -33,6 +33,7 @@ const ActionResourcesChart = (props) => {
             </div>
             {chartType === 'money_spent' ? (
                 <ActionResourceChart
+                    chartType={chartType}
                     data={data.top_5_ra_by_money.data}
                     categories={data.top_5_ra_by_money.categories}
                     color={'#16a34a'}
@@ -40,6 +41,7 @@ const ActionResourcesChart = (props) => {
             ) : null}
             {chartType === 'time_spent' ? (
                 <ActionResourceChart
+                    chartType={chartType}
                     data={data.top_5_ra_by_time_spent.data}
                     categories={data.top_5_ra_by_time_spent.categories}
                     color={'#2563eb'}
@@ -47,6 +49,7 @@ const ActionResourcesChart = (props) => {
             ) : null}
             {chartType === 'energy_spent' ? (
                 <ActionResourceChart
+                    chartType={chartType}
                     data={data.top_5_ra_by_energy_spent.data}
                     categories={data.top_5_ra_by_energy_spent.categories}
                     color={'#f59e0b'}

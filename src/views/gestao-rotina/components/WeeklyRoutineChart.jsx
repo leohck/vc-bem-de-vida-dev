@@ -18,6 +18,10 @@ const WeeklyRoutineChart = (props) => {
 
 	const chartData = [time_spent, energy_spent];
 
+	useEffect(() => {
+		console.log(data);
+
+	}, [])
 	return (
 		<div>
 			<div className="grid justify-items-center">
@@ -56,7 +60,10 @@ const WeeklyRoutineChart = (props) => {
 					},
 					colors: ["#2563eb", "#f59e0b"],
 					dataLabels: {
-						enabled: true
+						enabled: true,
+						formatter: function (val) {
+							return Math.floor(val * 100) / 100
+						},
 					},
 					stroke: {
 						show: true,
@@ -72,7 +79,12 @@ const WeeklyRoutineChart = (props) => {
 						},
 						min: 0,
 						max: 24,
-						forceNiceScale: true
+						forceNiceScale: true,
+						labels: {
+							formatter: function(val) {
+								return Math.floor(val)
+							}
+						}
 					},
 					fill: {
 						type: "gradient",

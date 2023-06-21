@@ -2,7 +2,7 @@ import React from 'react'
 import { Chart } from '../../../components/shared'
 
 const ActionResourceChart = (props) => {
-    const { data, categories, color } = props
+    const { data, categories, color, chartType } = props
     const data1 = [
         {
             name: 'Custo',
@@ -29,10 +29,20 @@ const ActionResourceChart = (props) => {
                 colors: [color],
                 dataLabels: {
                     enabled: true,
-                    offsetX: -6,
+                    offsetX: chartType === 'money_spent' ? - 50 : -10,
                     style: {
                         fontSize: '20px',
                         colors: ['#fff'],
+                    },
+                    formatter: function (val) {
+                        if (chartType === 'money_spent') {
+                            return Intl.NumberFormat(
+                                "pt-br",
+                                { style: "currency", currency: "BRL" }
+                            ).format(val);
+                        } else {
+                            return val;
+                        }
                     },
                 },
                 xaxis: {

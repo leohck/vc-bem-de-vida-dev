@@ -90,7 +90,8 @@ const CostBenefitChart = () => {
                         colors: ['#16a34a', '#2563eb', '#f59e0b'],
                         dataLabels: {
                             enabled: true,
-                            position: 'top'
+                            position: 'top',
+                            offsetY: 10
                         },
                         stroke: {
                             show: true,
