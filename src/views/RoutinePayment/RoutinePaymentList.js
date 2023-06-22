@@ -7,10 +7,11 @@ import {
 	fetchRoutinePayments,
 	deletePayment
 } from "../../store/userinfo/routinePaymentSlice";
-import {RoutinePaymentDelete} from "../../services/RoutinePaymentService";
+import { RoutinePaymentDelete } from "../../services/RoutinePaymentService";
 import { useNavigate } from "react-router-dom";
 import store from "../../store";
 import convertToReal from "../../utils/moneyWrapper";
+import { getLifeAspectIconFromValue } from "../../constants/aspects.constant";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -54,7 +55,17 @@ const RoutinePaymentList = () => {
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td>{item.value}</Td>
-				<Td>{item.life_aspect}</Td>
+				<Td>
+					<div className="flex flex-row gap-4 items-center justify-center">
+						{item.life_aspect.split(",").map(
+							lifeAspect => (
+								<span>
+									{getLifeAspectIconFromValue(lifeAspect)}
+								</span>
+							)
+						)}
+					</div>
+				</Td>
 				<Td>{convertToReal(item.monthly_amount_investing)}</Td>
 				<Td>{item.payment_generate_money ? "SIM" : "NÃO"}</Td>
 				<Td>
@@ -101,16 +112,16 @@ const RoutinePaymentList = () => {
 	const TotalCost = () => {
 		let total_income = 0;
 		routine_payments.routine_payments.map(item => {
-			total_income += item.monthly_amount_investing
-		})
+			total_income += item.monthly_amount_investing;
+		});
 		return (
 			<Card className="mb-8">
 				<div>
 					<h6>Custo Total Dos Seus Pagamentos: {convertToReal(total_income)}</h6>
 				</div>
 			</Card>
-		)
-	}
+		);
+	};
 
 	return (
 		<Card

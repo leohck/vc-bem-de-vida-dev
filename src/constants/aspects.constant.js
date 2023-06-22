@@ -212,3 +212,7 @@ export const LIFE_ASPECTS_OPTIONS = [
         icon: <RiCoinsLine />,
     },
 ]
+
+export const getLifeAspectIconFromValue = (value) => {
+    return LIFE_ASPECTS_OPTIONS.filter(option => option.value === value)[0].icon;
+}
