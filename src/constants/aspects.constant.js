@@ -216,3 +216,11 @@ export const LIFE_ASPECTS_OPTIONS = [
 export const getLifeAspectIconFromValue = (value) => {
     return LIFE_ASPECTS_OPTIONS.filter(option => option.value === value)[0].icon;
 }
+
+export const getLifeAspectLabelFromValue = (value) => {
+    return LIFE_ASPECTS_OPTIONS.filter(option => option.value === value)[0].label;
+}
+
+export const getLifeAspectFromValue = (value) => {
+    return LIFE_ASPECTS_OPTIONS.filter(option => option.value === value)[0];
+}

@@ -3,17 +3,30 @@ import { Button, Dialog, Input, Select } from "components/ui";
 import { FaPlusSquare } from "react-icons/fa";
 import {
 	aptidoesOptions,
-	conquistasOptions
+	conquistasOptions, getAchievementFromValue
 } from "../../../views/auto-conhecimento/form.options";
 import { postItem } from "../../../services/PersonalService";
 import CreatableSelect from "react-select/creatable";
 import { useDispatch } from "react-redux";
 import { addSkill } from "../../../store/userinfo/skillsSlice";
-import { addAchievement } from "../../../store/userinfo/achievementSlice";
-import { LIFE_ASPECTS_OPTIONS } from "../../../constants/aspects.constant";
+import { addAchievement, putAchievement } from "../../../store/userinfo/achievementSlice";
+import {
+	getLifeAspectFromValue,
+	LIFE_ASPECTS_OPTIONS
+} from "../../../constants/aspects.constant";
+import { AiOutlineEdit } from "react-icons/ai";
+import { updateAchievement } from "../../../services/AchievementService";
 
 const DialogForm = (props) => {
-	const { itemType, userId, buttonTitle, itemList } = props;
+	const {
+		itemType,
+		userId,
+		buttonTitle,
+		buttonType,
+		itemList,
+		itemID = null,
+		itemData = null
+	} = props;
 
 	const dispatch = useDispatch();
 	const [dialogIsOpen, setIsOpen] = useState(false);
@@ -23,6 +36,7 @@ const DialogForm = (props) => {
 	const [newAchievementLifeAspect, setNewAchievementLifeAspect] = useState();
 	const [newAchievementIcon, setNewAchievementIcon] = useState();
 	const [newAchievementYear, setNewAchievementYear] = useState();
+	const [dialogTitle, setDialogTitle] = useState("Cadastrar");
 
 
 	useEffect(() => {
@@ -31,8 +45,6 @@ const DialogForm = (props) => {
 				itemList.every(fd => fd.value !== ad.label)
 			);
 			setOptions(newList);
-		} else {
-			setOptions(conquistasOptions)
 		}
 	}, [itemList]);
 
@@ -46,18 +58,54 @@ const DialogForm = (props) => {
 
 	const onDialogOk = () => {
 		setIsOpen(false);
-		if (itemType === "skills"){
-			addItem(userId, newItem);
-		} else {
-			const data = {
-				value: newAchievementValue,
-				life_aspect: newAchievementLifeAspect.value,
-				icon: newAchievementIcon.value,
-				year: newAchievementYear
+		try {
+			if (itemType === "skills") {
+				addItem(userId, newItem);
+			} else {
+				const data = {
+					value: newAchievementValue,
+					life_aspect: newAchievementLifeAspect.value,
+					icon: newAchievementIcon.value,
+					year: newAchievementYear
+				};
+				if (buttonType !== "edit") {
+					addItem(userId, data);
+				} else {
+					updateItem(itemID, data);
+				}
 			}
-			console.log(data);
-			addItem(userId, data);
+		} catch (e) {
+			console.log(e);
 		}
+	};
+
+	const handleEdit = () => {
+		openDialog();
+		setDialogTitle("Alterar");
+		setNewAchievementValue(itemData.value);
+		setNewAchievementYear(itemData.year);
+		setNewAchievementLifeAspect(getLifeAspectFromValue(itemData.life_aspect));
+		setNewAchievementIcon(getAchievementFromValue(itemData.icon));
+	};
+
+	const updateItem = (id, data) => {
+		const update = async () => {
+			try {
+				const resp = await updateAchievement(id, {
+					value: data.value,
+					life_aspect: data.life_aspect,
+					icon: data.icon,
+					year: data.year
+				});
+				if (resp.data) {
+					dispatch(putAchievement(resp.data));
+					alert("Sucesso!");
+				}
+			} catch (e) {
+				console.log(e);
+			}
+		};
+		update();
 	};
 
 	const addItem = (id, value) => {
@@ -96,14 +144,26 @@ const DialogForm = (props) => {
 
 	return (
 		<div>
-			<Button
-				className="mr-2"
-				variant="twoTone"
-				icon={<FaPlusSquare />}
-				onClick={() => openDialog()}
-			>
-				{buttonTitle}
-			</Button>
+			{buttonType !== "edit" ? (
+				<Button
+					className="mr-2"
+					variant="twoTone"
+					icon={<FaPlusSquare />}
+					onClick={() => openDialog()}
+				>
+					{buttonTitle}
+				</Button>
+			) : (
+				<Button
+					shape="circle"
+					color="blue-500"
+					size="sm"
+					variant="twoTone"
+					icon={<AiOutlineEdit />}
+					onClick={() => handleEdit()}
+				/>
+			)}
+
 			<Dialog
 				isOpen={dialogIsOpen}
 				onClose={onDialogClose}
@@ -126,20 +186,23 @@ const DialogForm = (props) => {
 						</>
 					) : (
 						<>
-							<h5 className="mb-4">Cadastrar Nova Conquista</h5>
+							<h5 className="mb-4">{dialogTitle} Nova Conquista</h5>
 							<div className="flex flex-col gap-4">
 								<Input placeholder="Descrição"
+								       value={newAchievementValue}
 								       onChange={(e) => setNewAchievementValue(e.target.value)}
 								/>
 								<Select placeholder="Aspecto de Vida"
 								        isClearable={true}
 								        options={LIFE_ASPECTS_OPTIONS}
+								        value={newAchievementLifeAspect}
 								        onChange={(e) => setNewAchievementLifeAspect(e)}
 								/>
 								<Select placeholder="Icone"
 								        isSearchable={false}
 								        isClearable={true}
-								        options={options}
+								        options={conquistasOptions}
+								        value={newAchievementIcon}
 								        onChange={(e) => setNewAchievementIcon(e)}
 								/>
 								<Input placeholder="Ano da Conquista"
@@ -150,6 +213,7 @@ const DialogForm = (props) => {
 										       event.preventDefault();
 									       }
 								       }}
+								       value={newAchievementYear}
 								       onChange={(e) => setNewAchievementYear(e.target.value)}
 								/>
 							</div>

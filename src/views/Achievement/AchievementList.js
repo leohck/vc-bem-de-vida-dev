@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import store from "../../store";
 import { Button, Card, Table } from "../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
-import { AiOutlineEdit } from "react-icons/ai";
 import { deleteItem } from "../../services/PersonalService";
 import { deleteAchievement } from "../../store/userinfo/achievementSlice";
 import DialogForm from "../../components/new/Skills";
@@ -40,6 +39,12 @@ function AchievementList() {
 	};
 
 	const ItemRow = ({ item }) => {
+		const itemData = {
+			value: item.value,
+			life_aspect: item.life_aspect,
+			icon: item.icon,
+			year: item.year
+		}
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td>{item.value}</Td>
@@ -56,15 +61,12 @@ function AchievementList() {
 							icon={<MdDeleteForever />}
 							onClick={() => delAchievement(item.id)}
 						/>
-						<Button
-							shape="circle"
-							color="blue-500"
-							size="sm"
-							variant="twoTone"
-							icon={<AiOutlineEdit />}
-							// onClick={() => {
-							// 	setItemID(item.id);
-							// }}
+						<DialogForm
+							itemType="achievements"
+							buttonType="edit"
+							userId={userId}
+							itemID={item.id}
+							itemData={itemData}
 						/>
 					</div>
 				</Td>
@@ -77,7 +79,6 @@ function AchievementList() {
             <DialogForm
 	            itemType="achievements"
 	            buttonTitle="Nova Conquista"
-	            itemList={achievements.achievements}
 	            userId={userId}
             />
         </span>
@@ -85,7 +86,7 @@ function AchievementList() {
 
 	return (
 		<Card header="Minhas Conquistas"
-		      className="w-[800px] h-full overflow-y-auto"
+		      className="w-[700px] h-full overflow-y-auto"
 		      headerExtra={headerExtraContent}
 		>
 			<Table>

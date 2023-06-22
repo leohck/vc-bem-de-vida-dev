@@ -79,3 +79,7 @@ export const conquistasOptions = [
 export const getAchievementIconFromValue = (value) => {
 	return conquistasOptions.filter(option => option.value === value)[0].label;
 };
+
+export const getAchievementFromValue = (value) => {
+	return conquistasOptions.filter(option => option.value === value)[0];
+};

@@ -21,7 +21,7 @@ export const achievementSlice = createSlice({
 		addAchievement: (state, action) => {
 			state.achievements = [...state.achievements, action.payload]
 		},
-		updateAchievement: (state, action) => {
+		putAchievement: (state, action) => {
 			state.achievements = state.achievements.map((el) =>
 				el.id === action.payload.id ? action.payload : el
 			);
@@ -47,6 +47,6 @@ export const achievementSlice = createSlice({
 	},
 })
 
-export const { addAchievement, deleteAchievement, updateAchievement } = achievementSlice.actions
+export const { addAchievement, deleteAchievement, putAchievement } = achievementSlice.actions
 
 export default achievementSlice.reducer
