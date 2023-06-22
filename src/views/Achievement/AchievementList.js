@@ -7,7 +7,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { deleteItem } from "../../services/PersonalService";
 import { deleteAchievement } from "../../store/userinfo/achievementSlice";
 import DialogForm from "../../components/new/Skills";
-import {getAchievementIconFromValue} from "../auto-conhecimento/form.options";
+import { getAchievementIconFromValue } from "../auto-conhecimento/form.options";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -19,7 +19,7 @@ function AchievementList() {
 	useEffect(() => {
 		const { auth } = store.getState();
 		const user_id = auth.user.user_info_id;
-		setUserId(user_id)
+		setUserId(user_id);
 		dispatch(fetchAchievements({ user_id: user_id }));
 	}, []);
 
@@ -44,12 +44,16 @@ function AchievementList() {
 			life_aspect: item.life_aspect,
 			icon: item.icon,
 			year: item.year
-		}
+		};
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
-				<Td>{item.value}</Td>
+				<Td>
+					<div className="flex flex-row gap-4 justify-center items-center">
+						{getAchievementIconFromValue(item.icon)}
+						{item.value}
+					</div>
+				</Td>
 				<Td>{item.life_aspect}</Td>
-				<Td>{getAchievementIconFromValue(item.icon)}</Td>
 				<Td>{item.year}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
@@ -97,9 +101,6 @@ function AchievementList() {
 						</Td>
 						<Td>
 							<h6>Aspecto de Vida</h6>
-						</Td>
-						<Td>
-							<h6>Icone</h6>
 						</Td>
 						<Td>
 							<h6>Ano da Conquista</h6>
