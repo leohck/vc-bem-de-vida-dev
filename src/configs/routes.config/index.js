@@ -3,6 +3,41 @@ import authRoute from "./authRoute";
 
 export const publicRoutes = [...authRoute];
 
+const module3Routes = [
+	{
+		key: "wish",
+		path: "/wish",
+		component: React.lazy(() =>
+			import("views/Module3/Wish/WishList")
+		),
+		authority: []
+	},
+	{
+		key: "goal",
+		path: "/goal",
+		component: React.lazy(() =>
+			import("views/Module3/Goal/GoalList")
+		),
+		authority: []
+	},
+	{
+		key: "action",
+		path: "/action",
+		component: React.lazy(() =>
+			import("views/Module3/Action/ActionList")
+		),
+		authority: []
+	},
+	{
+		key: "action-plan",
+		path: "/action-plan",
+		component: React.lazy(() =>
+			import("views/Module3/ActionPlan/ActionPlanList")
+		),
+		authority: []
+	},
+]
+
 export const protectedRoutes = [
 	{
 		key: "home",
@@ -109,5 +144,6 @@ export const protectedRoutes = [
 		path: "/routine/payments",
 		component: React.lazy(() => import("views/RoutinePayment")),
 		authority: []
-	}
+	},
+	...module3Routes
 ];
