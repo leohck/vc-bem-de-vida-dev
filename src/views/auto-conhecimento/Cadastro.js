@@ -6,9 +6,8 @@ import { fetchUserInfo } from '../../store/userinfo/userInfoSlice'
 import { putUserInfo } from '../../services/PersonalService'
 import { setCurrentUser } from '../../store/userinfo/userInfoSlice'
 import store from "../../store";
-import dayjs from "dayjs";
 import { useNavigate } from "react-router-dom";
-
+import 'dayjs/locale/pt-br'
 
 const Cadastro = () => {
     const dispatch = useDispatch()
@@ -30,7 +29,9 @@ const Cadastro = () => {
         if (!user_info.loading && user_info.currentUser) {
             setUserInfoID(user_info.currentUser.id)
             setName(user_info.currentUser.name)
-            setBirthdate(user_info.currentUser.birthdate)
+            const date = new Date(user_info.currentUser.birthdate + " EDT");
+            const birth = date.toLocaleDateString('pt-BR')
+            setBirthdate(birth)
             setMaritalStatus([user_info.currentUser.marital_status])
 
             return () => {
@@ -108,12 +109,14 @@ const Cadastro = () => {
                 <div className="flex flex-row items-center max-w-[400px]">
                     <p className="font-bold text-lg mr-6">Data de Nascimento: </p>
                     <DatePicker
-                        inputtable
                         value={birthdate}
                         onChange={setBirthdate}
-                        locale={dayjs.locale('pt-br')}
-                        inputFormat="YYYY-MMMM-DD"
-                        labelFormat="DD-MMMM-YYYY"
+                        locale="pt-br"
+                        inputFormat="DD/MM/YYYY"
+                        labelFormat={{
+                            month: "MMMM",
+                            year: "YYYY"
+                        }}
                         placeholder={birthdate}
                     />
                 </div>
