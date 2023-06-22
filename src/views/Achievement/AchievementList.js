@@ -47,8 +47,8 @@ function AchievementList() {
 		};
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
-				<Td>
-					<div className="flex flex-row gap-4 justify-center items-center">
+				<Td className="max-w-[250px]">
+					<div className="flex flex-row gap-2 items-center">
 						{getAchievementIconFromValue(item.icon)}
 						{item.value}
 					</div>

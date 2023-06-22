@@ -50,6 +50,10 @@ const DialogForm = (props) => {
 
 	const openDialog = () => {
 		setIsOpen(true);
+		setNewAchievementValue(null)
+		setNewAchievementLifeAspect(null)
+		setNewAchievementIcon(null)
+		setNewAchievementYear(null)
 	};
 
 	const onDialogClose = () => {
@@ -192,30 +196,34 @@ const DialogForm = (props) => {
 								       value={newAchievementValue}
 								       onChange={(e) => setNewAchievementValue(e.target.value)}
 								/>
-								<Select placeholder="Aspecto de Vida"
-								        isClearable={true}
-								        options={LIFE_ASPECTS_OPTIONS}
-								        value={newAchievementLifeAspect}
-								        onChange={(e) => setNewAchievementLifeAspect(e)}
-								/>
-								<Select placeholder="Icone"
-								        isSearchable={false}
-								        isClearable={true}
-								        options={conquistasOptions}
-								        value={newAchievementIcon}
-								        onChange={(e) => setNewAchievementIcon(e)}
-								/>
-								<Input placeholder="Ano da Conquista"
-								       type="text"
-								       maxLength={4}
-								       onKeyPress={(event) => {
-									       if (!/[0-9]/.test(event.key)) {
-										       event.preventDefault();
-									       }
-								       }}
-								       value={newAchievementYear}
-								       onChange={(e) => setNewAchievementYear(e.target.value)}
-								/>
+								<div className="flex flex-row gap-2 justify-between">
+									<Select placeholder="Aspecto de Vida"
+									        className="h-10"
+									        isClearable={true}
+									        options={LIFE_ASPECTS_OPTIONS}
+									        value={newAchievementLifeAspect}
+									        onChange={(e) => setNewAchievementLifeAspect(e)}
+									/>
+									<Select placeholder="Icone"
+									        className="max-w-[100px] h-10"
+									        isSearchable={false}
+									        options={conquistasOptions}
+									        value={newAchievementIcon}
+									        onChange={(e) => setNewAchievementIcon(e)}
+									/>
+									<Input placeholder="Ano da Conquista"
+									       className="max-w-[150px] h-10"
+									       type="text"
+									       maxLength={4}
+									       onKeyPress={(event) => {
+										       if (!/[0-9]/.test(event.key)) {
+											       event.preventDefault();
+										       }
+									       }}
+									       value={newAchievementYear}
+									       onChange={(e) => setNewAchievementYear(e.target.value)}
+									/>
+								</div>
 							</div>
 						</>
 					)}

@@ -49,30 +49,30 @@ export const aptidoesOptions = [
 
 export const conquistasOptions = [
 
-	{ life_aspect: "Saude Fisica", value: "1", label: <FaWeight /> },
-	{ life_aspect: "Saude Fisica", value: "2", label: <FaHandRock /> },
-	{ life_aspect: "Saude Fisica", value: "3", label: <FaHourglassHalf /> },
+	{ life_aspect: "Saude Fisica", value: "1", label: <FaWeight size="2.5em" /> },
+	{ life_aspect: "Saude Fisica", value: "2", label: <FaHandRock size="2.5em" /> },
+	{ life_aspect: "Saude Fisica", value: "3", label: <FaHourglassHalf size="2.5em" /> },
 
-	{ life_aspect: "Saude Mental", value: "4", label: <FaPlaneDeparture /> },
-	{ life_aspect: "Saude Mental", value: "5", label: <FaCarSide /> },
-	{ life_aspect: "Saude Mental", value: "6", label: <FaHouseUser /> },
-	{ life_aspect: "Saude Mental", value: "7", label: <FaBook /> },
-	{ life_aspect: "Saude Mental", value: "8", label: <FaPrayingHands /> },
-	{ life_aspect: "Saude Mental", value: "9", label: <FaTrophy /> },
-	{ life_aspect: "Saude Mental", value: "10", label: <FaGift /> },
+	{ life_aspect: "Saude Mental", value: "4", label: <FaPlaneDeparture size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "5", label: <FaCarSide size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "6", label: <FaHouseUser size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "7", label: <FaBook size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "8", label: <FaPrayingHands size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "9", label: <FaTrophy size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "10", label: <FaGift size="2.5em" /> },
 
-	{ life_aspect: "Saude Financeira", value: "11", label: <FaMoneyBillAlt /> },
-	{ life_aspect: "Saude Financeira", value: "12", label: <GiReceiveMoney /> },
-	{ life_aspect: "Saude Financeira", value: "13", label: <GrMoney /> },
+	{ life_aspect: "Saude Financeira", value: "11", label: <FaMoneyBillAlt size="2.5em" /> },
+	{ life_aspect: "Saude Financeira", value: "12", label: <GiReceiveMoney size="2.5em" /> },
+	{ life_aspect: "Saude Financeira", value: "13", label: <GrMoney size="2.5em" /> },
 
-	{ life_aspect: "Vida Social", value: "14", label: <FaBabyCarriage /> },
-	{ life_aspect: "Vida Social", value: "15", label: <FaHeart /> },
-	{ life_aspect: "Vida Social", value: "16", label: <FaHandHoldingHeart /> },
-	{ life_aspect: "Vida Social", value: "17", label: <FaPaw /> },
+	{ life_aspect: "Vida Social", value: "14", label: <FaBabyCarriage size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "15", label: <FaHeart size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "16", label: <FaHandHoldingHeart size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "17", label: <FaPaw size="2.5em" /> },
 
-	{ life_aspect: "Vida Profissional", value: "18", label: <FaAward /> },
-	{ life_aspect: "Vida Profissional", value: "19", label: <FaGraduationCap /> },
-	{ life_aspect: "Vida Profissional", value: "20", label: <FaBriefcase /> }
+	{ life_aspect: "Vida Profissional", value: "18", label: <FaAward size="2.5em" /> },
+	{ life_aspect: "Vida Profissional", value: "19", label: <FaGraduationCap size="2.5em" /> },
+	{ life_aspect: "Vida Profissional", value: "20", label: <FaBriefcase size="2.5em" /> }
 
 ];
 
