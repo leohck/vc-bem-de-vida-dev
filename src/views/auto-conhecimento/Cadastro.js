@@ -8,6 +8,7 @@ import { setCurrentUser } from '../../store/userinfo/userInfoSlice'
 import store from "../../store";
 import { useNavigate } from "react-router-dom";
 import 'dayjs/locale/pt-br'
+import dayjs from "dayjs";
 
 const Cadastro = () => {
     const dispatch = useDispatch()
@@ -18,6 +19,7 @@ const Cadastro = () => {
     const [maritalStatus, setMaritalStatus] = useState([])
     const [birthdate, setBirthdate] = useState()
     const [name, setName] = useState()
+    const [email, setEmail] = useState()
 
 
     useEffect(() => {
@@ -33,6 +35,7 @@ const Cadastro = () => {
             const birth = date.toLocaleDateString('pt-BR')
             setBirthdate(birth)
             setMaritalStatus([user_info.currentUser.marital_status])
+            setEmail(user_info.currentUser.email)
 
             return () => {
                 userInfoLoaded.current = true
@@ -63,9 +66,14 @@ const Cadastro = () => {
             name: name,
             birthdate: birthdate,
             marital_status: maritalStatus[0],
+            email: email
         }
+        const customParseFormat = require('dayjs/plugin/customParseFormat')
+        dayjs.extend(customParseFormat)
         if (typeof birthdate !== "string") {
             data.birthdate = birthdate.toISOString().split('T')[0]
+        } else {
+            data.birthdate = dayjs(data.birthdate, 'DD/MM/YYYY', 'pt-br').toISOString().split('T')[0]
         }
         saveUserInfo(data)
     }
@@ -121,10 +129,6 @@ const Cadastro = () => {
                     />
                 </div>
 
-                <div className="max-w-[200px]">
-
-                </div>
-
                 <div className="flex flex-col justify-items-center">
                     <p className="font-bold text-lg">Estado Civil</p>
                     <Segment
@@ -138,6 +142,17 @@ const Cadastro = () => {
                         <Segment.Item value="Casado">Casado</Segment.Item>
                         <Segment.Item value="Viuvo">Viuvo</Segment.Item>
                     </Segment>
+                </div>
+                <div className="flex flex-row items-center">
+                    <p className="font-bold text-lg">Email: </p>
+                    <Input
+                        className="max-w-sm ml-16"
+                        name="email"
+                        value={email}
+                        onChange={(e) => {
+                            setEmail(e.target.value)
+                        }}
+                    />
                 </div>
             </Card>
         </div>
