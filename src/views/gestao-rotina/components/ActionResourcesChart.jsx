@@ -28,7 +28,7 @@ const ActionResourcesChart = (props) => {
     return (
         <div>
             <div className="grid justify-items-center">
-                <h4>Ações / Consumo de Recurso</h4>
+                <h4>Consumo de Recurso</h4>
                 <GraphSegment />
             </div>
             {chartType === 'money_spent' ? (
