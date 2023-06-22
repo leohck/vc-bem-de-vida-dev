@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dialog, Select } from "components/ui";
+import { Button, Dialog, Input, Select } from "components/ui";
 import { FaPlusSquare } from "react-icons/fa";
 import {
 	aptidoesOptions,
@@ -18,7 +18,7 @@ const { MultiValueLabel } = components;
 const DialogForm = (props) => {
 	const dispatch = useDispatch();
 	const [dialogIsOpen, setIsOpen] = useState(false);
-	const [newItem, setNewItem] = useState("");
+	const [newItem, setNewItem] = useState([]);
 	const [options, setOptions] = useState([]);
 	const { itemType, userId, buttonTitle, itemList } = props;
 
@@ -54,14 +54,17 @@ const DialogForm = (props) => {
 		const update = async () => {
 			try {
 				if (itemType === "skills") {
-					const resp = await postItem(itemType, {
-						user: id,
-						value: value
-					});
-					if (resp.data) {
-						alert("Sucesso!");
-						dispatch(addSkill(resp.data));
+					console.log(value);
+					for (const item of value) {
+						const resp = await postItem(itemType, {
+							user: id,
+							value: item.label
+						});
+						if (resp.data) {
+							dispatch(addSkill(resp.data));
+						}
 					}
+					alert("Sucesso!");
 				} else {
 					for (const item of value) {
 						const resp = await postItem(itemType, {
@@ -72,9 +75,9 @@ const DialogForm = (props) => {
 						});
 						if (resp.data) {
 							dispatch(addAchievement(resp.data));
-							alert("Sucesso!");
 						}
 					}
+					alert("Sucesso!");
 				}
 			} catch (errors) {
 				console.log(errors);
@@ -139,18 +142,31 @@ const DialogForm = (props) => {
 							<h5 className="mb-4">Cadastrar Nova Habilidade</h5>
 							<span>Lista de Habilidades</span>
 							<Select
-								isClearable={false}
-								isMulti={false}
+								isClearable={true}
+								isMulti={true}
 								placeholder="Lista de Aptidões"
 								options={options}
-								onChange={({ label }) => setNewItem(label)}
+								onChange={(e) => setNewItem(e)}
 								componentAs={CreatableSelect}
 							/>
 						</>
 					) : (
 						<>
 							<h5 className="mb-4">Cadastrar Nova Conquista</h5>
-							<span>Lista de Conquistas</span>
+							<div className="flex flex-col gap-4">
+								<Input placeholder="Descrição" />
+								<Select placeholder="Aspecto de Vida"
+								        options={[
+									        "Saúde Física",
+									        "Saúde Mental",
+									        "Vida Social",
+									        "Vida Profissional",
+									        "Gestão Financeira"
+								        ]}
+								/>
+								<Select placeholder="Icone" />
+								<Input placeholder="Ano da Conquista" />
+							</div>
 							<Select
 								isMulti
 								placeholder="Lista de Conquistas"
