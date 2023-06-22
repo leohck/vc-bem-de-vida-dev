@@ -2,12 +2,13 @@ import React, { useEffect, useState } from "react";
 import { fetchSkills } from "../../store/userinfo/skillsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import store from "../../store";
-import { Button, Card, Table } from "../../components/ui";
+import { Button, Card, Input, Table } from "../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
-import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineCheck, AiOutlineEdit } from "react-icons/ai";
 import { deleteItem } from "../../services/PersonalService";
 import { deleteSkill } from "../../store/userinfo/skillsSlice";
 import DialogForm from "../../components/new/Skills";
+import { updateSkill } from "../../services/SkillService";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -39,9 +40,69 @@ function SkillList() {
 	};
 
 	const ItemRow = ({ item }) => {
+		const [editing, setEditing] = useState(false);
+		const [value, setValue] = useState(item.value);
+		const handleEdit = () => {
+			setEditing(true);
+		};
+
+		const handleSave = async () => {
+			try {
+				await updateSkill(item.id, value).then(
+					response => {
+						console.log(response);
+						if (response.status === 200) {
+							alert("Sucesso!");
+							setEditing(false);
+						}
+					}
+				)
+			} catch (e) {
+				console.log(e);
+			}
+		};
+
+		const EditableCell = ({ id, value, setValue, isEditing }) => {
+			const [inputValue, setInputValue] = useState(value);
+			const [editing, setEditing] = useState(isEditing);
+			const [className, setClassName] = useState("");
+
+			useEffect(() => {
+				setValue(value);
+			}, [value]);
+
+			useEffect(() => {
+				if (editing) {
+					setClassName("border-blue-500 focus:bg-white");
+				} else {
+					setClassName("border-transparent bg-transparent");
+				}
+			}, [editing]);
+
+			return (
+				<Input
+					key={id}
+					className={className}
+					size="sm"
+					value={inputValue}
+					disabled={!editing}
+					onChange={e => setInputValue(e.target.value)}
+					onBlur={() => {setValue(inputValue)}}
+				/>
+			);
+		};
+
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
-				<Td>{item.value}</Td>
+				<Td>
+					<EditableCell
+						key={item.id}
+						initialValue={item.value}
+						isEditing={editing}
+						value={value}
+						setValue={setValue}
+					/>
+				</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
 						<Button
@@ -52,17 +113,26 @@ function SkillList() {
 							icon={<MdDeleteForever />}
 							onClick={() => delSkill(item.id)}
 						/>
+						{editing ? (
+							<Button
+								shape="circle"
+								color="green-500"
+								size="sm"
+								variant="twoTone"
+								icon={<AiOutlineCheck />}
+								onClick={handleSave}
+							/>
+						) : (
+							<Button
+								shape="circle"
+								color="blue-500"
+								size="sm"
+								variant="twoTone"
+								icon={<AiOutlineEdit />}
+								onClick={handleEdit}
+							/>
+						)}
 
-						<Button
-							shape="circle"
-							color="blue-500"
-							size="sm"
-							variant="twoTone"
-							icon={<AiOutlineEdit />}
-							// onClick={() => {
-							// 	setItemID(item.id);
-							// }}
-						/>
 					</div>
 				</Td>
 			</Tr>
