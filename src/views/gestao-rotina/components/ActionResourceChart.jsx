@@ -10,6 +10,7 @@ const ActionResourceChart = (props) => {
 			data: data
 		}
 	];
+	const fontSize = data1.length < 5 ? "20px" : "14px"
 	return (
 		<Chart
 			series={data1}
@@ -30,9 +31,9 @@ const ActionResourceChart = (props) => {
 				colors: [color],
 				dataLabels: {
 					enabled: true,
-					offsetX: chartType === "money_spent" ? -50 : -10,
+					offsetX: chartType === "money_spent" ? -30 : -5,
 					style: {
-						fontSize: "20px",
+						fontSize: chartType === "money_spent" ? "16px" : fontSize,
 						colors: ["#fff"]
 					},
 					formatter: function(val) {
