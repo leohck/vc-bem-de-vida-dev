@@ -35,10 +35,15 @@ const life_aspect_options = [
     },
 ]
 
-const LifeAspectSegment = ({ value, onChange }) => {
+const LifeAspectSegment = ({ value, onChange, singleOption, vertical }) => {
+    const className = vertical ? "flex flex-col justify-between" : "flex flex-col xl:flex-row items-center gap-4"
     return (
-        <Segment value={value} selectionType="multiple" onChange={onChange}>
-            <div className="flex flex-col xl:flex-row items-center gap-4">
+        <Segment
+                 value={value}
+                 selectionType={!singleOption ? "multiple" : "single"}
+                 onChange={onChange}
+        >
+            <div className={className}>
                 {life_aspect_options.map((item) => (
                     <Segment.Item
                         value={item.value}

@@ -4,6 +4,7 @@ import { Chart } from "../../../components/shared";
 import store from "../../../store";
 import { getCostBenefitChartData } from "../../../services/PersonalService";
 import Image from "d3-fetch/src/image";
+import LifeAspectSegment from "./LifeAspectSegment";
 
 const CostBenefitChart = () => {
 	const [lifeAspect, setLifeAspect] = useState(["Saude Fisica"]);
@@ -57,31 +58,17 @@ const CostBenefitChart = () => {
 	};
 
 	return (
-		<div className="flex flex-col justify-items-center">
+		<div className="flex flex-col justify-center">
 			<div className="grid justify-items-center mb-4">
 				<h4>Custo x Beneficio</h4>
 			</div>
-			<div className="flex flex-row gap-4 justify-evenly ">
-				<Segment
-					size="sm"
-					value={lifeAspect}
-					onChange={(val) => handleFormInput(val)}
-					className="flex flex-col justify-evenly"
-				>
-					<Segment.Item value="Saude Fisica">
-						Saude Fisica
-					</Segment.Item>
-					<Segment.Item value="Saude Mental">
-						Saude Mental
-					</Segment.Item>
-					<Segment.Item value="Vida Social">Vida Social</Segment.Item>
-					<Segment.Item value="Vida Profissional">
-						Vida Profissional
-					</Segment.Item>
-					<Segment.Item value="Gestao Financeira">
-						Gestao Financeira
-					</Segment.Item>
-				</Segment>
+			<div className="flex flex-row gap-4 justify-evenly">
+				<LifeAspectSegment
+				value={lifeAspect}
+				onChange={setLifeAspect}
+				singleOption={true}
+				vertical={true}
+				/>
 				<Card className="flex flex-col gap-2">
 					<div className="grid justify-items-center">
 						{ratings && (
