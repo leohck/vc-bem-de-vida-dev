@@ -1,3 +1,8 @@
+import { GiHealthNormal } from "react-icons/gi";
+import { RiCoinsLine, RiMentalHealthFill } from "react-icons/ri";
+import { MdGroups } from "react-icons/md";
+import { FaHandshake } from "react-icons/fa";
+
 export const TEXT_NOT_RATED = 'Não Avaliado'
 export const TEXT_VERY_LOW = 'Muito Baixa'
 export const TEXT_LOW = 'Baixa'
@@ -178,4 +183,32 @@ export const ASPECTS_TYPES = [
     'Vida Social',
     'Vida Profissional',
     'Gestão Financeira',
+]
+
+export const LIFE_ASPECTS_OPTIONS = [
+    {
+        label: 'Saúde Física',
+        value: 'Saude Fisica',
+        icon: <GiHealthNormal />,
+    },
+    {
+        label: 'Saúde Mental',
+        value: 'Saude Mental',
+        icon: <RiMentalHealthFill />,
+    },
+    {
+        label: 'Vida Social',
+        value: 'Vida Social',
+        icon: <MdGroups />,
+    },
+    {
+        label: 'Vida Profissional',
+        value: 'Vida Profissional',
+        icon: <FaHandshake />,
+    },
+    {
+        label: 'Gestão Financeira',
+        value: 'Gestao Financeira',
+        icon: <RiCoinsLine />,
+    },
 ]

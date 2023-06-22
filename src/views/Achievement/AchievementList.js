@@ -8,6 +8,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { deleteItem } from "../../services/PersonalService";
 import { deleteAchievement } from "../../store/userinfo/achievementSlice";
 import DialogForm from "../../components/new/Skills";
+import {getAchievementIconFromValue} from "../auto-conhecimento/form.options";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -43,7 +44,8 @@ function AchievementList() {
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td>{item.value}</Td>
 				<Td>{item.life_aspect}</Td>
-				<Td>{item.icon}</Td>
+				<Td>{getAchievementIconFromValue(item.icon)}</Td>
+				<Td>{item.year}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
 						<Button
@@ -54,17 +56,16 @@ function AchievementList() {
 							icon={<MdDeleteForever />}
 							onClick={() => delAchievement(item.id)}
 						/>
-
-						{/*<Button*/}
-						{/*	shape="circle"*/}
-						{/*	color="blue-500"*/}
-						{/*	size="sm"*/}
-						{/*	variant="twoTone"*/}
-						{/*	icon={<AiOutlineEdit />}*/}
-						{/*	onClick={() => {*/}
-						{/*		setItemID(item.id);*/}
-						{/*	}}*/}
-						{/*/>*/}
+						<Button
+							shape="circle"
+							color="blue-500"
+							size="sm"
+							variant="twoTone"
+							icon={<AiOutlineEdit />}
+							// onClick={() => {
+							// 	setItemID(item.id);
+							// }}
+						/>
 					</div>
 				</Td>
 			</Tr>
@@ -84,7 +85,7 @@ function AchievementList() {
 
 	return (
 		<Card header="Minhas Conquistas"
-		      className="w-[600px] h-full overflow-y-auto"
+		      className="w-[800px] h-full overflow-y-auto"
 		      headerExtra={headerExtraContent}
 		>
 			<Table>
@@ -98,6 +99,9 @@ function AchievementList() {
 						</Td>
 						<Td>
 							<h6>Icone</h6>
+						</Td>
+						<Td>
+							<h6>Ano da Conquista</h6>
 						</Td>
 						<Td>
 							<h6>Ações</h6>

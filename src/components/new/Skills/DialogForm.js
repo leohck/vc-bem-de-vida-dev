@@ -3,24 +3,26 @@ import { Button, Dialog, Input, Select } from "components/ui";
 import { FaPlusSquare } from "react-icons/fa";
 import {
 	aptidoesOptions,
-	conquistasGroupedOptions
+	conquistasOptions
 } from "../../../views/auto-conhecimento/form.options";
 import { postItem } from "../../../services/PersonalService";
 import CreatableSelect from "react-select/creatable";
-import { HiCheck } from "react-icons/hi";
 import { useDispatch } from "react-redux";
 import { addSkill } from "../../../store/userinfo/skillsSlice";
 import { addAchievement } from "../../../store/userinfo/achievementSlice";
-import { components } from "react-select";
-
-const { MultiValueLabel } = components;
+import { LIFE_ASPECTS_OPTIONS } from "../../../constants/aspects.constant";
 
 const DialogForm = (props) => {
+	const { itemType, userId, buttonTitle, itemList } = props;
+
 	const dispatch = useDispatch();
 	const [dialogIsOpen, setIsOpen] = useState(false);
 	const [newItem, setNewItem] = useState([]);
 	const [options, setOptions] = useState([]);
-	const { itemType, userId, buttonTitle, itemList } = props;
+	const [newAchievementValue, setNewAchievementValue] = useState();
+	const [newAchievementLifeAspect, setNewAchievementLifeAspect] = useState();
+	const [newAchievementIcon, setNewAchievementIcon] = useState();
+	const [newAchievementYear, setNewAchievementYear] = useState();
 
 
 	useEffect(() => {
@@ -30,10 +32,7 @@ const DialogForm = (props) => {
 			);
 			setOptions(newList);
 		} else {
-			const newList = conquistasGroupedOptions.filter(ad =>
-				itemList.every(fd => fd.value !== ad.label)
-			);
-			setOptions(newList);
+			setOptions(conquistasOptions)
 		}
 	}, [itemList]);
 
@@ -41,20 +40,30 @@ const DialogForm = (props) => {
 		setIsOpen(true);
 	};
 
-	const onDialogClose = (e) => {
+	const onDialogClose = () => {
 		setIsOpen(false);
 	};
 
-	const onDialogOk = (e) => {
+	const onDialogOk = () => {
 		setIsOpen(false);
-		addItem(userId, newItem);
+		if (itemType === "skills"){
+			addItem(userId, newItem);
+		} else {
+			const data = {
+				value: newAchievementValue,
+				life_aspect: newAchievementLifeAspect.value,
+				icon: newAchievementIcon.value,
+				year: newAchievementYear
+			}
+			console.log(data);
+			addItem(userId, data);
+		}
 	};
 
 	const addItem = (id, value) => {
 		const update = async () => {
 			try {
 				if (itemType === "skills") {
-					console.log(value);
 					for (const item of value) {
 						const resp = await postItem(itemType, {
 							user: id,
@@ -62,22 +71,21 @@ const DialogForm = (props) => {
 						});
 						if (resp.data) {
 							dispatch(addSkill(resp.data));
+							alert("Sucesso!");
 						}
 					}
-					alert("Sucesso!");
 				} else {
-					for (const item of value) {
-						const resp = await postItem(itemType, {
-							user: id,
-							value: item.label,
-							life_aspect: item.life_aspect,
-							icon: null
-						});
-						if (resp.data) {
-							dispatch(addAchievement(resp.data));
-						}
+					const resp = await postItem(itemType, {
+						user: id,
+						value: value.value,
+						life_aspect: value.life_aspect,
+						icon: value.icon,
+						year: value.year
+					});
+					if (resp.data) {
+						dispatch(addAchievement(resp.data));
+						alert("Sucesso!");
 					}
-					alert("Sucesso!");
 				}
 			} catch (errors) {
 				console.log(errors);
@@ -85,41 +93,6 @@ const DialogForm = (props) => {
 		};
 		update();
 	};
-
-	const CustomControlMulti = ({ children, data, ...props }) => {
-		const { icon } = data;
-		return (
-			<MultiValueLabel {...props}>
-				<div className="inline-flex items-center">
-					{icon} &nbsp;
-					{children}
-				</div>
-			</MultiValueLabel>
-		);
-	};
-	const CustomSelectOption = ({ innerProps, label, data, isSelected }) => {
-		return (
-			<div
-				className={`flex items-center justify-between p-2 ${
-					isSelected
-						? "bg-gray-100 dark:bg-gray-500"
-						: "hover:bg-gray-50 dark:hover:bg-gray-600"
-				}`}
-				{...innerProps}
-			>
-				<div className="flex items-center">
-					{data.icon}
-					<span className="ml-2 rtl:mr-2">{label}</span>
-				</div>
-				{isSelected && <HiCheck className="text-emerald-500 text-xl" />}
-			</div>
-		);
-	};
-	const formatGroupLabel = (data) => (
-		<div className="font-bold text-xs uppercase text-gray-800 dark:text-white my-2">
-			{data.label}
-		</div>
-	);
 
 	return (
 		<div>
@@ -135,6 +108,7 @@ const DialogForm = (props) => {
 				isOpen={dialogIsOpen}
 				onClose={onDialogClose}
 				onRequestClose={onDialogClose}
+				shouldCloseOnOverlayClick={false}
 			>
 				<div>
 					{itemType === "skills" ? (
@@ -154,31 +128,31 @@ const DialogForm = (props) => {
 						<>
 							<h5 className="mb-4">Cadastrar Nova Conquista</h5>
 							<div className="flex flex-col gap-4">
-								<Input placeholder="Descrição" />
-								<Select placeholder="Aspecto de Vida"
-								        options={[
-									        "Saúde Física",
-									        "Saúde Mental",
-									        "Vida Social",
-									        "Vida Profissional",
-									        "Gestão Financeira"
-								        ]}
+								<Input placeholder="Descrição"
+								       onChange={(e) => setNewAchievementValue(e.target.value)}
 								/>
-								<Select placeholder="Icone" />
-								<Input placeholder="Ano da Conquista" />
+								<Select placeholder="Aspecto de Vida"
+								        isClearable={true}
+								        options={LIFE_ASPECTS_OPTIONS}
+								        onChange={(e) => setNewAchievementLifeAspect(e)}
+								/>
+								<Select placeholder="Icone"
+								        isSearchable={false}
+								        isClearable={true}
+								        options={options}
+								        onChange={(e) => setNewAchievementIcon(e)}
+								/>
+								<Input placeholder="Ano da Conquista"
+								       type="text"
+								       maxLength={4}
+								       onKeyPress={(event) => {
+									       if (!/[0-9]/.test(event.key)) {
+										       event.preventDefault();
+									       }
+								       }}
+								       onChange={(e) => setNewAchievementYear(e.target.value)}
+								/>
 							</div>
-							<Select
-								isMulti
-								placeholder="Lista de Conquistas"
-								options={options}
-								onChange={(e) => setNewItem(e)}
-								components={{
-									Option: CustomSelectOption,
-									MultiValueLabel: CustomControlMulti
-								}}
-								formatGroupLabel={formatGroupLabel}
-								className="mb-4"
-							/>
 						</>
 					)}
 				</div>
