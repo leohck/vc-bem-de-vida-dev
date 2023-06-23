@@ -1,23 +1,34 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteWish, fetchWishes } from "../../../store/module3/wishSlice";
+import { delWish, fetchWishes } from "../../../store/module3/wishSlice";
 import { getAchievementIconFromValue } from "../../auto-conhecimento/form.options";
 import { Button, Card, Table } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
+import { deleteWish } from "../../../services/Module3/WishService";
+import { toastFeedback } from "../../../utils/actionFeedback";
 
 const { Tr, Td, THead, TBody } = Table;
 
-const WishList = ({ setItemToEdit }) => {
+const WishList = ({ userID, setItemToEdit }) => {
 	const dispatch = useDispatch();
 	const wishSlice = useSelector(state => state.module3.wishSlice);
 
 	useEffect(() => {
-		dispatch(fetchWishes());
+		dispatch(fetchWishes({ user_id: userID }));
 	}, []);
 
-	const handleDeleteItem = (itemID) => {
-		dispatch(deleteWish(itemID));
+	const handleDeleteItem = async (itemID) => {
+		try {
+			await deleteWish(itemID).then(
+				() => {
+					dispatch(delWish(itemID));
+					toastFeedback("warning", "Desejo Excluido");
+				}
+			);
+		} catch (e) {
+			toastFeedback("error", "Falha ao Excluir Desejo");
+		}
 	};
 
 	const handleEditItem = (item) => {
@@ -60,7 +71,7 @@ const WishList = ({ setItemToEdit }) => {
 
 	return (
 		<Card header="Meus Desejos"
-			className="max-h-[700px] overflow-y-auto"
+		      className="max-h-[700px] overflow-y-auto"
 		>
 			<Table>
 				<THead style={{ textAlign: "center" }}>

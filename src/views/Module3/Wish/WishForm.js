@@ -4,8 +4,9 @@ import { conquistasOptions, getAchievementFromValue } from "../../auto-conhecime
 import { useDispatch } from "react-redux";
 import { addWish, updateWish } from "../../../store/module3/wishSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
+import { putWish, postWish } from "../../../services/Module3/WishService";
 
-const WishForm = ({ itemToEdit, setItemToEdit }) => {
+const WishForm = ({ userID, itemToEdit, setItemToEdit }) => {
 	const dispatch = useDispatch();
 	const [wish, setWish] = useState();
 	const [icon, setIcon] = useState();
@@ -22,29 +23,43 @@ const WishForm = ({ itemToEdit, setItemToEdit }) => {
 		}
 	}, [itemToEdit]);
 
-	function getRandomInt(max) {
-		return Math.floor(Math.random() * max);
-	}
-
 	const clearForm = () => {
 		setWish(null);
 		setIcon(null);
 	};
 
-	const handleFormSubmit = () => {
+	const handleFormSubmit = async () => {
 		try {
 			const data = {
-				id: getRandomInt(20),
+				user: userID,
 				value: wish,
 				icon: icon.value
 			};
 			if (itemToEdit) {
-				dispatch(updateWish(data));
-				toastFeedback("info", "Desejo Alterado");
-				setItemToEdit(null);
+				try {
+					await putWish(itemToEdit.id, data).then(
+						response => {
+							dispatch(updateWish(response.data));
+							toastFeedback("info", "Desejo Alterado");
+							setItemToEdit(null);
+						}
+					)
+				} catch (e) {
+					console.log(e);
+					toastFeedback("danger", "Falha ao Editar Desejo");
+				}
 			} else {
-				dispatch(addWish(data));
-				toastFeedback("success", "Desejo Cadastrado");
+				try {
+					await postWish(data).then(
+						response => {
+							dispatch(addWish(response.data));
+							toastFeedback("success", "Desejo Cadastrado");
+						}
+					)
+				} catch (e) {
+					console.log(e);
+					toastFeedback("danger", "Falha ao Cadastrar Desejo")
+				}
 			}
 			clearForm();
 		} catch (e) {

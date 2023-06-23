@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {getWishList} from "../../services/Module3/WishService";
 
 
 const initialState = {
@@ -9,19 +10,10 @@ const initialState = {
 
 export const fetchWishes = createAsyncThunk(
 	"wishes/fetchWishes",
-	() => {
-		return [
-			{
-				id: 21,
-				value: "comprar triplex",
-				icon: "4"
-			}
-		] ;
+	async ({user_id}) => {
+		const response = await getWishList(user_id)
+		return response.data
 	}
-	// async ({ user_id }) => {
-	// 	const response = await getwishes(user_id);
-	// 	return response.data;
-	// }
 );
 
 
@@ -37,7 +29,7 @@ export const wishesSlice = createSlice({
 				(el) => el.id === action.payload.id ? action.payload : el
 			);
 		},
-		deleteWish: (state, action) => {
+		delWish: (state, action) => {
 			state.wishes = state.wishes.filter(
 				(el) => el.id !== action.payload
 			);
@@ -58,6 +50,6 @@ export const wishesSlice = createSlice({
 	}
 });
 
-export const { addWish, deleteWish, updateWish } = wishesSlice.actions;
+export const { addWish, delWish, updateWish } = wishesSlice.actions;
 
 export default wishesSlice.reducer;
