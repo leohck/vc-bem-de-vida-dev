@@ -8,7 +8,7 @@ const module3Routes = [
 		key: "wish",
 		path: "/wish",
 		component: React.lazy(() =>
-			import("views/Module3/Wish/WishList")
+			import("views/Module3/Wish")
 		),
 		authority: []
 	},
