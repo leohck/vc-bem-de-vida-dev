@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Field } from "formik";
-import { Button, FormItem, Input } from "../../../components/ui";
+import { Button, Input } from "../../../components/ui";
 import { AiOutlinePlusCircle } from "react-icons/ai";
+import { InputLabel } from "../../../components/new";
 
 function ActionPlanForm({ actionPlanList, setActionPlanList }) {
 	const [actionPlan, setActionPlan] = useState();
@@ -21,20 +21,17 @@ function ActionPlanForm({ actionPlanList, setActionPlanList }) {
 
 	return (
 		<div className="flex flex-row items-center gap-4">
-			<FormItem
-				label="Plano de Ação"
-			>
-				<Field
+			<InputLabel label="Plano de Ação">
+				<Input
 					className="w-[400px]"
 					type="text"
 					name="action_plan"
 					placeholder="Plano de Ação"
 					component={Input}
-					onChange={(e) => setActionPlan(e.target.value)}
-					value={actionPlan}
-				/>
-			</FormItem>
+					onChange={(e) => setActionPlan(e.target.value)} />
+			</InputLabel>
 			<Button
+				className="mt-5"
 				type="button"
 				shape="circle"
 				color="blue-500"

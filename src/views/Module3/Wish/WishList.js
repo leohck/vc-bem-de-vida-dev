@@ -2,15 +2,17 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { delWish, fetchWishes } from "../../../store/module3/wishSlice";
 import { getAchievementIconFromValue } from "../../auto-conhecimento/form.options";
-import { Button, Card, Table } from "../../../components/ui";
+import { Button, Card, Table, Tooltip } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
-import { AiOutlineEdit } from "react-icons/ai";
+import { AiOutlineEdit, AiOutlineSetting } from "react-icons/ai";
 import { deleteWish } from "../../../services/Module3/WishService";
 import { toastFeedback } from "../../../utils/actionFeedback";
+import { useNavigate } from "react-router-dom";
 
 const { Tr, Td, THead, TBody } = Table;
 
 const WishList = ({ userID, setItemToEdit }) => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const wishSlice = useSelector(state => state.module3.wishSlice);
 
@@ -31,6 +33,10 @@ const WishList = ({ userID, setItemToEdit }) => {
 		}
 	};
 
+	const handleConfigureItem = (item) => {
+		navigate("/goal/form", { replace: true, state: { wishItem: item } });
+	};
+
 	const handleEditItem = (item) => {
 		setItemToEdit(item);
 	};
@@ -46,6 +52,26 @@ const WishList = ({ userID, setItemToEdit }) => {
 				</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
+						<Tooltip title="Configurar Meta">
+							<Button
+								shape="circle"
+								color="blue-500"
+								size="sm"
+								variant="twoTone"
+								icon={<AiOutlineSetting />}
+								onClick={() => handleConfigureItem(item)}
+							/>
+						</Tooltip>
+						<Tooltip title="Editar Desejo">
+							<Button
+								shape="circle"
+								color="blue-500"
+								size="sm"
+								variant="twoTone"
+								icon={<AiOutlineEdit />}
+								onClick={() => handleEditItem(item)}
+							/>
+						</Tooltip>
 						<Button
 							shape="circle"
 							color="red-500"
@@ -53,15 +79,6 @@ const WishList = ({ userID, setItemToEdit }) => {
 							variant="twoTone"
 							icon={<MdDeleteForever />}
 							onClick={() => handleDeleteItem(item.id)}
-						/>
-
-						<Button
-							shape="circle"
-							color="blue-500"
-							size="sm"
-							variant="twoTone"
-							icon={<AiOutlineEdit />}
-							onClick={() => handleEditItem(item)}
 						/>
 					</div>
 				</Td>

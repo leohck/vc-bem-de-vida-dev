@@ -21,6 +21,14 @@ const module3Routes = [
 		authority: []
 	},
 	{
+		key: "goal-form",
+		path: "/goal/form",
+		component: React.lazy(() =>
+			import("views/Module3/Goal/GoalForm")
+		),
+		authority: []
+	},
+	{
 		key: "action",
 		path: "/action",
 		component: React.lazy(() =>

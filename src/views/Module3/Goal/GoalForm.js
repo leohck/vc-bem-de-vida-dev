@@ -1,113 +1,104 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card, Select } from "../../../components/ui";
-import { Field, Form, Formik } from "formik";
-import { Input, Button, FormItem, FormContainer } from "components/ui";
-import ActionPlanList from "../ActionPlan/ActionPlanList";
+import { Input, Button } from "components/ui";
 import ActionPlan from "../ActionPlan";
-import { conquistasOptions } from "../../auto-conhecimento/form.options";
+import {
+	conquistasOptions,
+	getAchievementFromValue,
+} from "../../auto-conhecimento/form.options";
+import { useLocation, useNavigate } from "react-router-dom";
+import { InputLabel } from "../../../components/new";
 
 function GoalForm() {
+	const navigate = useNavigate();
+	const { state } = useLocation();
 
-	function validateField(value) {
-		if (!value) {
-			return "Required";
+	const [cardHeader, setCardHeader] = useState("");
+	const [wishItem, setWishItem] = useState();
+
+
+	const [goal, setGoal] = useState();
+	const [icon, setIcon] = useState();
+	const [motivation, setMotivation] = useState();
+	const [estimatedDeadline, setEstimatedDeadline] = useState();
+
+	useEffect(() => {
+		try {
+			const { wishItem } = state;
+			setCardHeader("Desejo - " + wishItem.value);
+			setGoal(wishItem.value);
+			setIcon(getAchievementFromValue(wishItem.icon));
+			setWishItem(wishItem);
+		} catch (e) {
+			setWishItem(null);
 		}
-		return;
-	}
+	}, [state]);
 
-	// const data = {
-	// 	value,
-	// 	icon,
-	// 	motivation,
-	// 	estimated_deadline,
-	// 	action_plan,
-	// 	action_plan_list
-	// };
 	return (
-		<Card header="Cadastrar Meta">
-			<Formik
-				initialValues={{
-					value: "",
-					icon: "",
-					motivation: "",
-					estimated_deadline: ""
-				}}
-				onSubmit={(values) => {
-					console.log(values);
-				}}
+		<div>
+			<h3 className="mb-10">{cardHeader}</h3>
+			<Card
+				header="Cadastrar Meta"
+				footer={
+					<div className="flex justify-items-end">
+						<Button
+							size="sm"
+							variant="solid"
+							// onClick={handleFormSubmit}
+						>
+							Salvar
+						</Button>
+					</div>
+				}
 			>
-				{({ errors, touched, isValidating }) => (
-					<Form>
-						<FormContainer>
-							<div className="flex flex-row gap-4">
-								<FormItem
-									label="Meta"
-									invalid={errors.value && touched.value}
-									errorMessage={errors.value}
-								>
-									<Field
-										className="w-[400px]"
-										type="text"
-										name="value"
-										placeholder="Meta"
-										component={Input}
-										validate={validateField}
-									/>
-								</FormItem>
-								<FormItem
-									label="Icone"
-									invalid={errors.icon && touched.icon}
-									errorMessage={errors.icon}
-								>
-									<Select placeholder="Icone"
-									        name="icon"
-									        className="max-w-[100px] h-10"
-									        isSearchable={false}
-									        options={conquistasOptions}
-										// value={icon}
-										// onChange={(e) => setIcon(e)}
-									/>
-								</FormItem>
-							</div>
-							<FormItem
-								label="Motivação"
-								invalid={errors.motivation && touched.motivation}
-								errorMessage={errors.motivation}
-							>
-								<Field
-									type="text"
-									name="motivation"
-									placeholder="Motivação"
-									component={Input}
-									validate={validateField}
-								/>
-							</FormItem>
-							<FormItem
-								label="Prazo Estimado"
-								invalid={errors.estimated_deadline && touched.estimated_deadline}
-								errorMessage={errors.estimated_deadline}
-							>
-								<Field
-									type="date"
-									name="estimated_deadline"
-									className="w-[165px]"
-									placeholder="Motivação"
-									component={Input}
-									validate={validateField}
-								/>
-							</FormItem>
-							<ActionPlan />
-							<FormItem className="mt-10">
-								<Button type="submit" variant="solid">
-									Salvar
-								</Button>
-							</FormItem>
-						</FormContainer>
-					</Form>
-				)}
-			</Formik>
+				<div className="flex flex-col gap-4">
+					<div className="flex flex-row gap-4">
+						<InputLabel
+							label="Meta"
+						>
+							<Input
+								className="w-[400px]"
+								type="text"
+								name="value"
+								placeholder="Meta"
+								value={goal}
+								onChange={(e) => setGoal(e.target.value)}
+							/>
+						</InputLabel>
+						<InputLabel label="Icone">
+							<Select placeholder="Icone"
+							        className="max-w-[100px] h-10"
+							        isSearchable={false}
+							        options={conquistasOptions}
+							        value={icon}
+							        onChange={(e) => setIcon(e)}
+							/>
+						</InputLabel>
 
-		</Card>
+					</div>
+					<InputLabel label="Motivação">
+						<Input
+							className="w-[600px]"
+							type="text"
+							name="motivation"
+							placeholder="Motivação"
+							value={motivation}
+							onChange={(e) => setMotivation(e.target.value)}
+						/>
+					</InputLabel>
+					<InputLabel label="Prazo Estimado">
+						<Input
+							type="date"
+							name="estimated_deadline"
+							className="w-[165px]"
+							value={estimatedDeadline}
+							onChange={(e) => setEstimatedDeadline(e.target.value)}
+						/>
+					</InputLabel>
+					<ActionPlan />
+				</div>
+			</Card>
+		</div>
 	);
 }
 

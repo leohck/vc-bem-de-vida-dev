@@ -18,9 +18,9 @@ import store from "../../store";
 const RoutineForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { state } = useLocation();
 	const [user_info_id, setUserInfoID] = useState(null);
 	const [itemID, setItemID] = useState(null);
-	const { state } = useLocation();
 
 	const [lifeAspect, setLifeAspect] = useState([]);
 	const [weekDay, setWeekDay] = useState([]);
