@@ -1,8 +1,11 @@
 import React from "react";
+import GoalForm from "./GoalForm";
 
 function GoalList() {
 	return (
-		<div>GoalList</div>
+		<div>
+			<GoalForm />
+		</div>
 	);
 }
 
