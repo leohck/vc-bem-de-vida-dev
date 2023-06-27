@@ -51,8 +51,17 @@ const WishList = ({ userID, setItemToEdit }) => {
 					</div>
 				</Td>
 				<Td>
+					{item.hasOwnProperty('configured') ?
+						item.configured ?? (
+							<h6>SIM</h6>
+						) : (
+							<h6>NÃO</h6>
+						)
+					}
+				</Td>
+				<Td>
 					<div className="flex flex-row gap-4 justify-center">
-						<Tooltip title="Configurar Meta">
+						<Tooltip title="Transformar em Meta">
 							<Button
 								shape="circle"
 								color="blue-500"
@@ -95,6 +104,9 @@ const WishList = ({ userID, setItemToEdit }) => {
 					<Tr>
 						<Td>
 							<h6>Desejo</h6>
+						</Td>
+						<Td>
+							<h6>Meta</h6>
 						</Td>
 						<Td>
 							<h6>Ações</h6>

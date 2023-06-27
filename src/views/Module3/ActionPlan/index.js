@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import ActionPlanList from "./ActionPlanList";
 import ActionPlanForm from "./ActionPlanForm";
 
-function ActionPlan() {
-	const [actionPlanList, setActionPlanList] = useState([
-		{ id: 1, value: "Começar Academia" },
-		{ id: 2, value: "Ir nutricionista" }
-	]);
-
+function ActionPlan({actionPlanList, setActionPlanList}) {
 	return (
 		<div className="flex flex-col gap-2">
 			<ActionPlanForm

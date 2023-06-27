@@ -2,17 +2,18 @@ import React, { useState } from "react";
 import { Button, Card } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 function ActionPlanList({ actionPlanList, setActionPlanList }) {
-
+	const navigate = useNavigate();
 	const handleDeleteItem = (item) => {
 		setActionPlanList(actionPlanList.filter(
 			(el) => el.id !== item.id
 		));
 	};
 
-	const handleConfigureItem = () => {
-
+	const handleConfigureItem = (item) => {
+		navigate("/action-plan/form", { replace: true, state: { actionPlanItem: item } });
 	};
 
 	const ActionPlanItem = ({ item }) => {

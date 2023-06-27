@@ -4,12 +4,18 @@ import { Input, Button } from "components/ui";
 import ActionPlan from "../ActionPlan";
 import {
 	conquistasOptions,
-	getAchievementFromValue,
+	getAchievementFromValue
 } from "../../auto-conhecimento/form.options";
 import { useLocation, useNavigate } from "react-router-dom";
 import { InputLabel } from "../../../components/new";
+import { useDispatch, useSelector } from "react-redux";
+import { toastFeedback } from "../../../utils/actionFeedback";
+import { addGoal, fetchGoals } from "../../../store/module3/goalSlice";
+import { updateWish } from "../../../store/module3/wishSlice";
+
 
 function GoalForm() {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { state } = useLocation();
 
@@ -21,6 +27,10 @@ function GoalForm() {
 	const [icon, setIcon] = useState();
 	const [motivation, setMotivation] = useState();
 	const [estimatedDeadline, setEstimatedDeadline] = useState();
+	const [actionsPlans, setActionsPlans] = useState([]);
+
+	const [currentGoal, setCurrentGoal] = useState();
+	const goals = useSelector(state => state.module3.goalSlice)
 
 	useEffect(() => {
 		try {
@@ -34,6 +44,43 @@ function GoalForm() {
 		}
 	}, [state]);
 
+	useEffect(() => {
+		if (wishItem) {
+			dispatch(fetchGoals());
+		}
+	}, [wishItem, currentGoal])
+
+	const handleSubmitForm = async () => {
+		try {
+			const data = {
+				wish_id: wishItem.id,
+				id: 1,
+				value: goal,
+				icon: icon.value,
+				estimated_deadline: estimatedDeadline,
+				action_plans: actionsPlans
+			};
+			try {
+				// await postWish(data).then(
+				// 	response => {
+				// 		dispatch(addWish(response.data));
+				// 		toastFeedback("success", "Meta Cadastrada");
+				// 	}
+				// )
+				dispatch(addGoal(data));
+				dispatch(updateWish({...wishItem, configured: true}))
+				navigate("/wish", { replace: true });
+				toastFeedback("success", "Meta Cadastrada");
+			} catch (e) {
+				console.log(e);
+				toastFeedback("danger", "Falha ao Cadastrar Meta");
+			}
+		} catch (e) {
+			console.log(e);
+			toastFeedback("danger", "Falha ao Cadastrar Meta - Preencha todos os campos do formulario");
+		}
+	};
+
 	return (
 		<div>
 			<h3 className="mb-10">{cardHeader}</h3>
@@ -44,7 +91,7 @@ function GoalForm() {
 						<Button
 							size="sm"
 							variant="solid"
-							// onClick={handleFormSubmit}
+							onClick={handleSubmitForm}
 						>
 							Salvar
 						</Button>
@@ -95,7 +142,9 @@ function GoalForm() {
 							onChange={(e) => setEstimatedDeadline(e.target.value)}
 						/>
 					</InputLabel>
-					<ActionPlan />
+					<ActionPlan actionPlanList={actionsPlans}
+					            setActionPlanList={setActionsPlans}
+					/>
 				</div>
 			</Card>
 		</div>

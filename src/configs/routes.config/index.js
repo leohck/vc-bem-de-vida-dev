@@ -32,7 +32,7 @@ const module3Routes = [
 		key: "action",
 		path: "/action",
 		component: React.lazy(() =>
-			import("views/Module3/Action/ActionList")
+			import("views/auto-conhecimento/Dashboard")
 		),
 		authority: []
 	},
@@ -40,7 +40,15 @@ const module3Routes = [
 		key: "action-plan",
 		path: "/action-plan",
 		component: React.lazy(() =>
-			import("views/Module3/ActionPlan/ActionPlanList")
+			import("views/auto-conhecimento/Dashboard")
+		),
+		authority: []
+	},
+	{
+		key: "action-plan-form",
+		path: "/action-plan/form",
+		component: React.lazy(() =>
+			import("views/Module3/ActionPlan/ActionPlanConfigureForm")
 		),
 		authority: []
 	},
