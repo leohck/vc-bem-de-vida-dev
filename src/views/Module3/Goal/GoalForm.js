@@ -8,12 +8,13 @@ import {
 } from "../../auto-conhecimento/form.options";
 import { useLocation, useNavigate } from "react-router-dom";
 import { InputLabel } from "../../../components/new";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toastFeedback } from "../../../utils/actionFeedback";
-import { addGoal, delGoal, fetchGoals, updateGoal } from "../../../store/module3/goalSlice";
+import { addGoal, delGoal, updateGoal } from "../../../store/module3/goalSlice";
 import { postGoal, putGoal } from "../../../services/Module3/GoalService";
 import { deleteWish } from "../../../services/Module3/WishService";
 import { useUserID } from "../../../hooks/useUserID";
+import LifeAspectSegment from "../../gestao-rotina/components/LifeAspectSegment";
 
 
 function GoalForm() {
@@ -28,6 +29,7 @@ function GoalForm() {
 
 	const [goal, setGoal] = useState();
 	const [icon, setIcon] = useState();
+	const [lifeAspect, setLifeAspect] = useState();
 	const [motivation, setMotivation] = useState();
 	const [estimatedDeadline, setEstimatedDeadline] = useState();
 	const [actionsPlans, setActionsPlans] = useState([]);
@@ -51,6 +53,7 @@ function GoalForm() {
 			setGoalItem(goalItem)
 			setGoal(goalItem.value);
 			setIcon(getAchievementFromValue(goalItem.icon));
+			setLifeAspect(goalItem.life_aspect)
 			setMotivation(goalItem.motivation)
 			setEstimatedDeadline(goalItem.estimated_deadline)
 		} catch (e) {
@@ -68,6 +71,7 @@ function GoalForm() {
 			const data = {
 				value: goal,
 				icon: icon.value,
+				life_aspect: lifeAspect.toString(),
 				motivation: motivation,
 				estimated_deadline: estimatedDeadline,
 				user: userID
@@ -151,8 +155,12 @@ function GoalForm() {
 							        onChange={(e) => setIcon(e)}
 							/>
 						</InputLabel>
-
 					</div>
+					
+					<InputLabel label="Aspecto de Vida Relacionado">
+						<LifeAspectSegment value={lifeAspect} onChange={setLifeAspect} singleOption/>
+					</InputLabel>
+					
 					<InputLabel label="Motivação">
 						<Input
 							className="w-[600px]"

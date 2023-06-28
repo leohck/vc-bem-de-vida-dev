@@ -1,16 +1,14 @@
 import React from "react";
-import GoalForm from "./GoalForm";
-import { Button, Card, Table, Tooltip } from "../../../components/ui";
+import { Button, Card, Table } from "../../../components/ui";
 import { getAchievementIconFromValue } from "../../auto-conhecimento/form.options";
-import { AiOutlineEdit, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineEdit } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useGoals } from "../../../hooks/useGoals";
 import { deleteGoal } from "../../../services/Module3/GoalService";
 import { delGoal } from "../../../store/module3/goalSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
-import WishDialogForm from "../Wish/WishDialogForm";
 import { FaPlusSquare } from "react-icons/fa";
 
 const { Tr, Td, THead, TBody } = Table;
@@ -41,6 +39,8 @@ function GoalList() {
 
 
 	const ItemRow = ({ item }) => {
+		const date = new Date(item.estimated_deadline + " EDT");
+		const estimated_deadline = date.toLocaleDateString('pt-BR')
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td className="flex flex-row justify-center">
@@ -48,6 +48,9 @@ function GoalList() {
 						{getAchievementIconFromValue(item.icon)}
 						{item.value}
 					</div>
+				</Td>
+				<Td>
+					{estimated_deadline}
 				</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
