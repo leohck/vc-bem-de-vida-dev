@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getGoalList } from "../../services/Module3/GoalService";
 
 
 const initialState = {
@@ -9,13 +10,10 @@ const initialState = {
 
 export const fetchGoals = createAsyncThunk(
 	"goal/fetchGoals",
-	() => {
-		return []
+	async ({user_id}) => {
+		const response = await getGoalList(user_id)
+		return response.data
 	}
-	// async ({user_id}) => {
-	// 	const response = await getWishList(user_id)
-	// 	return response.data
-	// }
 );
 
 

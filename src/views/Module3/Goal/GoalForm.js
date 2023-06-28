@@ -10,17 +10,20 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { InputLabel } from "../../../components/new";
 import { useDispatch, useSelector } from "react-redux";
 import { toastFeedback } from "../../../utils/actionFeedback";
-import { addGoal, fetchGoals } from "../../../store/module3/goalSlice";
-import { updateWish } from "../../../store/module3/wishSlice";
+import { addGoal, delGoal, fetchGoals, updateGoal } from "../../../store/module3/goalSlice";
+import { postGoal, putGoal } from "../../../services/Module3/GoalService";
+import { deleteWish } from "../../../services/Module3/WishService";
+import { useUserID } from "../../../hooks/useUserID";
 
 
 function GoalForm() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { state } = useLocation();
-
+	const { userID } = useUserID();
 	const [cardHeader, setCardHeader] = useState("");
 	const [wishItem, setWishItem] = useState();
+	const [goalItem, setGoalItem] = useState();
 
 
 	const [goal, setGoal] = useState();
@@ -29,8 +32,6 @@ function GoalForm() {
 	const [estimatedDeadline, setEstimatedDeadline] = useState();
 	const [actionsPlans, setActionsPlans] = useState([]);
 
-	const [currentGoal, setCurrentGoal] = useState();
-	const goals = useSelector(state => state.module3.goalSlice)
 
 	useEffect(() => {
 		try {
@@ -45,35 +46,62 @@ function GoalForm() {
 	}, [state]);
 
 	useEffect(() => {
-		if (wishItem) {
-			dispatch(fetchGoals());
+		try {
+			const { goalItem } = state;
+			setGoalItem(goalItem)
+			setGoal(goalItem.value);
+			setIcon(getAchievementFromValue(goalItem.icon));
+			setMotivation(goalItem.motivation)
+			setEstimatedDeadline(goalItem.estimated_deadline)
+		} catch (e) {
+			setGoalItem(null);
 		}
-	}, [wishItem, currentGoal])
+	}, [state]);
 
 	const handleSubmitForm = async () => {
+		const dlWish = async (wishID) => {
+			await deleteWish(wishID).then(
+				delGoal(wishID)
+			);
+		};
 		try {
 			const data = {
-				wish_id: wishItem.id,
-				id: 1,
 				value: goal,
 				icon: icon.value,
+				motivation: motivation,
 				estimated_deadline: estimatedDeadline,
-				action_plans: actionsPlans
+				user: userID
+				// action_plans: actionsPlans
 			};
-			try {
-				// await postWish(data).then(
-				// 	response => {
-				// 		dispatch(addWish(response.data));
-				// 		toastFeedback("success", "Meta Cadastrada");
-				// 	}
-				// )
-				dispatch(addGoal(data));
-				dispatch(updateWish({...wishItem, configured: true}))
-				navigate("/wish", { replace: true });
-				toastFeedback("success", "Meta Cadastrada");
-			} catch (e) {
-				console.log(e);
-				toastFeedback("danger", "Falha ao Cadastrar Meta");
+			if (goalItem) {
+				try {
+					await putGoal(goalItem.id, data).then(
+						response => {
+							dispatch(updateGoal(response.data))
+							toastFeedback("success", "Meta Atualizada");
+							navigate("/wish-and-goal", { replace: true });
+						}
+					)
+				} catch (e) {
+					console.log(e);
+					toastFeedback("danger", "Falha ao Editar Meta")
+				}
+			} else {
+				try {
+					await postGoal(data).then(
+						response => {
+							dispatch(addGoal(response.data));
+							toastFeedback("success", "Meta Cadastrada");
+							navigate("/wish-and-goal", { replace: true });
+							if (wishItem) {
+								dlWish(wishItem.id);
+							}
+						}
+					);
+				} catch (e) {
+					console.log(e);
+					toastFeedback("danger", "Falha ao Cadastrar Meta");
+				}
 			}
 		} catch (e) {
 			console.log(e);
@@ -83,7 +111,9 @@ function GoalForm() {
 
 	return (
 		<div>
-			<h3 className="mb-10">{cardHeader}</h3>
+			{cardHeader && (
+				<h3 className="mb-10">{cardHeader}</h3>
+			)}
 			<Card
 				header="Cadastrar Meta"
 				footer={

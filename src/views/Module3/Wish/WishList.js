@@ -95,7 +95,7 @@ const WishList = ({ userID, setItemToEdit }) => {
 
 	return (
 		<Card header="Meus Desejos"
-		      className="max-h-[700px] overflow-y-auto"
+		      bodyClass="max-h-[700px] overflow-y-auto"
 		      headerExtra={headerExtraContent}
 		>
 			<Table>
