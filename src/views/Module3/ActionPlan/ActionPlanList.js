@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
-import { Button, Card } from "../../../components/ui";
+import React, { useEffect, useState } from "react";
+import { Button, Card, Input, Tooltip } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
-import { AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineCheck, AiOutlineEdit, AiOutlineSetting } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { delActionPlan } from "../../../store/module3/actionPlanSlice";
-import { deleteActionPlan } from "../../../services/Module3/ActionPlanService";
+import { deleteActionPlan, putActionPlan } from "../../../services/Module3/ActionPlanService";
 import { useDispatch } from "react-redux";
 import { useActionPlanList } from "../../../hooks/useActionPlanList";
 
@@ -39,23 +39,103 @@ function ActionPlanList({ goalID }) {
 	};
 	
 	const ActionPlanItem = ({ item }) => {
+		const [editing, setEditing] = useState(false);
+		const [value, setValue] = useState(item.value);
+		const handleEdit = () => {
+			setEditing(true);
+		};
+		const handleSave = async () => {
+			try {
+				await putActionPlan(item.id, {value: value}).then(
+					response => {
+						console.log(response);
+						if (response.status === 200) {
+							toastFeedback("success", "Plano de Ação Atualizado!");
+							setEditing(false);
+						}
+					}
+				)
+			} catch (e) {
+				console.log(e);
+				toastFeedback("danger", "Falha ao atualizar Plano de Ação!");
+			}
+		};
+		
+		const EditableCell = ({ id, value, setValue, isEditing }) => {
+			const [inputValue, setInputValue] = useState(value);
+			const [editing, setEditing] = useState(isEditing);
+			const [className, setClassName] = useState("");
+			
+			useEffect(() => {
+				setValue(value);
+			}, [value]);
+			
+			useEffect(() => {
+				if (editing) {
+					setClassName("border-blue-500 focus:bg-white");
+				} else {
+					setClassName("border-transparent bg-transparent");
+				}
+			}, [editing]);
+			
+			return (
+				<Input
+					key={id}
+					className={className}
+					size="sm"
+					value={inputValue}
+					disabled={!editing}
+					onChange={e => setInputValue(e.target.value)}
+					onBlur={() => {setValue(inputValue)}}
+				/>
+			);
+		};
 		return (
 			<div key={item.id}
 			     className="flex flex-row items-center h-10 justify-between">
 				<h6 className="mt-2">
-					{item.value}
+					<EditableCell
+						key={item.id}
+						initialValue={item.value}
+						isEditing={editing}
+						value={value}
+						setValue={setValue}
+					/>
 				</h6>
 				
 				<div className="flex flex-row gap-4 justify-center mt-2">
-					<Button
-						type="button"
-						shape="circle"
-						color="blue-500"
-						size="sm"
-						variant="twoTone"
-						icon={<AiOutlineSetting />}
-						onClick={() => handleConfigureItem(item)}
-					/>
+					{editing ? (
+						<Button
+							shape="circle"
+							color="green-500"
+							size="sm"
+							variant="twoTone"
+							icon={<AiOutlineCheck />}
+							onClick={handleSave}
+						/>
+					) : (
+						<Tooltip title="Editar Nome">
+							<Button
+								shape="circle"
+								color="blue-500"
+								size="sm"
+								variant="twoTone"
+								icon={<AiOutlineEdit />}
+								onClick={handleEdit}
+							/>
+						</Tooltip>
+					)}
+					<Tooltip title="Configurar Plano">
+						<Button
+							type="button"
+							shape="circle"
+							color="blue-500"
+							size="sm"
+							variant="twoTone"
+							icon={<AiOutlineSetting />}
+							onClick={() => handleConfigureItem(item)}
+						/>
+					</Tooltip>
 					
 					<Button
 						type="button"
