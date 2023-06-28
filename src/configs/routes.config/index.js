@@ -5,6 +5,14 @@ export const publicRoutes = [...authRoute];
 
 const module3Routes = [
 	{
+		key: "wish-and-goal",
+		path: "/wish-and-goal",
+		component: React.lazy(() =>
+			import("views/Module3/WishAndGoal")
+		),
+		authority: []
+	},
+	{
 		key: "wish",
 		path: "/wish",
 		component: React.lazy(() =>

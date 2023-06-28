@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { delWish, fetchWishes } from "../../../store/module3/wishSlice";
 import { getAchievementIconFromValue } from "../../auto-conhecimento/form.options";
@@ -8,6 +8,7 @@ import { AiOutlineEdit, AiOutlineSetting } from "react-icons/ai";
 import { deleteWish } from "../../../services/Module3/WishService";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { useNavigate } from "react-router-dom";
+import WishDialogForm from "./WishDialogForm";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -51,15 +52,6 @@ const WishList = ({ userID, setItemToEdit }) => {
 					</div>
 				</Td>
 				<Td>
-					{item.hasOwnProperty('configured') ?
-						item.configured ?? (
-							<h6>SIM</h6>
-						) : (
-							<h6>NÃO</h6>
-						)
-					}
-				</Td>
-				<Td>
 					<div className="flex flex-row gap-4 justify-center">
 						<Tooltip title="Transformar em Meta">
 							<Button
@@ -95,18 +87,22 @@ const WishList = ({ userID, setItemToEdit }) => {
 		);
 	};
 
+	const headerExtraContent = (
+		<span className="flex items-center">
+			<WishDialogForm userID={userID} />
+        </span>
+	);
+
 	return (
 		<Card header="Meus Desejos"
 		      className="max-h-[700px] overflow-y-auto"
+		      headerExtra={headerExtraContent}
 		>
 			<Table>
 				<THead style={{ textAlign: "center" }}>
 					<Tr>
 						<Td>
 							<h6>Desejo</h6>
-						</Td>
-						<Td>
-							<h6>Meta</h6>
 						</Td>
 						<Td>
 							<h6>Ações</h6>
