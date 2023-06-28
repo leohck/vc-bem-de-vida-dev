@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { delWish, fetchWishes } from "../../../store/module3/wishSlice";
+import { delWish, fetchWishes, updateWish } from "../../../store/module3/wishSlice";
 import { getAchievementIconFromValue } from "../../auto-conhecimento/form.options";
-import { Button, Card, Table, Tooltip } from "../../../components/ui";
+import { Button, Card, Input, Table, Tooltip } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
-import { AiOutlineEdit, AiOutlineSetting } from "react-icons/ai";
-import { deleteWish } from "../../../services/Module3/WishService";
+import { AiOutlineCheck, AiOutlineEdit, AiOutlineSetting } from "react-icons/ai";
+import { deleteWish, putWish } from "../../../services/Module3/WishService";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { useNavigate } from "react-router-dom";
 import WishDialogForm from "./WishDialogForm";
@@ -37,19 +37,72 @@ const WishList = ({ userID, setItemToEdit }) => {
 	const handleConfigureItem = (item) => {
 		navigate("/goal/form", { replace: true, state: { wishItem: item } });
 	};
-
-	const handleEditItem = (item) => {
-		setItemToEdit(item);
-	};
+	
 
 	const ItemRow = ({ item }) => {
+		const [editing, setEditing] = useState(false);
+		const [value, setValue] = useState(item.value);
+		const handleEdit = () => {
+			setEditing(true);
+		};
+		const handleSave = async () => {
+			try {
+				await putWish(item.id, {value: value}).then(
+					response => {
+						console.log(response);
+						if (response.status === 200) {
+							toastFeedback("success", "Desejo Atualizado!");
+							setEditing(false);
+						}
+					}
+				)
+			} catch (e) {
+				console.log(e);
+				toastFeedback("danger", "Falha ao atualizar Desejo!");
+			}
+		};
+		
+		const EditableCell = ({ id, value, setValue, isEditing }) => {
+			const [inputValue, setInputValue] = useState(value);
+			const [editing, setEditing] = useState(isEditing);
+			const [className, setClassName] = useState("");
+			
+			useEffect(() => {
+				setValue(value);
+			}, [value]);
+			
+			useEffect(() => {
+				if (editing) {
+					setClassName("border-blue-500 focus:bg-white");
+				} else {
+					setClassName("border-transparent bg-transparent");
+				}
+			}, [editing]);
+			
+			return (
+				<Input
+					key={id}
+					className={className}
+					size="sm"
+					value={inputValue}
+					disabled={!editing}
+					onChange={e => setInputValue(e.target.value)}
+					onBlur={() => {setValue(inputValue)}}
+				/>
+			);
+		};
+		
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
-				<Td className="flex flex-row justify-center">
-					<div className="flex flex-row gap-2 items-center">
-						{getAchievementIconFromValue(item.icon)}
-						{item.value}
-					</div>
+				<Td className="flex flex-row gap-2 items-center justify-center">
+					{getAchievementIconFromValue(item.icon)}
+					<EditableCell
+						key={item.id}
+						initialValue={item.value}
+						isEditing={editing}
+						value={value}
+						setValue={setValue}
+					/>
 				</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
@@ -63,16 +116,27 @@ const WishList = ({ userID, setItemToEdit }) => {
 								onClick={() => handleConfigureItem(item)}
 							/>
 						</Tooltip>
-						<Tooltip title="Editar Desejo">
+						{editing ? (
 							<Button
 								shape="circle"
-								color="blue-500"
+								color="green-500"
 								size="sm"
 								variant="twoTone"
-								icon={<AiOutlineEdit />}
-								onClick={() => handleEditItem(item)}
+								icon={<AiOutlineCheck />}
+								onClick={handleSave}
 							/>
-						</Tooltip>
+						) : (
+							<Tooltip title="Editar Desejo">
+								<Button
+									shape="circle"
+									color="blue-500"
+									size="sm"
+									variant="twoTone"
+									icon={<AiOutlineEdit />}
+									onClick={handleEdit}
+								/>
+							</Tooltip>
+						)}
 						<Button
 							shape="circle"
 							color="red-500"
