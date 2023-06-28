@@ -5,14 +5,16 @@ import { InputLabel } from "../../../components/new";
 
 function ActionForm({ actionList, setActionList }) {
 	const [action, setAction] = useState();
-
+	const [estimatedDeadline, setEstimatedDeadline] = useState();
+	
 	const handleAddItem = () => {
 		if (action) {
 			setActionList([
 				...actionList,
 				{
 					id: Math.floor(Math.random() * 100),
-					value: action
+					value: action,
+					estimated_deadline: estimatedDeadline
 				}
 			]);
 			setAction(null)
@@ -28,6 +30,15 @@ function ActionForm({ actionList, setActionList }) {
 					name="action"
 					placeholder="Ação"
 					onChange={(e) => setAction(e.target.value)} />
+			</InputLabel>
+			<InputLabel label="Prazo Estimado">
+				<Input
+					type="date"
+					name="estimated_deadline"
+					className="w-[165px]"
+					value={estimatedDeadline}
+					onChange={(e) => setEstimatedDeadline(e.target.value)}
+				/>
 			</InputLabel>
 			<Button
 				className="mt-5"

@@ -21,54 +21,54 @@ import { useActionPlanList } from "../../../hooks/useActionPlanList";
 function GoalForm() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	
 	const { state } = useLocation();
 	const { userID } = useUserID();
-	const [cardHeader, setCardHeader] = useState("");
+	const [goalItemID, setGoalItemID] = useState(null);
+	
+	const [pageTitle, setPageTitle] = useState("");
+	const [cardHeader, setCardHeader] = useState("Cadastrar Meta");
 	const [wishItem, setWishItem] = useState();
-	const [goalItem, setGoalItem] = useState();
+	
 	const [goal, setGoal] = useState();
 	const [icon, setIcon] = useState();
 	const [lifeAspect, setLifeAspect] = useState();
 	const [motivation, setMotivation] = useState();
 	const [estimatedDeadline, setEstimatedDeadline] = useState();
 	
-	const goal_id = state.goalItem.id;
-	const { action_plans } = useActionPlanList(goal_id);
-	const [actionsPlans, setActionsPlans] = useState([]);
-	
-	useEffect(() => {
-		try {
-			const { wishItem } = state;
-			setCardHeader("Desejo - " + wishItem.value);
-			setGoal(wishItem.value);
-			setIcon(getAchievementFromValue(wishItem.icon));
-			setWishItem(wishItem);
-		} catch (e) {
-			setWishItem(null);
-		}
-	}, [state]);
 	
 	useEffect(() => {
 		try {
 			const { goalItem } = state;
-			setGoalItem(goalItem);
-			setGoal(goalItem.value);
-			setIcon(getAchievementFromValue(goalItem.icon));
-			setLifeAspect([goalItem.life_aspect]);
-			setMotivation(goalItem.motivation);
-			setEstimatedDeadline(goalItem.estimated_deadline);
-			if (action_plans) {
-				setActionsPlans(action_plans);
+			if (goalItem) {
+				setCardHeader("Alterar Meta");
+				setGoal(goalItem.value);
+				setIcon(getAchievementFromValue(goalItem.icon));
+				setLifeAspect([goalItem.life_aspect]);
+				setMotivation(goalItem.motivation);
+				setEstimatedDeadline(goalItem.estimated_deadline);
+				setGoalItemID(goalItem.id);
 			}
 		} catch (e) {
-			setGoalItem(null);
+			console.log(e);
 		}
-	}, [state]);
+		try {
+			const { wishItem } = state;
+			if (wishItem) {
+				setPageTitle("Desejo - " + wishItem.value);
+				setGoal(wishItem.value);
+				setIcon(getAchievementFromValue(wishItem.icon));
+				setWishItem(wishItem);
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	}, [state, goalItemID, wishItem]);
 	
 	const handleSubmitForm = async () => {
 		const dlWish = async (wishID) => {
 			await deleteWish(wishID).then(
-				delGoal(wishID)
+				dispatch(delGoal(wishID))
 			);
 		};
 		try {
@@ -79,11 +79,10 @@ function GoalForm() {
 				motivation: motivation,
 				estimated_deadline: estimatedDeadline,
 				user: userID
-				// action_plans: actionsPlans
 			};
-			if (goalItem) {
+			if (goalItemID !== null) {
 				try {
-					await putGoal(goalItem.id, data).then(
+					await putGoal(goalItemID, data).then(
 						response => {
 							dispatch(updateGoal(response.data));
 							toastFeedback("success", "Meta Atualizada");
@@ -100,10 +99,15 @@ function GoalForm() {
 						response => {
 							dispatch(addGoal(response.data));
 							toastFeedback("success", "Meta Cadastrada");
-							navigate("/wish-and-goal", { replace: true });
 							if (wishItem) {
 								dlWish(wishItem.id);
 							}
+							navigate("/goal/form",
+								{
+									replace: true,
+									state: { goalItem: response.data }
+								}
+							);
 						}
 					);
 				} catch (e) {
@@ -119,11 +123,11 @@ function GoalForm() {
 	
 	return (
 		<div>
-			{cardHeader && (
-				<h3 className="mb-10">{cardHeader}</h3>
+			{pageTitle && (
+				<h3 className="mb-10">{pageTitle}</h3>
 			)}
 			<Card
-				header="Cadastrar Meta"
+				header={cardHeader}
 				footer={
 					<div className="flex justify-items-end">
 						<Button
@@ -184,11 +188,11 @@ function GoalForm() {
 							onChange={(e) => setEstimatedDeadline(e.target.value)}
 						/>
 					</InputLabel>
-					<ActionPlan
-						goalID={goalItem ? goalItem.id : null}
-						actionPlanList={actionsPlans}
-						setActionPlanList={setActionsPlans}
-					/>
+					
+					{goalItemID !== null && (
+						<ActionPlan goalID={goalItemID} />
+					)}
+				
 				</div>
 			</Card>
 		</div>

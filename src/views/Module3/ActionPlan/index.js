@@ -2,19 +2,11 @@ import React, { useState } from "react";
 import ActionPlanList from "./ActionPlanList";
 import ActionPlanForm from "./ActionPlanForm";
 
-function ActionPlan({goalID, actionPlanList, setActionPlanList}) {
+function ActionPlan({goalID}) {
 	return (
 		<div className="flex flex-col gap-2">
-			<ActionPlanForm
-				goalID={goalID}
-				actionPlanList={actionPlanList}
-				setActionPlanList={setActionPlanList}
-			/>
-			<ActionPlanList
-				goalID={goalID}
-				actionPlanList={actionPlanList}
-				setActionPlanList={setActionPlanList}
-			/>
+			<ActionPlanForm goalID={goalID} />
+			<ActionPlanList goalID={goalID} />
 		</div>
 	);
 }

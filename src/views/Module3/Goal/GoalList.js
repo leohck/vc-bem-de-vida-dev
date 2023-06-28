@@ -16,14 +16,13 @@ const { Tr, Td, THead, TBody } = Table;
 function GoalList() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
-
+	
 	const { goals } = useGoals();
-
+	
 	const handleEditItem = (item) => {
 		navigate("/goal/form", { replace: true, state: { goalItem: item } });
 	};
-
-
+	
 	const handleDeleteItem = async (itemID) => {
 		try {
 			await deleteGoal(itemID).then(
@@ -36,11 +35,11 @@ function GoalList() {
 			toastFeedback("error", "Falha ao Excluir Meta");
 		}
 	};
-
-
+	
+	
 	const ItemRow = ({ item }) => {
 		const date = new Date(item.estimated_deadline + " EDT");
-		const estimated_deadline = date.toLocaleDateString('pt-BR')
+		const estimated_deadline = date.toLocaleDateString("pt-BR");
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td className="flex flex-row justify-center">
@@ -75,11 +74,11 @@ function GoalList() {
 			</Tr>
 		);
 	};
-
+	
 	const handleAddGoal = () => {
-	    navigate('/goal/form', {replace: true})
-	}
-
+		navigate("/goal/form", { replace: true });
+	};
+	
 	const headerExtraContent = (
 		<span className="flex items-center">
 			<Button
@@ -92,7 +91,7 @@ function GoalList() {
 			</Button>
         </span>
 	);
-
+	
 	return (
 		<Card
 			header="Minhas Metas"

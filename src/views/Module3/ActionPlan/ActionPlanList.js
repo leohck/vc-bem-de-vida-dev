@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Card } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
@@ -6,26 +6,32 @@ import { useNavigate } from "react-router-dom";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { delActionPlan } from "../../../store/module3/actionPlanSlice";
 import { deleteActionPlan } from "../../../services/Module3/ActionPlanService";
+import { useDispatch } from "react-redux";
+import { useActionPlanList } from "../../../hooks/useActionPlanList";
 
 
-function ActionPlanList({ goalID, actionPlanList, setActionPlanList }) {
+function ActionPlanList({ goalID }) {
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	
+	const {action_plans, refreshActionPlanList} = useActionPlanList(goalID);
+	
+	useEffect(() => {
+		refreshActionPlanList();
+	}, [goalID])
+	
 	const handleDeleteItem = async (item) => {
 		try {
 			await deleteActionPlan(item.id).then(
-				response => {
-					delActionPlan(item.id);
+				() => {
+					dispatch(delActionPlan(item.id));
 					toastFeedback("success", "Plano de Ação Deletado")
-					setActionPlanList(actionPlanList.filter(
-						(el) => el.id !== item.id
-					));
 				}
 			);
 		} catch (e) {
 			console.log(e);
 			toastFeedback("danger", "Falha ao deletar");
 		}
-		
 	};
 	
 	const handleConfigureItem = (item) => {
@@ -67,12 +73,12 @@ function ActionPlanList({ goalID, actionPlanList, setActionPlanList }) {
 	
 	return (
 		<div>
-			{actionPlanList.length >= 1 ? (
+			{action_plans.length >= 1 ? (
 				<Card className="max-h-[400px] overflow-y-auto"
 				      bodyClass="grid grid-cols-1 divide-y gap-2"
 					// bodyClass="flex flex-col gap-4 divide-y"
 				>
-					{actionPlanList.map(
+					{action_plans.map(
 						item => (
 							<ActionPlanItem key={item.id} item={item} />
 						)

@@ -10,8 +10,10 @@ import { useLocation } from "react-router-dom";
 
 function ActionPlanConfigureForm() {
 	const {state} = useLocation();
+	const action_plan_id = state.actionPlanItem.id;
+	
 	const dispatch = useDispatch();
-	const [actionPlanItem, setActionPlanItem] = useState({ value: "" });
+	const [actionPlanItem, setActionPlanItem] = useState();
 
 	const [actionList, setActionList] = useState([]);
 	const routine_actions = useSelector(
@@ -22,8 +24,9 @@ function ActionPlanConfigureForm() {
 		const user_id = auth.user.user_info_id;
 		dispatch(fetchRoutineActions({ user_id: user_id }));
 	}, []);
-
+	
 	const handleAddItem = (item) => {
+		
 		setActionList([
 			...actionList,
 			{
@@ -38,7 +41,7 @@ function ActionPlanConfigureForm() {
 			const { actionPlanItem } = state;
 			setActionPlanItem(actionPlanItem);
 		} catch (e) {
-			setActionPlanItem({ value: "" });
+			setActionPlanItem();
 		}
 	}, [state]);
 
@@ -88,7 +91,9 @@ function ActionPlanConfigureForm() {
 						)}
 					</Card>
 				</div>
-				<Action actionList={actionList} setActionList={setActionList} />
+				<Action
+					actionPlanID={action_plan_id}
+					actionList={actionList} setActionList={setActionList} />
 			</div>
 		</div>
 	);

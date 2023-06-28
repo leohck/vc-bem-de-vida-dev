@@ -5,8 +5,10 @@ import { InputLabel } from "../../../components/new";
 import { addActionPlan } from "../../../store/module3/actionPlanSlice";
 import { postActionPlan } from "../../../services/Module3/ActionPlanService";
 import { toastFeedback } from "../../../utils/actionFeedback";
+import { useDispatch } from "react-redux";
 
-function ActionPlanForm({ goalID, actionPlanList, setActionPlanList }) {
+function ActionPlanForm({ goalID }) {
+	const dispatch = useDispatch();
 	const [actionPlan, setActionPlan] = useState();
 	
 	const handleAddItem = async () => {
@@ -18,11 +20,7 @@ function ActionPlanForm({ goalID, actionPlanList, setActionPlanList }) {
 			try {
 				await postActionPlan(data).then(
 					response => {
-						addActionPlan(response.data);
-						setActionPlanList([
-							...actionPlanList,
-							response.data
-						]);
+						dispatch(addActionPlan(response.data));
 					}
 				);
 				setActionPlan(null);
@@ -52,7 +50,7 @@ function ActionPlanForm({ goalID, actionPlanList, setActionPlanList }) {
 				size="sm"
 				variant="twoTone"
 				icon={<AiOutlinePlusCircle />}
-				onClick={() => handleAddItem()}
+				onClick={handleAddItem}
 			/>
 		</div>
 	);

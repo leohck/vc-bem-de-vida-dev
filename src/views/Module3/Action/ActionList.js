@@ -1,21 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Input } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
-import { AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineCheck, AiOutlineSetting } from "react-icons/ai";
+import { useActionList } from "../../../hooks/useActionList";
+import {delAction} from "../../../store/module3/actionSlice";
 
-function ActionList({ actionList, setActionList }) {
+function ActionList({ actionPlanID }) {
 	const [estimatedDeadline, setEstimatedDeadline] = useState();
-
+	const { actions } = useActionList(actionPlanID);
+	const [actionList, setActionList] = useState(actions);
+	
+	useEffect(() => {
+		setActionList(actions)
+	}, [actions])
 	const handleDeleteItem = (item) => {
+		delAction(item.id)
 		setActionList(actionList.filter(
 			(el) => el.id !== item.id
-		));
+		))
 	};
-
+	
 	const handleConfigureItem = () => {
-
+	
 	};
-
+	
+	const handleSaveItem = () => {
+	
+	};
+	
 	const ActionPlanItem = ({ item }) => {
 		return (
 			<div key={item.id}
@@ -30,8 +42,17 @@ function ActionList({ actionList, setActionList }) {
 					value={estimatedDeadline}
 					onChange={(e) => setEstimatedDeadline(e.target.value)}
 				/>
-
+				
 				<div className="flex flex-row gap-4 justify-center mt-2">
+					<Button
+						shape="circle"
+						color="green-500"
+						size="sm"
+						variant="twoTone"
+						icon={<AiOutlineCheck />}
+						onClick={handleSaveItem}
+					/>
+					
 					<Button
 						type="button"
 						shape="circle"
@@ -41,7 +62,7 @@ function ActionList({ actionList, setActionList }) {
 						icon={<AiOutlineSetting />}
 						onClick={() => handleConfigureItem(item)}
 					/>
-
+					
 					<Button
 						type="button"
 						shape="circle"
@@ -55,8 +76,8 @@ function ActionList({ actionList, setActionList }) {
 			</div>
 		);
 	};
-
-
+	
+	
 	return (
 		<div className="flex flex-col gap-2">
 			<h6>Ações do Plano</h6>

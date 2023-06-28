@@ -12,7 +12,7 @@ import WishDialogForm from "./WishDialogForm";
 
 const { Tr, Td, THead, TBody } = Table;
 
-const WishList = ({ userID, setItemToEdit }) => {
+const WishList = ({ userID }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const wishSlice = useSelector(state => state.module3.wishSlice);

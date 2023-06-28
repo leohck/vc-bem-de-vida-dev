@@ -11,8 +11,12 @@ const initialState = {
 export const fetchActions = createAsyncThunk(
 	"action/fetchActions",
 	async ({action_plan_id}) => {
-		const response = await getActionList(action_plan_id)
-		return response.data
+		if (action_plan_id) {
+			const response = await getActionList(action_plan_id)
+			return response.data
+		} else {
+			return []
+		}
 	}
 );
 

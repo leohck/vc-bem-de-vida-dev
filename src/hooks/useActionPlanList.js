@@ -9,5 +9,11 @@ export const useActionPlanList = (goalID) => {
 		dispatch(fetchActionPlans({ goal_id: goalID }));
 	}, []);
 	
-	return { action_plans: actionPlanSlice.action_plans };
+	const refreshActionPlanList = () => {
+		dispatch(fetchActionPlans({ goal_id: goalID }));
+	};
+	return {
+		action_plans: actionPlanSlice.action_plans,
+		refreshActionPlanList
+	};
 };

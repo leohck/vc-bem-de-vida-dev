@@ -2,7 +2,7 @@ import React from "react";
 import ActionList from "./ActionList";
 import ActionForm from "./ActionForm";
 
-function Action({actionList, setActionList}) {
+function Action({actionPlanID, actionList, setActionList}) {
 	return (
 		<div className="flex flex-col gap-10">
 			<ActionForm
@@ -10,6 +10,7 @@ function Action({actionList, setActionList}) {
 				setActionList={setActionList}
 			/>
 			<ActionList
+				actionPlanID={actionPlanID}
 				actionList={actionList}
 				setActionList={setActionList}
 			/>
