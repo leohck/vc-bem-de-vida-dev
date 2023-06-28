@@ -15,6 +15,7 @@ import { postGoal, putGoal } from "../../../services/Module3/GoalService";
 import { deleteWish } from "../../../services/Module3/WishService";
 import { useUserID } from "../../../hooks/useUserID";
 import LifeAspectSegment from "../../gestao-rotina/components/LifeAspectSegment";
+import { useActionPlanList } from "../../../hooks/useActionPlanList";
 
 
 function GoalForm() {
@@ -25,16 +26,16 @@ function GoalForm() {
 	const [cardHeader, setCardHeader] = useState("");
 	const [wishItem, setWishItem] = useState();
 	const [goalItem, setGoalItem] = useState();
-
-
 	const [goal, setGoal] = useState();
 	const [icon, setIcon] = useState();
 	const [lifeAspect, setLifeAspect] = useState();
 	const [motivation, setMotivation] = useState();
 	const [estimatedDeadline, setEstimatedDeadline] = useState();
+	
+	const goal_id = state.goalItem.id;
+	const { action_plans } = useActionPlanList(goal_id);
 	const [actionsPlans, setActionsPlans] = useState([]);
-
-
+	
 	useEffect(() => {
 		try {
 			const { wishItem } = state;
@@ -46,21 +47,24 @@ function GoalForm() {
 			setWishItem(null);
 		}
 	}, [state]);
-
+	
 	useEffect(() => {
 		try {
 			const { goalItem } = state;
-			setGoalItem(goalItem)
+			setGoalItem(goalItem);
 			setGoal(goalItem.value);
 			setIcon(getAchievementFromValue(goalItem.icon));
-			setLifeAspect(goalItem.life_aspect)
-			setMotivation(goalItem.motivation)
-			setEstimatedDeadline(goalItem.estimated_deadline)
+			setLifeAspect([goalItem.life_aspect]);
+			setMotivation(goalItem.motivation);
+			setEstimatedDeadline(goalItem.estimated_deadline);
+			if (action_plans) {
+				setActionsPlans(action_plans);
+			}
 		} catch (e) {
 			setGoalItem(null);
 		}
 	}, [state]);
-
+	
 	const handleSubmitForm = async () => {
 		const dlWish = async (wishID) => {
 			await deleteWish(wishID).then(
@@ -81,14 +85,14 @@ function GoalForm() {
 				try {
 					await putGoal(goalItem.id, data).then(
 						response => {
-							dispatch(updateGoal(response.data))
+							dispatch(updateGoal(response.data));
 							toastFeedback("success", "Meta Atualizada");
 							navigate("/wish-and-goal", { replace: true });
 						}
-					)
+					);
 				} catch (e) {
 					console.log(e);
-					toastFeedback("danger", "Falha ao Editar Meta")
+					toastFeedback("danger", "Falha ao Editar Meta");
 				}
 			} else {
 				try {
@@ -112,7 +116,7 @@ function GoalForm() {
 			toastFeedback("danger", "Falha ao Cadastrar Meta - Preencha todos os campos do formulario");
 		}
 	};
-
+	
 	return (
 		<div>
 			{cardHeader && (
@@ -158,7 +162,7 @@ function GoalForm() {
 					</div>
 					
 					<InputLabel label="Aspecto de Vida Relacionado">
-						<LifeAspectSegment value={lifeAspect} onChange={setLifeAspect} singleOption/>
+						<LifeAspectSegment value={lifeAspect} onChange={setLifeAspect} singleOption />
 					</InputLabel>
 					
 					<InputLabel label="Motivação">
@@ -180,8 +184,10 @@ function GoalForm() {
 							onChange={(e) => setEstimatedDeadline(e.target.value)}
 						/>
 					</InputLabel>
-					<ActionPlan actionPlanList={actionsPlans}
-					            setActionPlanList={setActionsPlans}
+					<ActionPlan
+						goalID={goalItem ? goalItem.id : null}
+						actionPlanList={actionsPlans}
+						setActionPlanList={setActionsPlans}
 					/>
 				</div>
 			</Card>

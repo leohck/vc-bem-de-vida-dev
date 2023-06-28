@@ -2,23 +2,37 @@ import React, { useState } from "react";
 import { Button, Input } from "../../../components/ui";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { InputLabel } from "../../../components/new";
+import { addActionPlan } from "../../../store/module3/actionPlanSlice";
+import { postActionPlan } from "../../../services/Module3/ActionPlanService";
+import { toastFeedback } from "../../../utils/actionFeedback";
 
-function ActionPlanForm({ actionPlanList, setActionPlanList }) {
+function ActionPlanForm({ goalID, actionPlanList, setActionPlanList }) {
 	const [actionPlan, setActionPlan] = useState();
-
-	const handleAddItem = () => {
+	
+	const handleAddItem = async () => {
 		if (actionPlan) {
-			setActionPlanList([
-				...actionPlanList,
-				{
-					id: Math.floor(Math.random() * 100),
-					value: actionPlan
-				}
-			]);
-			setActionPlan(null)
+			const data = {
+				value: actionPlan,
+				goal: goalID
+			};
+			try {
+				await postActionPlan(data).then(
+					response => {
+						addActionPlan(response.data);
+						setActionPlanList([
+							...actionPlanList,
+							response.data
+						]);
+					}
+				);
+				setActionPlan(null);
+			} catch (e) {
+				console.log(e);
+				toastFeedback('danger', 'Falha ao inserir Plano de Ação')
+			}
 		}
 	};
-
+	
 	return (
 		<div className="flex flex-row items-center gap-4">
 			<InputLabel label="Plano de Ação">
@@ -27,7 +41,7 @@ function ActionPlanForm({ actionPlanList, setActionPlanList }) {
 					type="text"
 					name="action_plan"
 					placeholder="Plano de Ação"
-					component={Input}
+					value={actionPlan}
 					onChange={(e) => setActionPlan(e.target.value)} />
 			</InputLabel>
 			<Button

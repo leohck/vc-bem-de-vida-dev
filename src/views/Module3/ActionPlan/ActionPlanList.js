@@ -1,21 +1,37 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Card } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineSetting } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
+import { toastFeedback } from "../../../utils/actionFeedback";
+import { delActionPlan } from "../../../store/module3/actionPlanSlice";
+import { deleteActionPlan } from "../../../services/Module3/ActionPlanService";
 
-function ActionPlanList({ actionPlanList, setActionPlanList }) {
+
+function ActionPlanList({ goalID, actionPlanList, setActionPlanList }) {
 	const navigate = useNavigate();
-	const handleDeleteItem = (item) => {
-		setActionPlanList(actionPlanList.filter(
-			(el) => el.id !== item.id
-		));
+	const handleDeleteItem = async (item) => {
+		try {
+			await deleteActionPlan(item.id).then(
+				response => {
+					delActionPlan(item.id);
+					toastFeedback("success", "Plano de Ação Deletado")
+					setActionPlanList(actionPlanList.filter(
+						(el) => el.id !== item.id
+					));
+				}
+			);
+		} catch (e) {
+			console.log(e);
+			toastFeedback("danger", "Falha ao deletar");
+		}
+		
 	};
-
+	
 	const handleConfigureItem = (item) => {
 		navigate("/action-plan/form", { replace: true, state: { actionPlanItem: item } });
 	};
-
+	
 	const ActionPlanItem = ({ item }) => {
 		return (
 			<div key={item.id}
@@ -23,7 +39,7 @@ function ActionPlanList({ actionPlanList, setActionPlanList }) {
 				<h6 className="mt-2">
 					{item.value}
 				</h6>
-
+				
 				<div className="flex flex-row gap-4 justify-center mt-2">
 					<Button
 						type="button"
@@ -34,7 +50,7 @@ function ActionPlanList({ actionPlanList, setActionPlanList }) {
 						icon={<AiOutlineSetting />}
 						onClick={() => handleConfigureItem(item)}
 					/>
-
+					
 					<Button
 						type="button"
 						shape="circle"
@@ -48,8 +64,7 @@ function ActionPlanList({ actionPlanList, setActionPlanList }) {
 			</div>
 		);
 	};
-
-
+	
 	return (
 		<div>
 			{actionPlanList.length >= 1 ? (

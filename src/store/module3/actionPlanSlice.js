@@ -11,8 +11,12 @@ const initialState = {
 export const fetchActionPlans = createAsyncThunk(
 	"actionPlan/fetchActionPlans",
 	async ({goal_id}) => {
-		const response = await getActionPlanList(goal_id)
-		return response.data
+		if (goal_id) {
+			const response = await getActionPlanList(goal_id)
+			return response.data
+		} else {
+			return []
+		}
 	}
 );
 
