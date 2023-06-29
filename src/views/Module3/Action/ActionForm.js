@@ -7,25 +7,37 @@ import { toastFeedback } from "../../../utils/actionFeedback";
 import { postActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 import { postRoutineAction } from "../../../services/RoutineActionService";
 import { addAction } from "../../../store/module3/actionSlice";
+import { useUserID } from "../../../hooks/useUserID";
+import { addActionDeadline } from "../../../store/module3/actionDeadlineSlice";
 
 
 function ActionForm({ actionPlanID }) {
-	const dispatch = useDispatch()
+	const dispatch = useDispatch();
 	const [action, setAction] = useState();
+	const { userID } = useUserID();
 	
 	const handleAddItem = async () => {
 		if (action) {
-			await postRoutineAction({value: action, action_plan: [actionPlanID], action_type: 'action'}).then(
+			await postRoutineAction({
+				user: userID,
+				value: action,
+				action_plan: [actionPlanID],
+				action_type: "action"
+			}).then(
 				async response => {
-					dispatch(addAction(response.data))
-					toastFeedback("success", "Ação Cadastrada")
+					dispatch(addAction(response.data));
+					toastFeedback("success", "Ação Cadastrada");
 					await postActionDeadline({
 						action: response.data.id,
-						estimated_deadline: '2024-01-01',
 						action_plan: actionPlanID
-					})
+					}).then(
+						response => {
+							addActionDeadline(response.data)
+						}
+					);
+					window.location.reload();
 				}
-			)
+			);
 			setAction(null);
 		}
 	};

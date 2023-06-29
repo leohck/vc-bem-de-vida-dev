@@ -32,13 +32,13 @@ function ActionPlanConfigureForm() {
 					toastFeedback("success", "Ação Vinculada");
 					await postActionDeadline({
 						action: item.id,
-						estimated_deadline: "2024-01-01",
 						action_plan: action_plan_id
 					}).then(
 						response => {
 							addActionDeadline(response.data)
 						}
 					);
+					window.location.reload();
 				}
 			}
 		);
