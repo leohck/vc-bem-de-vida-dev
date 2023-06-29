@@ -8,7 +8,7 @@ import { useActionDeadlineList } from "../../../hooks/useActionDeadlineList";
 import { useActionList } from "../../../hooks/useActionList";
 import { unlinkActionAndPlan } from "../../../services/Module3/ActionService";
 import { delAction } from "../../../store/module3/actionSlice";
-import { deleteActionDeadline } from "../../../services/Module3/ActionDeadlineService";
+import { deleteActionDeadline, putActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 import { delActionDeadline } from "../../../store/module3/actionDeadlineSlice";
 
 const { Tr, Td, THead, TBody } = Table;
@@ -62,7 +62,6 @@ function ActionList({ actionPlanID }) {
 		useEffect(() => {
 			if (action_deadlines) {
 				const actdead = getActionDeadline(item.id)
-				console.log(actdead);
 				if (actdead) {
 					setActionDeadLine(actdead)
 					setEstimatedDeadline(actdead.estimated_deadline)
@@ -70,7 +69,13 @@ function ActionList({ actionPlanID }) {
 			}
 		}, [action_deadlines])
 		const handleSaveItem = async (item) => {
-		
+			if (actionDeadLine && estimatedDeadline) {
+				await putActionDeadline(actionDeadLine.id, {estimated_deadline: estimatedDeadline}).then(
+					() => {
+						toastFeedback("success", "Prazo Alterado!")
+					}
+				)
+			}
 		};
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
@@ -86,9 +91,7 @@ function ActionList({ actionPlanID }) {
 						className="w-[165px]"
 						value={estimatedDeadline}
 						onChange={(e) => setEstimatedDeadline(e.target.value)}
-						onBlur={() => {
-							alert(estimatedDeadline);
-						}}
+						onBlur={() => {handleSaveItem(item)}}
 					/>
 				</Td>
 				<Td>
