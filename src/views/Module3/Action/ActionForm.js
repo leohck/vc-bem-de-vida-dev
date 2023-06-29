@@ -2,25 +2,29 @@ import React, { useState } from "react";
 import { Button, Input } from "../../../components/ui";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { InputLabel } from "../../../components/new";
+import { postAction } from "../../../services/Module3/ActionService";
+import { useDispatch } from "react-redux";
+import { addAction } from "../../../store/module3/actionSlice";
+import { toastFeedback } from "../../../utils/actionFeedback";
 
-function ActionForm({ actionList, setActionList }) {
+
+
+function ActionForm({ actionPlanID }) {
+	const dispatch = useDispatch()
 	const [action, setAction] = useState();
-	const [estimatedDeadline, setEstimatedDeadline] = useState();
 	
-	const handleAddItem = () => {
+	const handleAddItem = async () => {
 		if (action) {
-			setActionList([
-				...actionList,
-				{
-					id: Math.floor(Math.random() * 100),
-					value: action,
-					estimated_deadline: estimatedDeadline
+			await postAction({value: action, action_plan: [actionPlanID]}).then(
+				response => {
+					dispatch(addAction(response.data))
+					toastFeedback("success", "Ação Cadastrada")
 				}
-			]);
-			setAction(null)
+			)
+			setAction(null);
 		}
 	};
-
+	
 	return (
 		<div className="flex flex-row items-center gap-4">
 			<InputLabel label="Nova Ação">
@@ -29,16 +33,8 @@ function ActionForm({ actionList, setActionList }) {
 					type="text"
 					name="action"
 					placeholder="Ação"
+					value={action}
 					onChange={(e) => setAction(e.target.value)} />
-			</InputLabel>
-			<InputLabel label="Prazo Estimado">
-				<Input
-					type="date"
-					name="estimated_deadline"
-					className="w-[165px]"
-					value={estimatedDeadline}
-					onChange={(e) => setEstimatedDeadline(e.target.value)}
-				/>
 			</InputLabel>
 			<Button
 				className="mt-5"

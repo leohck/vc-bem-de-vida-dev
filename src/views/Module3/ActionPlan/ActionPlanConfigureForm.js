@@ -1,50 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card } from "../../../components/ui";
 import { AiOutlinePlusCircle } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
-import store from "../../../store";
-import { fetchRoutineActions } from "../../../store/userinfo/routineActionSlice";
-import Action from "../Action";
+import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { useRoutineActionList } from "../../../hooks/useRoutineActionList";
+import Action from "../Action";
+import { postAction } from "../../../services/Module3/ActionService";
+import { addAction } from "../../../store/module3/actionSlice";
+import { toastFeedback } from "../../../utils/actionFeedback";
 
 
 function ActionPlanConfigureForm() {
-	const {state} = useLocation();
+	const { state } = useLocation();
 	const action_plan_id = state.actionPlanItem.id;
 	
 	const dispatch = useDispatch();
 	const [actionPlanItem, setActionPlanItem] = useState();
-
+	
 	const [actionList, setActionList] = useState([]);
-	const routine_actions = useSelector(
-		state => state.userinfo.routineActionSlice
-	);
+	const { routine_actions, refreshRoutineActions } = useRoutineActionList();
+	
 	useEffect(() => {
-		const { auth } = store.getState();
-		const user_id = auth.user.user_info_id;
-		dispatch(fetchRoutineActions({ user_id: user_id }));
+		refreshRoutineActions();
 	}, []);
 	
-	const handleAddItem = (item) => {
-		
-		setActionList([
-			...actionList,
-			{
-				id: item.id,
-				value: item.value
+	const handleAddItem = async (item) => {
+		await postAction({value: item.value, action_plan: [action_plan_id]}).then(
+			response => {
+				dispatch(addAction(response.data))
+				toastFeedback("success", "Ação Adicionada")
 			}
-		]);
+		)
 	};
-
+	
 	useEffect(() => {
 		try {
 			const { actionPlanItem } = state;
 			setActionPlanItem(actionPlanItem);
 		} catch (e) {
-			setActionPlanItem();
+			setActionPlanItem(null);
 		}
 	}, [state]);
-
+	
 	const RoutineActionItem = ({ item }) => {
 		return (
 			<div key={item.id}
@@ -52,7 +49,7 @@ function ActionPlanConfigureForm() {
 				<h6 className="mt-2">
 					{item.value}
 				</h6>
-
+				
 				<div className="flex flex-row gap-4 justify-center mt-2">
 					<Button
 						type="button"
@@ -67,7 +64,7 @@ function ActionPlanConfigureForm() {
 			</div>
 		);
 	};
-
+	
 	return (
 		<div>
 			<div className="flex flex-row items-center justify-center mb-10">
@@ -82,9 +79,8 @@ function ActionPlanConfigureForm() {
 					<h6>Ações Cadastradas</h6>
 					<Card className="max-h-[400px] overflow-y-auto"
 					      bodyClass="grid grid-cols-1 divide-y gap-2"
-						// bodyClass="flex flex-col gap-4 divide-y"
 					>
-						{routine_actions.routine_actions.map(
+						{routine_actions.map(
 							item => (
 								<RoutineActionItem key={item.id} item={item} />
 							)
