@@ -15,7 +15,7 @@ function ActionForm({ actionPlanID }) {
 	
 	const handleAddItem = async () => {
 		if (action) {
-			await postRoutineAction({value: action, action_plan: [actionPlanID]}).then(
+			await postRoutineAction({value: action, action_plan: [actionPlanID], action_type: 'action'}).then(
 				async response => {
 					dispatch(addAction(response.data))
 					toastFeedback("success", "Ação Cadastrada")

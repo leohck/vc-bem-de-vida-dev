@@ -10,11 +10,13 @@ import { unlinkActionAndPlan } from "../../../services/Module3/ActionService";
 import { delAction } from "../../../store/module3/actionSlice";
 import { deleteActionDeadline, putActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 import { delActionDeadline } from "../../../store/module3/actionDeadlineSlice";
+import { useNavigate } from "react-router-dom";
 
 const { Tr, Td, THead, TBody } = Table;
 
 function ActionList({ actionPlanID }) {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { actions, refreshActionList } = useActionList(actionPlanID);
 	const { action_deadlines, refreshActionDeadlineList } = useActionDeadlineList(actionPlanID);
 	
@@ -52,8 +54,12 @@ function ActionList({ actionPlanID }) {
 		);
 	};
 	
-	const handleConfigureItem = () => {
-	
+	const handleConfigureItem = (item) => {
+		if (item.action_type === 'action' && !item.configured) {
+			navigate("/routine/action/form", {replace: true, state: {itemID: item.id, isNew: true}})
+		} else {
+			navigate("/routine/action/form", {replace: true, state: {itemID: item.id, isNew: false}})
+		}
 	};
 	
 	const ActionPlanItem = ({ item }) => {

@@ -125,28 +125,24 @@ const Dashboard = () => {
 					<CardWithDialog
 						title={"Ações em Andamento"}
 						itemCount={actionsCount}
-						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
 				<div>
 					<CardWithDialog
 						title={"Metas"}
 						itemCount={goals.length}
-						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
 				<div>
 					<CardWithDialog
 						title={"Conquistas"}
 						itemCount={achievementsCount}
-						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
 				<div>
 					<CardWithDialog
 						title={"Habilidades"}
 						itemCount={skillsCount}
-						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
 			</div>

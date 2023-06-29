@@ -43,7 +43,7 @@ const RoutineActionList = () => {
 	};
 
 	const handleEditAction = (id) => {
-		navigate("/routine/action/form", { replace: true, state: { itemID: id } });
+		navigate("/routine/action/form", { replace: true, state: { itemID: id, isNew: false} });
 	};
 
 	const ItemRow = ({ item }) => {
