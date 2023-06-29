@@ -7,7 +7,9 @@ import { useRoutineActionList } from "../../../hooks/useRoutineActionList";
 import Action from "../Action";
 import { postAction } from "../../../services/Module3/ActionService";
 import { addAction } from "../../../store/module3/actionSlice";
+import { postRoutineAction } from "../../../services/RoutineActionService";
 import { toastFeedback } from "../../../utils/actionFeedback";
+import { postActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 
 
 function ActionPlanConfigureForm() {
@@ -25,10 +27,15 @@ function ActionPlanConfigureForm() {
 	}, []);
 	
 	const handleAddItem = async (item) => {
-		await postAction({value: item.value, action_plan: [action_plan_id]}).then(
-			response => {
+		await postRoutineAction({...item, action_plan: [action_plan_id]}, item.id).then(
+			async response => {
 				dispatch(addAction(response.data))
 				toastFeedback("success", "Ação Adicionada")
+				await postActionDeadline({
+					routine_action: response.data.id,
+					estimated_deadline: '2024-01-01',
+					action_plan: action_plan_id
+				})
 			}
 		)
 	};

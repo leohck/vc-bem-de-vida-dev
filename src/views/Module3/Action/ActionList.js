@@ -5,41 +5,63 @@ import { AiOutlineCheck, AiOutlineSetting } from "react-icons/ai";
 import { useActionList } from "../../../hooks/useActionList";
 import { delAction } from "../../../store/module3/actionSlice";
 import { useDispatch } from "react-redux";
-import { deleteAction } from "../../../services/Module3/ActionService";
 import { toastFeedback } from "../../../utils/actionFeedback";
+import { useActionDeadlineList } from "../../../hooks/useActionDeadlineList";
+import { useRoutineActionByPlanList } from "../../../hooks/useRoutineActionByPlanList";
+import { deleteActionDeadline, putActionDeadline } from "../../../services/Module3/ActionDeadlineService";
+import { deleteAction } from "../../../services/Module3/ActionService";
 
 const { Tr, Td, THead, TBody } = Table;
 
 function ActionList({ actionPlanID }) {
 	const dispatch = useDispatch();
-	const [estimatedDeadline, setEstimatedDeadline] = useState();
 	const { actions, refreshActionList } = useActionList(actionPlanID);
+	const { routine_actions, refreshRoutineActionList } = useRoutineActionByPlanList(actionPlanID);
+	const { action_deadlines, refreshActionDeadlineList } = useActionDeadlineList(actionPlanID);
+	const [raList, setRaList] = useState([]);
 	
+	const getActionDeadline = (actionID) => {
+		const action = action_deadlines.filter(
+			(el) => el.action === actionID
+		)[0];
+		if (action) {
+			return action.estimated_deadline;
+		} else {
+			return "2024-01-01";
+		}
+	};
 	
 	useEffect(() => {
-		refreshActionList();
+		if (actionPlanID) {
+			refreshActionList();
+			refreshActionDeadlineList();
+			setRaList(routine_actions)
+		}
 	}, [actionPlanID]);
 	
 	const handleDeleteItem = async (item) => {
-		await deleteAction(item.id).then(
-			() => {
-				dispatch(delAction(item.id));
-				toastFeedback("warning", "Ação Excluida");
-			}
-		);
+		// await deleteActionDeadline(item.id).then(
+		// 	() => {
+		// 	}
+		// );
+		dispatch(delAction(item.id));
+		setRaList(raList.filter(
+			(el) => el.id !== item.id
+		));
+		toastFeedback("warning", "Ação Excluida");
 	};
 	
 	const handleConfigureItem = () => {
 	
 	};
 	
-	const handleSaveItem = () => {
-	
-	};
-	
 	const ActionPlanItem = ({ item }) => {
+		const [estimatedDeadline, setEstimatedDeadline] = useState(getActionDeadline(item.id));
+		const handleSaveItem = async (item) => {
+		
+		};
 		return (
-			<Tr key={item.id}  style={{ textAlign: "center" }}>
+			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td className="flex flex-row gap-2 items-center justify-center">
 					<h6 className="mt-2">
 						{item.value}
@@ -52,6 +74,9 @@ function ActionList({ actionPlanID }) {
 						className="w-[165px]"
 						value={estimatedDeadline}
 						onChange={(e) => setEstimatedDeadline(e.target.value)}
+						onBlur={() => {
+							alert(estimatedDeadline);
+						}}
 					/>
 				</Td>
 				<Td>
@@ -62,7 +87,7 @@ function ActionList({ actionPlanID }) {
 							size="sm"
 							variant="twoTone"
 							icon={<AiOutlineCheck />}
-							onClick={handleSaveItem}
+							onClick={() => handleSaveItem(item)}
 						/>
 						
 						<Button
@@ -111,6 +136,11 @@ function ActionList({ actionPlanID }) {
 					</THead>
 					<TBody>
 						{actions.map(
+							item => (
+								<ActionPlanItem key={item.id} item={item} />
+							)
+						)}
+						{raList.map(
 							item => (
 								<ActionPlanItem key={item.id} item={item} />
 							)

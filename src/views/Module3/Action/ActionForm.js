@@ -6,7 +6,7 @@ import { postAction } from "../../../services/Module3/ActionService";
 import { useDispatch } from "react-redux";
 import { addAction } from "../../../store/module3/actionSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
-
+import { postActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 
 
 function ActionForm({ actionPlanID }) {
@@ -16,9 +16,14 @@ function ActionForm({ actionPlanID }) {
 	const handleAddItem = async () => {
 		if (action) {
 			await postAction({value: action, action_plan: [actionPlanID]}).then(
-				response => {
+				async response => {
 					dispatch(addAction(response.data))
 					toastFeedback("success", "Ação Cadastrada")
+					await postActionDeadline({
+						action: response.data.id,
+						estimated_deadline: '2024-01-01',
+						action_plan: actionPlanID
+					})
 				}
 			)
 			setAction(null);
