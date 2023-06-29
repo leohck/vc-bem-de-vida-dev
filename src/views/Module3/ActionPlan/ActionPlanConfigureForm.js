@@ -4,12 +4,12 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useRoutineActionList } from "../../../hooks/useRoutineActionList";
-import Action from "../Action";
-import { postAction } from "../../../services/Module3/ActionService";
-import { addAction } from "../../../store/module3/actionSlice";
 import { postRoutineAction } from "../../../services/RoutineActionService";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { postActionDeadline } from "../../../services/Module3/ActionDeadlineService";
+import { addAction } from "../../../store/module3/actionSlice";
+import Action from "../Action";
+import { linkActionAndPlan } from "../../../services/Module3/ActionService";
 
 
 function ActionPlanConfigureForm() {
@@ -18,8 +18,6 @@ function ActionPlanConfigureForm() {
 	
 	const dispatch = useDispatch();
 	const [actionPlanItem, setActionPlanItem] = useState();
-	
-	const [actionList, setActionList] = useState([]);
 	const { routine_actions, refreshRoutineActions } = useRoutineActionList();
 	
 	useEffect(() => {
@@ -27,17 +25,19 @@ function ActionPlanConfigureForm() {
 	}, []);
 	
 	const handleAddItem = async (item) => {
-		await postRoutineAction({...item, action_plan: [action_plan_id]}, item.id).then(
+		await linkActionAndPlan(item.id, action_plan_id).then(
 			async response => {
-				dispatch(addAction(response.data))
-				toastFeedback("success", "Ação Adicionada")
-				await postActionDeadline({
-					routine_action: response.data.id,
-					estimated_deadline: '2024-01-01',
-					action_plan: action_plan_id
-				})
+				if (response.status === 200) {
+					dispatch(addAction(item));
+					toastFeedback("success", "Ação Adicionada");
+					await postActionDeadline({
+						routine_action: item.id,
+						estimated_deadline: "2024-01-01",
+						action_plan: action_plan_id
+					});
+				}
 			}
-		)
+		);
 	};
 	
 	useEffect(() => {
@@ -94,9 +94,7 @@ function ActionPlanConfigureForm() {
 						)}
 					</Card>
 				</div>
-				<Action
-					actionPlanID={action_plan_id}
-					actionList={actionList} setActionList={setActionList} />
+				<Action actionPlanID={action_plan_id} />
 			</div>
 		</div>
 	);

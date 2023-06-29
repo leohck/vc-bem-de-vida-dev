@@ -2,23 +2,19 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Input, Table } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineCheck, AiOutlineSetting } from "react-icons/ai";
-import { useActionList } from "../../../hooks/useActionList";
-import { delAction } from "../../../store/module3/actionSlice";
 import { useDispatch } from "react-redux";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { useActionDeadlineList } from "../../../hooks/useActionDeadlineList";
-import { useRoutineActionByPlanList } from "../../../hooks/useRoutineActionByPlanList";
-import { deleteActionDeadline, putActionDeadline } from "../../../services/Module3/ActionDeadlineService";
-import { deleteAction } from "../../../services/Module3/ActionService";
+import { useActionList } from "../../../hooks/useActionList";
+import { unlinkActionAndPlan } from "../../../services/Module3/ActionService";
+import { delAction } from "../../../store/module3/actionSlice";
 
 const { Tr, Td, THead, TBody } = Table;
 
 function ActionList({ actionPlanID }) {
 	const dispatch = useDispatch();
 	const { actions, refreshActionList } = useActionList(actionPlanID);
-	const { routine_actions, refreshRoutineActionList } = useRoutineActionByPlanList(actionPlanID);
 	const { action_deadlines, refreshActionDeadlineList } = useActionDeadlineList(actionPlanID);
-	const [raList, setRaList] = useState([]);
 	
 	const getActionDeadline = (actionID) => {
 		const action = action_deadlines.filter(
@@ -35,20 +31,18 @@ function ActionList({ actionPlanID }) {
 		if (actionPlanID) {
 			refreshActionList();
 			refreshActionDeadlineList();
-			setRaList(routine_actions)
 		}
 	}, [actionPlanID]);
 	
 	const handleDeleteItem = async (item) => {
-		// await deleteActionDeadline(item.id).then(
-		// 	() => {
-		// 	}
-		// );
-		dispatch(delAction(item.id));
-		setRaList(raList.filter(
-			(el) => el.id !== item.id
-		));
-		toastFeedback("warning", "Ação Excluida");
+		await unlinkActionAndPlan(item.id, actionPlanID).then(
+			response => {
+				if (response.status === 200) {
+					dispatch(delAction(item.id))
+					toastFeedback("warning", "Ação Desvinculada");
+				}
+			}
+		);
 	};
 	
 	const handleConfigureItem = () => {
@@ -136,11 +130,6 @@ function ActionList({ actionPlanID }) {
 					</THead>
 					<TBody>
 						{actions.map(
-							item => (
-								<ActionPlanItem key={item.id} item={item} />
-							)
-						)}
-						{raList.map(
 							item => (
 								<ActionPlanItem key={item.id} item={item} />
 							)

@@ -5,13 +5,15 @@ import { fetchActionPlans } from "../store/module3/actionPlanSlice";
 export const useActionPlanList = (goalID) => {
 	const dispatch = useDispatch();
 	const actionPlanSlice = useSelector(state => state.module3.actionPlanSlice);
-	useEffect(() => {
-		dispatch(fetchActionPlans({ goal_id: goalID }));
-	}, []);
 	
 	const refreshActionPlanList = () => {
 		dispatch(fetchActionPlans({ goal_id: goalID }));
 	};
+	
+	useEffect(() => {
+		refreshActionPlanList()
+	}, []);
+	
 	return {
 		action_plans: actionPlanSlice.action_plans,
 		refreshActionPlanList

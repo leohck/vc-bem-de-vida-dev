@@ -1,35 +1,22 @@
 import ApiService from "../ApiService";
 
-
-export async function getActionList(action_plan_id) {
+export async function getRoutineActionList(user_id, action_plan_id) {
 	return ApiService.fetchData({
-		url: `/action/?action_plan=${action_plan_id}`,
-		method: 'get'
-	});
+		url: `/user_routine_action/?user_id=${user_id}&action_plan=${action_plan_id}`,
+		method: 'get',
+	})
 }
 
-
-export async function postAction(data) {
+export async function linkActionAndPlan(action_id, action_plan_id) {
 	return ApiService.fetchData({
-		url: '/action/',
-		method: 'post',
-		data
-	});
+		url: `/link_action_and_plan/${action_id}/${action_plan_id}/`,
+		method: 'get',
+	})
 }
 
-
-export async function deleteAction(action_id) {
+export async function unlinkActionAndPlan(action_id, action_plan_id) {
 	return ApiService.fetchData({
-		url: `/action/${action_id}/`,
-		method: 'delete'
-	});
-}
-
-
-export async function putAction(action_id, data) {
-	return ApiService.fetchData({
-		url: `/action/${action_id}/`,
-		method: 'put',
-		data
-	});
+		url: `/unlink_action_and_plan/${action_id}/${action_plan_id}/`,
+		method: 'get',
+	})
 }

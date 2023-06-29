@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getActionList } from "../../services/Module3/ActionService";
+import { getRoutineActionList } from "../../services/Module3/ActionService";
 
 
 const initialState = {
@@ -10,9 +10,9 @@ const initialState = {
 
 export const fetchActions = createAsyncThunk(
 	"action/fetchActions",
-	async ({action_plan_id}) => {
-		if (action_plan_id) {
-			const response = await getActionList(action_plan_id)
+	async ({user_id, action_plan_id}) => {
+		if (user_id) {
+			const response = await getRoutineActionList(user_id, action_plan_id)
 			return response.data
 		} else {
 			return []

@@ -2,9 +2,7 @@ import React, { useState } from "react";
 import { Button, Input } from "../../../components/ui";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { InputLabel } from "../../../components/new";
-import { postAction } from "../../../services/Module3/ActionService";
 import { useDispatch } from "react-redux";
-import { addAction } from "../../../store/module3/actionSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { postActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 
@@ -14,20 +12,20 @@ function ActionForm({ actionPlanID }) {
 	const [action, setAction] = useState();
 	
 	const handleAddItem = async () => {
-		if (action) {
-			await postAction({value: action, action_plan: [actionPlanID]}).then(
-				async response => {
-					dispatch(addAction(response.data))
-					toastFeedback("success", "Ação Cadastrada")
-					await postActionDeadline({
-						action: response.data.id,
-						estimated_deadline: '2024-01-01',
-						action_plan: actionPlanID
-					})
-				}
-			)
-			setAction(null);
-		}
+		// if (action) {
+		// 	await postAction({value: action, action_plan: [actionPlanID]}).then(
+		// 		async response => {
+		// 			dispatch(addAction(response.data))
+		// 			toastFeedback("success", "Ação Cadastrada")
+		// 			await postActionDeadline({
+		// 				action: response.data.id,
+		// 				estimated_deadline: '2024-01-01',
+		// 				action_plan: actionPlanID
+		// 			})
+		// 		}
+		// 	)
+		// 	setAction(null);
+		// }
 	};
 	
 	return (
