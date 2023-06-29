@@ -26,15 +26,15 @@ export const ActionDeadlineSlice = createSlice({
 	initialState,
 	reducers: {
 		addActionDeadline: (state, action) => {
-			state.action_plans = [...state.action_plans, action.payload];
+			state.action_deadlines = [...state.action_deadlines, action.payload];
 		},
 		updateActionDeadline: (state, action) => {
-			state.action_plans = state.action_plans.map(
+			state.action_deadlines = state.action_deadlines.map(
 				(el) => el.id === action.payload.id ? action.payload : el
 			);
 		},
 		delActionDeadline: (state, action) => {
-			state.action_plans = state.action_plans.filter(
+			state.action_deadlines = state.action_deadlines.filter(
 				(el) => el.id !== action.payload
 			);
 		}

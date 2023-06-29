@@ -4,12 +4,12 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { useRoutineActionList } from "../../../hooks/useRoutineActionList";
-import { postRoutineAction } from "../../../services/RoutineActionService";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { postActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 import { addAction } from "../../../store/module3/actionSlice";
 import Action from "../Action";
 import { linkActionAndPlan } from "../../../services/Module3/ActionService";
+import { addActionDeadline } from "../../../store/module3/actionDeadlineSlice";
 
 
 function ActionPlanConfigureForm() {
@@ -29,12 +29,16 @@ function ActionPlanConfigureForm() {
 			async response => {
 				if (response.status === 200) {
 					dispatch(addAction(item));
-					toastFeedback("success", "Ação Adicionada");
+					toastFeedback("success", "Ação Vinculada");
 					await postActionDeadline({
-						routine_action: item.id,
+						action: item.id,
 						estimated_deadline: "2024-01-01",
 						action_plan: action_plan_id
-					});
+					}).then(
+						response => {
+							addActionDeadline(response.data)
+						}
+					);
 				}
 			}
 		);

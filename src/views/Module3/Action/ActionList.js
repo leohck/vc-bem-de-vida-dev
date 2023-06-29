@@ -8,6 +8,8 @@ import { useActionDeadlineList } from "../../../hooks/useActionDeadlineList";
 import { useActionList } from "../../../hooks/useActionList";
 import { unlinkActionAndPlan } from "../../../services/Module3/ActionService";
 import { delAction } from "../../../store/module3/actionSlice";
+import { deleteActionDeadline } from "../../../services/Module3/ActionDeadlineService";
+import { delActionDeadline } from "../../../store/module3/actionDeadlineSlice";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -21,9 +23,9 @@ function ActionList({ actionPlanID }) {
 			(el) => el.action === actionID
 		)[0];
 		if (action) {
-			return action.estimated_deadline;
+			return action;
 		} else {
-			return "2024-01-01";
+			return {};
 		}
 	};
 	
@@ -34,11 +36,16 @@ function ActionList({ actionPlanID }) {
 		}
 	}, [actionPlanID]);
 	
-	const handleDeleteItem = async (item) => {
-		await unlinkActionAndPlan(item.id, actionPlanID).then(
-			response => {
+	const handleDeleteItem = async (actionItem, actionDeadline) => {
+		await unlinkActionAndPlan(actionItem.id, actionPlanID).then(
+			async response => {
 				if (response.status === 200) {
-					dispatch(delAction(item.id))
+					dispatch(delAction(actionItem.id))
+					await deleteActionDeadline(actionDeadline.id).then(
+						() => {
+							dispatch(delActionDeadline(actionDeadline.id))
+						}
+					)
 					toastFeedback("warning", "Ação Desvinculada");
 				}
 			}
@@ -50,7 +57,18 @@ function ActionList({ actionPlanID }) {
 	};
 	
 	const ActionPlanItem = ({ item }) => {
-		const [estimatedDeadline, setEstimatedDeadline] = useState(getActionDeadline(item.id));
+		const [actionDeadLine, setActionDeadLine] = useState();
+		const [estimatedDeadline, setEstimatedDeadline] = useState(actionDeadLine);
+		useEffect(() => {
+			if (action_deadlines) {
+				const actdead = getActionDeadline(item.id)
+				console.log(actdead);
+				if (actdead) {
+					setActionDeadLine(actdead)
+					setEstimatedDeadline(actdead.estimated_deadline)
+				}
+			}
+		}, [action_deadlines])
 		const handleSaveItem = async (item) => {
 		
 		};
@@ -101,7 +119,7 @@ function ActionList({ actionPlanID }) {
 							size="sm"
 							variant="twoTone"
 							icon={<MdDeleteForever />}
-							onClick={() => handleDeleteItem(item)}
+							onClick={() => handleDeleteItem(item, actionDeadLine)}
 						/>
 					</div>
 				</Td>
