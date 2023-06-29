@@ -18,6 +18,7 @@ import {
 import { CardWithDialog } from "../../components/new";
 import store from "../../store";
 import { getRoutineActionList } from "../../services/RoutineActionService";
+import { useGoalList } from "../../hooks/module3/useGoalList";
 
 function hex_color_switch(value) {
 	switch (value) {
@@ -40,7 +41,7 @@ function hex_color_switch(value) {
 
 const Dashboard = () => {
 	const [user_info_id, setUserInfoID] = useState(null);
-
+	
 	const [ratings, setRatings] = useState([]);
 	const [radarData, setRadarData] = useState([]);
 	const [actionsCount, setActionsCount] = useState(0);
@@ -49,13 +50,15 @@ const Dashboard = () => {
 	const [shortQuestions, setShortQuestions] = useState(
 		ASPECTS_QUESTIONS_SHORT
 	);
-
+	
+	const { goals, refreshGoalList } = useGoalList();
+	
 	useEffect(() => {
 		const { auth } = store.getState();
 		const user_info_id = auth.user.user_info_id;
 		setUserInfoID(user_info_id);
 	}, []);
-
+	
 	useEffect(() => {
 		const fetchDashData = async () => {
 			try {
@@ -108,9 +111,10 @@ const Dashboard = () => {
 			fetchSkillsData();
 			fetchAchievementsData();
 			fetchRoutineActionsData();
+			refreshGoalList();
 		}
 	}, [user_info_id]);
-
+	
 	return (
 		<div>
 			<div className="mb-8 grid justify-items-center">
@@ -127,7 +131,7 @@ const Dashboard = () => {
 				<div>
 					<CardWithDialog
 						title={"Metas"}
-						itemCount={0}
+						itemCount={goals.length}
 						// handleAddingItem={() => { navigate("/routine/action/form", { replace: true })}}
 					/>
 				</div>
@@ -146,7 +150,7 @@ const Dashboard = () => {
 					/>
 				</div>
 			</div>
-
+			
 			<div className="flex mb-20 mt-24">
 				<div className="w-1/2">
 					<div className="mb-8 grid justify-items-center">
