@@ -175,27 +175,7 @@ const navigationConfig = [
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
                 subMenu: [],
-            },
-            {
-                key: 'wish',
-                path: '/wish',
-                title: 'Desejos',
-                translateKey: '',
-                icon: '',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: [],
-            },
-            {
-                key: 'action-plan',
-                path: '/action-plan',
-                title: 'Planos de Ação',
-                translateKey: '',
-                icon: '',
-                type: NAV_ITEM_TYPE_ITEM,
-                authority: [],
-                subMenu: [],
-            },
+            }
         ],
     }
 ]

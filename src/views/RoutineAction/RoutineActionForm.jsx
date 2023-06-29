@@ -29,7 +29,7 @@ const RoutineForm = () => {
 	const [user_info_id, setUserInfoID] = useState(null);
 	const [itemID, setItemID] = useState(null);
 	const [isNew, setIsNew] = useState(false);
-
+	
 	const [lifeAspect, setLifeAspect] = useState([]);
 	const [weekDay, setWeekDay] = useState([]);
 	const [energyLevel, setEnergyLevel] = useState([]);
@@ -51,7 +51,7 @@ const RoutineForm = () => {
 		const user_id = auth.user.user_info_id;
 		setUserInfoID(user_id);
 	}, []);
-
+	
 	useEffect(() => {
 		try {
 			const { itemID, isNew } = state;
@@ -62,20 +62,20 @@ const RoutineForm = () => {
 			setIsNew(false);
 		}
 	}, [state]);
-
+	
 	useEffect(() => {
 		const get_ra = async () => {
 			if (itemID) {
 				await getRoutineAction(itemID).then(
 					response => {
-						setCurrentItem(response.data)
+						setCurrentItem(response.data);
 						if (!isNew) {
 							if (response.data.action_type === "action") {
-								setTitle("Configurar Ação")
-								setRecurrence(getRecurrenceObjectFromValue(response.data.recurrence))
-								setStatus(getStatusObjectFromValue(response.data.status))
+								setTitle("Configurar Ação");
+								setRecurrence(getRecurrenceObjectFromValue(response.data.recurrence));
+								setStatus(getStatusObjectFromValue(response.data.status));
 							} else {
-								setTitle("Editar Ação de Rotina")
+								setTitle("Editar Ação de Rotina");
 							}
 							const action_money = [];
 							if (response.data.action_generate_money) {
@@ -92,18 +92,18 @@ const RoutineForm = () => {
 							setActionMoney(action_money);
 							setActionCost(response.data.action_cost);
 							
-							const days_of_week = response.data.days_of_week.split(",")
-							const time_spent = parseInt(response.data.time_spent)
+							const days_of_week = response.data.days_of_week.split(",");
+							const time_spent = parseInt(response.data.time_spent);
 							const get_wh = async () => {
 								try {
 									if (user_info_id) {
 										await getWeeklyHoursSpent(user_info_id).then(
 											response => {
-												let weekly_hours = response.data.weekly_hours_spent
+												let weekly_hours = response.data.weekly_hours_spent;
 												for (let day of days_of_week) {
-													let current_day = parseInt(day)
-													let hours_per_day_count = weekly_hours[current_day]
-													weekly_hours[current_day] = hours_per_day_count - time_spent
+													let current_day = parseInt(day);
+													let hours_per_day_count = weekly_hours[current_day];
+													weekly_hours[current_day] = hours_per_day_count - time_spent;
 												}
 												setWeeklyHoursSpentCount(weekly_hours);
 											}
@@ -115,9 +115,9 @@ const RoutineForm = () => {
 							};
 							get_wh();
 						} else {
-							setActionValue(response.data.value)
+							setActionValue(response.data.value);
 						}
-
+						
 					}
 				);
 			} else {
@@ -139,23 +139,23 @@ const RoutineForm = () => {
 		};
 		get_ra();
 	}, [itemID, user_info_id]);
-
+	
 	const handleLifeAspectChange = useCallback((val) => {
 		setLifeAspect(val);
 	}, []);
-
+	
 	const handleWeekDayChange = useCallback((val) => {
 		setWeekDay(val);
 	}, []);
-
+	
 	const handleEnergyLevelChange = useCallback((val) => {
 		setEnergyLevel(val);
 	}, []);
-
+	
 	const handleActionMoneyChange = useCallback((val) => {
 		setActionMoney(val);
 	}, []);
-
+	
 	const addNewRoutineAction = (data) => {
 		const update = async () => {
 			try {
@@ -171,29 +171,45 @@ const RoutineForm = () => {
 		};
 		update();
 	};
-
+	
 	const handleFormSubmit = () => {
 		const action_generate_money = actionMoney.includes("1");
 		const action_cost_money = actionMoney.includes("0");
 		const action_cost = action_cost_money ? actionCost : 0;
-
-		const data = {
-			user: user_info_id,
-			value: actionValue,
-			life_aspect: lifeAspect.toString(),
-			time_spent: timeSpent,
-			days_of_week: weekDay.toString(),
-			energy_spent: energyLevel.toString(),
-			action_cost: action_cost,
-			action_generate_money: action_generate_money,
-			action_cost_money: action_cost_money,
-			recurrence: recurrence.value,
-			status: status.value,
-			configured: true
-		};
+		let data = {};
+		try {
+			data = {
+				user: user_info_id,
+				value: actionValue,
+				life_aspect: lifeAspect.toString(),
+				time_spent: timeSpent,
+				days_of_week: weekDay.toString(),
+				energy_spent: energyLevel.toString(),
+				action_cost: action_cost,
+				action_generate_money: action_generate_money,
+				action_cost_money: action_cost_money,
+				recurrence: recurrence.value,
+				status: status.value,
+				configured: true
+			};
+		} catch (e) {
+			console.log(e);
+			data = {
+				user: user_info_id,
+				value: actionValue,
+				life_aspect: lifeAspect.toString(),
+				time_spent: timeSpent,
+				days_of_week: weekDay.toString(),
+				energy_spent: energyLevel.toString(),
+				action_cost: action_cost,
+				action_generate_money: action_generate_money,
+				action_cost_money: action_cost_money,
+				configured: true
+			};
+		}
 		for (let day of weekDay) {
-			let hours_addition = parseInt(data.time_spent)
-			let hours_per_day_count = weeklyHoursSpentCount[parseInt(day)]
+			let hours_addition = parseInt(data.time_spent);
+			let hours_per_day_count = weeklyHoursSpentCount[parseInt(day)];
 			if ((hours_per_day_count + hours_addition) > 24) {
 				alert("Você excedeu o máximo de horas permitidas em um dia (24 horas), revise seu cadastro!");
 				return;
@@ -201,13 +217,13 @@ const RoutineForm = () => {
 		}
 		addNewRoutineAction(data);
 	};
-
+	
 	return (
 		<div>
 			<div className="mb-8 grid justify-items-center">
 				<h3>{title}</h3>
 			</div>
-
+			
 			<Card
 				footer={
 					<div className="flex justify-items-end">
@@ -233,7 +249,7 @@ const RoutineForm = () => {
 						}}
 					/>
 				</div>
-
+				
 				<div className="flex flex-col justify-items-center mt-10">
 					<p className="font-bold text-lg">
 						Aspecto de Vida Influenciado pela Ação:
@@ -258,7 +274,7 @@ const RoutineForm = () => {
 						/>
 					</div>
 				)}
-
+				
 				<div className="flex flex-row items-center mt-10">
 					<p className="font-bold text-lg">
 						Quantas horas / dia são necessárias para esta ação:{" "}
@@ -277,7 +293,7 @@ const RoutineForm = () => {
 						placeholder="Quantas horas são necessárias"
 					/>
 				</div>
-
+				
 				<div className="flex flex-col justify-items-center mt-10">
 					<p className="font-bold text-lg">
 						Em quais dias da semana esta ação é executada?{" "}
@@ -288,7 +304,7 @@ const RoutineForm = () => {
 						weeklyHoursSpentCount={weeklyHoursSpentCount}
 					/>
 				</div>
-
+				
 				<div className="flex flex-col justify-items-center mt-10">
 					<p className="font-bold text-lg">
 						Considerando a escala abaixo, como você classifica o
@@ -300,7 +316,7 @@ const RoutineForm = () => {
 						onChange={handleEnergyLevelChange}
 					/>
 				</div>
-
+				
 				<div className="flex flex-row items-center gap-[200px] mt-10">
 					<div className="flex flex-col">
 						<p className="font-bold text-lg">Esta Ação?</p>
@@ -343,7 +359,7 @@ const RoutineForm = () => {
 				)}
 				{currentItem && currentItem.hasOwnProperty("action_plan") && (
 					<div className="mt-10">
-						<ActionPlans action={currentItem}/>
+						<ActionPlans action={currentItem} />
 					</div>
 				)}
 			</Card>
