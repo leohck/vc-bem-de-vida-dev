@@ -106,6 +106,7 @@
     "postcss-nested": "^5.0.6",
     "postcss-preset-env": "7.x",
     "prettier": "2.8.3",
+    "react-intl-currency-input": "^0.3.3",
     "tailwindcss": "^3.0.7"
   }
 }

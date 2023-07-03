@@ -7,6 +7,13 @@ export async function getRoutineActionList(user_id) {
 	})
 }
 
+export async function getInProgressRoutineActionList(user_id) {
+	return ApiService.fetchData({
+		url: `/user_routine_action/?user_id=${user_id}&status=em+andamento`,
+		method: 'get',
+	})
+}
+
 export async function getRoutineAction(id){
 	return ApiService.fetchData({
 		url: `/user_routine_action/${id}/`,

@@ -17,7 +17,7 @@ import {
 } from "../../services/PersonalService";
 import { CardWithDialog } from "../../components/new";
 import store from "../../store";
-import { getRoutineActionList } from "../../services/RoutineActionService";
+import { getInProgressRoutineActionList, getRoutineActionList } from "../../services/RoutineActionService";
 import { useGoalList } from "../../hooks/module3/useGoalList";
 
 function hex_color_switch(value) {
@@ -97,7 +97,7 @@ const Dashboard = () => {
 		};
 		const fetchRoutineActionsData = async () => {
 			try {
-				const resp = await getRoutineActionList(user_info_id);
+				const resp = await getInProgressRoutineActionList(user_info_id);
 				if (resp.data) {
 					const actions = resp.data;
 					setActionsCount(actions.length);

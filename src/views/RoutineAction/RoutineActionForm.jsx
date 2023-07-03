@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { addNewAction } from "store/userinfo/routineActionSlice";
 import { getRoutineAction, getWeeklyHoursSpent, postRoutineAction } from "../../services/RoutineActionService";
 import { useLocation, useNavigate } from "react-router-dom";
-import store from "../../store";
 import ActionPlans from "../Module3/Action/ActionPlans";
 import {
 	getRecurrenceObjectFromValue,
@@ -21,12 +20,14 @@ import {
 	RECURRENCE_OPTIONS,
 	STATUS_OPTIONS
 } from "../../constants/action.constant";
+import { useUserID } from "../../hooks/useUserID";
 
 const RoutineForm = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { state } = useLocation();
-	const [user_info_id, setUserInfoID] = useState(null);
+	const { userID } = useUserID();
+	const [user_info_id, setUserInfoID] = useState(userID);
 	const [itemID, setItemID] = useState(null);
 	const [isNew, setIsNew] = useState(false);
 	
@@ -45,12 +46,6 @@ const RoutineForm = () => {
 	const [currentItem, setCurrentItem] = useState({});
 	const [title, setTitle] = useState("Cadastrar Ação de Rotina");
 	
-	
-	useEffect(() => {
-		const { auth } = store.getState();
-		const user_id = auth.user.user_info_id;
-		setUserInfoID(user_id);
-	}, []);
 	
 	useEffect(() => {
 		try {
@@ -122,6 +117,8 @@ const RoutineForm = () => {
 				);
 			} else {
 				const get_wh = async () => {
+					setRecurrence(getRecurrenceObjectFromValue("recorrente"));
+					setStatus(getStatusObjectFromValue("em andamento"));
 					try {
 						if (user_info_id) {
 							await getWeeklyHoursSpent(user_info_id).then(
@@ -260,20 +257,18 @@ const RoutineForm = () => {
 					/>
 				</div>
 				
-				{title === "Configurar Ação" && (
-					<div className="flex flex-row items-center gap-2 mt-10">
-						<p className="font-bold text-lg">
-							Recorrência da Ação:
-						</p>
-						<Select
-							className="max-w-[150px]"
-							options={RECURRENCE_OPTIONS}
-							placeholder="Recorrencia"
-							value={recurrence}
-							onChange={setRecurrence}
-						/>
-					</div>
-				)}
+				<div className="flex flex-row items-center gap-2 mt-10">
+					<p className="font-bold text-lg">
+						Recorrência da Ação:
+					</p>
+					<Select
+						className="max-w-[150px]"
+						options={RECURRENCE_OPTIONS}
+						placeholder="Recorrencia"
+						value={recurrence}
+						onChange={setRecurrence}
+					/>
+				</div>
 				
 				<div className="flex flex-row items-center mt-10">
 					<p className="font-bold text-lg">
@@ -343,20 +338,18 @@ const RoutineForm = () => {
 						</div>
 					) : null}
 				</div>
-				{title === "Configurar Ação" && (
-					<div className="flex flex-row items-center gap-2 mt-10">
-						<p className="font-bold text-lg">
-							Status da Ação:
-						</p>
-						<Select
-							className="w-[250px]"
-							options={STATUS_OPTIONS}
-							placeholder="Status"
-							value={status}
-							onChange={setStatus}
-						/>
-					</div>
-				)}
+				<div className="flex flex-row items-center gap-2 mt-10">
+					<p className="font-bold text-lg">
+						Status da Ação:
+					</p>
+					<Select
+						className="w-[250px]"
+						options={STATUS_OPTIONS}
+						placeholder="Status"
+						value={status}
+						onChange={setStatus}
+					/>
+				</div>
 				{currentItem && currentItem.hasOwnProperty("action_plan") && (
 					<div className="mt-10">
 						<ActionPlans action={currentItem} />
