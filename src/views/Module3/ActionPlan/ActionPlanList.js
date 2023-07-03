@@ -72,9 +72,9 @@ function ActionPlanList({ goalID }) {
 			
 			useEffect(() => {
 				if (editing) {
-					setClassName("border-blue-500 focus:bg-white");
+					setClassName("border-blue-500 focus:bg-white w-[400px]");
 				} else {
-					setClassName("border-transparent bg-transparent");
+					setClassName("border-transparent bg-transparent w-[400px]");
 				}
 			}, [editing]);
 			
@@ -83,6 +83,7 @@ function ActionPlanList({ goalID }) {
 					key={id}
 					className={className}
 					size="sm"
+					maxLength={200}
 					value={inputValue}
 					disabled={!editing}
 					onChange={e => setInputValue(e.target.value)}
