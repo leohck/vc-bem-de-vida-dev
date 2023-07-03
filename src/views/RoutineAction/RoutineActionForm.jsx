@@ -64,55 +64,62 @@ const RoutineForm = () => {
 				await getRoutineAction(itemID).then(
 					response => {
 						setCurrentItem(response.data);
-						if (!isNew) {
-							if (response.data.action_type === "action") {
-								setTitle("Configurar Ação");
-								setRecurrence(getRecurrenceObjectFromValue(response.data.recurrence));
-								setStatus(getStatusObjectFromValue(response.data.status));
-							} else {
-								setTitle("Editar Ação de Rotina");
-							}
-							const action_money = [];
-							if (response.data.action_generate_money) {
-								action_money.push("1");
-							}
-							if (response.data.action_cost_money) {
-								action_money.push("0");
-							}
-							setActionValue(response.data.value);
-							setTimeSpent(response.data.time_spent);
-							setLifeAspect(response.data.life_aspect.split(","));
-							setWeekDay(response.data.days_of_week.split(","));
-							setEnergyLevel([response.data.energy_spent.toString()]);
-							setActionMoney(action_money);
-							setActionCost(response.data.action_cost);
-							
-							const days_of_week = response.data.days_of_week.split(",");
-							const time_spent = parseInt(response.data.time_spent);
-							const get_wh = async () => {
-								try {
-									if (user_info_id) {
-										await getWeeklyHoursSpent(user_info_id).then(
-											response => {
-												let weekly_hours = response.data.weekly_hours_spent;
-												for (let day of days_of_week) {
-													let current_day = parseInt(day);
-													let hours_per_day_count = weekly_hours[current_day];
-													weekly_hours[current_day] = hours_per_day_count - time_spent;
-												}
-												setWeeklyHoursSpentCount(weekly_hours);
-											}
-										);
-									}
-								} catch (e) {
-									console.log(e);
-								}
-							};
-							get_wh();
+						if (response.data.action_type === "action") {
+							setTitle("Configurar Ação");
+							setRecurrence(getRecurrenceObjectFromValue(response.data.recurrence));
+							setStatus(getStatusObjectFromValue(response.data.status));
 						} else {
-							setActionValue(response.data.value);
+							setTitle("Editar Ação de Rotina");
 						}
-						
+						const action_money = [];
+						if (response.data.action_generate_money) {
+							action_money.push("1");
+						}
+						if (response.data.action_cost_money) {
+							action_money.push("0");
+						}
+						setActionValue(response.data.value);
+						setTimeSpent(response.data.time_spent);
+						try {
+							setLifeAspect(response.data.life_aspect.split(","));
+						} catch (e) {
+							setLifeAspect([]);
+						}
+						try {
+							setWeekDay(response.data.days_of_week.split(","));
+						} catch (e) {
+							setWeekDay([]);
+						}
+						setEnergyLevel([response.data.energy_spent.toString()]);
+						setActionMoney(action_money);
+						setActionCost(response.data.action_cost);
+						let days_of_week = [];
+						try {
+							days_of_week = response.data.days_of_week.split(",");
+						} catch (e) {
+							days_of_week = [];
+						}
+						const time_spent = parseInt(response.data.time_spent);
+						const get_wh = async () => {
+							try {
+								if (user_info_id) {
+									await getWeeklyHoursSpent(user_info_id).then(
+										response => {
+											let weekly_hours = response.data.weekly_hours_spent;
+											for (let day of days_of_week) {
+												let current_day = parseInt(day);
+												let hours_per_day_count = weekly_hours[current_day];
+												weekly_hours[current_day] = hours_per_day_count - time_spent;
+											}
+											setWeeklyHoursSpentCount(weekly_hours);
+										}
+									);
+								}
+							} catch (e) {
+								console.log(e);
+							}
+						};
+						get_wh();
 					}
 				);
 			} else {
@@ -272,7 +279,7 @@ const RoutineForm = () => {
 				
 				<div className="flex flex-row items-center mt-10">
 					<p className="font-bold text-lg">
-						Quantas horas / dia são necessárias para esta ação:{" "}
+						Quantas horas / dia são necessárias para esta ação:
 					</p>
 					<Input
 						className="max-w-sm ml-16"
