@@ -8,6 +8,13 @@ export async function getActionPlanList(goal_id) {
 	});
 }
 
+export async function getActionPlanListAll() {
+	return ApiService.fetchData({
+		url: `/action_plan/`,
+		method: 'get'
+	});
+}
+
 
 export async function postActionPlan(data) {
 	return ApiService.fetchData({

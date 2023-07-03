@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getActionPlanList } from "../../services/Module3/ActionPlanService";
+import { getActionPlanList, getActionPlanListAll } from "../../services/Module3/ActionPlanService";
 
 
 const initialState = {
@@ -15,7 +15,8 @@ export const fetchActionPlans = createAsyncThunk(
 			const response = await getActionPlanList(goal_id)
 			return response.data
 		} else {
-			return []
+			const response = await getActionPlanListAll()
+			return response.data
 		}
 	}
 );

@@ -1,9 +1,22 @@
 import { useActionDeadlineList } from "./useActionDeadlineList";
+import { useEffect } from "react";
 
 export const useActionDeadlineValue = (actionPlanID, actionID) => {
-	const { action_deadlines } = useActionDeadlineList(actionPlanID);
+	const { action_deadlines, refreshActionDeadlineList } = useActionDeadlineList(actionPlanID);
+	let deadlines = []
 	
-	return action_deadlines.filter(
-		item => item.action === actionID
-	);
+	const refreshDeadLines = () => {
+		refreshActionDeadlineList();
+		deadlines = action_deadlines.filter(
+			item => item.action === actionID
+		)
+	}
+	useEffect(() => {
+		refreshDeadLines()
+	}, [])
+	
+	return {
+		deadlines: deadlines,
+		refreshDeadLines
+	}
 };

@@ -15,7 +15,7 @@ export const useGoalList = () => {
 	
 	useEffect(() => {
 		refreshGoalList();
-	}, []);
+	}, [userID]);
 	
 	return {
 		goals: goalsSlice.goals,

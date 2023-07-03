@@ -175,6 +175,16 @@ const navigationConfig = [
                 type: NAV_ITEM_TYPE_ITEM,
                 authority: [],
                 subMenu: [],
+            },
+            {
+                key: 'action-plan-list',
+                path: '/action-plan/list',
+                title: 'Planos de Ação',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: [],
             }
         ],
     }

@@ -68,6 +68,14 @@ const module3Routes = [
 		),
 		authority: []
 	},
+	{
+		key: "action-plan-list",
+		path: "/action-plan/list",
+		component: React.lazy(() =>
+			import("views/Module3/ActionPlan/ActionPlanView")
+		),
+		authority: []
+	},
 ]
 
 export const protectedRoutes = [

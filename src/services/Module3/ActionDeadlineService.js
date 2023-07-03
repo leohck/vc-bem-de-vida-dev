@@ -17,6 +17,13 @@ export async function postActionDeadline(data) {
 	});
 }
 
+export async function getActionDeadline(actionPlanID, actionID) {
+	return ApiService.fetchData({
+		url: `/action_deadline/?action_plan_id=${actionPlanID}&action_id=${actionID}`,
+		method: 'get'
+	});
+}
+
 
 export async function deleteActionDeadline(action_deadline_id) {
 	return ApiService.fetchData({
