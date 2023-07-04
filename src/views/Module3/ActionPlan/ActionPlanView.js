@@ -19,7 +19,9 @@ const ActionPlanView = () => {
 	if (error) return "An error has occurred: " + error.message;
 	
 	return (
-		<Card header="Meus Planos de Ações">
+		<Card header="Meus Planos de Ações"
+		      bodyClass="max-h-[700px] overflow-y-auto"
+		>
 			<Table>
 				<THead style={{ textAlign: "center" }}>
 					<Tr>

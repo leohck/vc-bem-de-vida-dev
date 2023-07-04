@@ -126,6 +126,7 @@ const RoutinePaymentList = () => {
 	return (
 		<Card
 			header="Meus Pagamentos de Rotina"
+			bodyClass="max-h-[700px] overflow-y-auto"
 			headerExtra={headerExtraContent}
 		>
 			{!routine_payments.loading && routine_payments.routine_payments && (

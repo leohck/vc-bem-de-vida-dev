@@ -53,7 +53,7 @@ const RoutineActionList = () => {
 				<Td>{item.time_spent}</Td>
 				<Td>{item.energy_spent}</Td>
 				<Td>{convertToReal(item.action_cost)}</Td>
-				<Td>{item.status}</Td>
+				<Td>{item.read_status}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
 						<Button
@@ -110,7 +110,10 @@ const RoutineActionList = () => {
 	);
 
 	return (
-		<Card header="Minhas Ações" headerExtra={headerExtraContent}>
+		<Card
+			bodyClass="max-h-[700px] overflow-y-auto"
+			header="Minhas Ações"
+			headerExtra={headerExtraContent}>
 			{!routine_actions.loading && routine_actions.routine_actions && (
 				<TotalCost />
 			)}

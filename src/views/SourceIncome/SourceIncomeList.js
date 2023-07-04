@@ -87,7 +87,9 @@ const SourceIncomeList = (props) => {
 	}
 
 	return (
-		<Card header="Minhas Fontes de Renda">
+		<Card header="Minhas Fontes de Renda"
+		      bodyClass="max-h-[700px] overflow-y-auto"
+		>
 			{!source_incomes.loading && source_incomes.source_incomes && (
 				<TotalIncome />
 			)}

@@ -85,7 +85,8 @@ const SideNav = () => {
                     className={classNames(
                         'side-nav',
                         sideNavColor(),
-                        !sideNavCollapse && 'side-nav-expand'
+                        !sideNavCollapse && 'side-nav-expand',
+                        'overflow-y-auto'
                     )}
                 >
                     <div className="side-nav-header mb-10">
