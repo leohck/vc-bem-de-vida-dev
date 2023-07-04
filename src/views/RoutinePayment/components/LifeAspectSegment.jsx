@@ -25,7 +25,7 @@ const LifeAspectSegment = ({ value, onChange }) => {
                                     className="bg-white dark:bg-gray-800 w-[230px] h-16"
                                 >
                                     <div className="flex items-center gap-3">
-                                        <span className="text-2xl">
+                                        <span>
                                             {item.icon}
                                         </span>
                                         <h6>{item.label}</h6>

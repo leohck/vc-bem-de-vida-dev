@@ -189,27 +189,27 @@ export const LIFE_ASPECTS_OPTIONS = [
     {
         label: 'Saúde Física',
         value: 'Saude Fisica',
-        icon: <GiHealthNormal />,
+        icon: <GiHealthNormal size="2.5em"/>,
     },
     {
         label: 'Saúde Mental',
         value: 'Saude Mental',
-        icon: <RiMentalHealthFill />,
+        icon: <RiMentalHealthFill size="2.5em" />,
     },
     {
         label: 'Vida Social',
         value: 'Vida Social',
-        icon: <MdGroups />,
+        icon: <MdGroups size="2.5em" />,
     },
     {
         label: 'Vida Profissional',
         value: 'Vida Profissional',
-        icon: <FaHandshake />,
+        icon: <FaHandshake size="2.5em" />,
     },
     {
         label: 'Gestão Financeira',
         value: 'Gestao Financeira',
-        icon: <RiCoinsLine />,
+        icon: <RiCoinsLine size="2.5em" />,
     },
 ]
 

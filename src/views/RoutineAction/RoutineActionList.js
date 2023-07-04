@@ -53,6 +53,7 @@ const RoutineActionList = () => {
 				<Td>{item.time_spent}</Td>
 				<Td>{item.energy_spent}</Td>
 				<Td>{convertToReal(item.action_cost)}</Td>
+				<Td>{item.status}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
 						<Button
@@ -127,6 +128,9 @@ const RoutineActionList = () => {
 						</Td>
 						<Td>
 							<h6>Custo Financeiro</h6>
+						</Td>
+						<Td>
+							<h6>Status</h6>
 						</Td>
 						<Td>
 							<h6>Ações</h6>
