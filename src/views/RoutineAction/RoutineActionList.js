@@ -109,7 +109,7 @@ const RoutineActionList = () => {
 	);
 
 	return (
-		<Card header="Minhas Ações de Rotina" headerExtra={headerExtraContent}>
+		<Card header="Minhas Ações" headerExtra={headerExtraContent}>
 			{!routine_actions.loading && routine_actions.routine_actions && (
 				<TotalCost />
 			)}

@@ -14,6 +14,7 @@
     "@tailwindcss/forms": "^0.3.2",
     "@tailwindcss/typography": "^0.5.2",
     "@tanstack/match-sorter-utils": "^8.7.6",
+    "@tanstack/react-query": "^4.29.19",
     "@tanstack/react-table": "^8.7.9",
     "@tanstack/react-virtual": "^3.0.0-beta.48",
     "@testing-library/jest-dom": "^5.16.1",

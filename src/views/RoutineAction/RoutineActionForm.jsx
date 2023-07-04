@@ -64,12 +64,10 @@ const RoutineForm = () => {
 				await getRoutineAction(itemID).then(
 					response => {
 						setCurrentItem(response.data);
+						setTitle("Configurar Ação");
 						if (response.data.action_type === "action") {
-							setTitle("Configurar Ação");
 							setRecurrence(getRecurrenceObjectFromValue(response.data.recurrence));
 							setStatus(getStatusObjectFromValue(response.data.status));
-						} else {
-							setTitle("Editar Ação de Rotina");
 						}
 						const action_money = [];
 						if (response.data.action_generate_money) {

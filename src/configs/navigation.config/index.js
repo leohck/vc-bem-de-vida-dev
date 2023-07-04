@@ -138,7 +138,7 @@ const navigationConfig = [
             {
                 key: 'routine-actions',
                 path: '/routine/actions',
-                title: 'Ações de Rotina',
+                title: 'Ações Cadastradas',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,

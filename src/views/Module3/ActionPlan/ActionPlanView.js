@@ -1,12 +1,21 @@
 import React from "react";
-import { Button, Card, Table } from "../../../components/ui";
-import { useActionPlanListAll } from "../../../hooks/module3/useActionPlanListAll";
+import { Card, Table } from "../../../components/ui";
 import ActionPlanItem from "./ActionPlanItem";
+import {
+	useQuery
+} from "@tanstack/react-query";
+import { getActionPlanListAll } from "../../../services/Module3/ActionPlanService";
 
 const { Tr, Td, THead, TBody } = Table;
 
 const ActionPlanView = () => {
-	const { action_plans, refreshActionPlanList } = useActionPlanListAll();
+	const { isLoading, error, data, isFetching } = useQuery({
+		queryKey: ["action_plans"],
+		queryFn: () => getActionPlanListAll(1)
+	});
+	if (isLoading) return 'Loading...'
+	if (error) return 'An error has occurred: ' + error.message
+	
 	return (
 		<Card header="Meus Planos de Ações">
 			<Table>
@@ -33,10 +42,9 @@ const ActionPlanView = () => {
 					</Tr>
 				</THead>
 				<TBody>
-					{action_plans.map((item) => (
+					{data.data?.map((item) => (
 						<ActionPlanItem item={item} key={item.id} />
 					))}
-				
 				</TBody>
 			</Table>
 		</Card>

@@ -8,9 +8,9 @@ export async function getActionPlanList(goal_id) {
 	});
 }
 
-export async function getActionPlanListAll() {
+export async function getActionPlanListAll(userID) {
 	return ApiService.fetchData({
-		url: `/action_plan/`,
+		url: `/action_plan_list/${userID}/`,
 		method: 'get'
 	});
 }
