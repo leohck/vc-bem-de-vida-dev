@@ -52,8 +52,8 @@ function ActionList({ actionPlanID }) {
 		const [estimatedDeadline, setEstimatedDeadline] = useState(actionDeadlineItem ? actionDeadlineItem.estimated_deadline : null);
 		
 		const handleSaveItem = async () => {
-			if (actionDeadlineItem && estimatedDeadline) {
-				await putActionDeadline(actionDeadlineItem.id, { estimated_deadline: estimatedDeadline }).then(
+			if (actionDeadlineItem) {
+				await putActionDeadline(actionDeadlineItem.id, { estimated_deadline: estimatedDeadline ? actionDeadlineItem : null }).then(
 					() => {
 						toastFeedback("success", "Prazo Alterado!");
 					}

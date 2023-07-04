@@ -5,16 +5,18 @@ import {
 	useQuery
 } from "@tanstack/react-query";
 import { getActionPlanListAll } from "../../../services/Module3/ActionPlanService";
+import { useUserID } from "../../../hooks/useUserID";
 
 const { Tr, Td, THead, TBody } = Table;
 
 const ActionPlanView = () => {
+	const { userID } = useUserID();
 	const { isLoading, error, data, isFetching } = useQuery({
 		queryKey: ["action_plans"],
-		queryFn: () => getActionPlanListAll(1)
+		queryFn: () => getActionPlanListAll(userID)
 	});
-	if (isLoading) return 'Loading...'
-	if (error) return 'An error has occurred: ' + error.message
+	if (isLoading) return "Loading...";
+	if (error) return "An error has occurred: " + error.message;
 	
 	return (
 		<Card header="Meus Planos de Ações">

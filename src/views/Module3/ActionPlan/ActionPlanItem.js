@@ -57,7 +57,7 @@ function ActionPlanItem({ item }) {
 			</Td>
 			<Td>
 				{item.actions.map(action => (
-					<p key={action.id}>{action.estimated_deadline}</p>
+					<p key={action.id}>{action.estimated_deadline ? action.estimated_deadline : "Não Configurado"}</p>
 				))}
 			</Td>
 			<Td>
