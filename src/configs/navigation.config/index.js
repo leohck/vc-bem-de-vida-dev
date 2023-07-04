@@ -162,7 +162,7 @@ const navigationConfig = [
         path: '/metas-projetos',
         title: 'Metas e Projetos',
         translateKey: '',
-        icon: 'gestao_rotina',
+        icon: 'metas_projetos',
         type: NAV_ITEM_TYPE_COLLAPSE,
         authority: [],
         subMenu: [
