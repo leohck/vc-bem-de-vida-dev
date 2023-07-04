@@ -80,7 +80,7 @@ function ActionPlanConfigureForm() {
 		<div>
 			<div className="flex flex-row items-center justify-center mb-10">
 				{actionPlanItem ? (
-					<h3>Plano de Ação - {actionPlanItem.value}</h3>
+					<h3>Plano de Ação - {actionPlanItem.name}</h3>
 				) : (
 					<h3>Plano de Ação</h3>
 				)}

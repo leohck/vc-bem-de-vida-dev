@@ -29,7 +29,6 @@ const RoutineForm = () => {
 	const { userID } = useUserID();
 	const [user_info_id, setUserInfoID] = useState(userID);
 	const [itemID, setItemID] = useState(null);
-	const [isNew, setIsNew] = useState(false);
 	
 	const [lifeAspect, setLifeAspect] = useState([]);
 	const [weekDay, setWeekDay] = useState([]);
@@ -49,12 +48,10 @@ const RoutineForm = () => {
 	
 	useEffect(() => {
 		try {
-			const { itemID, isNew } = state;
+			const { itemID } = state;
 			setItemID(itemID);
-			setIsNew(isNew);
 		} catch (e) {
 			setItemID(null);
-			setIsNew(false);
 		}
 	}, [state]);
 	

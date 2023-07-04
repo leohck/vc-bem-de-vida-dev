@@ -7,10 +7,10 @@ function ActionPlans({ action }) {
 	const navigate = useNavigate();
 	return (
 		<Card header="Planos de Ação Vinculados">
-			{action.action_plan.map(
+			{action.action_plans_list.map(
 				item => (
 					<div className="flex flex-row gap-4 items-center">
-						<h6>{item}</h6>
+						<h6>{item.name}</h6>
 						<Button
 							shape="circle"
 							color="blue-500"
@@ -18,7 +18,7 @@ function ActionPlans({ action }) {
 							variant="twoTone"
 							icon={<AiOutlineSearch />}
 							onClick={() => {
-								navigate('/action-plan/form', { replace: true, state: {actionPlanItem: {id: item}} })
+								navigate('/action-plan/form', { state: {actionPlanItem: item} })
 							}}
 						/>
 					</div>
