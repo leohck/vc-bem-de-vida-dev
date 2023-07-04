@@ -167,6 +167,16 @@ const navigationConfig = [
         authority: [],
         subMenu: [
             {
+                key: 'dashboard3',
+                path: '/dashboard3',
+                title: 'Painel',
+                translateKey: '',
+                icon: '',
+                type: NAV_ITEM_TYPE_ITEM,
+                authority: [],
+                subMenu: [],
+            },
+            {
                 key: 'wish-and-goal',
                 path: '/wish-and-goal',
                 title: 'Desejos / Metas',

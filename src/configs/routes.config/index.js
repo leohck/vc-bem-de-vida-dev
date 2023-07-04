@@ -76,6 +76,14 @@ const module3Routes = [
 		),
 		authority: []
 	},
+	{
+		key: "dashboard3",
+		path: "/dashboard3",
+		component: React.lazy(() =>
+			import("views/Module3/Dashboard/index")
+		),
+		authority: []
+	},
 ]
 
 export const protectedRoutes = [
