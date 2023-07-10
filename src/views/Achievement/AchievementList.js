@@ -57,6 +57,13 @@ function AchievementList() {
 				<Td>{item.year}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
+						<DialogForm
+							itemType="achievements"
+							buttonType="edit"
+							userId={userId}
+							itemID={item.id}
+							itemData={itemData}
+						/>
 						<Button
 							shape="circle"
 							color="red-500"
@@ -64,13 +71,6 @@ function AchievementList() {
 							variant="twoTone"
 							icon={<MdDeleteForever />}
 							onClick={() => delAchievement(item.id)}
-						/>
-						<DialogForm
-							itemType="achievements"
-							buttonType="edit"
-							userId={userId}
-							itemID={item.id}
-							itemData={itemData}
 						/>
 					</div>
 				</Td>
@@ -91,6 +91,7 @@ function AchievementList() {
 	return (
 		<Card header="Minhas Conquistas"
 		      className="w-[700px] h-full overflow-y-auto"
+		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		      headerExtra={headerExtraContent}
 		>
 			<Table>

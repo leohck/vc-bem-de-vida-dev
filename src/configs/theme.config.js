@@ -16,6 +16,6 @@ export const themeConfig = {
     navMode: THEME_ENUM.NAV_MODE_LIGHT,
     layout: {
         type: THEME_ENUM.LAYOUT_TYPE_MODERN,
-        sideNavCollapse: false,
+        sideNavCollapse: true,
     },
 }

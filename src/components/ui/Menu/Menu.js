@@ -22,10 +22,11 @@ const Menu = React.forwardRef((props, ref) => {
     const { themeColor, primaryColorLevel } = useConfig()
 
     const menuColor = () => {
-        if (variant === 'themed') {
-            return `bg-${themeColor}-${primaryColorLevel} ${menuDefaultClass}-${variant}`
-        }
-        return `${menuDefaultClass}-${variant}`
+        // if (variant === 'themed') {
+        //     return `bg-${themeColor}-${primaryColorLevel} ${menuDefaultClass}-${variant}`
+        // }
+        // return `${menuDefaultClass}-${variant}`
+        return 'bg-[#0037B3]'
     }
 
     const menuClass = classNames(menuDefaultClass, menuColor(), className)

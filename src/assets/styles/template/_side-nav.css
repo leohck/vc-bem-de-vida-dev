@@ -9,6 +9,7 @@
 .side-nav-content {
     height: calc(100vh - theme('spacing.16'));
     @apply overflow-y-auto;
+    max-height: 80%;
 }
 
 .side-nav-light {

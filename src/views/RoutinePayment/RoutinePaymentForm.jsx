@@ -79,7 +79,7 @@ const RoutinePaymentForm = () => {
 				if (resp.data) {
 					dispatch(addNewPayment(data));
 					alert("Sucesso");
-					navigate("/routine/payments", { replace: true });
+					navigate("/routine/payments");
 				}
 			} catch (errors) {
 				console.log(errors);

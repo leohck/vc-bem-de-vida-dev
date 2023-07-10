@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import store from "../../store";
 import convertToReal from "../../utils/moneyWrapper";
 import { getLifeAspectIconFromValue } from "../../constants/aspects.constant";
+import { FaPlusSquare } from "react-icons/fa";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -72,15 +73,6 @@ const RoutinePaymentList = () => {
 					<div className="flex flex-row gap-4 justify-center">
 						<Button
 							shape="circle"
-							color="red-500"
-							size="sm"
-							variant="twoTone"
-							icon={<MdDeleteForever />}
-							onClick={() => delRoutinePayment(item.id)}
-						/>
-
-						<Button
-							shape="circle"
 							color="blue-500"
 							size="sm"
 							variant="twoTone"
@@ -88,6 +80,14 @@ const RoutinePaymentList = () => {
 							onClick={() => {
 								handleEditPayment(item.id);
 							}}
+						/>
+						<Button
+							shape="circle"
+							color="red-500"
+							size="sm"
+							variant="twoTone"
+							icon={<MdDeleteForever />}
+							onClick={() => delRoutinePayment(item.id)}
 						/>
 					</div>
 				</Td>
@@ -98,10 +98,11 @@ const RoutinePaymentList = () => {
 	const headerExtraContent = (
 		<span className="flex items-center">
             <Button
+	            icon={<FaPlusSquare />}
 	            className="mr-2"
 	            variant="twoTone"
 	            onClick={() => {
-		            navigate("/routine/payment/form", { replace: true });
+		            navigate("/routine/payment/form");
 	            }}
             >
                 <span>Novo Pagamento</span>
@@ -127,6 +128,7 @@ const RoutinePaymentList = () => {
 		<Card
 			header="Meus Pagamentos de Rotina"
 			bodyClass="max-h-[700px] overflow-y-auto"
+			headerClass="bg-[#FFBF29] rounded-t-lg"
 			headerExtra={headerExtraContent}
 		>
 			{!routine_payments.loading && routine_payments.routine_payments && (

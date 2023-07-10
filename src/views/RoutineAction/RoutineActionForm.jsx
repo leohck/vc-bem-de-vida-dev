@@ -162,7 +162,7 @@ const RoutineForm = () => {
 				if (resp.data) {
 					dispatch(addNewAction(data));
 					alert("Sucesso");
-					navigate("/routine/actions", { replace: true });
+					navigate("/routine/actions");
 				}
 			} catch (errors) {
 				console.log(errors);

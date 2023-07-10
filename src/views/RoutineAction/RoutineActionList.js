@@ -11,6 +11,7 @@ import { RoutineActionDelete } from "../../services/RoutineActionService";
 import { useNavigate } from "react-router-dom";
 import store from "../../store";
 import convertToReal from "../../utils/moneyWrapper";
+import { FaPlusSquare } from "react-icons/fa";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -58,15 +59,6 @@ const RoutineActionList = () => {
 					<div className="flex flex-row gap-4 justify-center">
 						<Button
 							shape="circle"
-							color="red-500"
-							size="sm"
-							variant="twoTone"
-							icon={<MdDeleteForever />}
-							onClick={() => delRoutineAction(item.id)}
-						/>
-
-						<Button
-							shape="circle"
 							color="blue-500"
 							size="sm"
 							variant="twoTone"
@@ -74,6 +66,14 @@ const RoutineActionList = () => {
 							onClick={() => {
 								handleEditAction(item.id);
 							}}
+						/>
+						<Button
+							shape="circle"
+							color="red-500"
+							size="sm"
+							variant="twoTone"
+							icon={<MdDeleteForever />}
+							onClick={() => delRoutineAction(item.id)}
 						/>
 					</div>
 				</Td>
@@ -98,10 +98,11 @@ const RoutineActionList = () => {
 	const headerExtraContent = (
 		<span className="flex items-center">
             <Button
+	            icon={<FaPlusSquare />}
 	            className="mr-2"
 	            variant="twoTone"
 	            onClick={() => {
-		            navigate("/routine/action/form", { replace: true });
+		            navigate("/routine/action/form");
 	            }}
             >
                 <span>Nova Ação</span>
@@ -113,6 +114,7 @@ const RoutineActionList = () => {
 		<Card
 			bodyClass="max-h-[700px] overflow-y-auto"
 			header="Minhas Ações"
+			headerClass="bg-[#FFBF29] rounded-t-lg"
 			headerExtra={headerExtraContent}>
 			{!routine_actions.loading && routine_actions.routine_actions && (
 				<TotalCost />

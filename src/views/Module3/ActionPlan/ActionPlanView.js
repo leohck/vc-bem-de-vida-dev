@@ -21,6 +21,7 @@ const ActionPlanView = () => {
 	return (
 		<Card header="Meus Planos de Ações"
 		      bodyClass="max-h-[700px] overflow-y-auto"
+		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		>
 			<Table>
 				<THead style={{ textAlign: "center" }}>

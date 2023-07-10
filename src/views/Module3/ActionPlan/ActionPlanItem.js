@@ -64,20 +64,19 @@ function ActionPlanItem({ item }) {
 				<div className="flex flex-row gap-4 justify-center">
 					<Button
 						shape="circle"
-						color="red-500"
-						size="sm"
-						variant="twoTone"
-						icon={<MdDeleteForever />}
-						onClick={handleDeleteItem}
-					/>
-					
-					<Button
-						shape="circle"
 						color="blue-500"
 						size="sm"
 						variant="twoTone"
 						icon={<AiOutlineEdit />}
 						onClick={handleEditItem}
+					/>
+					<Button
+						shape="circle"
+						color="red-500"
+						size="sm"
+						variant="twoTone"
+						icon={<MdDeleteForever />}
+						onClick={handleDeleteItem}
 					/>
 				</div>
 			</Td>

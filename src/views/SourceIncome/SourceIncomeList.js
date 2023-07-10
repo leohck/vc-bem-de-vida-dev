@@ -49,15 +49,6 @@ const SourceIncomeList = (props) => {
 					<div className="flex flex-row gap-4 justify-center">
 						<Button
 							shape="circle"
-							color="red-500"
-							size="sm"
-							variant="twoTone"
-							icon={<MdDeleteForever />}
-							onClick={() => delSourceIncome(item.id)}
-						/>
-
-						<Button
-							shape="circle"
 							color="blue-500"
 							size="sm"
 							variant="twoTone"
@@ -65,6 +56,14 @@ const SourceIncomeList = (props) => {
 							onClick={() => {
 								setItemID(item.id);
 							}}
+						/>
+						<Button
+							shape="circle"
+							color="red-500"
+							size="sm"
+							variant="twoTone"
+							icon={<MdDeleteForever />}
+							onClick={() => delSourceIncome(item.id)}
 						/>
 					</div>
 				</Td>
@@ -88,6 +87,7 @@ const SourceIncomeList = (props) => {
 
 	return (
 		<Card header="Minhas Fontes de Renda"
+		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		      bodyClass="max-h-[700px] overflow-y-auto"
 		>
 			{!source_incomes.loading && source_incomes.source_incomes && (

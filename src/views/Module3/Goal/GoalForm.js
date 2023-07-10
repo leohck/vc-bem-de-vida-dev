@@ -86,7 +86,7 @@ function GoalForm() {
 						response => {
 							dispatch(updateGoal(response.data));
 							toastFeedback("success", "Meta Atualizada");
-							navigate("/wish-and-goal", { replace: true });
+							navigate("/wish-and-goal");
 						}
 					);
 				} catch (e) {

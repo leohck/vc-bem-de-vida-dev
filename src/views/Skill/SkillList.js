@@ -105,14 +105,6 @@ function SkillList() {
 				</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
-						<Button
-							shape="circle"
-							color="red-500"
-							size="sm"
-							variant="twoTone"
-							icon={<MdDeleteForever />}
-							onClick={() => delSkill(item.id)}
-						/>
 						{editing ? (
 							<Button
 								shape="circle"
@@ -132,7 +124,14 @@ function SkillList() {
 								onClick={handleEdit}
 							/>
 						)}
-
+						<Button
+							shape="circle"
+							color="red-500"
+							size="sm"
+							variant="twoTone"
+							icon={<MdDeleteForever />}
+							onClick={() => delSkill(item.id)}
+						/>
 					</div>
 				</Td>
 			</Tr>
@@ -153,6 +152,7 @@ function SkillList() {
 	return (
 		<Card header="Minhas Habilidades"
 		      className="w-[600px] h-full overflow-y-auto"
+		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		      headerExtra={headerExtraContent}
 		>
 			<Table>

@@ -7,7 +7,7 @@ const WishCloud = (props) => {
 		wishList
 	} = props;
 	const img_src_path = "/img/module3/";
-	const img_src = img_src_path + "wishcloud2.png";
+	const img_src = img_src_path + "wishcloud.png";
 	return (
 		<div id="wishcloud"
 		     className={classNames(

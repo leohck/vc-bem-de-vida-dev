@@ -101,6 +101,7 @@ const SourceIncomeForm = (props) => {
 	
 	return (
 		<Card header={`${formTitle} Renda Mensal`}
+		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		      headerExtra={headerExtraContent}>
 			<div className="flex flex-row gap-4">
 				<Input

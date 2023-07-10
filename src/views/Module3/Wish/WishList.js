@@ -160,6 +160,7 @@ const WishList = ({ userID }) => {
 	return (
 		<Card header="Meus Desejos"
 		      bodyClass="max-h-[700px] overflow-y-auto"
+		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		      headerExtra={headerExtraContent}
 		>
 			<Table>
