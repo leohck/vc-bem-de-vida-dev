@@ -7,18 +7,19 @@ const WishCloud = (props) => {
 		wishList
 	} = props;
 	const img_src_path = "/img/module3/";
-	const img_src = img_src_path + "wishcloud.png";
+	const img_src = img_src_path + "wishcloud2.png";
 	return (
-		<div className={classNames(
-			"box-content h-[200px] w-[1200px]",
-			"bg-contain bg-blue-200",
-		)}
+		<div id="wishcloud"
+		     className={classNames(
+			     "h-[300px] w-[1000px]",
+			     "bg-auto bg-no-repeat bg-center",
+			     "flex flex-row items-center justify-center"
+		     )}
 		     style={{
-			     backgroundImage: `url(${img_src})`,
-			     backgroundPosition: 'center',
+			     backgroundImage: `url(${img_src})`
 		     }}
 		>
-			<div className="grid grid-cols-4 gap-4 items-center justify-self-center">
+			<div className="grid grid-cols-4 gap-4">
 				{wishList && wishList.map(
 					wish => (
 						<span key={wish.id}>
@@ -29,6 +30,6 @@ const WishCloud = (props) => {
 			</div>
 		</div>
 	);
-}
+};
 
 export default WishCloud;
