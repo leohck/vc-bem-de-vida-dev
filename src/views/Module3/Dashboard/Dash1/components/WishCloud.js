@@ -11,8 +11,8 @@ const WishCloud = (props) => {
 	return (
 		<div id="wishcloud"
 		     className={classNames(
-			     "h-[300px] w-[1000px]",
-			     "bg-auto bg-no-repeat bg-center",
+			     "h-[250px] w-[800px]",
+			     "bg-contain bg-no-repeat bg-center",
 			     "flex flex-row items-center justify-center"
 		     )}
 		     style={{
