@@ -10,10 +10,7 @@ function Trophies(props) {
 	const img_src = img_src_path + "prateleira.jpeg";
 	const width = 400;
 	const height = 180;
-	const [gridCols, setGridCols] = useState(5);
-	let mb = 28;
-	let gap = 5;
-
+	
 	return (
 		<div className="flex flex-row justify-center items-center">
 			<div id="trophies"
@@ -27,11 +24,11 @@ function Trophies(props) {
 			     }}
 			>
 				<div className={classNames(
-					"grid gap-y-1",
-					`gap-x-${achievementList.length < 10 ? gap : 2}`,
-					`grid-cols-${achievementList.length < 10 ? gridCols : 10}`,
-					`mb-${achievementList.length < 10 ? mb : 20}`,
-					`h-[${height/2}px] w-[${width}px] p-5`
+					"grid gap-y-1 gap-x-2",
+					"grid-cols-10",
+					`mb-20`,
+					`h-[${height/2}px] w-[${width}px] p-5`,
+					`max-h-[${height/2}px]`
 				)}
 				>
 					{achievementList && achievementList.map(
