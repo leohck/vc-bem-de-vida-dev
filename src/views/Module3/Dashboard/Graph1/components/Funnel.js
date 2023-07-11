@@ -13,7 +13,7 @@ function Funnel(props) {
 				<div className="grid grid-cols-4 gap-4">
 					{goalList && goalList.map(
 						goal => (
-							<GraphIcon item={goal} />
+							<GraphIcon item={goal} key={goal.id}/>
 						)
 					)}
 				</div>

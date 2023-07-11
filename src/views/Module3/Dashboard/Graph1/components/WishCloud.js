@@ -22,7 +22,7 @@ const WishCloud = (props) => {
 			<div className="grid grid-cols-4 gap-4">
 				{wishList && wishList.map(
 					wish => (
-						<GraphIcon item={wish} />
+						<GraphIcon item={wish} key={wish.id} />
 					)
 				)}
 			</div>
