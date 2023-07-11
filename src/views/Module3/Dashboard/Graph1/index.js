@@ -9,7 +9,7 @@ import Funnel from "./components/Funnel";
 import Trophies from "./components/Trophies";
 import { Card } from "../../../../components/ui";
 
-function Index() {
+function Graph1() {
 	const { wishes } = useWishList();
 	const { userID } = useUserID();
 	const { isLoading, error, data, isFetching } = useQuery({
@@ -41,4 +41,4 @@ function Index() {
 	);
 }
 
-export default Index;
+export default Graph1;

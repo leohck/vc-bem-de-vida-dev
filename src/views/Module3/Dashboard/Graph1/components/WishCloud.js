@@ -1,6 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { getAchievementIconFromValue } from "../../../../auto-conhecimento/form.options";
+import GraphIcon from "./GraphIcon";
 
 const WishCloud = (props) => {
 	const {
@@ -22,9 +22,7 @@ const WishCloud = (props) => {
 			<div className="grid grid-cols-4 gap-4">
 				{wishList && wishList.map(
 					wish => (
-						<span key={wish.id}>
-							{getAchievementIconFromValue(wish.icon)}
-						</span>
+						<GraphIcon item={wish} />
 					)
 				)}
 			</div>

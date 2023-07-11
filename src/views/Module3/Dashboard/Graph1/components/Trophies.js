@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames";
-import { getAchievementIconFromValue } from "../../../../auto-conhecimento/form.options";
-import { Tooltip } from "../../../../../components/ui";
+import GraphIcon from "./GraphIcon";
 
 function Trophies(props) {
 	const {
@@ -36,9 +35,7 @@ function Trophies(props) {
 				<div className="grid grid-cols-4 gap-4">
 					{achievementList && achievementList.map(
 						achievement => (
-							<Tooltip title="icone" key={achievement.id}>
-								{getAchievementIconFromValue(achievement.icon)}
-							</Tooltip>
+							<GraphIcon item={achievement} />
 						)
 					)}
 				</div>
