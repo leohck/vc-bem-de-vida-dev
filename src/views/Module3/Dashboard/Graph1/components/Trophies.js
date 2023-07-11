@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import GraphIcon from "./GraphIcon";
 
@@ -10,9 +10,9 @@ function Trophies(props) {
 	const img_src = img_src_path + "prateleira.jpeg";
 	const width = 400;
 	const height = 180;
+	const [gridCols, setGridCols] = useState(5);
 	let mb = 28;
-	let gridCols = 5;
-	let gap = 2;
+	let gap = 5;
 
 	return (
 		<div className="flex flex-row justify-center items-center">
@@ -27,8 +27,8 @@ function Trophies(props) {
 			     }}
 			>
 				<div className={classNames(
-					"grid flex-col",
-					`gap-${achievementList.length < 10 ? gap : 1}`,
+					"grid gap-y-1",
+					`gap-x-${achievementList.length < 10 ? gap : 2}`,
 					`grid-cols-${achievementList.length < 10 ? gridCols : 10}`,
 					`mb-${achievementList.length < 10 ? mb : 20}`,
 					`h-[${height/2}px] w-[${width}px] p-5`
