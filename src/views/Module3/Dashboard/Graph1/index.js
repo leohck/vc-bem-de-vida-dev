@@ -1,7 +1,6 @@
 import React from "react";
 import classNames from "classnames";
 import WishCloud from "./components/WishCloud";
-import { useWishList } from "../../../../hooks/module3/useWishList";
 import { useUserID } from "../../../../hooks/useUserID";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard31Data } from "../../../../services/Module3/Dashboard";
@@ -10,7 +9,6 @@ import Trophies from "./components/Trophies";
 import { Card } from "../../../../components/ui";
 
 function Graph1() {
-	const { wishes } = useWishList();
 	const { userID } = useUserID();
 	const { isLoading, error, data, isFetching } = useQuery({
 		queryKey: ["data"],
@@ -29,7 +27,7 @@ function Graph1() {
 				"flex flex-col gap-5 items-center"
 			)}>
 			<div>
-				<WishCloud wishList={wishes} />
+				<WishCloud wishList={data?.data["wishes"]} />
 			</div>
 			<div>
 				<Funnel goalList={data?.data["goals"]} />

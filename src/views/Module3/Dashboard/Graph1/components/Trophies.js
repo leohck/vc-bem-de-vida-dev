@@ -7,24 +7,14 @@ function Trophies(props) {
 		achievementList
 	} = props;
 	const img_src_path = "/img/module3/";
-	const img_src = img_src_path + "prateleira.png";
+	const img_src = img_src_path + "prateleira.jpeg";
+	const width = 400;
+	const height = 180;
 	return (
 		<div className="flex flex-row justify-center items-center">
-			<div
-				className={classNames(
-					"h-[100px] w-[100px]",
-					"bg-contain bg-no-repeat bg-center",
-					"flex flex-row items-center justify-center"
-				)}
-				style={{
-					backgroundImage: `url(${img_src_path + "trofeu.png"})`
-				}}
-			>
-			
-			</div>
 			<div id="trophies"
 			     className={classNames(
-				     "h-[150px] w-[400px]",
+				     `h-[${height}px] w-[${width}px]`,
 				     "bg-contain bg-no-repeat bg-center",
 				     "flex flex-row items-center justify-center"
 			     )}
@@ -32,7 +22,11 @@ function Trophies(props) {
 				     backgroundImage: `url(${img_src})`
 			     }}
 			>
-				<div className="grid grid-cols-4 gap-4">
+				<div className={classNames(
+					"grid grid-cols-10 gap-4 mb-32",
+					`h-[${height/2}px] w-[${width}px] px-5`
+				)}
+				>
 					{achievementList && achievementList.map(
 						achievement => (
 							<GraphIcon item={achievement} />
@@ -40,18 +34,8 @@ function Trophies(props) {
 					)}
 				</div>
 			</div>
-			<div className={classNames(
-				"h-[100px] w-[100px]",
-				"bg-contain bg-no-repeat bg-center",
-				"flex flex-row items-center justify-center"
-			)}
-			     style={{
-				     backgroundImage: `url(${img_src_path + "trofeu-estrela.png"})`
-			     }}>
-				
-			</div>
 		</div>
-	)
+	);
 }
 
 export default Trophies;
