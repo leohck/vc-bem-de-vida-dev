@@ -48,7 +48,7 @@ function Graph2() {
 					x: item.age,
 					y: item.goals_count,
 					marker: {
-						size: 4,
+						size: 5,
 						fillColor: getColor(aspect),
 						strokeColor: getColor(aspect),
 						shape: "square"
