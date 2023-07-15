@@ -24,12 +24,12 @@ export const HEX_COLOR_REGULAR = "#facc15";
 export const HEX_COLOR_HIGH = "#22c55e";
 export const HEX_COLOR_VERY_HIGH = "#047857";
 
-export const THEME_COLOR_NOT_RATED = 'gray-700'
-export const THEME_COLOR_VERY_LOW = 'red-500'
-export const THEME_COLOR_LOW = 'orange-500'
-export const THEME_COLOR_REGULAR = 'yellow-500'
-export const THEME_COLOR_HIGH = 'green-500'
-export const THEME_COLOR_VERY_HIGH = 'emerald-700'
+export const THEME_COLOR_NOT_RATED = "gray-700";
+export const THEME_COLOR_VERY_LOW = "red-500";
+export const THEME_COLOR_LOW = "orange-500";
+export const THEME_COLOR_REGULAR = "yellow-500";
+export const THEME_COLOR_HIGH = "green-500";
+export const THEME_COLOR_VERY_HIGH = "emerald-700";
 
 export const NOT_RATED = {
 	label: TEXT_NOT_RATED,
@@ -183,6 +183,14 @@ export const ASPECTS_TYPES = [
 	"Vida Social",
 	"Vida Profissional",
 	"Gestão Financeira"
+];
+
+export const ASPECTS_TYPES_2 = [
+	"Saude Fisica",
+	"Saude Mental",
+	"Vida Social",
+	"Vida Profissional",
+	"Gestao Financeira"
 ];
 
 export const LIFE_ASPECTS_OPTIONS = [

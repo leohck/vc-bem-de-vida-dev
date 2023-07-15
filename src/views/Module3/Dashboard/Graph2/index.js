@@ -4,36 +4,59 @@ import { Chart } from "../../../../components/shared";
 import { useUserID } from "../../../../hooks/useUserID";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard32Data } from "../../../../services/Module3/Dashboard";
-
-const arrayRange = (start, stop, step) =>
-	Array.from(
-		{ length: (stop - start) / step + 1 },
-		(value, index) => start + index * step
-	);
+import { ASPECTS_TYPES_2 } from "../../../../constants/aspects.constant";
 
 function Graph2() {
 	const { userID } = useUserID();
 	const { isLoading, error, data } = useQuery({
-		queryKey: ["data"],
+		queryKey: ["Dashboard32Data"],
 		queryFn: () => getDashboard32Data(userID)
 	});
-	// if (isLoading) return "Loading...";
+	if (isLoading) return "Loading...";
 	if (error) return "An error has occurred: " + error.message;
-	
 	const series = [
-		{ name: "Conquistas Saude Fisica", data: [1, 2, 3, 4] },
-		{ name: "Conquistas Saude Mental", data: [4, 3, 2, 1] },
-		{ name: "Conquistas Vida Social", data: [3, 1, 4, 2] },
-		{ name: "Conquistas Vida Profissional", data: [2, 4, 1, 3] },
-		{ name: "Conquistas Gestao Financeira", data: [0, 0, 0, 0] },
-		{ name: "Metas Saude Fisica", data: [0, 0, 0, 0] },
-		{ name: "Metas Saude Mental", data: [0, 0, 0, 0] },
-		{ name: "Metas Vida Social", data: [0, 0, 0, 0] },
-		{ name: "Metas Vida Profissional", data: [0, 0, 0, 0] },
-		{ name: "Metas Gestao Financeira", data: [0, 0, 0, 0] }
+		{ name: "Conquistas Saude Fisica", data: data.data["achievements"]["Saude Fisica"] },
+		{ name: "Conquistas Saude Mental", data: data.data["achievements"]["Saude Mental"] },
+		{ name: "Conquistas Vida Social", data: data.data["achievements"]["Vida Social"] },
+		{ name: "Conquistas Vida Profissional", data: data.data["achievements"]["Vida Profissional"] },
+		{ name: "Conquistas Gestao Financeira", data: data.data["achievements"]["Gestao Financeira"] }
 	];
-	const categories = arrayRange(15, 77, 1);
 	
+	
+	const getColor = (aspect) => {
+		switch (aspect) {
+			case "Saude Fisica":
+				return "#0048ff";
+			case "Saude Mental":
+				return "#0adc93";
+			case "Vida Social":
+				return "#f5ab1d";
+			case "Vida Profissional":
+				return "#FF4560";
+			case "Gestao Financeira":
+				return "#8875de";
+		}
+	};
+	
+	
+	let points = [];
+	const goals = data.data["goals"];
+	for (let aspect of ASPECTS_TYPES_2) {
+		if (goals !== undefined) {
+			goals[aspect].forEach(item => {
+				points.push({
+					x: item.age,
+					y: item.goals_count,
+					marker: {
+						size: 4,
+						fillColor: getColor(aspect),
+						strokeColor: getColor(aspect),
+						shape: "square"
+					}
+				});
+			});
+		}
+	}
 	
 	const chartOptions = {
 		chart: {
@@ -41,52 +64,40 @@ function Graph2() {
 			type: "line",
 			toolbar: {
 				show: false
+			},
+			zoom: {
+				enabled: false
+			},
+			animations: {
+				enabled: false
 			}
 		},
-		forecastDataPoints: {
-			count: 7
-		},
-		stroke: {
-			width: 5,
-			curve: "smooth"
-		},
-		xaxis: {
-			categories: categories,
-			tickAmount: 10
-		},
 		title: {
-			text: "Conquistas e Metas X Vida",
+			text: "Linha do Tempo / Conquistas e Metas",
 			align: "center",
 			style: {
 				fontSize: "16px",
 				color: "#666"
 			}
 		},
-		fill: {
-			type: "gradient",
-			gradient: {
-				shade: "dark",
-				gradientToColors: ["#FDD835"],
-				shadeIntensity: 1,
-				type: "horizontal",
-				opacityFrom: 1,
-				opacityTo: 1,
-				stops: [0, 100, 100, 100]
-			}
+		xaxis: {
+			forceNiceScale: true,
+			min: 15,
+			max: 77
 		},
 		yaxis: {
-			categories: [
-				"Conquistas Saude Fisica",
-				"Conquistas Saude Mental",
-				"Conquistas Vida Social",
-				"Conquistas Vida Profissional",
-				"Conquistas Gestao Financeira",
-				"Metas Saude Fisica",
-				"Metas Saude Mental",
-				"Metas Vida Social",
-				"Metas Vida Profissional",
-				"Metas Gestao Financeira"
-			]
+			min: 0,
+			max: 10
+		},
+		stroke: {
+			width: 5,
+			curve: "smooth"
+		},
+		dataLabels: {
+			enabled: false
+		},
+		annotations: {
+			points: points
 		}
 	};
 	
