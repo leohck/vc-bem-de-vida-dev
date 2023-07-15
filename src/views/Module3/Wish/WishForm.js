@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Input, Select } from "../../../components/ui";
-import { conquistasOptions, getAchievementFromValue } from "../../auto-conhecimento/form.options";
+import { conquistasOptions, getAchievementFromValue, lifeAspectOptions } from "../../auto-conhecimento/form.options";
 import { useDispatch } from "react-redux";
 import { addWish, updateWish } from "../../../store/module3/wishSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
@@ -9,6 +9,7 @@ import { putWish, postWish } from "../../../services/Module3/WishService";
 const WishForm = ({ userID, itemToEdit, setItemToEdit }) => {
 	const dispatch = useDispatch();
 	const [wish, setWish] = useState();
+	const [lifeAspect, setLifeAspect] = useState();
 	const [icon, setIcon] = useState();
 
 	const [cardTitle, setCardTitle] = useState( "Cadastrar Novo");
@@ -17,6 +18,7 @@ const WishForm = ({ userID, itemToEdit, setItemToEdit }) => {
 		if (itemToEdit) {
 			setCardTitle("Alterar")
 			setWish(itemToEdit.value);
+			setLifeAspect(itemToEdit.life_aspect)
 			setIcon(getAchievementFromValue(itemToEdit.icon));
 		} else {
 			setCardTitle("Cadastrar Novo")
@@ -25,6 +27,7 @@ const WishForm = ({ userID, itemToEdit, setItemToEdit }) => {
 
 	const clearForm = () => {
 		setWish(null);
+		setLifeAspect(null);
 		setIcon(null);
 	};
 
@@ -33,6 +36,7 @@ const WishForm = ({ userID, itemToEdit, setItemToEdit }) => {
 			const data = {
 				user: userID,
 				value: wish,
+				life_aspect: lifeAspect.value,
 				icon: icon.value
 			};
 			if (itemToEdit) {
@@ -70,12 +74,19 @@ const WishForm = ({ userID, itemToEdit, setItemToEdit }) => {
 
 	return (
 		<Card header={cardTitle + " Desejo"}
-		      bodyClass="flex flex-row gap-4">
+		      bodyClass="flex flex-col gap-4">
 			<Input
 				className="max-w-[400px]"
 				placeholder="Desejo"
 				value={wish}
 				onChange={e => setWish(e.target.value)}
+			/>
+			<Select placeholder="Aspecto de Vida"
+			        className="max-w-[400px]"
+			        isSearchable={false}
+			        options={lifeAspectOptions}
+			        value={lifeAspect}
+			        onChange={(e) => setLifeAspect(e)}
 			/>
 			<Select placeholder="Icone"
 			        className="max-w-[100px] h-10"

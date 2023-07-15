@@ -5,22 +5,31 @@ import { useDispatch } from "react-redux";
 import { postWish } from "../../../services/Module3/WishService";
 import { addWish } from "../../../store/module3/wishSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
-import { conquistasOptions } from "../../auto-conhecimento/form.options";
+import { conquistasOptions, lifeAspectOptions } from "../../auto-conhecimento/form.options";
 
 const WishForm = (props) => {
 	const {
 		wish,
 		setWish,
+		lifeAspect,
+		setLifeAspect,
 		icon,
 		setIcon
 	} = props;
 	return (
-		<div className="flex flex-row gap-2">
+		<div className="flex flex-col gap-2">
 			<Input
 				className="max-w-[400px] w-[300px]"
 				placeholder="Desejo"
 				value={wish}
 				onChange={e => setWish(e.target.value)}
+			/>
+			<Select placeholder="Aspecto de Vida"
+			        className="max-w-[400px]"
+			        isSearchable={false}
+			        options={lifeAspectOptions}
+			        value={lifeAspect}
+			        onChange={(e) => setLifeAspect(e)}
 			/>
 			<Select placeholder="Icone"
 			        className="max-w-[100px] h-10"
@@ -38,6 +47,7 @@ const WishDialogForm = ({userID}) => {
 
 	const [dialogIsOpen, setIsOpen] = useState(false);
 	const [wish, setWish] = useState();
+	const [lifeAspect, setLifeAspect] = useState();
 	const [icon, setIcon] = useState();
 
 	const openDialog = () => {
@@ -63,6 +73,7 @@ const WishDialogForm = ({userID}) => {
 			const data = {
 				user: userID,
 				value: wish,
+				life_aspect: lifeAspect.value,
 				icon: icon.value
 			};
 			try {
@@ -102,6 +113,8 @@ const WishDialogForm = ({userID}) => {
 				<WishForm
 					wish={wish}
 					setWish={setWish}
+					lifeAspect={lifeAspect}
+					setLifeAspect={setLifeAspect}
 					icon={icon}
 					setIcon={setIcon}
 				/>
