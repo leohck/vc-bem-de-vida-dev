@@ -169,6 +169,11 @@ const Dashboard = () => {
 									colors: [getRadarColor(radarData)]
 								}
 							},
+							chart: {
+								toolbar: {
+									show: false
+								}
+							},
 							fill: {
 								type: "solid",
 								opacity: 0.5,
@@ -211,6 +216,11 @@ const Dashboard = () => {
 						height={500}
 						type="bar"
 						options={{
+							chart: {
+								toolbar: {
+									show: false
+								}
+							},
 							colors: [
 								function({ value }) {
 									switch (value) {
@@ -233,7 +243,7 @@ const Dashboard = () => {
 							],
 							title: {
 								text: "Perguntas x Avaliações",
-								align: "left",
+								align: "center",
 								floating: true
 							},
 							plotOptions: {

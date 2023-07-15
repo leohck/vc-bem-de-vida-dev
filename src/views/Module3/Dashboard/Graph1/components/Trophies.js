@@ -27,6 +27,7 @@ function Trophies(props) {
 					"grid gap-y-1 gap-x-2",
 					"grid-cols-10",
 					`mb-20`,
+					'ml-5',
 					`h-[${height/2}px] w-[${width}px] p-5`,
 					`max-h-[${height/2}px]`
 				)}

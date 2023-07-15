@@ -10,12 +10,14 @@ import { Card } from "../../../../components/ui";
 
 function Graph1() {
 	const { userID } = useUserID();
-	const { isLoading, error, data, isFetching } = useQuery({
-		queryKey: ["data"],
-		queryFn: () => getDashboard31Data(userID)
+	const { isLoading, isError, error, data} = useQuery({
+		queryKey: ["Graph1Data", userID],
+		queryFn: () => getDashboard31Data(userID),
+		refetchOnMount: true,
 	});
 	if (isLoading) return "Loading...";
-	if (error) return "An error has occurred: " + error.message;
+	if (isError) return "An error has occurred: " + error.message;
+	console.log(data);
 	
 	return (
 		<Card
@@ -24,16 +26,16 @@ function Graph1() {
 			}
 			headerClass="border-none"
 			bodyClass={classNames(
-				"flex flex-col gap-5 items-center"
+				"flex flex-col items-center"
 			)}>
 			<div>
-				<WishCloud wishList={data?.data["wishes"]} />
+				<WishCloud wishList={data.data["wishes"]} />
 			</div>
 			<div>
-				<Funnel goalList={data?.data["goals"]} />
+				<Funnel goalList={data.data["goals"]} />
 			</div>
 			<div>
-				<Trophies achievementList={data?.data["achievements"]} />
+				<Trophies achievementList={data.data["achievements"]} />
 			</div>
 		</Card>
 	);
