@@ -21,6 +21,7 @@ import {
 	STATUS_OPTIONS
 } from "../../constants/action.constant";
 import { useUserID } from "../../hooks/useUserID";
+import { toastFeedback } from "../../utils/actionFeedback";
 
 const RoutineForm = () => {
 	const dispatch = useDispatch();
@@ -161,7 +162,7 @@ const RoutineForm = () => {
 				const resp = await postRoutineAction(data, itemID);
 				if (resp.data) {
 					dispatch(addNewAction(data));
-					alert("Sucesso");
+					toastFeedback('success', 'Rotina Atualizada')
 					navigate("/routine/actions");
 				}
 			} catch (errors) {

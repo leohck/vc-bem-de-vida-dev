@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import store from "../../store";
 import convertToReal from "../../utils/moneyWrapper";
 import { FaPlusSquare } from "react-icons/fa";
+import { toastFeedback } from "../../utils/actionFeedback";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -34,7 +35,7 @@ const RoutineActionList = () => {
 				const resp = await RoutineActionDelete(id);
 				if (resp.status === 204) {
 					dispatch(deleteAction(id));
-					alert("Sucesso");
+					toastFeedback('warning', 'Ação de Rotina Excluida')
 				}
 			} catch (errors) {
 				console.log(errors);

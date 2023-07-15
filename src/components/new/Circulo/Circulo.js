@@ -7,6 +7,7 @@ import {
 import { Button, Card } from "../../ui";
 import store from "../../../store";
 import { useNavigate } from "react-router-dom";
+import { toastFeedback } from "../../../utils/actionFeedback";
 
 const Circulo = ({ title, icon }) => {
 	const navigate = useNavigate();
@@ -61,7 +62,7 @@ const Circulo = ({ title, icon }) => {
 	};
 
     const handleSave = () => {
-        alert("sucesso!");
+        toastFeedback('success', 'Satisfação Pessoal Atualizada')
         navigate('dashboard', {replace: true})
     }
 

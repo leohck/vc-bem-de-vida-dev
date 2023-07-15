@@ -8,6 +8,7 @@ import { deleteItem } from "../../services/PersonalService";
 import { deleteAchievement } from "../../store/userinfo/achievementSlice";
 import DialogForm from "../../components/new/Skills";
 import { getAchievementIconFromValue } from "../auto-conhecimento/form.options";
+import { toastFeedback } from "../../utils/actionFeedback";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -29,10 +30,11 @@ function AchievementList() {
 				const resp = await deleteItem("achievements", id);
 				if (resp.status === 204) {
 					dispatch(deleteAchievement(id));
-					alert("Sucesso");
+					toastFeedback('warning', 'Conquista Excluida')
 				}
 			} catch (errors) {
 				console.log(errors);
+				toastFeedback('warning', 'Erro ao Excluir Conquista')
 			}
 		};
 		del();

@@ -9,6 +9,7 @@ import { deleteItem } from "../../services/PersonalService";
 import { deleteSkill } from "../../store/userinfo/skillsSlice";
 import DialogForm from "../../components/new/Skills";
 import { updateSkill } from "../../services/SkillService";
+import { toastFeedback } from "../../utils/actionFeedback";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -30,7 +31,7 @@ function SkillList() {
 				const resp = await deleteItem("skills", id);
 				if (resp.status === 204) {
 					dispatch(deleteSkill(id));
-					alert("Sucesso");
+					toastFeedback('warning', 'Habilidade Excluida')
 				}
 			} catch (errors) {
 				console.log(errors);
@@ -52,7 +53,7 @@ function SkillList() {
 					response => {
 						console.log(response);
 						if (response.status === 200) {
-							alert("Sucesso!");
+							toastFeedback('success', 'Habilidade Atualizada')
 							setEditing(false);
 						}
 					}

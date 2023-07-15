@@ -16,6 +16,7 @@ import {
 } from "../../../constants/aspects.constant";
 import { AiOutlineEdit } from "react-icons/ai";
 import { updateAchievement } from "../../../services/AchievementService";
+import { toastFeedback } from "../../../utils/actionFeedback";
 
 const DialogForm = (props) => {
 	const {
@@ -103,7 +104,7 @@ const DialogForm = (props) => {
 				});
 				if (resp.data) {
 					dispatch(putAchievement(resp.data));
-					alert("Sucesso!");
+					toastFeedback('success', 'Conquista Atualizada')
 				}
 			} catch (e) {
 				console.log(e);
@@ -123,7 +124,7 @@ const DialogForm = (props) => {
 						});
 						if (resp.data) {
 							dispatch(addSkill(resp.data));
-							alert("Sucesso!");
+							toastFeedback('success', 'Habilidade Cadastrada')
 						}
 					}
 				} else {
@@ -136,11 +137,11 @@ const DialogForm = (props) => {
 					});
 					if (resp.data) {
 						dispatch(addAchievement(resp.data));
-						alert("Sucesso!");
+						toastFeedback('success', 'Conquista Cadastrada')
 					}
 				}
 			} catch (errors) {
-				console.log(errors);
+				toastFeedback('danger', 'Erro ao Cadastrar')
 			}
 		};
 		update();

@@ -1,18 +1,16 @@
 import React, {
 	useState,
-	useRef,
 	useCallback,
 	useEffect
 } from "react";
 import { Input, Button, Card, Switcher } from "components/ui";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchUserInfo } from "store/userinfo/userInfoSlice";
+import { useDispatch } from "react-redux";
 import { addNewPayment } from "store/userinfo/routinePaymentSlice";
 import { getRoutinePayment, postRoutinePayment } from "services/RoutinePaymentService";
 import { useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
 import LifeAspectSegment from "./components/LifeAspectSegment";
 import store from "../../store";
+import { toastFeedback } from "../../utils/actionFeedback";
 
 const RoutinePaymentForm = () => {
 	const dispatch = useDispatch();
@@ -78,7 +76,7 @@ const RoutinePaymentForm = () => {
 				const resp = await postRoutinePayment(data, itemID);
 				if (resp.data) {
 					dispatch(addNewPayment(data));
-					alert("Sucesso");
+					toastFeedback('success', 'Pagamento de Rotina Salvo')
 					navigate("/routine/payments");
 				}
 			} catch (errors) {

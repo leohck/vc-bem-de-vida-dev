@@ -10,6 +10,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { SourceIncomeDelete } from "../../services/SourceIncomeService";
 import store from "../../store";
 import convertToReal from "../../utils/moneyWrapper";
+import { toastFeedback } from "../../utils/actionFeedback";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -30,7 +31,7 @@ const SourceIncomeList = (props) => {
 				const resp = await SourceIncomeDelete(id);
 				if (resp.status === 204) {
 					dispatch(deleteSourceIncome(id));
-					alert("Sucesso");
+					toastFeedback('warning', 'Renda Mensal Excluida')
 				}
 			} catch (errors) {
 				console.log(errors);

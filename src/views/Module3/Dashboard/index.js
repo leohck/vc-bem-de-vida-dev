@@ -8,7 +8,7 @@ function Dashboard() {
 		<div className="flex flex-col gap-4 justify-evenly">
 			<Graph1 />
 			<Graph2 />
-			{/*<Graph3 />*/}
+			<Graph3 />
 		</div>
 	);
 }

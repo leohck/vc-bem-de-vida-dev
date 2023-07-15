@@ -10,6 +10,7 @@ import { getSourceIncome, postSourceIncome } from "../../services/SourceIncomeSe
 import { useUserID } from "../../hooks/useUserID";
 import BrlCurrencyComponent from "../../components/new/InputBrCurrency";
 import { GrFormRefresh } from "react-icons/gr";
+import { toastFeedback } from "../../utils/actionFeedback";
 
 
 const SourceIncomeForm = (props) => {
@@ -61,7 +62,7 @@ const SourceIncomeForm = (props) => {
 					} else {
 						dispatch(addNewSourceIncome(resp.data));
 					}
-					alert("Sucesso");
+					toastFeedback('success', 'Renda Mensal Atualizada')
 					setFormTitle("Cadastrar");
 					cleanForm();
 				}

@@ -1,10 +1,7 @@
 import {
 	FaWeight,
-	FaHandRock,
-	FaHourglassHalf,
 	FaPlaneDeparture,
 	FaCarSide,
-	FaHouseUser,
 	FaBook,
 	FaPrayingHands,
 	FaTrophy,
@@ -16,10 +13,15 @@ import {
 	FaPaw,
 	FaAward,
 	FaGraduationCap,
-	FaBriefcase
+	FaBriefcase, FaHouseUser, FaUserFriends
 } from "react-icons/fa";
-import { GiReceiveMoney } from "react-icons/gi";
-import { GrMoney } from "react-icons/gr";
+import { GiPayMoney, GiReceiveMoney, GiSailboat, GiStrong } from "react-icons/gi";
+import { GrCertificate, GrMoney } from "react-icons/gr";
+import { BsGiftFill, BsHeartPulseFill, BsPersonHearts } from "react-icons/bs";
+import { TbPigMoney } from "react-icons/tb";
+import { MdFamilyRestroom, MdGroups, MdPets } from "react-icons/md";
+import { ImBriefcase } from "react-icons/im";
+import * as PropTypes from "prop-types";
 
 export const aptidoesOptions = [
 	{ value: "1", label: "Comunicação", color: "#00B8D9" },
@@ -50,8 +52,8 @@ export const aptidoesOptions = [
 export const conquistasOptions = [
 
 	{ life_aspect: "Saude Fisica", value: "1", label: <FaWeight size="2.5em" /> },
-	{ life_aspect: "Saude Fisica", value: "2", label: <FaHandRock size="2.5em" /> },
-	{ life_aspect: "Saude Fisica", value: "3", label: <FaHourglassHalf size="2.5em" /> },
+	{ life_aspect: "Saude Fisica", value: "2", label: <GiStrong size="2.5em" /> },
+	{ life_aspect: "Saude Fisica", value: "3", label: <BsHeartPulseFill size="2.5em" /> },
 
 	{ life_aspect: "Saude Mental", value: "4", label: <FaPlaneDeparture size="2.5em" /> },
 	{ life_aspect: "Saude Mental", value: "5", label: <FaCarSide size="2.5em" /> },
@@ -59,20 +61,25 @@ export const conquistasOptions = [
 	{ life_aspect: "Saude Mental", value: "7", label: <FaBook size="2.5em" /> },
 	{ life_aspect: "Saude Mental", value: "8", label: <FaPrayingHands size="2.5em" /> },
 	{ life_aspect: "Saude Mental", value: "9", label: <FaTrophy size="2.5em" /> },
-	{ life_aspect: "Saude Mental", value: "10", label: <FaGift size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "10", label: <BsGiftFill size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "11", label: <GiSailboat size="2.5em" /> },
 
-	{ life_aspect: "Saude Financeira", value: "11", label: <FaMoneyBillAlt size="2.5em" /> },
 	{ life_aspect: "Saude Financeira", value: "12", label: <GiReceiveMoney size="2.5em" /> },
-	{ life_aspect: "Saude Financeira", value: "13", label: <GrMoney size="2.5em" /> },
+	{ life_aspect: "Saude Financeira", value: "13", label: <TbPigMoney size="2.5em" /> },
+	{ life_aspect: "Saude Financeira", value: "14", label: <GiPayMoney size="2.5em" /> },
 
-	{ life_aspect: "Vida Social", value: "14", label: <FaBabyCarriage size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "15", label: <FaHeart size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "16", label: <FaHandHoldingHeart size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "17", label: <FaPaw size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "15", label: <FaBabyCarriage size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "16", label: <BsPersonHearts size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "17", label: <FaHandHoldingHeart size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "18", label: <MdPets size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "19", label: <MdFamilyRestroom size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "20", label: <MdGroups size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "21", label: <FaUserFriends size="2.5em" /> },
 
-	{ life_aspect: "Vida Profissional", value: "18", label: <FaAward size="2.5em" /> },
-	{ life_aspect: "Vida Profissional", value: "19", label: <FaGraduationCap size="2.5em" /> },
-	{ life_aspect: "Vida Profissional", value: "20", label: <FaBriefcase size="2.5em" /> }
+	{ life_aspect: "Vida Profissional", value: "22", label: <ImBriefcase size="2.5em" /> },
+	{ life_aspect: "Vida Profissional", value: "23", label: <FaTrophy size="2.5em" /> },
+	{ life_aspect: "Vida Profissional", value: "24", label: <GrCertificate size="2.5em" /> },
+	{ life_aspect: "Vida Profissional", value: "25", label: <FaGraduationCap size="2.5em" /> }
 
 ];
 

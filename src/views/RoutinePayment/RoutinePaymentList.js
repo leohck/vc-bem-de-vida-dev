@@ -13,6 +13,7 @@ import store from "../../store";
 import convertToReal from "../../utils/moneyWrapper";
 import { getLifeAspectIconFromValue } from "../../constants/aspects.constant";
 import { FaPlusSquare } from "react-icons/fa";
+import { toastFeedback } from "../../utils/actionFeedback";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -37,7 +38,7 @@ const RoutinePaymentList = () => {
 				const resp = await RoutinePaymentDelete(id);
 				if (resp.status === 204) {
 					dispatch(deletePayment(id));
-					alert("Sucesso");
+					toastFeedback('warning', 'Pagamento de Rotina Excluido')
 				}
 			} catch (errors) {
 				console.log(errors);
