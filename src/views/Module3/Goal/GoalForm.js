@@ -15,7 +15,6 @@ import { postGoal, putGoal } from "../../../services/Module3/GoalService";
 import { deleteWish } from "../../../services/Module3/WishService";
 import { useUserID } from "../../../hooks/useUserID";
 import LifeAspectSegment from "../../gestao-rotina/components/LifeAspectSegment";
-import { useActionPlanList } from "../../../hooks/useActionPlanList";
 
 
 function GoalForm() {
@@ -57,6 +56,7 @@ function GoalForm() {
 			if (wishItem) {
 				setPageTitle("Desejo - " + wishItem.value);
 				setGoal(wishItem.value);
+				setLifeAspect([wishItem.life_aspect]);
 				setIcon(getAchievementFromValue(wishItem.icon));
 				setWishItem(wishItem);
 			}

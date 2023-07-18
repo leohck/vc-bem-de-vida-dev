@@ -20,7 +20,7 @@ function GoalList() {
 	const { goals } = useGoals();
 	
 	const handleEditItem = (item) => {
-		navigate("/goal/form", { replace: true, state: { goalItem: item } });
+		navigate("/goal/form", { state: { goalItem: item } });
 	};
 	
 	const handleDeleteItem = async (itemID) => {

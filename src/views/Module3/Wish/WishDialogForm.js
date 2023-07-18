@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { postWish } from "../../../services/Module3/WishService";
 import { addWish } from "../../../store/module3/wishSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
-import { conquistasOptions, lifeAspectOptions } from "../../auto-conhecimento/form.options";
+import { conquistasOptions, getIconsByLifeAspect, lifeAspectOptions } from "../../auto-conhecimento/form.options";
 
 const WishForm = (props) => {
 	const {
@@ -16,6 +16,16 @@ const WishForm = (props) => {
 		icon,
 		setIcon
 	} = props;
+	const [iconsOptions, setIconsOptions] = useState(conquistasOptions);
+	const [iconEnabled, setIconEnabled] = useState(true);
+	
+	const onChangeLifeAspect = (e) => {
+		setLifeAspect(e);
+		setIcon(null);
+		setIconEnabled(false);
+		setIconsOptions(getIconsByLifeAspect(e.value));
+	};
+	
 	return (
 		<div className="flex flex-col gap-2">
 			<Input
@@ -29,12 +39,13 @@ const WishForm = (props) => {
 			        isSearchable={false}
 			        options={lifeAspectOptions}
 			        value={lifeAspect}
-			        onChange={(e) => setLifeAspect(e)}
+			        onChange={(e) => onChangeLifeAspect(e)}
 			/>
 			<Select placeholder="Icone"
 			        className="max-w-[100px] h-10"
 			        isSearchable={false}
-			        options={conquistasOptions}
+			        isDisabled={iconEnabled}
+			        options={iconsOptions}
 			        value={icon}
 			        onChange={(e) => setIcon(e)}
 			/>
@@ -42,24 +53,30 @@ const WishForm = (props) => {
 	);
 };
 
-const WishDialogForm = ({userID}) => {
+const WishDialogForm = ({ userID }) => {
 	const dispatch = useDispatch();
-
+	
 	const [dialogIsOpen, setIsOpen] = useState(false);
 	const [wish, setWish] = useState();
 	const [lifeAspect, setLifeAspect] = useState();
 	const [icon, setIcon] = useState();
-
+	
+	const cleanForm = () => {
+		setWish(null);
+		setLifeAspect(null);
+		setIcon(null);
+	};
+	
 	const openDialog = () => {
 		setIsOpen(true);
+		cleanForm();
 	};
-
+	
 	const onDialogClose = (e) => {
 		setIsOpen(false);
 	};
-
+	
 	const onDialogOk = (e) => {
-
 		try {
 			handleFormSubmit();
 			setIsOpen(false);
@@ -67,7 +84,7 @@ const WishDialogForm = ({userID}) => {
 			return;
 		}
 	};
-
+	
 	const handleFormSubmit = async () => {
 		try {
 			const data = {
@@ -92,7 +109,7 @@ const WishDialogForm = ({userID}) => {
 			toastFeedback("danger", "Falha ao Cadastrar Desejo - Preencha todos os campos do formulario");
 		}
 	};
-
+	
 	return (
 		<div>
 			<Button

@@ -35,7 +35,7 @@ const WishList = ({ userID }) => {
 	};
 
 	const handleConfigureItem = (item) => {
-		navigate("/goal/form", { replace: true, state: { wishItem: item } });
+		navigate("/goal/form", { state: { wishItem: item } });
 	};
 	
 

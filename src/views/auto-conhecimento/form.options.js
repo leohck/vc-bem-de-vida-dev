@@ -21,7 +21,7 @@ import { BsGiftFill, BsHeartPulseFill, BsPersonHearts } from "react-icons/bs";
 import { TbPigMoney } from "react-icons/tb";
 import { MdFamilyRestroom, MdGroups, MdPets } from "react-icons/md";
 import { ImBriefcase } from "react-icons/im";
-import * as PropTypes from "prop-types";
+import { IconContext } from "react-icons";
 
 export const aptidoesOptions = [
 	{ value: "1", label: "Comunicação", color: "#00B8D9" },
@@ -50,19 +50,19 @@ export const aptidoesOptions = [
 ];
 
 export const lifeAspectOptions = [
-	{value: "Saude Fisica", label: "Saude Fisica"},
-	{value: "Saude Mental", label: "Saude Mental"},
-	{value: "Saude Financeira", label: "Saude Financeira"},
-	{value: "Vida Social", label: "Vida Social"},
-	{value: "Vida Profissional", label: "Vida Profissional"},
-]
+	{ value: "Saude Fisica", label: "Saude Fisica" },
+	{ value: "Saude Mental", label: "Saude Mental" },
+	{ value: "Saude Financeira", label: "Saude Financeira" },
+	{ value: "Vida Social", label: "Vida Social" },
+	{ value: "Vida Profissional", label: "Vida Profissional" }
+];
 
 export const conquistasOptions = [
-
+	
 	{ life_aspect: "Saude Fisica", value: "1", label: <FaWeight size="2.5em" /> },
 	{ life_aspect: "Saude Fisica", value: "2", label: <GiStrong size="2.5em" /> },
 	{ life_aspect: "Saude Fisica", value: "3", label: <BsHeartPulseFill size="2.5em" /> },
-
+	
 	{ life_aspect: "Saude Mental", value: "4", label: <FaPlaneDeparture size="2.5em" /> },
 	{ life_aspect: "Saude Mental", value: "5", label: <FaCarSide size="2.5em" /> },
 	{ life_aspect: "Saude Mental", value: "6", label: <FaHouseUser size="2.5em" /> },
@@ -71,11 +71,11 @@ export const conquistasOptions = [
 	{ life_aspect: "Saude Mental", value: "9", label: <FaTrophy size="2.5em" /> },
 	{ life_aspect: "Saude Mental", value: "10", label: <BsGiftFill size="2.5em" /> },
 	{ life_aspect: "Saude Mental", value: "11", label: <GiSailboat size="2.5em" /> },
-
+	
 	{ life_aspect: "Saude Financeira", value: "12", label: <GiReceiveMoney size="2.5em" /> },
 	{ life_aspect: "Saude Financeira", value: "13", label: <TbPigMoney size="2.5em" /> },
 	{ life_aspect: "Saude Financeira", value: "14", label: <GiPayMoney size="2.5em" /> },
-
+	
 	{ life_aspect: "Vida Social", value: "15", label: <FaBabyCarriage size="2.5em" /> },
 	{ life_aspect: "Vida Social", value: "16", label: <BsPersonHearts size="2.5em" /> },
 	{ life_aspect: "Vida Social", value: "17", label: <FaHandHoldingHeart size="2.5em" /> },
@@ -83,19 +83,23 @@ export const conquistasOptions = [
 	{ life_aspect: "Vida Social", value: "19", label: <MdFamilyRestroom size="2.5em" /> },
 	{ life_aspect: "Vida Social", value: "20", label: <MdGroups size="2.5em" /> },
 	{ life_aspect: "Vida Social", value: "21", label: <FaUserFriends size="2.5em" /> },
-
+	
 	{ life_aspect: "Vida Profissional", value: "22", label: <ImBriefcase size="2.5em" /> },
 	{ life_aspect: "Vida Profissional", value: "23", label: <FaTrophy size="2.5em" /> },
-	{ life_aspect: "Vida Profissional", value: "24", label: <GrCertificate size="2.5em" /> },
+	{ life_aspect: "Vida Profissional", value: "24", label: <GrCertificate size="2.5em" fill="gray" /> },
 	{ life_aspect: "Vida Profissional", value: "25", label: <FaGraduationCap size="2.5em" /> }
 
 ];
+
+export const getIconsByLifeAspect = (lifeAspect) => {
+	return conquistasOptions.filter(option => option.life_aspect === lifeAspect);
+};
 
 export const getAchievementIconFromValue = (value) => {
 	try {
 		return conquistasOptions.filter(option => option.value === value)[0].label;
 	} catch (e) {
-		return ""
+		return "";
 	}
 };
 
