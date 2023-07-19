@@ -75,12 +75,12 @@ export const UserDropdown = ({ className }) => {
                 >
                     <Link
                         className="flex gap-2 items-center"
-                        to="/conhecimento/cadastro"
+                        to="/user/password"
                     >
                         <span className="text-xl opacity-50">
                             <CiSettings />
                         </span>
-                        <span>Cadastro</span>
+                        <span>Alterar Senha</span>
                     </Link>
                 </Dropdown.Item>
 

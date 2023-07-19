@@ -60,7 +60,6 @@ const SignInForm = (props) => {
                 }}
                 validationSchema={validationSchema}
                 onSubmit={(values, { setSubmitting }) => {
-                    console.log("login with", values);
                     if (!disableSubmit) {
                         onSignIn(values, setSubmitting)
                     } else {

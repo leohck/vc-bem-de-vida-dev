@@ -96,6 +96,14 @@ export const protectedRoutes = [
 		authority: []
 	},
 	{
+		key: "user-password",
+		path: "/user/password",
+		component: React.lazy(() =>
+			import("views/auto-conhecimento/ChangePassword/index")
+		),
+		authority: []
+	},
+	{
 		key: "source-incomes",
 		path: "/source-incomes",
 		component: React.lazy(() => import("views/SourceIncome")),

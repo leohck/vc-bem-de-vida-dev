@@ -31,10 +31,10 @@ export async function apiForgotPassword(data) {
     })
 }
 
-export async function apiResetPassword(data) {
+export async function apiResetPassword(userID, data) {
     return ApiService.fetchData({
-        url: '/reset-password',
-        method: 'post',
+        url: `/change_password/${userID}/`,
+        method: 'put',
         data,
     })
 }
