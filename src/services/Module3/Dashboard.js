@@ -13,3 +13,10 @@ export async function getDashboard32Data(userID) {
 		method: 'get'
 	});
 }
+
+export async function getDashboard33Data(userID) {
+	return ApiService.fetchData({
+		url: `/dashboard33/${userID}/`,
+		method: 'get'
+	});
+}
