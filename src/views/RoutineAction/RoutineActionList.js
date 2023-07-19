@@ -1,53 +1,47 @@
-import React, { useEffect, useRef } from "react";
-import { Button, Card, Table } from "../../components/ui";
+import React, { useState } from "react";
+import { Button, Card, Table, Select, Tooltip } from "../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
-	fetchRoutineActions,
 	deleteAction
 } from "../../store/userinfo/routineActionSlice";
 import { RoutineActionDelete } from "../../services/RoutineActionService";
 import { useNavigate } from "react-router-dom";
-import store from "../../store";
 import convertToReal from "../../utils/moneyWrapper";
 import { FaPlusSquare } from "react-icons/fa";
 import { toastFeedback } from "../../utils/actionFeedback";
+import { useRoutineActionList } from "../../hooks/useRoutineActionList";
+import { lifeAspectOptions } from "../auto-conhecimento/form.options";
+import { GrFormRefresh } from "react-icons/gr";
 
 const { Tr, Td, THead, TBody } = Table;
 
 const RoutineActionList = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const routine_actions = useSelector(
-		state => state.userinfo.routineActionSlice
-	);
-
-	useEffect(() => {
-		const { auth } = store.getState();
-		const user_id = auth.user.user_info_id;
-		dispatch(fetchRoutineActions({ user_id: user_id }));
-	}, []);
-
-	const delRoutineAction = (id) => {
-		const del = async () => {
-			try {
-				const resp = await RoutineActionDelete(id);
-				if (resp.status === 204) {
-					dispatch(deleteAction(id));
-					toastFeedback('warning', 'Ação de Rotina Excluida')
-				}
-			} catch (errors) {
-				console.log(errors);
+	
+	const { routine_actions } = useRoutineActionList();
+	const [routineActionList, setRoutineActionList] = useState(routine_actions);
+	const [lifeAspect, setLifeAspect] = useState(null);
+	
+	
+	const delRoutineAction = async (id) => {
+		try {
+			const resp = await RoutineActionDelete(id);
+			if (resp.status === 204) {
+				dispatch(deleteAction(id));
+				toastFeedback("warning", "Ação de Rotina Excluida");
 			}
-		};
-		del();
+		} catch (errors) {
+			console.log(errors);
+		}
 	};
-
+	
 	const handleEditAction = (id) => {
-		navigate("/routine/action/form", { replace: true, state: { itemID: id, isNew: false} });
+		navigate("/routine/action/form", { state: { itemID: id, isNew: false } });
 	};
-
+	
 	const ItemRow = ({ item }) => {
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
@@ -81,21 +75,32 @@ const RoutineActionList = () => {
 			</Tr>
 		);
 	};
-
+	
 	const TotalCost = () => {
 		let total_income = 0;
-		routine_actions.routine_actions.map(item => {
-			total_income += item.action_cost
-		})
+		routineActionList.map(item => {
+			total_income += item.action_cost;
+		});
 		return (
-			<Card className="mb-8">
-				<div>
-					<h6>Custo Total Das Suas Ações: {convertToReal(total_income)}</h6>
-				</div>
-			</Card>
-		)
-	}
-
+			<h6>Custo Total Das Suas Ações: {convertToReal(total_income)}</h6>
+		);
+	};
+	
+	const onChangeLifeAspect = (e) => {
+		if (e.value) {
+			setLifeAspect(e);
+			setRoutineActionList(
+				routine_actions.filter(item => item.life_aspect === e.value)
+			);
+		} else {
+			setRoutineActionList(routine_actions);
+		}
+	};
+	const cleanForm = () => {
+		setLifeAspect(null);
+		setRoutineActionList(routine_actions);
+	};
+	
 	const headerExtraContent = (
 		<span className="flex items-center">
             <Button
@@ -110,16 +115,41 @@ const RoutineActionList = () => {
             </Button>
         </span>
 	);
-
+	
 	return (
 		<Card
-			bodyClass="max-h-[700px] overflow-y-auto"
+			bodyClass="min-h-[300px] max-h-[700px] overflow-y-auto"
 			header="Minhas Ações"
 			headerClass="bg-[#FFBF29] rounded-t-lg"
 			headerExtra={headerExtraContent}>
-			{!routine_actions.loading && routine_actions.routine_actions && (
-				<TotalCost />
-			)}
+			<Card className="mb-8"
+			      bodyClass="flex flex-row items-center justify-between">
+				{routineActionList && (<TotalCost />)}
+				{routineActionList && (
+					<div className="flex flex-row items-center gap-2">
+						<Select
+							placeholder="Aspecto de Vida"
+							className="max-w-[400px]"
+							isSearchable={false}
+							options={lifeAspectOptions}
+							value={lifeAspect}
+							onChange={(e) => onChangeLifeAspect(e)}
+						/>
+						<Tooltip title="Limpar Filtro">
+							<Button
+								shape="circle"
+								color="blue-500"
+								size="sm"
+								variant="twoTone"
+								icon={<GrFormRefresh />}
+								onClick={() => {
+									cleanForm();
+								}}
+							/>
+						</Tooltip>
+					</div>
+				)}
+			</Card>
 			<Table>
 				<THead style={{ textAlign: "center" }}>
 					<Tr>
@@ -144,11 +174,9 @@ const RoutineActionList = () => {
 					</Tr>
 				</THead>
 				<TBody>
-					{!routine_actions.loading && routine_actions.routine_actions
-						? routine_actions.routine_actions.map((item) => (
-							<ItemRow item={item} key={item.id}/>
-						))
-						: null}
+					{routineActionList && routineActionList.map((item) => (
+						<ItemRow item={item} key={item.id} />
+					))}
 				</TBody>
 			</Table>
 		</Card>

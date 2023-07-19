@@ -18,28 +18,25 @@ const SourceIncomeList = (props) => {
 	const { setItemID } = props;
 	const dispatch = useDispatch();
 	const source_incomes = useSelector(state => state.userinfo.sourceIncomeSlice);
-
+	
 	useEffect(() => {
 		const { auth } = store.getState();
 		const user_id = auth.user.user_info_id;
 		dispatch(fetchSourceIncomes({ user_id: user_id }));
 	}, []);
-
-	const delSourceIncome = (id) => {
-		const del = async () => {
-			try {
-				const resp = await SourceIncomeDelete(id);
-				if (resp.status === 204) {
-					dispatch(deleteSourceIncome(id));
-					toastFeedback('warning', 'Renda Mensal Excluida')
-				}
-			} catch (errors) {
-				console.log(errors);
+	
+	const delSourceIncome = async (id) => {
+		try {
+			const resp = await SourceIncomeDelete(id);
+			if (resp.status === 204) {
+				dispatch(deleteSourceIncome(id));
+				toastFeedback("warning", "Renda Mensal Excluida");
 			}
-		};
-		del();
+		} catch (errors) {
+			console.log(errors);
+		}
 	};
-
+	
 	const ItemRow = ({ item }) => {
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
@@ -71,21 +68,21 @@ const SourceIncomeList = (props) => {
 			</Tr>
 		);
 	};
-
+	
 	const TotalIncome = () => {
 		let total_income = 0;
 		source_incomes.source_incomes.map(item => {
-			total_income += item.income
-		})
-	    return (
-		    <Card className="mb-8">
-			    <div>
-				    <h6>Sua Renda Total: {convertToReal(total_income)}</h6>
-			    </div>
-		    </Card>
-	    )
-	}
-
+			total_income += item.income;
+		});
+		return (
+			<Card className="mb-8">
+				<div>
+					<h6>Sua Renda Total: {convertToReal(total_income)}</h6>
+				</div>
+			</Card>
+		);
+	};
+	
 	return (
 		<Card header="Minhas Fontes de Renda"
 		      headerClass="bg-[#FFBF29] rounded-t-lg"
@@ -114,7 +111,7 @@ const SourceIncomeList = (props) => {
 				<TBody>
 					{!source_incomes.loading && source_incomes.source_incomes
 						? source_incomes.source_incomes.map((item) => (
-							<ItemRow item={item} key={item.id}/>
+							<ItemRow item={item} key={item.id} />
 						))
 						: null}
 				</TBody>
