@@ -12,7 +12,7 @@ function StackedBar({ type, data }) {
 		},
 		plotOptions: {
 			bar: {
-				horizontal: true
+				horizontal: false
 			},
 		},
 		stroke: {
@@ -33,9 +33,10 @@ function StackedBar({ type, data }) {
 			opacity: 1
 		},
 		legend: {
-			position: "top",
+			position: "bottom",
 			horizontalAlign: "center",
-			offsetX: 0,
+			// floating: true,
+			// width: 200,
 			labels: {
 				useSeriesColors: true,
 			},
@@ -58,8 +59,8 @@ function StackedBar({ type, data }) {
 		<div className="w-full">
 			{type === "time_spent" && (
 				<Chart
-					width="900px"
-					height="200px"
+					width="400px"
+					height="600px"
 					type="bar"
 					options={chartOptions}
 					series={data.time_spent}
@@ -67,8 +68,8 @@ function StackedBar({ type, data }) {
 			)}
 			{type === "money_spent" && (
 				<Chart
-					width="900px"
-					height="200px"
+					width="400px"
+					height="600px"
 					type="bar"
 					options={chartOptions}
 					series={data.money_spent}

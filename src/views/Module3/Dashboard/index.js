@@ -6,9 +6,11 @@ import Graph3 from "./Graph3";
 function Dashboard() {
 	return (
 		<div className="flex flex-col gap-4 justify-evenly">
-			<Graph1 />
+			<div className="grid grid-cols-2 gap-4">
+				<Graph1 />
+				<Graph3 />
+			</div>
 			<Graph2 />
-			<Graph3 />
 		</div>
 	);
 }

@@ -74,7 +74,7 @@ function Graph3() {
 						title="Recurso investido em Mudança"
 					/>
 				</div>
-				<div className="w-[980px] h-[200px]">
+				<div className="h-[200px]">
 					<StackedBar
 						type={graphType[0]}
 						data={graph_data} />
