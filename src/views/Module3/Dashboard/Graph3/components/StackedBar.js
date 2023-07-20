@@ -59,7 +59,7 @@ function StackedBar({ type, data }) {
 			{type === "time_spent" && (
 				<Chart
 					width="900px"
-					height="400px"
+					height="200px"
 					type="bar"
 					options={chartOptions}
 					series={data.time_spent}
@@ -68,7 +68,7 @@ function StackedBar({ type, data }) {
 			{type === "money_spent" && (
 				<Chart
 					width="900px"
-					height="400px"
+					height="200px"
 					type="bar"
 					options={chartOptions}
 					series={data.money_spent}
