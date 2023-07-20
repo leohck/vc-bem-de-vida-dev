@@ -3,13 +3,6 @@ import { Chart } from "../../../../../components/shared";
 
 function AreaChart({ type, data }) {
 	
-	// const series = [
-	// 	{ name: "Conquistas Saude Fisica", data: data["achievements"]["Saude Fisica"] },
-	// 	{ name: "Conquistas Saude Mental", data: data["achievements"]["Saude Mental"] },
-	// 	{ name: "Conquistas Vida Social", data: data["achievements"]["Vida Social"] },
-	// 	{ name: "Conquistas Vida Profissional", data: data["achievements"]["Vida Profissional"] },
-	// 	{ name: "Conquistas Gestao Financeira", data: data["achievements"]["Gestao Financeira"] }
-	// ];
 	const series = [
 		{ name: `Conquistas ${type}`, data: data["achievements"][type] }
 	];
@@ -35,13 +28,16 @@ function AreaChart({ type, data }) {
 			points.push({
 				x: item.age,
 				y: item.goals_count,
-				text: item.goals_count,
 				marker: {
 					size: 10,
 					fillColor: getColor(type),
 					strokeColor: getColor(type),
 					shape: "square"
 				},
+				label: {
+					show: true,
+					text: item.age
+				}
 			});
 		});
 	}
@@ -62,7 +58,7 @@ function AreaChart({ type, data }) {
 		xaxis: {
 			forceNiceScale: true,
 			min: 20,
-			max: 55
+			max: 45
 		},
 		yaxis: {
 			min: 0,
@@ -74,10 +70,10 @@ function AreaChart({ type, data }) {
 			curve: "smooth"
 		},
 		dataLabels: {
-			enabled: false,
+			enabled: false
 		},
 		annotations: {
-			points: points,
+			points: points
 		},
 		colors: [getColor(type)]
 	};
