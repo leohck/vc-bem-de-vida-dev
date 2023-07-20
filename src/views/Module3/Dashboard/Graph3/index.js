@@ -4,7 +4,7 @@ import convertToReal from "../../../../utils/moneyWrapper";
 import { useUserID } from "../../../../hooks/useUserID";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard33Data } from "../../../../services/Module3/Dashboard";
-import GaugeMeter from "./components/GaugeMeter";
+import StackedBar from "./components/StackedBar";
 
 function Graph3() {
 	const { userID } = useUserID();
@@ -66,18 +66,18 @@ function Graph3() {
 					<BigNumber
 						type={graphType[0]}
 						data={graph_data.bignumber1}
-						title="Recurso investido em Ações / Pagamentos de Rotina"
+						title="Recurso investido em Rotina"
 					/>
 					<BigNumber
 						type={graphType[0]}
 						data={graph_data.bignumber2}
-						title="Recurso investido em Ações vinculadas a um Plano de Ação"
+						title="Recurso investido em Mudança"
 					/>
 				</div>
 				<div className="w-[980px] h-[400px]">
-					<GaugeMeter
+					<StackedBar
 						type={graphType[0]}
-						data={graph_data}/>
+						data={graph_data} />
 				</div>
 			</div>
 		</Card>
