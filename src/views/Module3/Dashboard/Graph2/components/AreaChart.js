@@ -73,12 +73,6 @@ function AreaChart({ type, data }) {
 			// curve: "straight"
 			curve: "smooth"
 		},
-		markers: {
-			size: 3,
-			hover: {
-				size: 5
-			}
-		},
 		dataLabels: {
 			enabled: false,
 		},
