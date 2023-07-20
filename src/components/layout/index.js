@@ -32,25 +32,9 @@ const layouts = {
 
 const Layout = () => {
 	const layoutType = useSelector((state) => state.theme.layout.type);
-
-	// const { authenticated } = useAuth()
+	
 	const { authenticated } = useAuth()
-	// {
-	// 	session: {
-	// 		token: "wVYrxaeNa9OxdnULvde1Au5m5w63",
-	// 		signedIn: true
-	// 	},
-	// 	user: {
-	// 		avatar: "/img/avatars/thumb-1.jpg",
-	// 		userName: "Carolyn Perkins",
-	// 		email: "carolyn.p@elstar.com",
-	// 		authority: [
-	// 			"admin",
-	// 			"user"
-	// 		]
-	// 	}
-	// };
-
+	
 	useDirection();
 
 	useLocale();

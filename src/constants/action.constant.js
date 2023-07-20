@@ -1,5 +1,6 @@
 export const STATUS_OPTIONS = [
 	{value: "nao iniciado", label: "Não Iniciado"},
+	{value: "agendado", label: "Agendado"},
 	{value: "em andamento", label: "Em Andamento"},
 	{value: "interrompido", label: "Interrompido"},
 	{value: "concluido", label: "Concluido"},
