@@ -62,7 +62,7 @@ function Graph3() {
 			headerExtra={headerExtraContent}
 			headerClass="border-none"
 		>
-			<div className="flex flex-col items-center justify-center gap-3">
+			<div className="flex flex-col items-center justify-center gap-20">
 				<div className="flex flex-row gap-2 items-center justify-center">
 					<BigNumber
 						type={graphType[0]}
@@ -76,9 +76,6 @@ function Graph3() {
 					/>
 				</div>
 				<div>
-					{/*<StackedBar*/}
-					{/*	type={graphType[0]}*/}
-					{/*	data={graph_data} />*/}
 					<PieChart
 						type={graphType[0]}
 						data={graph_data} />
