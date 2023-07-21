@@ -5,6 +5,7 @@ import { useUserID } from "../../../../hooks/useUserID";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard33Data } from "../../../../services/Module3/Dashboard";
 import StackedBar from "./components/StackedBar";
+import PieChart from "./components/PieChart";
 
 function Graph3() {
 	const { userID } = useUserID();
@@ -74,8 +75,11 @@ function Graph3() {
 						title="Recurso investido em Mudança"
 					/>
 				</div>
-				<div className="h-[200px]">
-					<StackedBar
+				<div>
+					{/*<StackedBar*/}
+					{/*	type={graphType[0]}*/}
+					{/*	data={graph_data} />*/}
+					<PieChart
 						type={graphType[0]}
 						data={graph_data} />
 				</div>
