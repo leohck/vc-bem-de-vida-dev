@@ -29,19 +29,18 @@ function AreaChart({ type, data }) {
 				x: item.age,
 				y: item.goals_count,
 				marker: {
-					size: 10,
+					size: 4,
 					fillColor: getColor(type),
 					strokeColor: getColor(type),
 					shape: "square"
 				},
-				label: {
-					show: true,
-					text: item.age
-				}
+				// label: {
+				// 	show: false,
+				// 	text: item.age
+				// }
 			});
 		});
 	}
-	
 	
 	const chartOptions = {
 		chart: {
@@ -57,15 +56,21 @@ function AreaChart({ type, data }) {
 		},
 		xaxis: {
 			forceNiceScale: true,
+			// min: series[0].data?.indexOf(2) !== -1 ? series[0].data[series[0].data?.indexOf(2)] : 20,
 			min: 20,
-			max: 45
+			max: series[0].data?.length ? series[0].data?.length : 45,
+			tickAmount: 5
+			
 		},
 		yaxis: {
 			min: 0,
-			max: 10
+			max: 10,
+			labels: {
+				show: true
+			}
 		},
 		stroke: {
-			width: 5,
+			width: 3,
 			// curve: "straight"
 			curve: "smooth"
 		},
@@ -75,13 +80,28 @@ function AreaChart({ type, data }) {
 		annotations: {
 			points: points
 		},
-		colors: [getColor(type)]
+		colors: [getColor(type)],
+		title: {
+			text: type,
+			align: 'center',
+			margin: 10,
+			offsetX: 0,
+			offsetY: 0,
+			floating: false,
+			style: {
+				fontSize:  '14px',
+				fontWeight:  'bold',
+				fontFamily:  undefined,
+				color:  '#263238'
+			},
+		}
 	};
 	
 	return (
 		<div>
 			<Chart
 				height={350}
+				width={300}
 				type="area"
 				options={chartOptions}
 				series={series} />

@@ -43,13 +43,34 @@ function Graph2() {
 			header={
 				<h6>Linha do Tempo Conquistas / Metas</h6>
 			}
-			headerExtra={headerExtraContent}
+			// headerExtra={headerExtraContent}
 			headerClass="border-none"
 		>
-			<AreaChart
-				type={graphType[0]}
-				data={graphData}
-			/>
+			<div className="grid grid-cols-5 gap-4">
+				<AreaChart
+					type={"Saude Fisica"}
+					data={graphData}
+				/>
+				<AreaChart
+					type={"Saude Mental"}
+					data={graphData}
+				/>
+				<AreaChart
+					type={"Vida Social"}
+					data={graphData}
+				/>
+				<AreaChart
+					type={"Vida Profissional"}
+					data={graphData}
+				/>
+				<AreaChart
+					type={"Gestao Financeira"}
+					data={graphData}
+				/>
+			</div>
+			{/*<div className="grid grid-cols-2 justify-items-evenly">*/}
+			{/*	*/}
+			{/*</div>*/}
 		</Card>
 	);
 }
