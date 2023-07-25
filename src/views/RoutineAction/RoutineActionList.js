@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, Table, Select, Tooltip } from "../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
 import { AiOutlineEdit } from "react-icons/ai";
@@ -12,7 +12,7 @@ import convertToReal from "../../utils/moneyWrapper";
 import { FaPlusSquare } from "react-icons/fa";
 import { toastFeedback } from "../../utils/actionFeedback";
 import { useRoutineActionList } from "../../hooks/useRoutineActionList";
-import { lifeAspectList, lifeAspectOptions } from "../auto-conhecimento/form.options";
+import { lifeAspectOptions } from "../auto-conhecimento/form.options";
 import { GrFormRefresh } from "react-icons/gr";
 
 const { Tr, Td, THead, TBody } = Table;
@@ -25,6 +25,9 @@ const RoutineActionList = () => {
 	const [routineActionList, setRoutineActionList] = useState(routine_actions);
 	const [lifeAspect, setLifeAspect] = useState(null);
 	
+	useEffect(() => {
+		setRoutineActionList(routine_actions);
+	}, [routine_actions]);
 	
 	const delRoutineAction = async (id) => {
 		try {

@@ -49,6 +49,7 @@ const WeekdaySegment = ({ value, onChange, weeklyHoursSpentCount }) => {
                                     <SegmentItemOption
                                         hoverable
                                         ref={ref}
+                                        key={item.value}
                                         active={active}
                                         disabled={disabled}
                                         onSegmentItemClick={onSegmentItemClick}

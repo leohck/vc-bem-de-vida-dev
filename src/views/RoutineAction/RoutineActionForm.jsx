@@ -157,27 +157,27 @@ const RoutineForm = () => {
 		setActionMoney(val);
 	}, []);
 	
-	const addNewRoutineAction = (data) => {
-		const update = async () => {
-			try {
-				const resp = await postRoutineAction(data, itemID);
-				if (resp.data) {
-					dispatch(addNewAction(data));
-					toastFeedback('success', 'Rotina Atualizada')
-					navigate("/routine/actions");
+	const addNewRoutineAction = async (data) => {
+		try {
+			const resp = await postRoutineAction(data, itemID);
+			if (resp.data) {
+				if (itemID) {
+					data.id = itemID;
 				}
-			} catch (errors) {
-				console.log(errors);
+				dispatch(addNewAction(data));
+				toastFeedback("success", "Rotina Atualizada");
+				navigate("/routine/actions", {replace: true});
 			}
-		};
-		update();
+		} catch (errors) {
+			console.log(errors);
+		}
 	};
 	
 	const handleFormSubmit = () => {
 		const action_generate_money = actionMoney.includes("1");
 		const action_cost_money = actionMoney.includes("0");
 		const action_cost = action_cost_money ? actionCost : 0;
-		let data = {};
+		let data;
 		try {
 			data = {
 				user: user_info_id,
