@@ -12,7 +12,7 @@ import convertToReal from "../../utils/moneyWrapper";
 import { FaPlusSquare } from "react-icons/fa";
 import { toastFeedback } from "../../utils/actionFeedback";
 import { useRoutineActionList } from "../../hooks/useRoutineActionList";
-import { lifeAspectOptions } from "../auto-conhecimento/form.options";
+import { lifeAspectList, lifeAspectOptions } from "../auto-conhecimento/form.options";
 import { GrFormRefresh } from "react-icons/gr";
 
 const { Tr, Td, THead, TBody } = Table;
@@ -90,7 +90,7 @@ const RoutineActionList = () => {
 		if (e.value) {
 			setLifeAspect(e);
 			setRoutineActionList(
-				routine_actions.filter(item => item.life_aspect === e.value)
+				routine_actions.filter(item => item.life_aspect.includes(e.value))
 			);
 		} else {
 			setRoutineActionList(routine_actions);

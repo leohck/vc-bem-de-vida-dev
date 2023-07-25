@@ -49,6 +49,14 @@ export const aptidoesOptions = [
 	{ value: "23", label: "Planejamento", color: "#666666" }
 ];
 
+export const lifeAspectList = [
+	"Saude Fisica",
+	"Saude Mental",
+	"Gestao Financeira",
+	"Vida Social",
+	"Vida Profissional"
+];
+
 export const lifeAspectOptions = [
 	{ value: "Saude Fisica", label: "Saude Fisica" },
 	{ value: "Saude Mental", label: "Saude Mental" },
