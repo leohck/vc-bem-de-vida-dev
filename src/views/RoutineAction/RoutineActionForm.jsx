@@ -42,7 +42,7 @@ const RoutineForm = () => {
 		0, 0, 0, 0, 0, 0, 0
 	]);
 	const [recurrence, setRecurrence] = useState();
-	const [status, setStatus] = useState();
+	const [status, setStatus] = useState([]);
 	const [currentItem, setCurrentItem] = useState({});
 	const [title, setTitle] = useState("Cadastrar Ação de Rotina");
 	
@@ -96,6 +96,7 @@ const RoutineForm = () => {
 							days_of_week = [];
 						}
 						const time_spent = parseInt(response.data.time_spent);
+						setStatus(getStatusObjectFromValue(response.data.status));
 						const get_wh = async () => {
 							try {
 								if (user_info_id) {
