@@ -52,7 +52,7 @@ export const aptidoesOptions = [
 export const lifeAspectOptions = [
 	{ value: "Saude Fisica", label: "Saude Fisica" },
 	{ value: "Saude Mental", label: "Saude Mental" },
-	{ value: "Saude Financeira", label: "Saude Financeira" },
+	{ value: "Gestao Financeira", label: "Gestão Financeira" },
 	{ value: "Vida Social", label: "Vida Social" },
 	{ value: "Vida Profissional", label: "Vida Profissional" }
 ];
