@@ -4,7 +4,6 @@ import convertToReal from "../../../../utils/moneyWrapper";
 import { useUserID } from "../../../../hooks/useUserID";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard33Data } from "../../../../services/Module3/Dashboard";
-import StackedBar from "./components/StackedBar";
 import PieChart from "./components/PieChart";
 
 function Graph3() {
