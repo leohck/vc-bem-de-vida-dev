@@ -9,18 +9,22 @@ import { deleteWish, putWish } from "../../../services/Module3/WishService";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { useNavigate } from "react-router-dom";
 import WishDialogForm from "./WishDialogForm";
+import useResponsive from "../../../utils/hooks/useResponsive";
+import { useUserID } from "../../../hooks/useUserID";
 
 const { Tr, Td, THead, TBody } = Table;
 
-const WishList = ({ userID }) => {
+const WishList = () => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const wishSlice = useSelector(state => state.module3.wishSlice);
-
+	const { userID } = useUserID();
+	const { windowWidth } = useResponsive();
+	
 	useEffect(() => {
 		dispatch(fetchWishes({ user_id: userID }));
 	}, []);
-
+	
 	const handleDeleteItem = async (itemID) => {
 		try {
 			await deleteWish(itemID).then(
@@ -33,12 +37,12 @@ const WishList = ({ userID }) => {
 			toastFeedback("error", "Falha ao Excluir Desejo");
 		}
 	};
-
+	
 	const handleConfigureItem = (item) => {
 		navigate("/goal/form", { state: { wishItem: item } });
 	};
 	
-
+	
 	const ItemRow = ({ item }) => {
 		const [editing, setEditing] = useState(false);
 		const [value, setValue] = useState(item.value);
@@ -47,7 +51,7 @@ const WishList = ({ userID }) => {
 		};
 		const handleSave = async () => {
 			try {
-				await putWish(item.id, {value: value}).then(
+				await putWish(item.id, { value: value }).then(
 					response => {
 						console.log(response);
 						if (response.status === 200) {
@@ -55,7 +59,7 @@ const WishList = ({ userID }) => {
 							setEditing(false);
 						}
 					}
-				)
+				);
 			} catch (e) {
 				console.log(e);
 				toastFeedback("danger", "Falha ao atualizar Desejo!");
@@ -87,7 +91,9 @@ const WishList = ({ userID }) => {
 					value={inputValue}
 					disabled={!editing}
 					onChange={e => setInputValue(e.target.value)}
-					onBlur={() => {setValue(inputValue)}}
+					onBlur={() => {
+						setValue(inputValue);
+					}}
 				/>
 			);
 		};
@@ -150,13 +156,13 @@ const WishList = ({ userID }) => {
 			</Tr>
 		);
 	};
-
+	
 	const headerExtraContent = (
 		<span className="flex items-center">
 			<WishDialogForm userID={userID} />
         </span>
 	);
-
+	
 	return (
 		<Card header="Meus Desejos"
 		      bodyClass="max-h-[700px] overflow-y-auto"

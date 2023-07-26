@@ -93,7 +93,7 @@ function ActionPlanList({ goalID }) {
 		};
 		return (
 			<div key={item.id}
-			     className="flex flex-row items-center h-10 justify-between">
+			     className="flex flex-row items-center h-10 md:justify-between">
 				<h6 className="mt-2">
 					<EditableCell
 						key={item.id}
@@ -156,7 +156,7 @@ function ActionPlanList({ goalID }) {
 		<div>
 			{action_plans.length >= 1 ? (
 				<Card className="max-h-[400px] overflow-y-auto"
-				      bodyClass="grid grid-cols-1 divide-y gap-2"
+				      bodyClass="grid grid-cols-1 divide-y gap-2 max-w-[100px] md:max-w-full"
 					// bodyClass="flex flex-col gap-4 divide-y"
 				>
 					{action_plans.map(

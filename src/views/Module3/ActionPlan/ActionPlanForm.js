@@ -35,7 +35,7 @@ function ActionPlanForm({ goalID }) {
 		<div className="flex flex-row items-center gap-4">
 			<InputLabel label="Plano de Ação">
 				<Input
-					className="w-[400px]"
+					className="md:w-[400px]"
 					type="text"
 					name="action_plan"
 					placeholder="Plano de Ação"

@@ -10,6 +10,7 @@ import { deleteGoal } from "../../../services/Module3/GoalService";
 import { delGoal } from "../../../store/module3/goalSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { FaPlusSquare } from "react-icons/fa";
+import useResponsive from "../../../utils/hooks/useResponsive";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -79,6 +80,7 @@ function GoalList() {
 		navigate("/goal/form");
 	};
 	
+	const { windowWidth } = useResponsive();
 	const headerExtraContent = (
 		<span className="flex items-center">
 			<Button
@@ -87,7 +89,7 @@ function GoalList() {
 				icon={<FaPlusSquare />}
 				onClick={handleAddGoal}
 			>
-				Nova Meta
+				{windowWidth > 640 && <span>Nova Meta</span>}
 			</Button>
         </span>
 	);

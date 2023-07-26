@@ -6,6 +6,7 @@ import { postWish } from "../../../services/Module3/WishService";
 import { addWish } from "../../../store/module3/wishSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { conquistasOptions, getIconsByLifeAspect, lifeAspectOptions } from "../../auto-conhecimento/form.options";
+import useResponsive from "../../../utils/hooks/useResponsive";
 
 const WishForm = (props) => {
 	const {
@@ -110,6 +111,7 @@ const WishDialogForm = ({ userID }) => {
 		}
 	};
 	
+	const { windowWidth } = useResponsive();
 	return (
 		<div>
 			<Button
@@ -118,7 +120,7 @@ const WishDialogForm = ({ userID }) => {
 				icon={<FaPlusSquare />}
 				onClick={() => openDialog()}
 			>
-				Novo Desejo
+				{windowWidth > 640 && <span>Novo Desejo</span>}
 			</Button>
 			<Dialog
 				isOpen={dialogIsOpen}

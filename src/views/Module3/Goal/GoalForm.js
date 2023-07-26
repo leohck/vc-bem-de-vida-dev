@@ -68,7 +68,9 @@ function GoalForm() {
 	const handleSubmitForm = async () => {
 		const dlWish = async (wishID) => {
 			await deleteWish(wishID).then(
-				dispatch(delGoal(wishID))
+				_ => {
+					dispatch(delGoal(wishID))
+				}
 			);
 		};
 		try {
@@ -146,7 +148,7 @@ function GoalForm() {
 							label="Meta"
 						>
 							<Input
-								className="w-[400px]"
+								className="md:w-[400px]"
 								type="text"
 								name="value"
 								placeholder="Meta"
@@ -165,29 +167,35 @@ function GoalForm() {
 						</InputLabel>
 					</div>
 					
-					<InputLabel label="Aspecto de Vida Relacionado">
-						<LifeAspectSegment value={lifeAspect} onChange={setLifeAspect} singleOption />
-					</InputLabel>
+					<div className="flex flex-row items-center justify-start">
+						<InputLabel label="Aspecto de Vida Relacionado">
+							<LifeAspectSegment value={lifeAspect} onChange={setLifeAspect} singleOption />
+						</InputLabel>
+					</div>
 					
-					<InputLabel label="Motivação">
-						<Input
-							className="w-[600px]"
-							type="text"
-							name="motivation"
-							placeholder="Motivação"
-							value={motivation}
-							onChange={(e) => setMotivation(e.target.value)}
-						/>
-					</InputLabel>
-					<InputLabel label="Prazo Estimado">
-						<Input
-							type="date"
-							name="estimated_deadline"
-							className="w-[165px]"
-							value={estimatedDeadline}
-							onChange={(e) => setEstimatedDeadline(e.target.value)}
-						/>
-					</InputLabel>
+					<div>
+						<InputLabel label="Motivação">
+							<Input
+								className="md:w-[600px]"
+								type="text"
+								name="motivation"
+								placeholder="Motivação"
+								value={motivation}
+								onChange={(e) => setMotivation(e.target.value)}
+							/>
+						</InputLabel>
+					</div>
+					<div>
+						<InputLabel label="Prazo Estimado">
+							<Input
+								type="date"
+								name="estimated_deadline"
+								className="w-[165px]"
+								value={estimatedDeadline}
+								onChange={(e) => setEstimatedDeadline(e.target.value)}
+							/>
+						</InputLabel>
+					</div>
 					
 					{goalItemID !== null && (
 						<ActionPlan goalID={goalItemID} />
