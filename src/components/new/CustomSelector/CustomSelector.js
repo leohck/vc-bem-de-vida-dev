@@ -9,7 +9,7 @@ const CustomSelector = ({ id, value, setValue }) => {
         <Segment
             value={value}
             onChange={(value) => setValue(id, value)}
-            className="flex flex-col xl:flex-row items-center gap-4"
+            className="grid grid-cols-1 gap-5 md:grid-cols-5"
         >
             {ASPECTS.map((item, index) => (
                 <Segment.Item
@@ -32,7 +32,6 @@ const CustomSelector = ({ id, value, setValue }) => {
                                     'py-5 px-4',
                                     'cursor-pointer',
                                     'select-none',
-                                    'w-100',
                                     'md:w-[260px]',
                                     active
                                         ? `ring-${item.color} border-${item.color}`

@@ -8,35 +8,31 @@ import { Button, Card } from "../../ui";
 import store from "../../../store";
 import { useNavigate } from "react-router-dom";
 import { toastFeedback } from "../../../utils/actionFeedback";
+import { useUserID } from "../../../hooks/useUserID";
 
 const Circulo = ({ title, icon }) => {
 	const navigate = useNavigate();
-	const [user_info_id, setUserInfoID] = useState(null);
 	const [questions, setQuestionsValue] = useState([]);
-
-	useEffect(() => {
-		const { auth } = store.getState();
-		const user_info_id = auth.user.user_info_id;
-		setUserInfoID(user_info_id);
-	}, []);
-
+	const { userID } = useUserID();
+	
 	useEffect(() => {
 		const fetchQuestions = async () => {
 			try {
-				const resp = await getAspectTitleQuestions(user_info_id, title);
-				if (resp.data) {
-					const { questions } = resp.data;
-					setQuestionsValue(questions);
-				}
+				await getAspectTitleQuestions(userID, title).then(
+					response => {
+						const { questions } = response.data;
+						setQuestionsValue(questions);
+					}
+				);
 			} catch (errors) {
 				console.log(errors);
 			}
 		};
-		if (user_info_id) {
+		if (userID) {
 			fetchQuestions();
 		}
-	}, [user_info_id]);
-
+	}, [userID]);
+	
 	const updateState = (question_id, value) => {
 		const newState = questions.map((obj) => {
 			if (obj.id === question_id) {
@@ -46,26 +42,26 @@ const Circulo = ({ title, icon }) => {
 		});
 		setQuestionsValue(newState);
 	};
-
-	const updateQuestionRating = (id, value) => {
-		const update = async () => {
-			try {
-				const resp = await updateAspectRating(id, parseInt(value));
-				if (resp.data) {
-					updateState(id, value);
-				}
-			} catch (errors) {
-				console.log(errors);
+	
+	const updateQuestionRating = async (id, value) => {
+		try {
+			const resp = await updateAspectRating(id, parseInt(value));
+			if (resp.data) {
+				updateState(id, value);
 			}
-		};
-		update();
+		} catch (errors) {
+			console.log(errors);
+		}
 	};
-
-    const handleSave = () => {
-        toastFeedback('success', 'Satisfação Pessoal Atualizada')
-        navigate('dashboard', {replace: true})
-    }
-
+	
+	const handleSave = () => {
+		questions.map(async question => {
+			await updateQuestionRating(question.id, question.rating)
+		})
+		toastFeedback("success", "Satisfação Pessoal Atualizada");
+		navigate("dashboard", { replace: true });
+	};
+	
 	return (
 		<div>
 			<div className="mb-8 grid justify-items-center">
@@ -90,7 +86,7 @@ const Circulo = ({ title, icon }) => {
 						<CustomSelector
 							id={question.id}
 							value={question.rating}
-							setValue={updateQuestionRating}
+							setValue={updateState}
 						/>
 						<br />
 					</div>
