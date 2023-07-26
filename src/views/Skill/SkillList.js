@@ -51,7 +51,6 @@ function SkillList() {
 			try {
 				await updateSkill(item.id, value).then(
 					response => {
-						console.log(response);
 						if (response.status === 200) {
 							toastFeedback('success', 'Habilidade Atualizada')
 							setEditing(false);
@@ -76,7 +75,7 @@ function SkillList() {
 				if (editing) {
 					setClassName("border-blue-500 focus:bg-white");
 				} else {
-					setClassName("border-transparent bg-transparent");
+					setClassName("border-transparent bg-transparent font-semibold text-black");
 				}
 			}, [editing]);
 
@@ -152,7 +151,7 @@ function SkillList() {
 
 	return (
 		<Card header="Minhas Habilidades"
-		      className="w-[600px] h-full overflow-y-auto"
+		      className="h-full overflow-y-auto"
 		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		      headerExtra={headerExtraContent}
 		>

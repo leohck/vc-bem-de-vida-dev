@@ -16,30 +16,30 @@ function AchievementList() {
 	const dispatch = useDispatch();
 	const achievements = useSelector(state => state.userinfo.achievementSlice);
 	const [userId, setUserId] = useState(null);
-
+	
 	useEffect(() => {
 		const { auth } = store.getState();
 		const user_id = auth.user.user_info_id;
 		setUserId(user_id);
 		dispatch(fetchAchievements({ user_id: user_id }));
 	}, []);
-
+	
 	const delAchievement = (id) => {
 		const del = async () => {
 			try {
 				const resp = await deleteItem("achievements", id);
 				if (resp.status === 204) {
 					dispatch(deleteAchievement(id));
-					toastFeedback('warning', 'Conquista Excluida')
+					toastFeedback("warning", "Conquista Excluida");
 				}
 			} catch (errors) {
 				console.log(errors);
-				toastFeedback('warning', 'Erro ao Excluir Conquista')
+				toastFeedback("warning", "Erro ao Excluir Conquista");
 			}
 		};
 		del();
 	};
-
+	
 	const ItemRow = ({ item }) => {
 		const itemData = {
 			value: item.value,
@@ -79,7 +79,7 @@ function AchievementList() {
 			</Tr>
 		);
 	};
-
+	
 	const headerExtraContent = (
 		<span className="flex items-center">
             <DialogForm
@@ -89,10 +89,10 @@ function AchievementList() {
             />
         </span>
 	);
-
+	
 	return (
 		<Card header="Minhas Conquistas"
-		      className="w-[700px] h-full overflow-y-auto"
+		      className="overflow-y-auto"
 		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		      headerExtra={headerExtraContent}
 		>

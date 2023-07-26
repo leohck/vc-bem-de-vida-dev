@@ -17,6 +17,7 @@ import {
 import { AiOutlineEdit } from "react-icons/ai";
 import { updateAchievement } from "../../../services/AchievementService";
 import { toastFeedback } from "../../../utils/actionFeedback";
+import useResponsive from "../../../utils/hooks/useResponsive";
 
 const DialogForm = (props) => {
 	const {
@@ -37,9 +38,9 @@ const DialogForm = (props) => {
 	const [newAchievementLifeAspect, setNewAchievementLifeAspect] = useState();
 	const [newAchievementIcon, setNewAchievementIcon] = useState();
 	const [newAchievementYear, setNewAchievementYear] = useState();
-	const [dialogTitle, setDialogTitle] = useState("Cadastrar");
-
-
+	const [dialogTitle, setDialogTitle] = useState("Cadastrar Nova");
+	const { windowWidth } = useResponsive();
+	
 	useEffect(() => {
 		if (itemType === "skills") {
 			const newList = aptidoesOptions.filter(ad =>
@@ -156,7 +157,7 @@ const DialogForm = (props) => {
 					icon={<FaPlusSquare />}
 					onClick={() => openDialog()}
 				>
-					{buttonTitle}
+					{windowWidth > 640 && buttonTitle}
 				</Button>
 			) : (
 				<Button
@@ -191,13 +192,13 @@ const DialogForm = (props) => {
 						</>
 					) : (
 						<>
-							<h5 className="mb-4">{dialogTitle} Nova Conquista</h5>
+							<h5 className="mb-4">{dialogTitle} Conquista</h5>
 							<div className="flex flex-col gap-4">
 								<Input placeholder="Descrição"
 								       value={newAchievementValue}
 								       onChange={(e) => setNewAchievementValue(e.target.value)}
 								/>
-								<div className="flex flex-row gap-2 justify-between">
+								<div className="grid grid-cols-1 gap-5 md:grid-cols-2">
 									<Select placeholder="Aspecto de Vida"
 									        className="h-10"
 									        isClearable={true}
@@ -206,14 +207,14 @@ const DialogForm = (props) => {
 									        onChange={(e) => setNewAchievementLifeAspect(e)}
 									/>
 									<Select placeholder="Icone"
-									        className="max-w-[100px] h-10"
+									        className="h-10"
 									        isSearchable={false}
 									        options={conquistasOptions}
 									        value={newAchievementIcon}
 									        onChange={(e) => setNewAchievementIcon(e)}
 									/>
 									<Input placeholder="Ano da Conquista"
-									       className="max-w-[150px] h-10"
+									       className="h-10"
 									       type="text"
 									       maxLength={4}
 									       onKeyPress={(event) => {
