@@ -1,23 +1,25 @@
 import React, { useEffect, useState } from "react";
 import Chart from "react-apexcharts";
 import { Card } from "../../../components/ui";
+import useResponsive from "../../../utils/hooks/useResponsive";
 
 const WeeklyRoutineChart = (props) => {
 	const { data } = props;
-
+	const {windowWidth} = useResponsive();
+	
 	const chartID = "weekly_time_and_energy_spent_chart";
 	const time_spent = {
 		name: "Tempo Consumido",
 		data: data.time_spent
 	};
-
+	
 	const energy_spent = {
 		name: "Energia Consumida",
 		data: data.energy_spent
 	};
-
+	
 	const chartData = [time_spent, energy_spent];
-
+	
 	return (
 		<div>
 			<div className="grid justify-items-center">
@@ -31,10 +33,10 @@ const WeeklyRoutineChart = (props) => {
 					</div>
 				</Card>
 			</div>
-
+			
 			<Chart
 				series={chartData}
-				height={350}
+				height={windowWidth > 640 ? 350 : 600 }
 				type="bar"
 				options={{
 					chart: {
@@ -47,7 +49,7 @@ const WeeklyRoutineChart = (props) => {
 						bar: {
 							borderRadius: 4,
 							horizontal: false,
-							columnWidth: "65%",
+							columnWidth: windowWidth > 640 ? "65%" : "100%" ,
 							endingShape: "rounded",
 							dataLabels: {
 								position: "top"
@@ -57,9 +59,9 @@ const WeeklyRoutineChart = (props) => {
 					colors: ["#2563eb", "#f59e0b"],
 					dataLabels: {
 						enabled: true,
-						formatter: function (val) {
-							return Math.floor(val * 100) / 100
-						},
+						formatter: function(val) {
+							return Math.floor(val * 100) / 100;
+						}
 					},
 					stroke: {
 						show: true,
@@ -78,7 +80,7 @@ const WeeklyRoutineChart = (props) => {
 						forceNiceScale: true,
 						labels: {
 							formatter: function(val) {
-								return Math.floor(val)
+								return Math.floor(val);
 							}
 						}
 					},
