@@ -96,7 +96,7 @@ const Dashboard = () => {
 	}, [user_info_id]);
 
 	return (
-		<div className="grid grid-cols-2 gap-2 justify-between">
+		<div className="grid grid-cols-1 gap-y-10 justify-between md:grid-cols-2 md:gap-5">
 			<div className="grid justify-items-center items-center">
 				<GroupedBigNumberCards
 					card1Value={card1Value}
