@@ -1,8 +1,10 @@
 import React from "react";
 import { Chart } from "../../../components/shared";
 import convertToReal from "../../../utils/moneyWrapper";
+import useResponsive from "../../../utils/hooks/useResponsive";
 
 const ActionResourceChart = (props) => {
+	const { windowWidth } = useResponsive();
 	const { data, categories, color, chartType } = props;
 	const data1 = [
 		{
@@ -10,11 +12,17 @@ const ActionResourceChart = (props) => {
 			data: data
 		}
 	];
+	let dataLabelsEnabled = true
+	if (chartType !== 'money_spent') {
+		dataLabelsEnabled = true
+	} else if (windowWidth < 640) {
+		dataLabelsEnabled = false
+	}
 	return (
 		<Chart
 			series={data1}
 			type="bar"
-			height={400}
+			height={600}
 			options={{
 				chart: {
 					toolbar: {
@@ -22,11 +30,11 @@ const ActionResourceChart = (props) => {
 					},
 					zoom: {
 						enabled: false
-					},
+					}
 				},
 				plotOptions: {
 					bar: {
-						horizontal: true,
+						horizontal: windowWidth > 640,
 						columnWidth: "50%",
 						// endingShape: 'rounded',
 						borderRadius: 4,
@@ -37,8 +45,8 @@ const ActionResourceChart = (props) => {
 				},
 				colors: [color],
 				dataLabels: {
-					enabled: true,
-					offsetX: chartType === "money_spent" ? -30 : -3,
+					enabled: dataLabelsEnabled,
+					offsetX:  windowWidth > 640 ? chartType === "money_spent" ? -30 : -3 : 0,
 					style: {
 						fontSize: chartType === "money_spent" ? "14px" : "14px",
 						colors: ["#fff"]
@@ -52,7 +60,7 @@ const ActionResourceChart = (props) => {
 					}
 				},
 				xaxis: {
-					categories: categories,
+					categories: categories
 				},
 				stroke: {
 					show: true,
