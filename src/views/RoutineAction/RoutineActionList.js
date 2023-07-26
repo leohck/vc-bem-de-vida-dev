@@ -14,6 +14,7 @@ import { toastFeedback } from "../../utils/actionFeedback";
 import { useRoutineActionList } from "../../hooks/useRoutineActionList";
 import { lifeAspectOptions } from "../auto-conhecimento/form.options";
 import { GrFormRefresh } from "react-icons/gr";
+import useResponsive from "../../utils/hooks/useResponsive";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -24,7 +25,7 @@ const RoutineActionList = () => {
 	const { routine_actions } = useRoutineActionList();
 	const [routineActionList, setRoutineActionList] = useState(routine_actions);
 	const [lifeAspect, setLifeAspect] = useState(null);
-	
+	const { windowWidth } = useResponsive();
 	useEffect(() => {
 		setRoutineActionList(routine_actions);
 	}, [routine_actions]);
@@ -114,22 +115,22 @@ const RoutineActionList = () => {
 		            navigate("/routine/action/form");
 	            }}
             >
-                <span>Nova Ação</span>
+                {windowWidth > 640 && <span>Nova Ação</span>}
             </Button>
         </span>
 	);
 	
 	return (
 		<Card
-			bodyClass="min-h-[300px] max-h-[700px] overflow-y-auto"
+			bodyClass="min-h-[300px] max-h-[700px]"
 			header="Minhas Ações"
 			headerClass="bg-[#FFBF29] rounded-t-lg"
 			headerExtra={headerExtraContent}>
 			<Card className="mb-8"
-			      bodyClass="flex flex-row items-center justify-between">
+			      bodyClass="grid grid-cols-1 items-center gap-y-5 md:grid-cols-2">
 				{routineActionList && (<TotalCost />)}
 				{routineActionList && (
-					<div className="flex flex-row items-center gap-2">
+					<div className="flex flex-row items-center gap-2 md:justify-self-end">
 						<Select
 							placeholder="Aspecto de Vida"
 							className="max-w-[400px]"
@@ -153,35 +154,37 @@ const RoutineActionList = () => {
 					</div>
 				)}
 			</Card>
-			<Table>
-				<THead style={{ textAlign: "center" }}>
-					<Tr>
-						<Td>
-							<h6>Ação</h6>
-						</Td>
-						<Td>
-							<h6>Tempo Consumido</h6>
-						</Td>
-						<Td>
-							<h6>Energia Consumida</h6>
-						</Td>
-						<Td>
-							<h6>Custo Financeiro</h6>
-						</Td>
-						<Td>
-							<h6>Status</h6>
-						</Td>
-						<Td>
-							<h6>Ações</h6>
-						</Td>
-					</Tr>
-				</THead>
-				<TBody>
-					{routineActionList && routineActionList.map((item) => (
-						<ItemRow item={item} key={item.id} />
-					))}
-				</TBody>
-			</Table>
+			<div className="overflow-y-auto">
+				<Table>
+					<THead style={{ textAlign: "center" }}>
+						<Tr>
+							<Td>
+								<h6>Ação</h6>
+							</Td>
+							<Td>
+								<h6>Tempo Consumido</h6>
+							</Td>
+							<Td>
+								<h6>Energia Consumida</h6>
+							</Td>
+							<Td>
+								<h6>Custo Financeiro</h6>
+							</Td>
+							<Td>
+								<h6>Status</h6>
+							</Td>
+							<Td>
+								<h6>Ações</h6>
+							</Td>
+						</Tr>
+					</THead>
+					<TBody>
+						{routineActionList && routineActionList.map((item) => (
+							<ItemRow item={item} key={item.id} />
+						))}
+					</TBody>
+				</Table>
+			</div>
 		</Card>
 	);
 };
