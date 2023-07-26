@@ -20,7 +20,7 @@ const energy_level_options = [
 const EnergyLevelSegment = ({ value, onChange }) => {
     return (
         <Segment value={value} onChange={onChange} selectionType="single">
-            <div className="flex flex-col xl:flex-row items-center gap-4">
+            <div className="flex flex-col md:flex-row items-center gap-4">
                 {energy_level_options.map((item) => (
                     <Segment.Item
                         value={item.value}
@@ -43,7 +43,7 @@ const EnergyLevelSegment = ({ value, onChange }) => {
                                             : 'py-1 px-1',
                                         'cursor-pointer',
                                         'select-none',
-                                        'w-96',
+                                        'w-36',
                                         'md:w-[96px]',
                                         'font-bold',
                                         'h-12',

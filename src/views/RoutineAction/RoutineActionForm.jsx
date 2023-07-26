@@ -238,10 +238,10 @@ const RoutineForm = () => {
 					</div>
 				}
 			>
-				<div className="flex flex-row items-center">
+				<div className="flex flex-col items-center md:flex-row">
 					<p className="font-bold text-lg">Ação de Rotina: </p>
 					<Input
-						className="max-w-sm ml-16"
+						className="max-w-sm md:ml-16"
 						placeholder="Nome da Ação de Rotina"
 						name="routine_action"
 						value={actionValue}
@@ -251,8 +251,8 @@ const RoutineForm = () => {
 					/>
 				</div>
 				
-				<div className="flex flex-col justify-items-center mt-10">
-					<p className="font-bold text-lg">
+				<div className="flex flex-col mt-10 items-center md:items-start">
+					<p className="font-bold text-base text-center md:text-lg">
 						Aspecto de Vida Influenciado pela Ação:
 					</p>
 					<LifeAspectSegment
@@ -261,12 +261,12 @@ const RoutineForm = () => {
 					/>
 				</div>
 				
-				<div className="flex flex-row items-center gap-2 mt-10">
-					<p className="font-bold text-lg">
+				<div className="flex flex-col items-center gap-2 mt-10 md:flex-row">
+					<p className="font-bold text-base text-center md:text-lg">
 						Recorrência da Ação:
 					</p>
 					<Select
-						className="max-w-[150px]"
+						className="max-w-[150px] md:ml-16"
 						options={RECURRENCE_OPTIONS}
 						placeholder="Recorrencia"
 						value={recurrence}
@@ -274,12 +274,12 @@ const RoutineForm = () => {
 					/>
 				</div>
 				
-				<div className="flex flex-row items-center mt-10">
-					<p className="font-bold text-lg">
+				<div className="flex flex-col items-center mt-10 md:flex-row">
+					<p className="font-bold text-base text-center md:text-lg">
 						Quantas horas / dia são necessárias para esta ação:
 					</p>
 					<Input
-						className="max-w-sm ml-16"
+						className="max-w-sm md:ml-16"
 						name="time_spent"
 						value={timeSpent}
 						onChange={(e) => {
@@ -293,8 +293,8 @@ const RoutineForm = () => {
 					/>
 				</div>
 				
-				<div className="flex flex-col justify-items-center mt-10">
-					<p className="font-bold text-lg">
+				<div className="flex flex-col mt-10 items-center md:items-start">
+					<p className="font-bold text-base text-center md:text-lg">
 						Em quais dias da semana esta ação é executada?{" "}
 					</p>
 					<WeekdaySegment
@@ -304,8 +304,8 @@ const RoutineForm = () => {
 					/>
 				</div>
 				
-				<div className="flex flex-col justify-items-center mt-10">
-					<p className="font-bold text-lg">
+				<div className="flex flex-col mt-10 items-center md:items-start">
+					<p className="font-bold text-base text-center md:text-lg">
 						Considerando a escala abaixo, como você classifica o
 						nível de energia (esforço/atenção) despendido nesta
 						ação?{" "}
@@ -316,17 +316,17 @@ const RoutineForm = () => {
 					/>
 				</div>
 				
-				<div className="flex flex-row items-center gap-[200px] mt-10">
+				<div className="flex flex-col mt-10 items-center md:flex-row md:items-start">
 					<div className="flex flex-col">
-						<p className="font-bold text-lg">Esta Ação?</p>
+						<p className="font-bold text-base text-center md:text-lg">Esta Ação?</p>
 						<ActionMoneySegment
 							value={actionMoney}
 							onChange={handleActionMoneyChange}
 						/>
 					</div>
 					{actionMoney.includes("0") ? (
-						<div className="flex flex-col items-center">
-							<p className="font-bold text-lg">
+						<div className="flex flex-col items-center mt-10 md:ml-16 md:mt-0">
+							<p className="font-bold text-base text-center md:text-lg">
 								Quanto por mês é gasto com esta ação?{" "}
 							</p>
 							<Input
@@ -342,8 +342,8 @@ const RoutineForm = () => {
 						</div>
 					) : null}
 				</div>
-				<div className="flex flex-row items-center gap-2 mt-10">
-					<p className="font-bold text-lg">
+				<div className="flex flex-col mt-10 gap-2 items-center md:flex-row">
+					<p className="font-bold text-base text-center md:text-lg">
 						Status da Ação:
 					</p>
 					<Select
