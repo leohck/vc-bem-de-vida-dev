@@ -56,7 +56,6 @@ const SourceIncomeForm = (props) => {
 			try {
 				const resp = await postSourceIncome(data, itemID);
 				if (resp.data) {
-					console.log(resp.data);
 					if (itemID) {
 						dispatch(updateSourceIncome(resp.data));
 					} else {
@@ -104,14 +103,13 @@ const SourceIncomeForm = (props) => {
 		<Card header={`${formTitle} Renda Mensal`}
 		      headerClass="bg-[#FFBF29] rounded-t-lg"
 		      headerExtra={headerExtraContent}>
-			<div className="flex flex-row gap-4">
+			<div className="grid grid-cols-1 gap-4 md:grid-cols-4 md:gap-20">
 				<Input
 					value={incomeFrom}
 					onChange={(e) => {
 						setIncomeFrom(e.target.value);
 					}}
 					name="income_from"
-					className="max-w-[400px]"
 					placeholder="Tipo de Renda"
 					suffix={
 						<Tooltip title="Aluguel, Freelancer, CLT">
@@ -130,7 +128,6 @@ const SourceIncomeForm = (props) => {
 					value={incomeValue}
 					onChange={setIncomeValue}
 					name="income"
-					className="max-w-[400px]"
 					placeholder="Renda Líquida Mensal"
 					prefix="R$"
 				/>
