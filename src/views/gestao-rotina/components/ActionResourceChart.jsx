@@ -16,6 +16,14 @@ const ActionResourceChart = (props) => {
 			type="bar"
 			height={400}
 			options={{
+				chart: {
+					toolbar: {
+						show: false
+					},
+					zoom: {
+						enabled: false
+					},
+				},
 				plotOptions: {
 					bar: {
 						horizontal: true,

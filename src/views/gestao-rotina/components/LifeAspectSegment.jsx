@@ -36,7 +36,7 @@ const life_aspect_options = [
 ]
 
 const LifeAspectSegment = ({ value, onChange, singleOption, vertical }) => {
-    const className = vertical ? "flex flex-col justify-between" : "flex flex-col xl:flex-row items-center gap-4"
+    const className = vertical ? "flex flex-col justify-between" : "flex flex-col md:flex-row items-center gap-4"
     return (
         <Segment
                  value={value}

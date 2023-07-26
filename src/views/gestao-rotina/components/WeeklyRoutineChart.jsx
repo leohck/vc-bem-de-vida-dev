@@ -40,7 +40,13 @@ const WeeklyRoutineChart = (props) => {
 				type="bar"
 				options={{
 					chart: {
-						id: chartID
+						id: chartID,
+						toolbar: {
+							show: false
+						},
+						zoom: {
+							enabled: false
+						},
 					},
 					legend: {
 						show: true

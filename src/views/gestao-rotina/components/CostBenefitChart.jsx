@@ -1,50 +1,41 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { Card, Radio, Segment } from "../../../components/ui";
+import { Card, Radio, Segment, Select } from "../../../components/ui";
 import { Chart } from "../../../components/shared";
 import store from "../../../store";
 import { getCostBenefitChartData } from "../../../services/PersonalService";
 import Image from "d3-fetch/src/image";
 import LifeAspectSegment from "./LifeAspectSegment";
+import { useUserID } from "../../../hooks/useUserID";
+import useResponsive from "../../../utils/hooks/useResponsive";
+import { lifeAspectOptions } from "../../auto-conhecimento/form.options";
 
 const CostBenefitChart = () => {
-	const [lifeAspect, setLifeAspect] = useState(["Saude Fisica"]);
+	const [lifeAspect, setLifeAspect] = useState(lifeAspectOptions[0]);
 	const [chartData, setChartData] = useState([]);
 	const [chartMainData, setChartMainData] = useState({});
 	const [ratings, setRatings] = useState({});
-
-
-	const handleFormInput = useCallback(
-		(val) => {
-			setChartData(chartMainData[lifeAspect]);
-			setLifeAspect(val);
-		},
-		[lifeAspect]
-	);
-
+	const { userID } = useUserID();
+	const { windowWidth } = useResponsive();
+	
 	useEffect(() => {
-		const { auth } = store.getState();
-		const user_id = auth.user.user_info_id;
-		const getData = async () => {
-			await getCostBenefitChartData(user_id).then(
+		try {
+			getCostBenefitChartData(userID).then(
 				response => {
 					setChartMainData(response.data);
 					setRatings(response.data.ratings);
 				}
 			);
-		};
-		try {
-			getData();
 		} catch (e) {
 			console.log(e);
 		}
-	}, []);
-
+	}, [userID]);
+	
 	useEffect(() => {
-		setChartData(chartMainData[lifeAspect]);
+		setChartData(chartMainData[lifeAspect.value]);
 	}, [lifeAspect, chartMainData]);
-
+	
 	const LifeAspectRating = () => {
-		const rating_value = ratings[lifeAspect[0]];
+		const rating_value = ratings[lifeAspect.value];
 		const img_src_path = "/img/ratings/";
 		return (
 			<div>
@@ -56,19 +47,31 @@ const CostBenefitChart = () => {
 			</div>
 		);
 	};
-
+	
 	return (
 		<div className="flex flex-col justify-center">
 			<div className="grid justify-items-center mb-4">
 				<h4>Custo x Beneficio</h4>
 			</div>
-			<div className="flex flex-row gap-4 justify-evenly">
-				<LifeAspectSegment
-				value={lifeAspect}
-				onChange={setLifeAspect}
-				singleOption={true}
-				vertical={true}
-				/>
+			<div className="flex flex-col gap-4 md:flex-row md:gap-4 md:justify-evenly">
+				{windowWidth > 640 ? (
+					<LifeAspectSegment
+						value={lifeAspect}
+						onChange={setLifeAspect}
+						singleOption={true}
+						vertical={true}
+					/>
+				) : (
+					<Select
+						placeholder="Aspecto de Vida"
+						className="max-w-[400px]"
+						isSearchable={false}
+						options={lifeAspectOptions}
+						value={lifeAspect}
+						onChange={(e) => setLifeAspect(e)}
+					/>
+				)}
+				
 				<Card className="flex flex-col gap-2">
 					<div className="grid justify-items-center">
 						{ratings && (
@@ -81,6 +84,14 @@ const CostBenefitChart = () => {
 							height={500}
 							type="bar"
 							options={{
+								chart: {
+									toolbar: {
+										show: false
+									},
+									zoom: {
+										enabled: false
+									}
+								},
 								plotOptions: {
 									bar: {
 										borderRadius: 4,
@@ -104,7 +115,7 @@ const CostBenefitChart = () => {
 									colors: ["transparent"]
 								},
 								xaxis: {
-									categories: [lifeAspect]
+									categories: [lifeAspect.value]
 								},
 								yaxis: {
 									min: 0,
@@ -112,7 +123,7 @@ const CostBenefitChart = () => {
 									forceNiceScale: false,
 									labels: {
 										formatter: function(val) {
-											return Math.floor(val)
+											return Math.floor(val);
 										}
 									}
 								},
