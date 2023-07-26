@@ -122,7 +122,7 @@ const RoutineActionList = () => {
 	
 	return (
 		<Card
-			bodyClass="min-h-[300px] max-h-[700px]"
+			bodyClass="min-h-[300px] max-h-[700px] overflow-y-auto"
 			header="Minhas Ações"
 			headerClass="bg-[#FFBF29] rounded-t-lg"
 			headerExtra={headerExtraContent}>
@@ -154,37 +154,35 @@ const RoutineActionList = () => {
 					</div>
 				)}
 			</Card>
-			<div className="overflow-y-auto">
-				<Table>
-					<THead style={{ textAlign: "center" }}>
-						<Tr>
-							<Td>
-								<h6>Ação</h6>
-							</Td>
-							<Td>
-								<h6>Tempo Consumido</h6>
-							</Td>
-							<Td>
-								<h6>Energia Consumida</h6>
-							</Td>
-							<Td>
-								<h6>Custo Financeiro</h6>
-							</Td>
-							<Td>
-								<h6>Status</h6>
-							</Td>
-							<Td>
-								<h6>Ações</h6>
-							</Td>
-						</Tr>
-					</THead>
-					<TBody>
-						{routineActionList && routineActionList.map((item) => (
-							<ItemRow item={item} key={item.id} />
-						))}
-					</TBody>
-				</Table>
-			</div>
+			<Table>
+				<THead style={{ textAlign: "center" }}>
+					<Tr>
+						<Td>
+							<h6>Ação</h6>
+						</Td>
+						<Td>
+							<h6>Tempo Consumido</h6>
+						</Td>
+						<Td>
+							<h6>Energia Consumida</h6>
+						</Td>
+						<Td>
+							<h6>Custo Financeiro</h6>
+						</Td>
+						<Td>
+							<h6>Status</h6>
+						</Td>
+						<Td>
+							<h6>Ações</h6>
+						</Td>
+					</Tr>
+				</THead>
+				<TBody>
+					{routineActionList && routineActionList.map((item) => (
+						<ItemRow item={item} key={item.id} />
+					))}
+				</TBody>
+			</Table>
 		</Card>
 	);
 };
