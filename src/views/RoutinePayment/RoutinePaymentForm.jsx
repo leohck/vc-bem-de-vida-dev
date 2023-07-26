@@ -18,19 +18,19 @@ const RoutinePaymentForm = () => {
 	const [user_info_id, setUserInfoID] = useState(null);
 	const [itemID, setItemID] = useState(null);
 	const { state } = useLocation();
-
+	
 	const [paymentValue, setPaymentValue] = useState();
 	const [paymentAmount, setPaymentAmount] = useState();
-
+	
 	const [lifeAspect, setLifeAspect] = useState([]);
 	const [paymentGenerateMoney, setPaymentGenerateMoney] = useState(false);
-
+	
 	useEffect(() => {
 		const { auth } = store.getState();
 		const user_id = auth.user.user_info_id;
 		setUserInfoID(user_id);
 	}, []);
-
+	
 	useEffect(() => {
 		try {
 			const { itemID } = state;
@@ -39,7 +39,7 @@ const RoutinePaymentForm = () => {
 			setItemID(null);
 		}
 	}, [itemID]);
-
+	
 	useEffect(() => {
 		if (itemID) {
 			const get_rp = async () => {
@@ -61,22 +61,22 @@ const RoutinePaymentForm = () => {
 			get_rp();
 		}
 	}, [itemID]);
-
+	
 	const handleLifeAspectChange = useCallback((val) => {
 		setLifeAspect(val);
 	}, []);
-
+	
 	const onSwitcherToggle = (val) => {
 		setPaymentGenerateMoney(!val);
 	};
-
+	
 	const addNewRoutinePayment = (data) => {
 		const update = async () => {
 			try {
 				const resp = await postRoutinePayment(data, itemID);
 				if (resp.data) {
 					dispatch(addNewPayment(data));
-					toastFeedback('success', 'Pagamento de Rotina Salvo')
+					toastFeedback("success", "Pagamento de Rotina Salvo");
 					navigate("/routine/payments");
 				}
 			} catch (errors) {
@@ -85,7 +85,7 @@ const RoutinePaymentForm = () => {
 		};
 		update();
 	};
-
+	
 	const handleFormSubmit = () => {
 		const data = {
 			user: user_info_id,
@@ -98,10 +98,10 @@ const RoutinePaymentForm = () => {
 	};
 	return (
 		<div>
-			<div className="mb-8 grid justify-items-center">
+			<div className="mb-8 grid justify-items-center text-center">
 				<h3>Cadastrar Pagamento de Rotina</h3>
 			</div>
-
+			
 			<Card
 				footer={
 					<div className="flex justify-items-end">
@@ -115,11 +115,11 @@ const RoutinePaymentForm = () => {
 					</div>
 				}
 			>
-				<div className="flex flex-row items-center">
-					<p className="font-bold text-lg">Pagamento de Rotina: </p>
+				<div className="flex flex-col items-center gap-y-2 md:gap-y-0 md:flex-row">
+					<p className="font-bold text-base text-center  text-centermd:text-lg">Pagamento de Rotina: </p>
 					<Input
 						value={paymentValue}
-						className="max-w-sm ml-16"
+						className="max-w-sm md:ml-16"
 						placeholder="Nome do Pagamento de Rotina"
 						name="routine_payment"
 						onChange={(e) => {
@@ -127,9 +127,9 @@ const RoutinePaymentForm = () => {
 						}}
 					/>
 				</div>
-
-				<div className="flex flex-col justify-items-center mt-10">
-					<p className="font-bold text-lg">
+				
+				<div className="flex flex-col mt-10 items-center gap-y-2 md:gap-y-0 md:items-start">
+					<p className="font-bold text-base text-center md:text-lg">
 						Aspecto de Vida Influenciado pelo Pagamento:{" "}
 					</p>
 					<LifeAspectSegment
@@ -137,14 +137,14 @@ const RoutinePaymentForm = () => {
 						onChange={handleLifeAspectChange}
 					/>
 				</div>
-
-				<div className="flex flex-row items-center mt-10">
-					<p className="font-bold text-lg">
+				
+				<div className="flex flex-col items-center mt-10 gap-y-2 md:gap-y-0 md:flex-row">
+					<p className="font-bold text-base text-center md:text-lg">
 						Qual o valor mensal investido neste pagamento?{" "}
 					</p>
 					<Input
 						value={paymentAmount}
-						className="max-w-sm ml-10"
+						className="max-w-sm md:ml-10"
 						name="payment_monthly_cost"
 						onChange={(e) => {
 							setPaymentAmount(e.target.value);
@@ -153,16 +153,16 @@ const RoutinePaymentForm = () => {
 						prefix="R$"
 					/>
 				</div>
-
-				<div className="flex flex-row items-center mt-10">
-					<p className="font-bold text-lg">
+				
+				<div className="flex flex-col items-center mt-10 gap-y-2 md:gap-y-0 md:flex-row">
+					<p className="font-bold text-base text-center md:text-lg">
 						Este pagamento / investimento gera dinheiro?{" "}
 					</p>
 					<Switcher
 						checked={paymentGenerateMoney}
 						name="payment_generate_money"
 						color="green-500"
-						className="ml-10"
+						className="md:ml-10"
 						onChange={onSwitcherToggle}
 					/>
 				</div>

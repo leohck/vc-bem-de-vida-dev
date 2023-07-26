@@ -198,7 +198,7 @@ export const protectedRoutes = [
 	{
 		key: "routine-payments",
 		path: "/routine/payments",
-		component: React.lazy(() => import("views/RoutinePayment")),
+		component: React.lazy(() => import("views/RoutinePayment/RoutinePaymentList")),
 		authority: []
 	},
 	...module3Routes

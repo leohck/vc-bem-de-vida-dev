@@ -14,6 +14,7 @@ import convertToReal from "../../utils/moneyWrapper";
 import { getLifeAspectIconFromValue } from "../../constants/aspects.constant";
 import { FaPlusSquare } from "react-icons/fa";
 import { toastFeedback } from "../../utils/actionFeedback";
+import useResponsive from "../../utils/hooks/useResponsive";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -23,7 +24,8 @@ const RoutinePaymentList = () => {
 	const routine_payments = useSelector(
 		(state) => state.userinfo.routinePaymentSlice
 	);
-
+	const { windowWidth } = useResponsive();
+	
 	useEffect(() => {
 		const { auth } = store.getState();
 		const user_info_id = auth.user.user_info_id;
@@ -31,14 +33,14 @@ const RoutinePaymentList = () => {
 			dispatch(fetchRoutinePayments({ user_id: user_info_id }));
 		}
 	}, []);
-
+	
 	const delRoutinePayment = (id) => {
 		const del = async () => {
 			try {
 				const resp = await RoutinePaymentDelete(id);
 				if (resp.status === 204) {
 					dispatch(deletePayment(id));
-					toastFeedback('warning', 'Pagamento de Rotina Excluido')
+					toastFeedback("warning", "Pagamento de Rotina Excluido");
 				}
 			} catch (errors) {
 				console.log(errors);
@@ -46,7 +48,7 @@ const RoutinePaymentList = () => {
 		};
 		del();
 	};
-
+	
 	const handleEditPayment = (id) => {
 		navigate("/routine/payment/form", {
 			replace: true,
@@ -95,7 +97,7 @@ const RoutinePaymentList = () => {
 			</Tr>
 		);
 	};
-
+	
 	const headerExtraContent = (
 		<span className="flex items-center">
             <Button
@@ -106,11 +108,11 @@ const RoutinePaymentList = () => {
 		            navigate("/routine/payment/form");
 	            }}
             >
-                <span>Novo Pagamento</span>
+                {windowWidth >640 && <span>Novo Pagamento</span>}
             </Button>
         </span>
 	);
-
+	
 	const TotalCost = () => {
 		let total_income = 0;
 		routine_payments.routine_payments.map(item => {
@@ -124,7 +126,7 @@ const RoutinePaymentList = () => {
 			</Card>
 		);
 	};
-
+	
 	return (
 		<Card
 			header="Meus Pagamentos de Rotina"
