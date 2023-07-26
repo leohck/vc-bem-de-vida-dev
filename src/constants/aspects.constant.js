@@ -185,6 +185,14 @@ export const ASPECTS_TYPES = [
 	"Gestão Financeira"
 ];
 
+export const ASPECTS_TYPES_SHORT = [
+	"SF",
+	"SM",
+	"VS",
+	"VP",
+	"GF"
+];
+
 export const ASPECTS_TYPES_2 = [
 	"Saude Fisica",
 	"Saude Mental",
