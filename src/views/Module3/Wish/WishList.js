@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import WishDialogForm from "./WishDialogForm";
 import useResponsive from "../../../utils/hooks/useResponsive";
 import { useUserID } from "../../../hooks/useUserID";
+import classNames from "classnames";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -85,7 +86,7 @@ const WishList = () => {
 			return (
 				<Input
 					key={id}
-					className={className}
+					className={classNames(className, 'w-[300px] md:w-full')}
 					size="sm"
 					value={inputValue}
 					disabled={!editing}
