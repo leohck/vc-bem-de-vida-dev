@@ -80,9 +80,9 @@ export const conquistasOptions = [
 	{ life_aspect: "Saude Mental", value: "10", label: <BsGiftFill size="2.5em" /> },
 	{ life_aspect: "Saude Mental", value: "11", label: <GiSailboat size="2.5em" /> },
 	
-	{ life_aspect: "Saude Financeira", value: "12", label: <GiReceiveMoney size="2.5em" /> },
-	{ life_aspect: "Saude Financeira", value: "13", label: <TbPigMoney size="2.5em" /> },
-	{ life_aspect: "Saude Financeira", value: "14", label: <GiPayMoney size="2.5em" /> },
+	{ life_aspect: "Gestao Financeira", value: "12", label: <GiReceiveMoney size="2.5em" /> },
+	{ life_aspect: "Gestao Financeira", value: "13", label: <TbPigMoney size="2.5em" /> },
+	{ life_aspect: "Gestao Financeira", value: "14", label: <GiPayMoney size="2.5em" /> },
 	
 	{ life_aspect: "Vida Social", value: "15", label: <FaBabyCarriage size="2.5em" /> },
 	{ life_aspect: "Vida Social", value: "16", label: <BsPersonHearts size="2.5em" /> },

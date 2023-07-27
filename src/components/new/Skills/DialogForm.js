@@ -3,7 +3,7 @@ import { Button, Dialog, Input, Select } from "components/ui";
 import { FaPlusSquare } from "react-icons/fa";
 import {
 	aptidoesOptions,
-	conquistasOptions, getAchievementFromValue
+	conquistasOptions, getAchievementFromValue, getIconsByLifeAspect
 } from "../../../views/auto-conhecimento/form.options";
 import { postItem } from "../../../services/PersonalService";
 import CreatableSelect from "react-select/creatable";
@@ -40,6 +40,20 @@ const DialogForm = (props) => {
 	const [newAchievementYear, setNewAchievementYear] = useState();
 	const [dialogTitle, setDialogTitle] = useState("Cadastrar Nova");
 	const { windowWidth } = useResponsive();
+	
+	const [iconsOptions, setIconsOptions] = useState(conquistasOptions);
+	const [iconEnabled, setIconEnabled] = useState(true);
+	
+	const onChangeLifeAspect = (e) => {
+		setNewAchievementLifeAspect(e);
+		setNewAchievementIcon(null);
+		if (e) {
+			setIconsOptions(getIconsByLifeAspect(e.value));
+			setIconEnabled(false);
+		} else {
+			setIconEnabled(true);
+		}
+	};
 	
 	useEffect(() => {
 		if (itemType === "skills") {
@@ -204,12 +218,13 @@ const DialogForm = (props) => {
 									        isClearable={true}
 									        options={LIFE_ASPECTS_OPTIONS}
 									        value={newAchievementLifeAspect}
-									        onChange={(e) => setNewAchievementLifeAspect(e)}
+									        onChange={(e) => onChangeLifeAspect(e)}
 									/>
 									<Select placeholder="Icone"
 									        className="h-10"
 									        isSearchable={false}
-									        options={conquistasOptions}
+									        isDisabled={iconEnabled}
+									        options={iconsOptions}
 									        value={newAchievementIcon}
 									        onChange={(e) => setNewAchievementIcon(e)}
 									/>
