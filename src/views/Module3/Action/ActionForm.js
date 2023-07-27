@@ -46,7 +46,7 @@ function ActionForm({ actionPlanID }) {
 		<div className="flex flex-row items-center gap-4">
 			<InputLabel label="Nova Ação">
 				<Input
-					className="w-[400px]"
+					className="w-[250px] md:w-[400px]"
 					type="text"
 					name="action"
 					placeholder="Ação"

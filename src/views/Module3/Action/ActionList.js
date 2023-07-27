@@ -40,20 +40,20 @@ function ActionList({ actionPlanID }) {
 	
 	const handleConfigureItem = (item) => {
 		if (item.action_type === "action" && !item.configured) {
-			navigate("/routine/action/form", { replace: true, state: { itemID: item.id, isNew: true } });
+			navigate("/routine/action/form", { state: { itemID: item.id } });
 		} else {
-			navigate("/routine/action/form", { replace: true, state: { itemID: item.id, isNew: false } });
+			navigate("/routine/action/form", { state: { itemID: item.id } });
 		}
 	};
 	
 	const ActionPlanItem = ({ item }) => {
-		let actionDeadlineItem = getActionDeadline(item.id)
-
+		let actionDeadlineItem = getActionDeadline(item.id);
+		
 		const [estimatedDeadline, setEstimatedDeadline] = useState(actionDeadlineItem ? actionDeadlineItem.estimated_deadline : null);
 		
 		const handleSaveItem = async () => {
 			if (actionDeadlineItem) {
-				await putActionDeadline(actionDeadlineItem.id, { estimated_deadline: estimatedDeadline ? actionDeadlineItem : null }).then(
+				await putActionDeadline(actionDeadlineItem.id, { estimated_deadline: actionDeadlineItem ? estimatedDeadline ? estimatedDeadline : null : null }).then(
 					() => {
 						toastFeedback("success", "Prazo Alterado!");
 					}
@@ -90,8 +90,8 @@ function ActionList({ actionPlanID }) {
 						className="w-[165px]"
 						value={estimatedDeadline}
 						onChange={(e) => setEstimatedDeadline(e.target.value)}
-						onBlur={() => {
-							handleSaveItem(item);
+						onBlur={async () => {
+							await handleSaveItem();
 						}}
 					/>
 				</Td>

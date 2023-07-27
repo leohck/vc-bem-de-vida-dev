@@ -74,7 +74,7 @@ function ActionPlanList({ goalID }) {
 				if (editing) {
 					setClassName("border-blue-500 focus:bg-white w-[200px] md:w-[400px]");
 				} else {
-					setClassName("border-transparent bg-transparent font-semibold text-black w-[100px] md:w-[400px]");
+					setClassName("border-transparent bg-transparent font-semibold text-black w-[200px] md:w-[400px]");
 				}
 			}, [editing]);
 			

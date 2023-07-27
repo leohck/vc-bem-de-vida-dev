@@ -10,7 +10,7 @@ function ActionPlans({ action }) {
 			{action.action_plans_list.map(
 				item => (
 					<div className="flex flex-row gap-4 items-center">
-						<h6>{item.name}</h6>
+						<h6>{item.value}</h6>
 						<Button
 							shape="circle"
 							color="blue-500"
