@@ -53,7 +53,6 @@ const WishList = () => {
 			try {
 				await putWish(item.id, { value: value }).then(
 					response => {
-						console.log(response);
 						if (response.status === 200) {
 							toastFeedback("success", "Desejo Atualizado!");
 							setEditing(false);
@@ -79,7 +78,7 @@ const WishList = () => {
 				if (editing) {
 					setClassName("border-blue-500 focus:bg-white");
 				} else {
-					setClassName("border-transparent bg-transparent");
+					setClassName("border-transparent bg-transparent font-semibold text-black");
 				}
 			}, [editing]);
 			
