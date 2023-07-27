@@ -35,7 +35,7 @@ function ActionPlanList({ goalID }) {
 	};
 	
 	const handleConfigureItem = (item) => {
-		navigate("/action-plan/form", { replace: true, state: { actionPlanItem: item } });
+		navigate("/action-plan/form", { state: { actionPlanItem: item } });
 	};
 	
 	const ActionPlanItem = ({ item }) => {
@@ -72,9 +72,9 @@ function ActionPlanList({ goalID }) {
 			
 			useEffect(() => {
 				if (editing) {
-					setClassName("border-blue-500 focus:bg-white w-[400px]");
+					setClassName("border-blue-500 focus:bg-white w-[200px] md:w-[400px]");
 				} else {
-					setClassName("border-transparent bg-transparent w-[400px]");
+					setClassName("border-transparent bg-transparent w-[100px] md:w-[400px]");
 				}
 			}, [editing]);
 			
@@ -93,7 +93,7 @@ function ActionPlanList({ goalID }) {
 		};
 		return (
 			<div key={item.id}
-			     className="flex flex-row items-center h-10 md:justify-between">
+			     className="flex flex-row justify-between">
 				<h6 className="mt-2">
 					<EditableCell
 						key={item.id}
@@ -104,7 +104,7 @@ function ActionPlanList({ goalID }) {
 					/>
 				</h6>
 				
-				<div className="flex flex-row gap-4 justify-center mt-2">
+				<div className="flex flex-row gap-2 md:gap-4 mt-2">
 					{editing ? (
 						<Button
 							shape="circle"
