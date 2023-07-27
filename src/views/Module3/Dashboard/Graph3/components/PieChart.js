@@ -4,7 +4,7 @@ import useResponsive from "../../../../../utils/hooks/useResponsive";
 
 function PieChart({ type, data }) {
 	const { windowWidth } = useResponsive();
-	const chartWidth = windowWidth > 640 ? 600 : 500
+	const chartWidth = windowWidth > 640 ? 600 : 370
 	const chartHeight = windowWidth > 640 ? 500 : 400
 	const chartOptions = {
 		fill: {
@@ -13,8 +13,8 @@ function PieChart({ type, data }) {
 		legend: {
 			position: "bottom",
 			height: windowWidth > 640 ? 50 : 100,
-			offsetX: 40,
-			width: windowWidth > 640 ? 500 : 400,
+			offsetX: 10,
+			width: windowWidth > 640 ? 500 : 330,
 			labels: {
 				useSeriesColors: true
 			},
@@ -33,14 +33,13 @@ function PieChart({ type, data }) {
 		]
 	};
 	return (
-		<div className="w-full">
+		<>
 			{type === "time_spent" && (
 				<Chart
 					width={chartWidth}
 					height={chartHeight}
 					type="donut"
 					options={chartOptions}
-					// series={[44, 55, 41, 17, 15]}
 					series={data.time_spent_pie}
 				/>
 			)}
@@ -50,12 +49,11 @@ function PieChart({ type, data }) {
 					height={chartHeight}
 					type="donut"
 					options={chartOptions}
-					// series={[44, 55, 41, 17, 15]}
 					series={data.money_spent_pie}
 				/>
 			)}
 		
-		</div>
+		</>
 	);
 }
 

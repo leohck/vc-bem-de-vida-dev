@@ -12,7 +12,7 @@ function Funnel(props) {
 		<div className="flex flex-col gap-1 items-center">
 			<div id="wishcloud"
 			     className={classNames(
-				     "h-[250px] w-[800px]",
+				     "h-[250px] w-[350px] md:w-[800px]",
 				     "bg-contain bg-no-repeat bg-center",
 				     "flex flex-row items-center justify-center"
 			     )}
