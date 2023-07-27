@@ -38,16 +38,16 @@ function ActionPlanItem({ item }) {
 	
 	return (
 		<Tr key={item.id} style={{ textAlign: "center" }}>
-			<Td>{item.name}</Td>
+			<Td>{item.value}</Td>
 			<Td>
 				<div className="flex flex-row gap-2 items-center">
 					{getAchievementIconFromValue(item.goal.icon)}
-					{item.goal.name}
+					{item.goal.value}
 				</div>
 			</Td>
 			<Td>
 				{item.actions.map(action => (
-					<p key={action.id}>{action.name}</p>
+					<p key={action.id}>{action.value}</p>
 				))}
 			</Td>
 			<Td>

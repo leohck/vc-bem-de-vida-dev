@@ -48,6 +48,8 @@ function ActionPlanConfigureForm() {
 		try {
 			const { actionPlanItem } = state;
 			setActionPlanItem(actionPlanItem);
+			console.log(state);
+			
 		} catch (e) {
 			setActionPlanItem(null);
 		}
