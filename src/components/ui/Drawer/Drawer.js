@@ -98,24 +98,24 @@ const Drawer = (props) => {
                     [placement]: isOpen ? 0 : motionStyle[placement],
                 }}
             >
-                {title || closable ? (
-                    <div className={classNames('drawer-header', headerClass)}>
-                        {typeof title === 'string' ? (
-                            <h4>{title}</h4>
-                        ) : (
-                            <span>{title}</span>
-                        )}
-                        {closable && renderCloseButton}
-                    </div>
-                ) : null}
+                {/*{title || closable ? (*/}
+                {/*    <div className={classNames('drawer-header', headerClass)}>*/}
+                {/*        {typeof title === 'string' ? (*/}
+                {/*            <h4>{title}</h4>*/}
+                {/*        ) : (*/}
+                {/*            <span>{title}</span>*/}
+                {/*        )}*/}
+                {/*        {closable && renderCloseButton}*/}
+                {/*    </div>*/}
+                {/*) : null}*/}
                 <div className={classNames('drawer-body', bodyClass)}>
                     {children}
                 </div>
-                {footer && (
-                    <div className={classNames('drawer-footer', footerClass)}>
-                        {footer}
-                    </div>
-                )}
+                {/*{footer && (*/}
+                {/*    <div className={classNames('drawer-footer', footerClass)}>*/}
+                {/*        {footer}*/}
+                {/*    </div>*/}
+                {/*)}*/}
             </motion.div>
         </Modal>
     )

@@ -1,6 +1,5 @@
 import React from 'react'
 import Header from 'components/template/Header'
-import SidePanel from 'components/template/SidePanel'
 import UserDropdown from 'components/template/UserDropdown'
 import SideNavToggle from 'components/template/SideNavToggle'
 import MobileNav from 'components/template/MobileNav'

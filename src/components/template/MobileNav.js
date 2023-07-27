@@ -66,13 +66,14 @@ const MobileNav = () => {
                         <MobileNavToggle toggled={isOpen} />
                     </div>
                     <Drawer
-                        title="Navigation"
+                        title="Você Bem de Vida"
                         isOpen={isOpen}
                         onClose={onDrawerClose}
                         onRequestClose={onDrawerClose}
-                        bodyClass={classNames(navColor(), 'p-0')}
-                        width={330}
-                        placement={direction === DIR_RTL ? 'right' : 'left'}
+                        bodyClass={classNames('bg-[#0037B3]', 'p-0')}
+                        width={100}
+                        height={250}
+                        placement={'bottom'}
                     >
                         <Suspense fallback={<></>}>
                             {isOpen && (

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import VerticalMenuIcon from './VerticalMenuIcon'
 import { Trans } from 'react-i18next'
 import { AuthorityCheck } from 'components/shared'
+import useResponsive from "../../../utils/hooks/useResponsive";
 
 const { MenuItem, MenuCollapse } = Menu
 
@@ -75,14 +76,15 @@ const CollapsedItem = ({ nav, onLinkClick, userAuthority, direction }) => {
             <VerticalMenuIcon icon={nav.icon} />
         </MenuItem>
     )
-
+    const {windowWidth} = useResponsive();
     return (
         <AuthorityCheck userAuthority={userAuthority} authority={nav.authority}>
             <Dropdown
                 trigger="hover"
                 renderTitle={menuItem}
                 placement={
-                    direction === 'rtl' ? 'middle-end-top' : 'middle-start-top'
+                    // direction === 'rtl' ? 'middle-end-top' : 'middle-start-top'
+                    windowWidth > 640 ? 'middle-start-top' : 'bottom-center'
                 }
             >
                 {nav.subMenu.map((subNav) => (

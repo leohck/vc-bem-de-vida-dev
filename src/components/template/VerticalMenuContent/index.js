@@ -111,7 +111,7 @@ const VerticalMenuContent = (props) => {
 
     return (
         <Menu
-            className="px-4 pb-4"
+            className="flex flex-row justify-center gap-x-2 md:flex-col px-4 pb-4"
             variant={navMode}
             sideCollapsed={collapsed}
             defaultActiveKeys={activedRoute?.key ? [activedRoute.key] : []}

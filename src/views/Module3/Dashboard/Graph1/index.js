@@ -17,7 +17,6 @@ function Graph1() {
 	});
 	if (isLoading) return "Loading...";
 	if (isError) return "An error has occurred: " + error.message;
-	console.log(data);
 	
 	return (
 		<Card
