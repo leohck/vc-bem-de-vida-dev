@@ -27,7 +27,7 @@ function Graph3() {
 		return (
 			<Tooltip title={title}>
 				<Card
-					className="w-[300px]"
+					className="w-[170px] md:w-[300px]"
 					bodyClass="flex flex-row justify-center">
 					{type === "time_spent" && (
 						<h4>{data.time_spent} H</h4>

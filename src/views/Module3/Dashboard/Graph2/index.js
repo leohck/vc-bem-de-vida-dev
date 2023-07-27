@@ -1,17 +1,17 @@
-import React, { useState, useCallback } from "react";
-import { Card, Segment } from "../../../../components/ui";
+import React, { useState } from "react";
+import { Card, Select } from "../../../../components/ui";
 import { useUserID } from "../../../../hooks/useUserID";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard32Data } from "../../../../services/Module3/Dashboard";
 import AreaChart from "./components/AreaChart";
+import useResponsive from "../../../../utils/hooks/useResponsive";
+import { lifeAspectOptions } from "../../../auto-conhecimento/form.options";
 
 
 function Graph2() {
 	const { userID } = useUserID();
-	const [graphType, setGraphType] = useState(["Saude Fisica"]);
-	const handleGraphTypeChange = useCallback((val) => {
-		setGraphType(val);
-	}, []);
+	const [graphType, setGraphType] = useState(lifeAspectOptions[0]);
+	const { windowWidth } = useResponsive();
 	
 	const { isLoading, error, data } = useQuery({
 		queryKey: ["Dashboard32Data"],
@@ -22,55 +22,50 @@ function Graph2() {
 	
 	const graphData = data.data;
 	
-	const headerExtraContent = (
-		<span className="flex items-center">
-			<Segment
-				onChange={handleGraphTypeChange}
-				value={graphType}
-				size="xs"
-			>
-				<Segment.Item value="Saude Fisica">Saúde Física</Segment.Item>
-				<Segment.Item value="Saude Mental">Saúde Mental</Segment.Item>
-				<Segment.Item value="Vida Social">Vida Social</Segment.Item>
-				<Segment.Item value="Vida Profissional">Vida Profissional</Segment.Item>
-				<Segment.Item value="Gestao Financeira">Gestão Financeira</Segment.Item>
-			</Segment>
-        </span>
-	);
-	
 	return (
 		<Card
 			header={
 				<h6>Linha do Tempo Conquistas / Metas</h6>
 			}
-			// headerExtra={headerExtraContent}
 			headerClass="border-none"
 		>
-			<div className="grid grid-cols-5 gap-4">
-				<AreaChart
-					type={"Saude Fisica"}
-					data={graphData}
-				/>
-				<AreaChart
-					type={"Saude Mental"}
-					data={graphData}
-				/>
-				<AreaChart
-					type={"Vida Social"}
-					data={graphData}
-				/>
-				<AreaChart
-					type={"Vida Profissional"}
-					data={graphData}
-				/>
-				<AreaChart
-					type={"Gestao Financeira"}
-					data={graphData}
-				/>
-			</div>
-			{/*<div className="grid grid-cols-2 justify-items-evenly">*/}
-			{/*	*/}
-			{/*</div>*/}
+			{windowWidth > 640 ? (
+				<div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+					<AreaChart
+						type={"Saude Fisica"}
+						data={graphData}
+					/>
+					<AreaChart
+						type={"Saude Mental"}
+						data={graphData}
+					/>
+					<AreaChart
+						type={"Vida Social"}
+						data={graphData}
+					/>
+					<AreaChart
+						type={"Vida Profissional"}
+						data={graphData}
+					/>
+					<AreaChart
+						type={"Gestao Financeira"}
+						data={graphData}
+					/>
+				</div>
+			) : (
+				<div className="flex flex-col gap-2">
+					<Select
+						placeholder="Aspecto de Vida"
+						className="max-w-[400px]"
+						isSearchable={false}
+						options={lifeAspectOptions}
+						value={graphType}
+						onChange={(e) => setGraphType(e)}
+					/>
+					<AreaChart type={graphType.value} data={graphData} />
+				</div>
+			)}
+		
 		</Card>
 	);
 }

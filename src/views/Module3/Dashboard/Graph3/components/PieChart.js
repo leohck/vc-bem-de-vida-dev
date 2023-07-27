@@ -1,14 +1,20 @@
 import React from "react";
 import { Chart } from "../../../../../components/shared";
+import useResponsive from "../../../../../utils/hooks/useResponsive";
 
 function PieChart({ type, data }) {
+	const { windowWidth } = useResponsive();
+	const chartWidth = windowWidth > 640 ? 600 : 500
+	const chartHeight = windowWidth > 640 ? 500 : 400
 	const chartOptions = {
 		fill: {
-			type: 'gradient',
+			type: "gradient"
 		},
 		legend: {
 			position: "bottom",
-			height: 50,
+			height: windowWidth > 640 ? 50 : 100,
+			offsetX: 40,
+			width: windowWidth > 640 ? 500 : 400,
 			labels: {
 				useSeriesColors: true
 			},
@@ -30,8 +36,8 @@ function PieChart({ type, data }) {
 		<div className="w-full">
 			{type === "time_spent" && (
 				<Chart
-					width="600px"
-					height="500px"
+					width={chartWidth}
+					height={chartHeight}
 					type="donut"
 					options={chartOptions}
 					// series={[44, 55, 41, 17, 15]}
@@ -40,8 +46,8 @@ function PieChart({ type, data }) {
 			)}
 			{type === "money_spent" && (
 				<Chart
-					width="600px"
-					height="500px"
+					width={chartWidth}
+					height={chartHeight}
 					type="donut"
 					options={chartOptions}
 					// series={[44, 55, 41, 17, 15]}

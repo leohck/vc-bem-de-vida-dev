@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import classNames from "classnames";
 import GraphIcon from "./GraphIcon";
+import useResponsive from "../../../../../utils/hooks/useResponsive";
 
 function Trophies(props) {
 	const {
@@ -8,8 +9,9 @@ function Trophies(props) {
 	} = props;
 	const img_src_path = "/img/module3/";
 	const img_src = img_src_path + "prateleira.jpeg";
-	const width = 400;
-	const height = 180;
+	const { windowWidth } = useResponsive();
+	const width = windowWidth > 640 ? 400 : 340;
+	const height = windowWidth > 640 ? 180 : 150;
 	
 	return (
 		<div className="flex flex-row justify-center items-center">
@@ -27,9 +29,9 @@ function Trophies(props) {
 					"grid gap-y-1 gap-x-2",
 					"grid-cols-10",
 					`mb-20`,
-					'ml-5',
-					`h-[${height/2}px] w-[${width}px] p-5`,
-					`max-h-[${height/2}px]`
+					"ml-5",
+					`h-[${height / 2}px] w-[${width}px] p-5`,
+					`max-h-[${height / 2}px]`
 				)}
 				>
 					{achievementList && achievementList.map(
