@@ -3,7 +3,7 @@ import ApiService from './ApiService'
 
 export async function getNotifications(userID) {
 	return ApiService.fetchData({
-		url: `/notifications2/${userID}/`,
+		url: `/notifications/?user_id=${userID}`,
 		method: 'get',
 	})
 }
