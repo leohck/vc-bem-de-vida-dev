@@ -2,19 +2,16 @@ import Dropdown from "components/ui/Dropdown";
 import NotificationIcon from "./NotificationIcon";
 import { HiOutlineMailOpen } from "react-icons/hi";
 import NotificationItem from "./NotificationItem";
+import { useNotifications } from "../../../hooks/useNotifications";
 
 
 const NotificationList = () => {
-	const dropdownItems = [
-		{ key: "a", name: "fazer ingles intensivo", item_type: "Plano de Ação", description: "Faltam 7 dias para concluir: ", date: "09/08/2023", viewed: true },
-		{ key: "b", name: "Ganhar 5k dollares por mes", item_type: "Meta", description: "Faltam 7 dias para concluir: ", date: "09/08/2023", viewed: false },
-		{ key: "c", name: "Saude Fisica", item_type: "Conquista", description: "Revise seu nivel de satisfaçao em ", date: "09/08/2023", viewed: true },
-	];
-	
+	const {notifications, refreshNotificationList} = useNotifications();
+
 	return (
 		<div>
 			<Dropdown
-				renderTitle={<NotificationIcon notifications={dropdownItems} />}
+				renderTitle={<NotificationIcon notifications={notifications} />}
 				placement="bottom-end"
 				menuClass="min-w-[280px] md:min-w-[400px]"
 			>
@@ -24,8 +21,8 @@ const NotificationList = () => {
 					<HiOutlineMailOpen size="1.5em" className="stroke-2" />
 				</div>
 				<div className="overflow-y-auto min-h-64 max-h-72 divide-y">
-					{dropdownItems.map((item) => (
-						<NotificationItem item={item} />
+					{notifications.map((item) => (
+						<NotificationItem key={item.id} item={item} />
 					))}
 				</div>
 			</Dropdown>

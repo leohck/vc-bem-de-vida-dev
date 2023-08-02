@@ -31,7 +31,11 @@ const CostBenefitChart = () => {
 	}, [userID]);
 	
 	useEffect(() => {
-		setChartData(chartMainData[lifeAspect.value]);
+		if (windowWidth > 640) {
+			setChartData(chartMainData[lifeAspect[0]])
+		} else {
+			setChartData(chartMainData[lifeAspect.value]);
+		}
 	}, [lifeAspect, chartMainData]);
 	
 	const handleLifeAspectChange = (e) => {
@@ -78,7 +82,7 @@ const CostBenefitChart = () => {
 						isSearchable={false}
 						options={lifeAspectOptions}
 						value={lifeAspect}
-						onChange={(e) => setLifeAspect(e)}
+						onChange={(e) => handleLifeAspectChange(e)}
 					/>
 				)}
 				
