@@ -1,9 +1,7 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Card, Radio, Segment, Select } from "../../../components/ui";
+import React, { useEffect, useState } from "react";
+import { Card, Select } from "../../../components/ui";
 import { Chart } from "../../../components/shared";
-import store from "../../../store";
 import { getCostBenefitChartData } from "../../../services/PersonalService";
-import Image from "d3-fetch/src/image";
 import LifeAspectSegment from "./LifeAspectSegment";
 import { useUserID } from "../../../hooks/useUserID";
 import useResponsive from "../../../utils/hooks/useResponsive";
@@ -14,6 +12,8 @@ const CostBenefitChart = () => {
 	const [chartData, setChartData] = useState([]);
 	const [chartMainData, setChartMainData] = useState({});
 	const [ratings, setRatings] = useState({});
+	const [rating, setRating] = useState(0);
+	
 	const { userID } = useUserID();
 	const { windowWidth } = useResponsive();
 	
@@ -34,8 +34,18 @@ const CostBenefitChart = () => {
 		setChartData(chartMainData[lifeAspect.value]);
 	}, [lifeAspect, chartMainData]);
 	
+	const handleLifeAspectChange = (e) => {
+		if (windowWidth > 640) {
+			setLifeAspect(e)
+			setRating(lifeAspect[0])
+		} else {
+			setLifeAspect(e)
+			setRating(e.value)
+		}
+	}
+	
 	const LifeAspectRating = () => {
-		const rating_value = ratings[lifeAspect.value];
+		const rating_value = ratings[rating];
 		const img_src_path = "/img/ratings/";
 		return (
 			<div>
@@ -57,7 +67,7 @@ const CostBenefitChart = () => {
 				{windowWidth > 640 ? (
 					<LifeAspectSegment
 						value={lifeAspect}
-						onChange={setLifeAspect}
+						onChange={handleLifeAspectChange}
 						singleOption={true}
 						vertical={true}
 					/>

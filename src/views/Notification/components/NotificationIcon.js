@@ -1,22 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import { Badge, Button } from "../../../components/ui";
 import { IoNotificationsOutline } from "react-icons/io5";
 
-function NotificationIcon() {
-	const [notifications, setNotifications] = useState([]);
-	const [enable, setEnable] = useState(false);
+function NotificationIcon(props) {
+	const {
+		notifications
+	} = props;
+	
+	const newNotifications = notifications.filter(item => item.viewed === false)
+	
+	const hasNotifications = newNotifications.length > 0
 	
 	const Icon = (
 		<IoNotificationsOutline />
 	);
 	
 	const IconWithBadge = (
-		<Badge content={10} maxCount={9}>
+		<Badge content={newNotifications.length} maxCount={9}>
 			<IoNotificationsOutline />
 		</Badge>
 	);
-	
-	const hasNotifications = true;
 	
 	return (
 		<section>
@@ -24,10 +27,7 @@ function NotificationIcon() {
 				shape="circle"
 				variant="plain"
 				size="lg"
-				icon={enable ? IconWithBadge : Icon}
-				onClick={() => {
-					setEnable(!enable)
-				}}
+				icon={hasNotifications ? IconWithBadge : Icon}
 			/>
 		</section>
 	);

@@ -6,6 +6,7 @@ import MobileNav from 'components/template/MobileNav'
 import SideNav from 'components/template/SideNav'
 import View from 'views'
 import NotificationIcon from "../../views/Notification/components/NotificationIcon";
+import NotificationList from "../../views/Notification/components/NotificationList";
 
 const HeaderActionsStart = () => {
     return (
@@ -19,7 +20,7 @@ const HeaderActionsStart = () => {
 const HeaderActionsEnd = () => {
     return (
         <>
-            <NotificationIcon />
+            <NotificationList />
             <UserDropdown hoverable={false} />
         </>
     )
