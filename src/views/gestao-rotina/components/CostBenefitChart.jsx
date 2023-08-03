@@ -8,11 +8,10 @@ import useResponsive from "../../../utils/hooks/useResponsive";
 import { lifeAspectOptions } from "../../auto-conhecimento/form.options";
 
 const CostBenefitChart = () => {
-	const [lifeAspect, setLifeAspect] = useState(lifeAspectOptions[0]);
+	const [lifeAspect, setLifeAspect] = useState(["Saude Fisica"]);
 	const [chartData, setChartData] = useState([]);
 	const [chartMainData, setChartMainData] = useState({});
 	const [ratings, setRatings] = useState({});
-	const [rating, setRating] = useState(0);
 	
 	const { userID } = useUserID();
 	const { windowWidth } = useResponsive();
@@ -36,20 +35,23 @@ const CostBenefitChart = () => {
 		} else {
 			setChartData(chartMainData[lifeAspect.value]);
 		}
-	}, [lifeAspect, chartMainData]);
+	}, [windowWidth, lifeAspect, chartMainData]);
 	
 	const handleLifeAspectChange = (e) => {
-		if (windowWidth > 640) {
-			setLifeAspect(e)
-			setRating(lifeAspect[0])
-		} else {
-			setLifeAspect(e)
-			setRating(e.value)
-		}
-	}
+		setLifeAspect(e);
+	};
 	
 	const LifeAspectRating = () => {
-		const rating_value = ratings[rating];
+		let rating_value;
+		if (windowWidth > 640) {
+			rating_value = ratings[lifeAspect[0]];
+		} else {
+			rating_value = ratings[lifeAspect.value];
+		}
+		if (rating_value === undefined) {
+			rating_value = 3;
+		}
+		
 		const img_src_path = "/img/ratings/";
 		return (
 			<div>
@@ -88,7 +90,7 @@ const CostBenefitChart = () => {
 				
 				<Card className="flex flex-col gap-2">
 					<div className="grid justify-items-center">
-						{ratings && (
+						{lifeAspect && (
 							<LifeAspectRating />
 						)}
 					</div>
@@ -129,7 +131,7 @@ const CostBenefitChart = () => {
 									colors: ["transparent"]
 								},
 								xaxis: {
-									categories: [lifeAspect.value]
+									categories: windowWidth > 640 ? lifeAspect : [lifeAspect.value]
 								},
 								yaxis: {
 									min: 0,
