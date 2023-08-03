@@ -33,3 +33,10 @@ export async function putGoal(goal_id, data) {
 		data
 	});
 }
+
+export async function getGoal(goal_id){
+	return ApiService.fetchData({
+		url: `/goal/${goal_id}/`,
+		method: 'get'
+	})
+}
