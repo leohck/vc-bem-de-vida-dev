@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Card, Select } from "../../../components/ui";
+import { Card, Dialog, Select } from "../../../components/ui";
 import { Input, Button } from "components/ui";
 import ActionPlan from "../ActionPlan";
 import {
@@ -38,6 +38,29 @@ function GoalForm() {
 	const [status, setStatus] = useState();
 	const [hasInProgressActions, setHasInProgressActions] = useState(false);
 	
+	
+	const [dialogIsOpen, setIsOpen] = useState(false);
+	
+	const openDialog = () => {
+		setIsOpen(true);
+	};
+	
+	const onDialogClose = (e) => {
+		setIsOpen(false);
+	};
+	
+	const onDialogOk = (e) => {
+		setIsOpen(false);
+	};
+	
+	const handleStatusChange = (e) => {
+		if (e.value === "cancelada" || e.value === "concluida") {
+			openDialog();
+			setStatus(e);
+		} else {
+			setStatus(e);
+		}
+	};
 	
 	useEffect(() => {
 		try {
@@ -123,6 +146,7 @@ function GoalForm() {
 					toastFeedback("danger", "Falha ao Cadastrar Meta");
 				}
 			}
+			
 		} catch (e) {
 			console.log(e);
 			toastFeedback("danger", "Falha ao Cadastrar Meta - Preencha todos os campos do formulario");
@@ -209,7 +233,7 @@ function GoalForm() {
 								options={hasInProgressActions ? STATUS_OPTIONS : STATUS_OPTIONS_IN_PROGRESS_DISABLED}
 								placeholder="Status"
 								value={status}
-								onChange={setStatus}
+								onChange={handleStatusChange}
 							/>
 						</InputLabel>
 					</div>
@@ -219,6 +243,31 @@ function GoalForm() {
 				
 				</div>
 			</Card>
+			
+			<Dialog
+				isOpen={dialogIsOpen}
+				onClose={onDialogClose}
+				onRequestClose={onDialogClose}
+			>
+				<h5 className="mb-4">Cuidado!</h5>
+				<p>
+					Tem certeza que deseja alterar o status da meta?
+					Ao mudar para Cancelada ou Concluída, os Planos de
+					Ação vínculados serão excluídos e as Ações desvínculadas.
+				</p>
+				<div className="text-right mt-6">
+					<Button
+						className="ltr:mr-2 rtl:ml-2"
+						variant="plain"
+						onClick={onDialogClose}
+					>
+						Cancelar
+					</Button>
+					<Button variant="solid" onClick={onDialogOk}>
+						Estou Ciente!
+					</Button>
+				</div>
+			</Dialog>
 		</div>
 	);
 }
