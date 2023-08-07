@@ -15,6 +15,7 @@ import { postGoal, putGoal } from "../../../services/Module3/GoalService";
 import { deleteWish } from "../../../services/Module3/WishService";
 import { useUserID } from "../../../hooks/useUserID";
 import LifeAspectSegment from "../../gestao-rotina/components/LifeAspectSegment";
+import { getStatusObjectFromValue, STATUS_OPTIONS, STATUS_OPTIONS_IN_PROGRESS_DISABLED } from "./goal.constant";
 
 
 function GoalForm() {
@@ -34,6 +35,8 @@ function GoalForm() {
 	const [lifeAspect, setLifeAspect] = useState();
 	const [motivation, setMotivation] = useState();
 	const [estimatedDeadline, setEstimatedDeadline] = useState();
+	const [status, setStatus] = useState();
+	const [hasInProgressActions, setHasInProgressActions] = useState(false);
 	
 	
 	useEffect(() => {
@@ -46,6 +49,8 @@ function GoalForm() {
 				setLifeAspect([goalItem.life_aspect]);
 				setMotivation(goalItem.motivation);
 				setEstimatedDeadline(goalItem.estimated_deadline);
+				setStatus(getStatusObjectFromValue(goalItem.status));
+				setHasInProgressActions(goalItem.has_in_progress_action);
 				setGoalItemID(goalItem.id);
 			}
 		} catch (e) {
@@ -69,7 +74,7 @@ function GoalForm() {
 		const dlWish = async (wishID) => {
 			await deleteWish(wishID).then(
 				_ => {
-					dispatch(delGoal(wishID))
+					dispatch(delGoal(wishID));
 				}
 			);
 		};
@@ -80,6 +85,7 @@ function GoalForm() {
 				life_aspect: lifeAspect.toString(),
 				motivation: motivation,
 				estimated_deadline: estimatedDeadline,
+				status: status.value,
 				user: userID
 			};
 			if (goalItemID !== null) {
@@ -196,7 +202,17 @@ function GoalForm() {
 							/>
 						</InputLabel>
 					</div>
-					
+					<div>
+						<InputLabel label="Status da Meta">
+							<Select
+								className="w-[250px]"
+								options={hasInProgressActions ? STATUS_OPTIONS : STATUS_OPTIONS_IN_PROGRESS_DISABLED}
+								placeholder="Status"
+								value={status}
+								onChange={setStatus}
+							/>
+						</InputLabel>
+					</div>
 					{goalItemID !== null && (
 						<ActionPlan goalID={goalItemID} />
 					)}

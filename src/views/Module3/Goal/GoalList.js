@@ -11,6 +11,7 @@ import { delGoal } from "../../../store/module3/goalSlice";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { FaPlusSquare } from "react-icons/fa";
 import useResponsive from "../../../utils/hooks/useResponsive";
+import { getStatusObjectFromValue } from "./goal.constant";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -51,6 +52,9 @@ function GoalList() {
 				</Td>
 				<Td>
 					{estimated_deadline}
+				</Td>
+				<Td>
+					{getStatusObjectFromValue(item.status).label}
 				</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
@@ -109,6 +113,9 @@ function GoalList() {
 						</Td>
 						<Td>
 							<h6>Prazo</h6>
+						</Td>
+						<Td>
+							<h6>Status</h6>
 						</Td>
 						<Td>
 							<h6>Ações</h6>
