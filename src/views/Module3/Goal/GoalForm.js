@@ -15,7 +15,7 @@ import { postGoal, putGoal } from "../../../services/Module3/GoalService";
 import { deleteWish } from "../../../services/Module3/WishService";
 import { useUserID } from "../../../hooks/useUserID";
 import LifeAspectSegment from "../../gestao-rotina/components/LifeAspectSegment";
-import { getStatusObjectFromValue, STATUS_OPTIONS, STATUS_OPTIONS_IN_PROGRESS_DISABLED } from "./goal.constant";
+import { getStatusObjectFromValue, STATUS_OPTIONS } from "./goal.constant";
 
 
 function GoalForm() {
@@ -230,7 +230,7 @@ function GoalForm() {
 						<InputLabel label="Status da Meta">
 							<Select
 								className="w-[250px]"
-								options={hasInProgressActions ? STATUS_OPTIONS : STATUS_OPTIONS_IN_PROGRESS_DISABLED}
+								options={STATUS_OPTIONS}
 								placeholder="Status"
 								value={status}
 								onChange={handleStatusChange}
