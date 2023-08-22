@@ -138,7 +138,7 @@ const navigationConfig = [
             {
                 key: 'routine-actions',
                 path: '/routine/actions',
-                title: 'Ações Cadastradas',
+                title: 'Ações de Rotina',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
@@ -169,7 +169,7 @@ const navigationConfig = [
             {
                 key: 'dashboard3',
                 path: '/dashboard3',
-                title: 'Painel',
+                title: 'Painel - Projetos de Vida',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,

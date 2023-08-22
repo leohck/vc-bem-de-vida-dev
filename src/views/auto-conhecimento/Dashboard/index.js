@@ -9,6 +9,7 @@ import { getInProgressRoutineActionList } from "../../../services/RoutineActionS
 import { useGoalList } from "../../../hooks/module3/useGoalList";
 import PolarGraph from "./components/PolarGraph";
 import { useUserID } from "../../../hooks/useUserID";
+import NecessityScaleGraph from "./components/NecessityScaleGraph";
 
 
 const Index = () => {
@@ -95,7 +96,7 @@ const Index = () => {
 			
 			<div className="grid grid-cols-1 gap-4 mt-24 md:grid-cols-2">
 				<PolarGraph />
-				<div></div>
+				<NecessityScaleGraph />
 			</div>
 		</div>
 	);

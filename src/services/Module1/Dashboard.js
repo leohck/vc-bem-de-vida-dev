@@ -6,3 +6,10 @@ export async function getDashboard11Data(userID) {
 		method: 'get'
 	});
 }
+
+export async function getDashboard12Data(userID) {
+	return ApiService.fetchData({
+		url: `/dashboard12/${userID}/`,
+		method: 'get'
+	});
+}
