@@ -62,6 +62,11 @@ const Circulo = ({ title, icon }) => {
 		navigate("dashboard", { replace: true });
 	};
 	
+	const formatDate = (date) => {
+		const dt = new Date(date + " EDT");
+		return dt.toLocaleDateString("pt-BR");
+	}
+	
 	return (
 		<div>
 			<div className="mb-8 grid justify-items-center">
@@ -81,14 +86,14 @@ const Circulo = ({ title, icon }) => {
 				}
 			>
 				{questions.map((question, index) => (
-					<div key={index} className="mt-10">
+					<div key={index} className="flex flex-col gap-2 mt-10">
 						<h6 className="mb-2">{question.question}</h6>
 						<CustomSelector
 							id={question.id}
 							value={question.rating}
 							setValue={updateState}
 						/>
-						<br />
+						<p className="flex place-self-center md:place-self-end md:mr-10">Atualizado Em: {formatDate(question.updated_at)}</p>
 					</div>
 				))}
 			</Card>
