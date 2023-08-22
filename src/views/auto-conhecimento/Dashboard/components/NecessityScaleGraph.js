@@ -64,7 +64,7 @@ function NecessityScaleGraph() {
 			     style={{ bottom: position + "%" }
 			     }
 			>
-				<ImArrowRight color={arrow_color} size="3.5em" />
+				<ImArrowRight color={arrow_color} size="3em"/>
 			</div>
 		);
 	};
@@ -75,7 +75,7 @@ function NecessityScaleGraph() {
 			<div className="flex flex-row items-center justify-center">
 				<div className={classNames(
 					"h-[350px] w-[200px] md:w-[200px] md:h-[500px]",
-					"bg-contain bg-no-repeat bg-right",
+					"bg-contain bg-no-repeat bg-center",
 					"relative"
 				)}
 				     style={{

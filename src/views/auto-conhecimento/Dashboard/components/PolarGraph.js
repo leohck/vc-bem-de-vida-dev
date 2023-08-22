@@ -11,6 +11,8 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard11Data } from "../../../../services/Module1/Dashboard";
 import { useUserID } from "../../../../hooks/useUserID";
+import { renderToString } from "react-dom/server";
+import { LIFE_ASPECTS_SHORT_QUESTIONS } from "./constants";
 
 function PolarGraph() {
 	const { userID } = useUserID();
@@ -23,49 +25,36 @@ function PolarGraph() {
 	
 	const graphData = data.data.life_aspect_questions_ratings;
 	return (
-		<Chart
-			type="polarArea"
-			height={500}
-			series={graphData}
-			options={{
-				chart: {
-					toolbar: {
+		<div className="flex flex-col gap-1">
+			<h6>Radar de Qualidade de Vida</h6>
+			<Chart
+				type="polarArea"
+				height={500}
+				series={graphData}
+				options={{
+					chart: {
+						toolbar: {
+							show: false
+						}
+					},
+					legend: {
 						show: false
-					}
-				},
-				legend: {
-					show: false
-				},
-				title: {
-					text: "Radar de Qualidade de Vida",
-					align: "left"
-				},
-				stroke: {
-					colors: ["#fff"]
-				},
-				tooltip: {
-					enabled: true
-				},
-				colors: [function({ value, seriesIndex, w }) {
-					switch (value) {
-						case 0:
-							return HEX_COLOR_NOT_RATED;
-						case 1:
-							return HEX_COLOR_VERY_LOW;
-						case 2:
-							return HEX_COLOR_LOW;
-						case 3:
-							return HEX_COLOR_REGULAR;
-						case 4:
-							return HEX_COLOR_HIGH;
-						case 5:
-							return HEX_COLOR_VERY_HIGH;
-						default:
-							return HEX_COLOR_NOT_RATED;
-					}
-				}],
-				fill: {
-					opacity: 0.8,
+					},
+					stroke: {
+						colors: ["#fff"]
+					},
+					tooltip: {
+						enabled: true,
+						custom: ({ series, seriesIndex, dataPointIndex, w }) => {
+							return renderToString(
+								<div className="p-3">
+									<p>
+										{LIFE_ASPECTS_SHORT_QUESTIONS[seriesIndex]}
+									</p>
+								</div>
+							);
+						}
+					},
 					colors: [function({ value, seriesIndex, w }) {
 						switch (value) {
 							case 0:
@@ -83,24 +72,45 @@ function PolarGraph() {
 							default:
 								return HEX_COLOR_NOT_RATED;
 						}
-					}]
-				},
-				yaxis: {
-					show: false,
-					min: 0,
-					max: 5,
-					forceNiceScale: false
-				},
-				responsive: [{
-					breakpoint: 480,
-					options: {
-						chart: {
-							height: 350
+					}],
+					fill: {
+						opacity: 0.8,
+						colors: [function({ value, seriesIndex, w }) {
+							switch (value) {
+								case 0:
+									return HEX_COLOR_NOT_RATED;
+								case 1:
+									return HEX_COLOR_VERY_LOW;
+								case 2:
+									return HEX_COLOR_LOW;
+								case 3:
+									return HEX_COLOR_REGULAR;
+								case 4:
+									return HEX_COLOR_HIGH;
+								case 5:
+									return HEX_COLOR_VERY_HIGH;
+								default:
+									return HEX_COLOR_NOT_RATED;
+							}
+						}]
+					},
+					yaxis: {
+						show: false,
+						min: 0,
+						max: 5,
+						forceNiceScale: false
+					},
+					responsive: [{
+						breakpoint: 480,
+						options: {
+							chart: {
+								height: 350
+							}
 						}
-					}
-				}]
-			}}
-		/>
+					}]
+				}}
+			/>
+		</div>
 	);
 }
 
