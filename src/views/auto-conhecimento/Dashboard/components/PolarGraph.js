@@ -13,9 +13,12 @@ import { getDashboard11Data } from "../../../../services/Module1/Dashboard";
 import { useUserID } from "../../../../hooks/useUserID";
 import { renderToString } from "react-dom/server";
 import { LIFE_ASPECTS_SHORT_QUESTIONS } from "./constants";
+import { useNavigate } from "react-router-dom";
 
 function PolarGraph() {
 	const { userID } = useUserID();
+	const navigate = useNavigate();
+	
 	const { isLoading, error, data } = useQuery({
 		queryKey: ["Dashboard11Data"],
 		queryFn: () => getDashboard11Data(userID)
@@ -24,6 +27,21 @@ function PolarGraph() {
 	if (error) return "An error has occurred: " + error.message;
 	
 	const graphData = data.data.life_aspect_questions_ratings;
+	
+	const gotoLifeAspectQuestion = (question) => {
+		if (question <= 3) {
+			return navigate("/circulo/fisica");
+		} else if (question <= 6) {
+			return navigate("/circulo/mental");
+		} else if (question <= 9) {
+			return navigate("/circulo/social");
+		} else if (question <= 12) {
+			return navigate("/circulo/profissional");
+		} else {
+			return navigate("/circulo/financeira");
+		}
+	};
+	
 	return (
 		<div className="flex flex-col gap-1">
 			<h6>Radar de Qualidade de Vida</h6>
@@ -35,6 +53,11 @@ function PolarGraph() {
 					chart: {
 						toolbar: {
 							show: false
+						},
+						events: {
+							dataPointSelection(event, chartContext, config) {
+								gotoLifeAspectQuestion(chartContext.w.globals.labels[config.dataPointIndex]);
+							}
 						}
 					},
 					legend: {
