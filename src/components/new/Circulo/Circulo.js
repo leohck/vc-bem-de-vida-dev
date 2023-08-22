@@ -9,6 +9,7 @@ import store from "../../../store";
 import { useNavigate } from "react-router-dom";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { useUserID } from "../../../hooks/useUserID";
+import { getLifeAspectLabelFromValue } from "../../../constants/aspects.constant";
 
 const Circulo = ({ title, icon }) => {
 	const navigate = useNavigate();
@@ -72,7 +73,7 @@ const Circulo = ({ title, icon }) => {
 			<div className="mb-8 grid justify-items-center">
 				<div className="flex items-center gap-3">
 					{icon}
-					<h2>{title}</h2>
+					<h2>{getLifeAspectLabelFromValue(title)}</h2>
 				</div>
 			</div>
 			<Card

@@ -67,7 +67,7 @@ const navigationConfig = [
             {
                 key: 'circulo-fisica',
                 path: '/circulo/fisica',
-                title: 'Saude Fisica',
+                title: 'Saúde Física',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
@@ -87,7 +87,7 @@ const navigationConfig = [
             {
                 key: 'circulo-mental',
                 path: '/circulo/mental',
-                title: 'Saude Mental',
+                title: 'Saúde Mental',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,
@@ -97,7 +97,7 @@ const navigationConfig = [
             {
                 key: 'circulo-financeira',
                 path: '/circulo/financeira',
-                title: 'Gestao Financeira',
+                title: 'Gestão Financeira',
                 translateKey: '',
                 icon: '',
                 type: NAV_ITEM_TYPE_ITEM,

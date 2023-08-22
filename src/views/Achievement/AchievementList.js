@@ -9,6 +9,7 @@ import { deleteAchievement } from "../../store/userinfo/achievementSlice";
 import DialogForm from "../../components/new/Skills";
 import { getAchievementIconFromValue } from "../auto-conhecimento/form.options";
 import { toastFeedback } from "../../utils/actionFeedback";
+import { getLifeAspectLabelFromValue } from "../../constants/aspects.constant";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -55,7 +56,7 @@ function AchievementList() {
 						{item.value}
 					</div>
 				</Td>
-				<Td>{item.life_aspect}</Td>
+				<Td>{getLifeAspectLabelFromValue(item.life_aspect)}</Td>
 				<Td>{item.year}</Td>
 				<Td>
 					<div className="flex flex-row gap-4 justify-center">
