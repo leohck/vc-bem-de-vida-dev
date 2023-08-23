@@ -68,7 +68,7 @@ function NecessityScaleGraph() {
 	
 	return (
 		<div className="flex flex-col gap-1">
-			<h6>Escala de Necessidades {data.data.rating}</h6>
+			<h6>Escala de Necessidades</h6>
 			<div className="flex flex-row items-center justify-center">
 				<div className={classNames(
 					"h-[350px] w-[200px] md:w-[200px] md:h-[500px]",
