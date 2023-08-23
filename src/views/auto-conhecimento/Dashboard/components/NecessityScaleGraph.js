@@ -15,42 +15,39 @@ function NecessityScaleGraph() {
 	if (error) return "An error has occurred: " + error.message;
 	
 	const img_src_path = "/img/new/";
+	const arrow_img_src_path = "/img/setas/";
 	const img_src = img_src_path + "maslow.png";
+	let arrow_src = arrow_img_src_path + "vermelha.png";
 	
 	const Arrow = ({ position }) => {
-		let arrow_color;
 		if (position <= 30) {
-			arrow_color = "#fe1016";
+			arrow_src = arrow_img_src_path + "vermelha.png";
 		} else if (position <= 55) {
-			arrow_color = "#fe7a22";
+			arrow_src = arrow_img_src_path + "laranja.png";
 		} else if (position <= 75) {
-			arrow_color = "#e8e836";
+			arrow_src = arrow_img_src_path + "amarela.png";
 		} else if (position <= 90) {
-			arrow_color = "#17cf2c";
+			arrow_src = arrow_img_src_path + "verde.png";
 		} else {
-			arrow_color = "#2a2cf8";
+			arrow_src = arrow_img_src_path + "azul.png";
 		}
 		
 		if (position <= 15) {
-			position -= 6;
+			position -= 8;
 		} else if (position <= 30) {
 			position -= 6;
 		} else if (position <= 31) {
-			position -= 3;
-		} else if (position <= 45) {
-			position -= 10;
+			position -= 8;
 		} else if (position <= 55) {
-			position -= 7;
+			position -= 11;
 		} else if (position <= 65) {
 			position -= 8;
 		} else if (position <= 75) {
 			position -= 12;
 		} else if (position <= 85) {
-			position -= 6;
-		} else if (position <= 90) {
-			position -= 11;
-		} else if (position <= 100) {
 			position -= 9;
+		} else if (position <= 100) {
+			position -= 11;
 		}
 		
 		return (
@@ -61,17 +58,17 @@ function NecessityScaleGraph() {
 					     ? "mb-10"
 					     : ""
 			     )}
-			     style={{ bottom: position + "%" }
+			     style={{ bottom: position + "%", left: -50 }
 			     }
 			>
-				<ImArrowRight color={arrow_color} size="3em"/>
+				<img src={arrow_src} alt="seta" width={100}/>
 			</div>
 		);
 	};
 	
 	return (
 		<div className="flex flex-col gap-1">
-			<h6>Escala de Necessidades</h6>
+			<h6>Escala de Necessidades {data.data.rating}</h6>
 			<div className="flex flex-row items-center justify-center">
 				<div className={classNames(
 					"h-[350px] w-[200px] md:w-[200px] md:h-[500px]",
