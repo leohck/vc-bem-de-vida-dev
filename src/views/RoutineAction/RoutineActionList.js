@@ -47,6 +47,7 @@ const RoutineActionList = () => {
 	};
 	
 	const ItemRow = ({ item }) => {
+		if (item.action_plan.length >= 1) return null;
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td>{item.value}</Td>
