@@ -40,25 +40,16 @@ function ActionPlanItem({ item }) {
 		<Tr key={item.id} style={{ textAlign: "center" }}>
 			<Td>{item.value}</Td>
 			<Td>
-				<div className="flex flex-row gap-2 items-center">
+				<div className="flex flex-row gap-2 justify-center items-center">
 					{getAchievementIconFromValue(item.goal.icon)}
 					{item.goal.value}
 				</div>
 			</Td>
 			<Td>
-				{item.actions.map(action => (
-					<p key={action.id}>{action.value}</p>
-				))}
+				{item.goal.status}
 			</Td>
 			<Td>
-				{item.actions.map(action => (
-					<p key={action.id}>{action.status}</p>
-				))}
-			</Td>
-			<Td>
-				{item.actions.map(action => (
-					<p key={action.id}>{action.estimated_deadline ? action.estimated_deadline : "Não Configurado"}</p>
-				))}
+				{item.actions.length}
 			</Td>
 			<Td>
 				<div className="flex flex-row gap-4 justify-center">

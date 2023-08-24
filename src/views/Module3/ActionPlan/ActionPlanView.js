@@ -33,13 +33,10 @@ const ActionPlanView = () => {
 							<h6>Meta</h6>
 						</Td>
 						<Td>
-							<h6>Ações</h6>
+							<h6>Status</h6>
 						</Td>
 						<Td>
-							<h6>Status das Ações</h6>
-						</Td>
-						<Td>
-							<h6>Prazo Estimado</h6>
+							<h6>Ações Cadastradas</h6>
 						</Td>
 						<Td>
 							<h6>Ações do Plano</h6>
