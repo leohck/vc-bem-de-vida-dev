@@ -7,21 +7,17 @@ import { useRoutineActionList } from "../../../hooks/useRoutineActionList";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { postActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 import { addAction } from "../../../store/module3/actionSlice";
-import Action from "../Action";
 import { linkActionAndPlan } from "../../../services/Module3/ActionService";
 import { addActionDeadline } from "../../../store/module3/actionDeadlineSlice";
-import { BsArrowLeftCircle, BsArrowUpCircle } from "react-icons/bs";
-import useResponsive from "../../../utils/hooks/useResponsive";
+import Action from "../Action";
 
 
 function ActionPlanConfigureForm() {
 	const { state } = useLocation();
-	const { windowWidth } = useResponsive();
 	const action_plan_id = state.actionPlanItem.id;
 	const dispatch = useDispatch();
 	const [actionPlanItem, setActionPlanItem] = useState();
 	const { routine_actions_not_done, refreshRoutineActions } = useRoutineActionList();
-	
 	useEffect(() => {
 		refreshRoutineActions();
 	}, []);
@@ -96,7 +92,9 @@ function ActionPlanConfigureForm() {
 					<Card className="overflow-y-auto bg-gray-300 md:h-[600px] md:w-[600px]"
 					      bodyClass="grid grid-cols-1 divide-y gap-2"
 					>
-						{routine_actions_not_done.map(
+						{routine_actions_not_done.filter(
+							ra => !ra.action_plan.includes(action_plan_id)
+						).map(
 							item => (
 								<RoutineActionItem key={item.id} item={item} />
 							)
