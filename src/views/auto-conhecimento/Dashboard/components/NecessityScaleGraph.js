@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import classNames from "classnames";
-import { ImArrowRight } from "react-icons/im";
 import { useUserID } from "../../../../hooks/useUserID";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard12Data } from "../../../../services/Module1/Dashboard";

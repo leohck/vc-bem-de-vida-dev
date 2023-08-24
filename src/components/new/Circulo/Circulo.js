@@ -1,15 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { CustomSelector } from "components/new";
 import {
 	getAspectTitleQuestions,
 	updateAspectRating
 } from "../../../services/PersonalService";
 import { Button, Card } from "../../ui";
-import store from "../../../store";
 import { useNavigate } from "react-router-dom";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { useUserID } from "../../../hooks/useUserID";
 import { getLifeAspectLabelFromValue } from "../../../constants/aspects.constant";
+
 
 const Circulo = ({ title, icon }) => {
 	const navigate = useNavigate();
@@ -22,6 +22,9 @@ const Circulo = ({ title, icon }) => {
 				await getAspectTitleQuestions(userID, title).then(
 					response => {
 						const { questions } = response.data;
+						questions.sort((a, b) => {
+							return a - b;
+						});
 						setQuestionsValue(questions);
 					}
 				);
@@ -57,8 +60,8 @@ const Circulo = ({ title, icon }) => {
 	
 	const handleSave = () => {
 		questions.map(async question => {
-			await updateQuestionRating(question.id, question.rating)
-		})
+			await updateQuestionRating(question.id, question.rating);
+		});
 		toastFeedback("success", "Satisfação Pessoal Atualizada");
 		navigate("dashboard", { replace: true });
 	};
@@ -66,7 +69,7 @@ const Circulo = ({ title, icon }) => {
 	const formatDate = (date) => {
 		const dt = new Date(date + " EDT");
 		return dt.toLocaleDateString("pt-BR");
-	}
+	};
 	
 	return (
 		<div>
@@ -78,12 +81,19 @@ const Circulo = ({ title, icon }) => {
 			</div>
 			<Card
 				footer={
-					<Button size="sm"
-					        variant="solid"
-					        onClick={handleSave}
-					>
-						Salvar
-					</Button>
+					<div className="flex flex-row justify-between">
+						<Button size="sm"
+						        variant="solid"
+						        onClick={handleSave}
+						>
+							Salvar
+						</Button>
+						{questions[0] &&
+							<span>
+								Atualizado Em: {formatDate(questions[0].updated_at)}
+							</span>
+						}
+					</div>
 				}
 			>
 				{questions.map((question, index) => (
@@ -94,7 +104,6 @@ const Circulo = ({ title, icon }) => {
 							value={question.rating}
 							setValue={updateState}
 						/>
-						<p className="flex place-self-center md:place-self-end md:mr-10">Atualizado Em: {formatDate(question.updated_at)}</p>
 					</div>
 				))}
 			</Card>
