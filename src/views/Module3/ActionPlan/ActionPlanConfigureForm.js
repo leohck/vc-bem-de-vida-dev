@@ -17,7 +17,7 @@ function ActionPlanConfigureForm() {
 	const action_plan_id = state.actionPlanItem.id;
 	const dispatch = useDispatch();
 	const [actionPlanItem, setActionPlanItem] = useState();
-	const { routine_actions_not_done, refreshRoutineActions } = useRoutineActionList();
+	const { routine_actions_with_action_plan, refreshRoutineActions } = useRoutineActionList();
 	useEffect(() => {
 		refreshRoutineActions();
 	}, []);
@@ -92,7 +92,7 @@ function ActionPlanConfigureForm() {
 					<Card className="overflow-y-auto bg-gray-300 md:h-[600px] md:w-[600px]"
 					      bodyClass="grid grid-cols-1 divide-y gap-2"
 					>
-						{routine_actions_not_done.filter(
+						{routine_actions_with_action_plan.filter(
 							ra => !ra.action_plan.includes(action_plan_id)
 						).map(
 							item => (
