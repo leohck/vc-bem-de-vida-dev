@@ -18,6 +18,9 @@ export const useRoutineActionList = () => {
 	
 	return {
 		routine_actions: routine_actions.routine_actions,
+		routine_actions_not_done: routine_actions.routine_actions.filter(
+			(action) => action.status !== "concluido"
+		),
 		refreshRoutineActions
 	}
 };

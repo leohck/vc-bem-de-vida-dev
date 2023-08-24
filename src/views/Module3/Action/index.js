@@ -4,7 +4,7 @@ import ActionForm from "./ActionForm";
 
 function Action({ actionPlanID }) {
 	return (
-		<div className="flex flex-col gap-10">
+		<div className="flex flex-col gap-10 h-[500px] md:h-[600px]">
 			<ActionForm actionPlanID={actionPlanID} />
 			<ActionList actionPlanID={actionPlanID} />
 		</div>

@@ -10,15 +10,17 @@ import { addAction } from "../../../store/module3/actionSlice";
 import Action from "../Action";
 import { linkActionAndPlan } from "../../../services/Module3/ActionService";
 import { addActionDeadline } from "../../../store/module3/actionDeadlineSlice";
+import { BsArrowLeftCircle, BsArrowUpCircle } from "react-icons/bs";
+import useResponsive from "../../../utils/hooks/useResponsive";
 
 
 function ActionPlanConfigureForm() {
 	const { state } = useLocation();
+	const { windowWidth } = useResponsive();
 	const action_plan_id = state.actionPlanItem.id;
-	
 	const dispatch = useDispatch();
 	const [actionPlanItem, setActionPlanItem] = useState();
-	const { routine_actions, refreshRoutineActions } = useRoutineActionList();
+	const { routine_actions_not_done, refreshRoutineActions } = useRoutineActionList();
 	
 	useEffect(() => {
 		refreshRoutineActions();
@@ -35,7 +37,7 @@ function ActionPlanConfigureForm() {
 						action_plan: action_plan_id
 					}).then(
 						response => {
-							addActionDeadline(response.data)
+							addActionDeadline(response.data);
 						}
 					);
 					window.location.reload();
@@ -48,8 +50,6 @@ function ActionPlanConfigureForm() {
 		try {
 			const { actionPlanItem } = state;
 			setActionPlanItem(actionPlanItem);
-			console.log(state);
-			
 		} catch (e) {
 			setActionPlanItem(null);
 		}
@@ -59,10 +59,6 @@ function ActionPlanConfigureForm() {
 		return (
 			<div key={item.id}
 			     className="flex flex-row items-center h-10 justify-between">
-				<h6 className="mt-2">
-					{item.value}
-				</h6>
-				
 				<div className="flex flex-row gap-4 justify-center mt-2">
 					<Button
 						type="button"
@@ -74,6 +70,9 @@ function ActionPlanConfigureForm() {
 						onClick={() => handleAddItem(item)}
 					/>
 				</div>
+				<h6 className="mt-2">
+					{item.value}
+				</h6>
 			</div>
 		);
 	};
@@ -82,25 +81,28 @@ function ActionPlanConfigureForm() {
 		<div>
 			<div className="flex flex-row items-center justify-center mb-10">
 				{actionPlanItem ? (
-					<h3>Plano de Ação - {actionPlanItem.value}</h3>
+					<div className="flex flex-col items-center">
+						<h3>Plano de Ação</h3>
+						<h3>{actionPlanItem.value}</h3>
+					</div>
 				) : (
 					<h3>Plano de Ação</h3>
 				)}
 			</div>
-			<div className="flex flex-col gap-10">
-				<div className="flex flex-col gap-2">
+			<div className="flex flex-col gap-10 justify-center md:flex-row">
+				<Action actionPlanID={action_plan_id} />
+				<div className="flex flex-col gap-2 h-[600px]">
 					<h6>Ações Cadastradas</h6>
-					<Card className="max-h-[400px] overflow-y-auto"
+					<Card className="overflow-y-auto bg-gray-300 md:h-[600px] md:w-[600px]"
 					      bodyClass="grid grid-cols-1 divide-y gap-2"
 					>
-						{routine_actions.map(
+						{routine_actions_not_done.map(
 							item => (
 								<RoutineActionItem key={item.id} item={item} />
 							)
 						)}
 					</Card>
 				</div>
-				<Action actionPlanID={action_plan_id} />
 			</div>
 		</div>
 	);

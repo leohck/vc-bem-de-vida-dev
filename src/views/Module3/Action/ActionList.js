@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Button, Card, Input, Table } from "../../../components/ui";
+import { Button, Card, Input, Select, Table } from "../../../components/ui";
 import { MdDeleteForever } from "react-icons/md";
-import { AiOutlineCheck, AiOutlineSetting } from "react-icons/ai";
+import { AiOutlineSetting } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { useActionDeadlineList } from "../../../hooks/useActionDeadlineList";
@@ -11,6 +11,7 @@ import { delAction } from "../../../store/module3/actionSlice";
 import { deleteActionDeadline, putActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 import { delActionDeadline } from "../../../store/module3/actionDeadlineSlice";
 import { useNavigate } from "react-router-dom";
+import { getPriorityObjectFromValue, PRIORITY_OPTIONS } from "../../../constants/action.constant";
 
 const { Tr, Td, THead, TBody } = Table;
 
@@ -36,6 +37,7 @@ function ActionList({ actionPlanID }) {
 			refreshActionList();
 			refreshActionDeadlineList();
 		}
+		
 	}, [actionPlanID]);
 	
 	const handleConfigureItem = (item) => {
@@ -49,11 +51,29 @@ function ActionList({ actionPlanID }) {
 	const ActionPlanItem = ({ item }) => {
 		let actionDeadlineItem = getActionDeadline(item.id);
 		
-		const [estimatedDeadline, setEstimatedDeadline] = useState(actionDeadlineItem ? actionDeadlineItem.estimated_deadline : null);
+		const [estimatedDeadline, setEstimatedDeadline] = useState(
+			actionDeadlineItem
+				? actionDeadlineItem.estimated_deadline
+				: null
+		);
+		const [priority, setPriority] = useState(
+			actionDeadlineItem
+				? getPriorityObjectFromValue(actionDeadlineItem.priority)
+				: null
+		);
 		
 		const handleSaveItem = async () => {
 			if (actionDeadlineItem) {
-				await putActionDeadline(actionDeadlineItem.id, { estimated_deadline: actionDeadlineItem ? estimatedDeadline ? estimatedDeadline : null : null }).then(
+				await putActionDeadline(
+					actionDeadlineItem.id,
+					{
+						estimated_deadline: actionDeadlineItem
+							? estimatedDeadline
+								? estimatedDeadline
+								: null
+							: null
+					}
+				).then(
 					() => {
 						toastFeedback("success", "Prazo Alterado!");
 					}
@@ -76,18 +96,48 @@ function ActionList({ actionPlanID }) {
 				}
 			);
 		};
+		
+		const handlePriorityChange = async (e) => {
+			if (actionDeadlineItem) {
+				await putActionDeadline(
+					actionDeadlineItem.id,
+					{
+						priority: e.value
+					}
+				).then(
+					() => {
+						setPriority(e);
+						toastFeedback("success", "Prioridade Alterada!");
+					}
+				);
+			}
+		};
+		
 		return (
-			<Tr key={item.id} style={{ textAlign: "center" }}>
-				<Td className="flex flex-row gap-2 items-center justify-center">
-					<h6 className="mt-2">
+			<Tr key={item.id} style={{ textAlign: "center", maxHeight: 100 }}>
+				<Td>
+					<h6>
 						{item.value}
 					</h6>
+				</Td>
+				<Td>
+					<h6>{item.read_status}</h6>
+				</Td>
+				<Td>
+					<div>
+						<Select
+							className="w-[90px]"
+							options={PRIORITY_OPTIONS}
+							value={priority}
+							onChange={(e) => handlePriorityChange(e)}
+						/>
+					</div>
 				</Td>
 				<Td>
 					<Input
 						type="date"
 						name="estimated_deadline"
-						className="w-[165px]"
+						className="w-[150px]"
 						value={estimatedDeadline}
 						onChange={(e) => setEstimatedDeadline(e.target.value)}
 						onBlur={async () => {
@@ -126,12 +176,21 @@ function ActionList({ actionPlanID }) {
 	return (
 		<div className="flex flex-col gap-2">
 			<h6>Ações do Plano</h6>
-			<Card className="max-h-[400px] h-[250px] overflow-y-auto">
+			<Card
+				className="overflow-y-auto md:w-[600px]"
+				bodyClass="h-[300px] md:h-[455px]"
+			>
 				<Table>
 					<THead style={{ textAlign: "center" }}>
 						<Tr>
 							<Td>
 								<h6>Nome da Ação</h6>
+							</Td>
+							<Td>
+								<h6>Status</h6>
+							</Td>
+							<Td>
+								<h6>Prioridade</h6>
 							</Td>
 							<Td>
 								<h6>Prazo Estimado</h6>
