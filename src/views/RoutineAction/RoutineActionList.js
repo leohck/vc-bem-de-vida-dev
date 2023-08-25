@@ -47,7 +47,11 @@ const RoutineActionList = () => {
 	};
 	
 	const ItemRow = ({ item }) => {
-		if (item.action_plan.length >= 1) return null;
+		try {
+			if (item.action_plan.length >= 1) return null;
+		} catch (e) {
+			console.log(e);
+		}
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td>{item.value}</Td>

@@ -1,16 +1,19 @@
 import React from "react";
 import ActionPlanItem from "./ActionPlanItem";
 import { Table } from "../../../../components/ui";
+
 const { THead, TBody, Tr, Td } = Table;
 
-function ActionPlanList({sprintID, actions}) {
+function ActionPlanList({ sprintID, isSprintRunning, actions }) {
 	return (
 		<Table>
 			<THead style={{ textAlign: "center" }}>
 				<Tr>
-					<Td>
-						<h6>Adicionar</h6>
-					</Td>
+					{!isSprintRunning && (
+						<Td>
+							<h6>Adicionar</h6>
+						</Td>
+					)}
 					<Td>
 						<h6>Nome da Ação</h6>
 					</Td>
@@ -26,6 +29,7 @@ function ActionPlanList({sprintID, actions}) {
 				{actions.map(
 					(action) => <ActionPlanItem key={action.id}
 					                            sprintID={sprintID}
+					                            isSprintRunning={isSprintRunning}
 					                            item={action} />
 				)}
 			</TBody>

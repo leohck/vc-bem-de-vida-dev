@@ -5,7 +5,7 @@ import { createSprintAction } from "../../../../services/Module3/SprintService";
 
 const { Tr, Td } = Table;
 
-function ActionPlanItem({ sprintID, item }) {
+function ActionPlanItem({ sprintID, isSprintRunning, item }) {
 	const handleAddActionToSprint = async () => {
 		await createSprintAction(sprintID, item.id)
 			.then(() => {
@@ -14,17 +14,19 @@ function ActionPlanItem({ sprintID, item }) {
 	};
 	return (
 		<Tr key={item.id}>
-			<Td>
-				<Button
-					type="button"
-					shape="circle"
-					color="blue-500"
-					size="sm"
-					variant="twoTone"
-					icon={<AiOutlinePlusCircle />}
-					onClick={handleAddActionToSprint}
-				/>
-			</Td>
+			{!isSprintRunning && (
+				<Td>
+					<Button
+						type="button"
+						shape="circle"
+						color="blue-500"
+						size="sm"
+						variant="twoTone"
+						icon={<AiOutlinePlusCircle />}
+						onClick={handleAddActionToSprint}
+					/>
+				</Td>
+			)}
 			<Td className="font-bold">
 				{item.action_name}
 			</Td>

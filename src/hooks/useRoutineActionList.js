@@ -22,7 +22,7 @@ export const useRoutineActionList = () => {
 			(action) => action.status !== "concluido"
 		),
 		routine_actions_with_action_plan: routine_actions.routine_actions.filter(
-			(action) => action.status !== "concluido" && action.action_plan.length >= 1
+			(action) => action.status !== "concluido" && action.action_plan && action.action_plan.length >= 1
 		),
 		refreshRoutineActions
 	}

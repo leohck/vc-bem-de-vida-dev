@@ -40,3 +40,11 @@ export async function createSprintAction(sprintID, actionID) {
 		}
 	});
 }
+
+
+export async function deleteSprintAction(sprintActionID) {
+	return ApiService.fetchData({
+		url: `/sprint_action/${sprintActionID}/`,
+		method: 'delete'
+	});
+}

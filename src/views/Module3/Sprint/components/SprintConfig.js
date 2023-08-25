@@ -29,6 +29,18 @@ function SprintConfig({ sprint }) {
 			});
 	};
 	
+	const handleChangeSprintDuration = async (e) => {
+		const data = {
+			estimated_days: e.value,
+		};
+		await StartStopSprint(sprint.id, data)
+			.then(() => {
+				setEstimatedDays(e.value);
+				window.location.reload();
+			});
+	}
+	
+	
 	const formatDate = (date) => {
 		const dt = new Date(date + " EDT");
 		return dt.toLocaleDateString("pt-BR");
@@ -36,7 +48,7 @@ function SprintConfig({ sprint }) {
 	
 	
 	return (
-		<div className="flex flex-row gap-10">
+		<div className="flex flex-row gap-10 justify-center">
 			<div className="flex flex-col">
 				<div className="flex flex-row items-center gap-10">
 					<h6>Duração da Sprint: </h6>
@@ -44,7 +56,7 @@ function SprintConfig({ sprint }) {
 						className="w-[150px]"
 						options={!sprint.running ? ESTIMATED_DAYS_OPTIONS : ESTIMATED_DAYS_DISABLED_OPTIONS}
 						value={estimatedDays}
-						onChange={setEstimatedDays}
+						onChange={(e) => handleChangeSprintDuration(e)}
 					
 					/>
 					<h6>{formatDate(sprint.conclusion_date)}</h6>
@@ -91,26 +103,38 @@ function SprintConfig({ sprint }) {
 								<Td>
 									<h6>Data</h6>
 								</Td>
+								{!sprint.running && (
+									<Td>
+										<h6>Ações</h6>
+									</Td>
+								)}
 							</Tr>
 						</THead>
 						<TBody style={{ textAlign: "center" }}>
 							{sprint.routine_actions.map(
-								(action) => <SprintAction key={action.id} action={action} />
+								(action) => <SprintAction
+									key={action.id}
+									isSprintRunning={sprint.running}
+									action={action} />
 							)}
 						</TBody>
 					</Table>
 				</Card>
 			</div>
-			<div className="flex flex-col gap-2 h-[730px]">
-				<h6>Repositório de Ações</h6>
-				<Card className="overflow-y-auto bg-gray-300 md:h-full md:w-[600px]"
-				      bodyClass="grid grid-cols-1 divide-y gap-2"
-				>
-					<ActionPlanList
-						sprintID={sprint.id}
-						actions={sprint.available_routine_actions}/>
-				</Card>
-			</div>
+			
+			{!sprint.running && (
+				<div className="flex flex-col gap-2 h-[730px]">
+					<h6>Repositório de Ações</h6>
+					<Card className="overflow-y-auto bg-gray-300 md:h-full md:w-[600px]"
+					      bodyClass="grid grid-cols-1 divide-y gap-2"
+					>
+						<ActionPlanList
+							sprintID={sprint.id}
+							isSprintRunning={sprint.running}
+							actions={sprint.available_routine_actions} />
+					</Card>
+				</div>
+			)}
 		</div>
 	);
 }
