@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button, Card, Select, Table } from "../../../../components/ui";
 import { ESTIMATED_DAYS_DISABLED_OPTIONS, ESTIMATED_DAYS_OPTIONS, getEstimatedDaysObjectFromValue } from "../constants";
-import { StartStopSprint } from "../../../../services/Module3/SprintService";
+import { finishSprint, StartStopSprint } from "../../../../services/Module3/SprintService";
 import { toastFeedback } from "../../../../utils/actionFeedback";
 import SprintAction from "./SprintAction";
 import ActionPlanList from "./ActionPlanList";
@@ -40,6 +40,16 @@ function SprintConfig({ sprint }) {
 			});
 	}
 	
+	const handleFinishSprint = async () => {
+	    await finishSprint(sprint.id)
+		    .then(async (response) => {
+				const message1 = `Total de Ações : ${response.data.total_actions}`;
+				const message2 = `Total de Ações Concluida: ${response.data.done_actions}`;
+			    toastFeedback('success', message1 + "\n" + message2);
+			    await new Promise(r => setTimeout(r, 2000));
+			    window.location.reload();
+		    })
+	}
 	
 	const formatDate = (date) => {
 		const dt = new Date(date + " EDT");
@@ -71,7 +81,7 @@ function SprintConfig({ sprint }) {
 							<Button
 								variant="twoTone"
 								color="green-600"
-								onClick={handleStartStopSprint}
+								onClick={handleFinishSprint}
 							>
 								CONCLUIR SPRINT
 							</Button>

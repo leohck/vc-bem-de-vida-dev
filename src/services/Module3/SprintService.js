@@ -8,6 +8,14 @@ export async function getSprintData(userID) {
 }
 
 
+export async function finishSprint(sprintID) {
+	return ApiService.fetchData({
+		url: `/sprint_finish/${sprintID}/`,
+		method: 'get'
+	});
+}
+
+
 export async function createSprint(userID, estimated_days) {
 	return ApiService.fetchData({
 		url: `/sprint_config/?user_id=${userID}`,
