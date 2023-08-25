@@ -1,5 +1,11 @@
 import ApiService from "../ApiService";
 
+export async function getActionDeadlines(userID) {
+	return ApiService.fetchData({
+		url: `/action_deadline/?user_id=${userID}/`,
+		method: 'get'
+	});
+}
 
 export async function getActionDeadlineList(action_plan_id) {
 	return ApiService.fetchData({
