@@ -177,7 +177,7 @@ function ActionList({ actionPlanID }) {
 		<div className="flex flex-col gap-2">
 			<h6>Ações do Plano</h6>
 			<Card
-				className="overflow-y-auto md:w-[600px]"
+				className="overflow-y-auto md:w-[750px]"
 				bodyClass="h-[300px] md:h-[455px]"
 			>
 				<Table>

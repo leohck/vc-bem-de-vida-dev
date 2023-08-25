@@ -89,7 +89,7 @@ function ActionPlanConfigureForm() {
 				<Action actionPlanID={action_plan_id} />
 				<div className="flex flex-col gap-2 h-[600px]">
 					<h6>Ações Cadastradas</h6>
-					<Card className="overflow-y-auto bg-gray-300 md:h-[600px] md:w-[600px]"
+					<Card className="overflow-y-auto bg-gray-300 md:h-[600px] md:w-[450px]"
 					      bodyClass="grid grid-cols-1 divide-y gap-2"
 					>
 						{routine_actions_with_action_plan.filter(
