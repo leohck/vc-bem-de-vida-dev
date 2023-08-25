@@ -84,6 +84,14 @@ const module3Routes = [
 		),
 		authority: []
 	},
+	{
+		key: "sprint",
+		path: "/sprint",
+		component: React.lazy(() =>
+			import("views/Module3/Sprint/index")
+		),
+		authority: []
+	},
 ]
 
 export const protectedRoutes = [
