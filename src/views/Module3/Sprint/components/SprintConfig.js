@@ -97,7 +97,7 @@ function SprintConfig({ sprint }) {
 						)
 					}
 				</div>
-				<Card className="w-[600px] h-[600px] mt-1">
+				<Card className="overflow-y-auto w-[600px] h-[600px] mt-1">
 					<Table>
 						<THead style={{ textAlign: "center" }}>
 							<Tr>
