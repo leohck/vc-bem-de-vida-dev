@@ -1,13 +1,13 @@
 import React from 'react'
 import { Circulo } from '../../../components/new'
-import { FaHandshake } from 'react-icons/fa'
+import LifeAspectIcon from "../../Icon";
 
 const VidaProfissional = () => {
     const titulo = 'Vida Profissional'
     return (
         <Circulo
             title={titulo}
-            icon={<FaHandshake size="4em" className="h-10" />}
+            icon={<LifeAspectIcon life_aspect={'vida_profissional'}/>}
         />
     )
 }

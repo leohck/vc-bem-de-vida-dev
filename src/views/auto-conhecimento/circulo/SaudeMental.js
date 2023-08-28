@@ -1,13 +1,13 @@
 import React from 'react'
 import { Circulo } from '../../../components/new'
-import { RiMentalHealthFill } from 'react-icons/ri'
+import LifeAspectIcon from "../../Icon";
 
 const SaudeMental = () => {
     const titulo = 'Saude Mental'
     return (
         <Circulo
             title={titulo}
-            icon={<RiMentalHealthFill size="4em" className="h-10" />}
+            icon={<LifeAspectIcon life_aspect={'saude_mental'}/>}
         />
     )
 }

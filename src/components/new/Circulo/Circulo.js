@@ -74,7 +74,7 @@ const Circulo = ({ title, icon }) => {
 	return (
 		<div>
 			<div className="mb-8 grid justify-items-center">
-				<div className="flex items-center gap-3">
+				<div className="flex flex-row items-center gap-3">
 					{icon}
 					<h2>{getLifeAspectLabelFromValue(title)}</h2>
 				</div>

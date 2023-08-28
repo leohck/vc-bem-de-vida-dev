@@ -1,13 +1,13 @@
 import React from 'react'
 import { Circulo } from '../../../components/new'
-import { MdGroups } from 'react-icons/md'
+import LifeAspectIcon from "../../Icon";
 
 const VidaSocial = () => {
     const titulo = 'Vida Social'
     return (
         <Circulo
             title={titulo}
-            icon={<MdGroups size="4em" className="h-10" />}
+            icon={<LifeAspectIcon life_aspect={'vida_social'}/>}
         />
     )
 }
