@@ -10,6 +10,7 @@ import { useGoalList } from "../../../hooks/module3/useGoalList";
 import PolarGraph from "./components/PolarGraph";
 import { useUserID } from "../../../hooks/useUserID";
 import NecessityScaleGraph from "./components/NecessityScaleGraph";
+import { getInProgressSprintActionList } from "../../../services/Module3/SprintService";
 
 
 const Index = () => {
@@ -45,7 +46,7 @@ const Index = () => {
 		};
 		const fetchRoutineActionsData = async () => {
 			try {
-				const resp = await getInProgressRoutineActionList(userID);
+				const resp = await getInProgressSprintActionList(userID);
 				if (resp.data) {
 					const actions = resp.data;
 					setActionsCount(actions.length);
@@ -70,14 +71,14 @@ const Index = () => {
 			<div className="grid grid-cols-1 justify-items-center gap-2 md:grid-cols-4 ">
 				<div>
 					<CardWithDialog
-						title={"Ações em Andamento"}
-						itemCount={actionsCount}
+						title={"Metas"}
+						itemCount={goals.length}
 					/>
 				</div>
 				<div>
 					<CardWithDialog
-						title={"Metas"}
-						itemCount={goals.length}
+						title={"Ações de Plano em Andamento"}
+						itemCount={actionsCount}
 					/>
 				</div>
 				<div>

@@ -56,3 +56,11 @@ export async function deleteSprintAction(sprintActionID) {
 		method: 'delete'
 	});
 }
+
+export async function getInProgressSprintActionList(user_id) {
+	return ApiService.fetchData({
+		url: `/sprint_action/?action_info__action__user_id=${user_id}&action_info__action__status=em+andamento`,
+		method: 'get',
+	})
+}
+
