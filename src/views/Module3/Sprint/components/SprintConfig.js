@@ -58,21 +58,22 @@ function SprintConfig({ sprint }) {
 	
 	
 	return (
-		<div className="flex flex-row gap-10 justify-center">
+		<div className="flex flex-col md:flex-row gap-10 justify-center">
 			<div className="flex flex-col">
-				<div className="flex flex-row items-center gap-10">
+				<div className="flex flex-col items-center gap-2 md:gap-10 md:flex-row">
 					<h6>Duração da Sprint: </h6>
-					<Select
-						className="w-[150px]"
-						options={!sprint.running ? ESTIMATED_DAYS_OPTIONS : ESTIMATED_DAYS_DISABLED_OPTIONS}
-						value={estimatedDays}
-						onChange={(e) => handleChangeSprintDuration(e)}
-					
-					/>
-					<h6>{formatDate(sprint.conclusion_date)}</h6>
+					<div className="flex flex-row gap-2 items-center">
+						<Select
+							className="w-[150px]"
+							options={!sprint.running ? ESTIMATED_DAYS_OPTIONS : ESTIMATED_DAYS_DISABLED_OPTIONS}
+							value={estimatedDays}
+							onChange={(e) => handleChangeSprintDuration(e)}
+						
+						/>
+						<h6>{formatDate(sprint.conclusion_date)}</h6>
+					</div>
 				</div>
-				
-				<div className="flex flex-row items-center justify-between  gap-10 mt-10 w-[600px]">
+				<div className="flex flex-row items-center justify-between  gap-10 mt-10 md:w-[600px]">
 					<h6>
 						Sprint Atual
 					</h6>
@@ -97,7 +98,7 @@ function SprintConfig({ sprint }) {
 						)
 					}
 				</div>
-				<Card className="overflow-y-auto w-[600px] h-[600px] mt-1">
+				<Card className="overflow-y-auto mt-1 h-[400px] md:w-[600px] md:h-[600px] ">
 					<Table>
 						<THead style={{ textAlign: "center" }}>
 							<Tr>
