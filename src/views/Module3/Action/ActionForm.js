@@ -58,7 +58,7 @@ function ActionForm({ actionPlanID }) {
 				type="button"
 				shape="circle"
 				color="blue-500"
-				size="sm"
+				size="md"
 				variant="twoTone"
 				icon={<AiOutlinePlusCircle />}
 				onClick={() => handleAddItem()}
