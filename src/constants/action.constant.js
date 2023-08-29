@@ -1,22 +1,23 @@
 export const STATUS_OPTIONS = [
-	{value: "nao iniciado", label: "Não Iniciado"},
-	{value: "agendado", label: "Agendado"},
+	{value: "nao configurada", label: "Não Configurada"},
+	{value: "nao iniciada", label: "Não Iniciada"},
+	{value: "agendada", label: "Agendada"},
 	{value: "em andamento", label: "Em Andamento"},
-	{value: "interrompido", label: "Interrompido"},
-	{value: "concluido", label: "Concluido"},
+	{value: "interrompida", label: "Interrompida"},
+	{value: "concluida", label: "Concluida"},
+]
+
+export const STATUS_OPTIONS_DISABLED = [
+	{value: "nao configurada", label: "Não Configurada", isDisabled: true},
+	{value: "nao iniciada", label: "Não Iniciada", isDisabled: true},
+	{value: "agendada", label: "Agendada", isDisabled: true},
+	{value: "em andamento", label: "Em Andamento", isDisabled: true},
+	{value: "interrompida", label: "Interrompida", isDisabled: true},
+	{value: "concluida", label: "Concluida", isDisabled: true},
 ]
 
 export const getStatusObjectFromValue = (value) => {
 	return STATUS_OPTIONS.filter(el => el.value === value)[0]
-}
-
-export const RECURRENCE_OPTIONS = [
-	{value: "pontual", label: "Pontual"},
-	{value: "recorrente", label: "Recorrente"},
-]
-
-export const getRecurrenceObjectFromValue = (value) => {
-	return RECURRENCE_OPTIONS.filter(el => el.value === value)[0]
 }
 
 export const PRIORITY_OPTIONS = [

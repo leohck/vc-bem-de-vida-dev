@@ -6,16 +6,18 @@ import { useDispatch } from "react-redux";
 import { toastFeedback } from "../../../utils/actionFeedback";
 import { useActionDeadlineList } from "../../../hooks/useActionDeadlineList";
 import { useActionList } from "../../../hooks/useActionList";
-import { unlinkActionAndPlan } from "../../../services/Module3/ActionService";
 import { delAction } from "../../../store/module3/actionSlice";
-import { deleteActionDeadline, putActionDeadline } from "../../../services/Module3/ActionDeadlineService";
-import { delActionDeadline } from "../../../store/module3/actionDeadlineSlice";
+import { putActionDeadline } from "../../../services/Module3/ActionDeadlineService";
 import { useNavigate } from "react-router-dom";
 import { getPriorityObjectFromValue, PRIORITY_OPTIONS } from "../../../constants/action.constant";
+import { RoutineActionDelete } from "../../../services/RoutineActionService";
+import ActionDeleteDialog from "./ActionDeleteDialog";
 
 const { Tr, Td, THead, TBody } = Table;
 
 function ActionList({ actionPlanID }) {
+	const [dialogIsOpen, setDialogIsOpen] = useState(false);
+	
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { actions, refreshActionList } = useActionList(actionPlanID);
@@ -41,11 +43,7 @@ function ActionList({ actionPlanID }) {
 	}, [actionPlanID]);
 	
 	const handleConfigureItem = (item) => {
-		if (item.action_type === "action" && !item.configured) {
-			navigate("/routine/action/form", { state: { itemID: item.id } });
-		} else {
-			navigate("/routine/action/form", { state: { itemID: item.id } });
-		}
+		navigate("/routine/action/form", { state: { itemID: item.id } });
 	};
 	
 	const ActionPlanItem = ({ item }) => {
@@ -81,22 +79,6 @@ function ActionList({ actionPlanID }) {
 			}
 		};
 		
-		const handleDeleteItem = async (actionItem, actionDeadline) => {
-			await unlinkActionAndPlan(actionItem.id, actionPlanID).then(
-				async response => {
-					if (response.status === 200) {
-						dispatch(delAction(actionItem.id));
-						await deleteActionDeadline(actionDeadline.id).then(
-							() => {
-								dispatch(delActionDeadline(actionDeadline.id));
-							}
-						);
-						toastFeedback("warning", "Ação Desvinculada");
-					}
-				}
-			);
-		};
-		
 		const handlePriorityChange = async (e) => {
 			if (actionDeadlineItem) {
 				await putActionDeadline(
@@ -114,61 +96,68 @@ function ActionList({ actionPlanID }) {
 		};
 		
 		return (
-			<Tr key={item.id} style={{ textAlign: "center", maxHeight: 100 }}>
-				<Td>
-					<h6>
-						{item.value}
-					</h6>
-				</Td>
-				<Td>
-					<h6>{item.read_status}</h6>
-				</Td>
-				<Td>
-					<div>
-						<Select
-							className="w-[90px]"
-							options={PRIORITY_OPTIONS}
-							value={priority}
-							onChange={(e) => handlePriorityChange(e)}
+			<>
+				<Tr key={item.id} style={{ textAlign: "center", maxHeight: 100 }}>
+					<Td>
+						<h6>
+							{item.value}
+						</h6>
+					</Td>
+					<Td>
+						<h6>{item.read_status}</h6>
+					</Td>
+					<Td>
+						<div>
+							<Select
+								className="w-[90px]"
+								options={PRIORITY_OPTIONS}
+								value={priority}
+								onChange={(e) => handlePriorityChange(e)}
+							/>
+						</div>
+					</Td>
+					<Td>
+						<Input
+							type="date"
+							name="estimated_deadline"
+							className="w-[150px]"
+							value={estimatedDeadline}
+							onChange={(e) => setEstimatedDeadline(e.target.value)}
+							onBlur={async () => {
+								await handleSaveItem();
+							}}
 						/>
-					</div>
-				</Td>
-				<Td>
-					<Input
-						type="date"
-						name="estimated_deadline"
-						className="w-[150px]"
-						value={estimatedDeadline}
-						onChange={(e) => setEstimatedDeadline(e.target.value)}
-						onBlur={async () => {
-							await handleSaveItem();
-						}}
-					/>
-				</Td>
-				<Td>
-					<div className="flex flex-row gap-4 justify-center mt-2">
-						<Button
-							type="button"
-							shape="circle"
-							color="blue-500"
-							size="sm"
-							variant="twoTone"
-							icon={<AiOutlineSetting />}
-							onClick={() => handleConfigureItem(item)}
-						/>
-						
-						<Button
-							type="button"
-							shape="circle"
-							color="red-500"
-							size="sm"
-							variant="twoTone"
-							icon={<MdDeleteForever />}
-							onClick={() => handleDeleteItem(item, actionDeadlineItem)}
-						/>
-					</div>
-				</Td>
-			</Tr>
+					</Td>
+					<Td>
+						<div className="flex flex-row gap-4 justify-center mt-2">
+							<Button
+								type="button"
+								shape="circle"
+								color="blue-500"
+								size="sm"
+								variant="twoTone"
+								icon={<AiOutlineSetting />}
+								onClick={() => handleConfigureItem(item)}
+							/>
+							
+							<Button
+								type="button"
+								shape="circle"
+								color="red-500"
+								size="sm"
+								variant="twoTone"
+								icon={<MdDeleteForever />}
+								onClick={() => setDialogIsOpen(true)}
+							/>
+						</div>
+					</Td>
+				</Tr>
+				<ActionDeleteDialog
+					actionID={item.id}
+					dialogIsOpen={dialogIsOpen}
+					setIsOpen={setDialogIsOpen}
+				/>
+			</>
 		);
 	};
 	

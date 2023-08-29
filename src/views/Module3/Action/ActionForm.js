@@ -21,8 +21,8 @@ function ActionForm({ actionPlanID }) {
 			await postRoutineAction({
 				user: userID,
 				value: action,
-				action_plan: [actionPlanID],
-				action_type: "action"
+				action_plan: actionPlanID,
+				action_type: "plano"
 			}).then(
 				async response => {
 					dispatch(addAction(response.data));

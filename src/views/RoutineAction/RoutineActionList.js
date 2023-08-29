@@ -22,13 +22,15 @@ const RoutineActionList = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	
-	const { routine_actions } = useRoutineActionList();
-	const [routineActionList, setRoutineActionList] = useState(routine_actions);
+	const { routine_actions_no_action_plan } = useRoutineActionList();
+	const [routineActionList, setRoutineActionList] = useState(routine_actions_no_action_plan);
 	const [lifeAspect, setLifeAspect] = useState(null);
 	const { windowWidth } = useResponsive();
 	useEffect(() => {
-		setRoutineActionList(routine_actions);
-	}, [routine_actions]);
+		if (routineActionList.length <= 0) {
+			setRoutineActionList(routine_actions_no_action_plan);
+		}
+	}, [routine_actions_no_action_plan]);
 	
 	const delRoutineAction = async (id) => {
 		try {
@@ -36,6 +38,7 @@ const RoutineActionList = () => {
 			if (resp.status === 204) {
 				dispatch(deleteAction(id));
 				toastFeedback("warning", "Ação de Rotina Excluida");
+				window.location.reload();
 			}
 		} catch (errors) {
 			console.log(errors);
@@ -47,11 +50,6 @@ const RoutineActionList = () => {
 	};
 	
 	const ItemRow = ({ item }) => {
-		try {
-			if (item.action_plan.length >= 1) return null;
-		} catch (e) {
-			console.log(e);
-		}
 		return (
 			<Tr key={item.id} style={{ textAlign: "center" }}>
 				<Td>{item.value}</Td>
@@ -99,15 +97,15 @@ const RoutineActionList = () => {
 		if (e.value) {
 			setLifeAspect(e);
 			setRoutineActionList(
-				routine_actions.filter(item => item.life_aspect.includes(e.value))
+				routine_actions_no_action_plan.filter(item => item.life_aspect.includes(e.value))
 			);
 		} else {
-			setRoutineActionList(routine_actions);
+			setRoutineActionList(routine_actions_no_action_plan);
 		}
 	};
 	const cleanForm = () => {
 		setLifeAspect(null);
-		setRoutineActionList(routine_actions);
+		setRoutineActionList(routine_actions_no_action_plan);
 	};
 	
 	const headerExtraContent = (

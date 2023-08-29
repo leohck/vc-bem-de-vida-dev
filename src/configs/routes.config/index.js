@@ -45,14 +45,6 @@ const module3Routes = [
 		authority: []
 	},
 	{
-		key: "action-config-form",
-		path: "/action-config-form",
-		component: React.lazy(() =>
-			import("views/Module3/Action/ActionConfigureForm")
-		),
-		authority: []
-	},
-	{
 		key: "action-plan",
 		path: "/action-plan",
 		component: React.lazy(() =>

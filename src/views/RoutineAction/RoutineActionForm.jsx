@@ -13,12 +13,9 @@ import { useDispatch } from "react-redux";
 import { addNewAction } from "store/userinfo/routineActionSlice";
 import { getRoutineAction, getWeeklyHoursSpent, postRoutineAction } from "../../services/RoutineActionService";
 import { useLocation, useNavigate } from "react-router-dom";
-import ActionPlans from "../Module3/Action/ActionPlans";
 import {
-	getRecurrenceObjectFromValue,
 	getStatusObjectFromValue,
-	RECURRENCE_OPTIONS,
-	STATUS_OPTIONS
+	STATUS_OPTIONS, STATUS_OPTIONS_DISABLED
 } from "../../constants/action.constant";
 import { useUserID } from "../../hooks/useUserID";
 import { toastFeedback } from "../../utils/actionFeedback";
@@ -41,7 +38,6 @@ const RoutineForm = () => {
 	const [weeklyHoursSpentCount, setWeeklyHoursSpentCount] = useState([
 		0, 0, 0, 0, 0, 0, 0
 	]);
-	const [recurrence, setRecurrence] = useState();
 	const [status, setStatus] = useState([]);
 	const [currentItem, setCurrentItem] = useState({});
 	const [title, setTitle] = useState("Cadastrar Ação de Rotina");
@@ -63,10 +59,6 @@ const RoutineForm = () => {
 					response => {
 						setCurrentItem(response.data);
 						setTitle("Configurar Ação");
-						if (response.data.action_type === "action") {
-							setRecurrence(getRecurrenceObjectFromValue(response.data.recurrence));
-							setStatus(getStatusObjectFromValue(response.data.status));
-						}
 						const action_money = [];
 						if (response.data.action_generate_money) {
 							action_money.push("1");
@@ -121,8 +113,6 @@ const RoutineForm = () => {
 				);
 			} else {
 				const get_wh = async () => {
-					setRecurrence(getRecurrenceObjectFromValue("recorrente"));
-					setStatus(getStatusObjectFromValue("em andamento"));
 					try {
 						if (user_info_id) {
 							await getWeeklyHoursSpent(user_info_id).then(
@@ -156,7 +146,7 @@ const RoutineForm = () => {
 	const handleActionMoneyChange = useCallback((val) => {
 		setActionMoney(val);
 	}, []);
-	
+
 	const addNewRoutineAction = async (data) => {
 		try {
 			const resp = await postRoutineAction(data, itemID);
@@ -165,8 +155,13 @@ const RoutineForm = () => {
 					data.id = itemID;
 				}
 				dispatch(addNewAction(data));
-				toastFeedback("success", "Rotina Atualizada");
-				navigate("/routine/actions", {replace: true});
+				if (resp.data.action_type === 'rotina') {
+					toastFeedback("success", "Rotina Atualizada");
+					navigate("/routine/actions");
+				} else {
+					toastFeedback("success", "Plano Atualizado");
+					navigate("/action-plan/form", { state: { actionPlanItem: resp.data.action_plan_info } });
+				}
 			}
 		} catch (errors) {
 			console.log(errors);
@@ -189,7 +184,6 @@ const RoutineForm = () => {
 				action_cost: action_cost,
 				action_generate_money: action_generate_money,
 				action_cost_money: action_cost_money,
-				recurrence: recurrence.value,
 				status: status.value,
 				configured: true
 			};
@@ -261,19 +255,6 @@ const RoutineForm = () => {
 					/>
 				</div>
 				
-				<div className="flex flex-col items-center gap-2 mt-10 md:flex-row">
-					<p className="font-bold text-base text-center md:text-lg">
-						Recorrência da Ação:
-					</p>
-					<Select
-						className="max-w-[150px] md:ml-16"
-						options={RECURRENCE_OPTIONS}
-						placeholder="Recorrencia"
-						value={recurrence}
-						onChange={setRecurrence}
-					/>
-				</div>
-				
 				<div className="flex flex-col items-center mt-10 md:flex-row">
 					<p className="font-bold text-base text-center md:text-lg">
 						Quantas horas / dia são necessárias para esta ação:
@@ -342,23 +323,31 @@ const RoutineForm = () => {
 						</div>
 					) : null}
 				</div>
-				<div className="flex flex-col mt-10 gap-2 items-center md:flex-row">
-					<p className="font-bold text-base text-center md:text-lg">
-						Status da Ação:
-					</p>
-					<Select
-						className="w-[250px]"
-						options={STATUS_OPTIONS}
-						placeholder="Status"
-						value={status}
-						onChange={setStatus}
-					/>
-				</div>
-				{currentItem && currentItem.hasOwnProperty("action_plan") && (
-					<div className="mt-10">
-						<ActionPlans action={currentItem} />
-					</div>
-				)}
+				{currentItem.action_type === "plano" &&
+					(
+						<div className="flex flex-col mt-10 gap-2">
+							{!currentItem.configured &&
+								(
+									<p>
+										O Status da Ação só poderá ser alterado após preencher e salvar os campos acima!
+									</p>
+								)
+							}
+							<div className="flex flex-col gap-2 items-center md:flex-row">
+								<p className="font-bold text-base text-center md:text-lg">
+									Status da Ação:
+								</p>
+								<Select
+									className="w-[250px]"
+									options={currentItem.configured ? STATUS_OPTIONS : STATUS_OPTIONS_DISABLED}
+									placeholder="Status"
+									value={status}
+									onChange={setStatus}
+								/>
+							</div>
+						</div>
+					)
+				}
 			</Card>
 		</div>
 	);

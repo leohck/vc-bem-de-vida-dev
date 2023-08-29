@@ -129,7 +129,7 @@ function SprintConfig({ sprint }) {
 			
 			{!sprint.running && (
 				<div className="flex flex-col gap-2 h-[730px]">
-					<h6>Repositório de Ações</h6>
+					<h6>Repositório de Ações Configuradas</h6>
 					<Card className="overflow-y-auto bg-gray-300 md:h-full md:w-[600px]"
 					      bodyClass="grid grid-cols-1 divide-y gap-2"
 					>
