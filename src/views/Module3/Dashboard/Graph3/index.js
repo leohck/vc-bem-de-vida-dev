@@ -23,23 +23,6 @@ function Graph3() {
 	
 	const graph_data = data.data;
 	
-	const BigNumber = ({ type, data, title }) => {
-		return (
-			<Tooltip title={title}>
-				<Card
-					className="w-[170px] md:w-[300px]"
-					bodyClass="flex flex-row justify-center">
-					{type === "time_spent" && (
-						<h4>{data.time_spent} H</h4>
-					)}
-					{type === "money_spent" && (
-						<h4>{convertToReal(data.money_spent)}</h4>
-					)}
-				</Card>
-			</Tooltip>
-		);
-	};
-	
 	const headerExtraContent = (
 		<span className="flex items-center">
 			<Segment
@@ -61,19 +44,7 @@ function Graph3() {
 			headerExtra={headerExtraContent}
 			headerClass="border-none"
 		>
-			<div className="flex flex-col items-center justify-center gap-20">
-				<div className="flex flex-row gap-2 items-center justify-center">
-					<BigNumber
-						type={graphType[0]}
-						data={graph_data.bignumber1}
-						title="Recurso investido em Rotina"
-					/>
-					<BigNumber
-						type={graphType[0]}
-						data={graph_data.bignumber2}
-						title="Recurso investido em Mudança"
-					/>
-				</div>
+			<div className="flex flex-col items-center">
 				<div>
 					<PieChart
 						type={graphType[0]}

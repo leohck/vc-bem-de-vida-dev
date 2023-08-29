@@ -146,7 +146,7 @@ const RoutineForm = () => {
 	const handleActionMoneyChange = useCallback((val) => {
 		setActionMoney(val);
 	}, []);
-
+	
 	const addNewRoutineAction = async (data) => {
 		try {
 			const resp = await postRoutineAction(data, itemID);
@@ -155,7 +155,7 @@ const RoutineForm = () => {
 					data.id = itemID;
 				}
 				dispatch(addNewAction(data));
-				if (resp.data.action_type === 'rotina') {
+				if (resp.data.action_type === "rotina") {
 					toastFeedback("success", "Rotina Atualizada");
 					navigate("/routine/actions");
 				} else {
@@ -323,28 +323,19 @@ const RoutineForm = () => {
 						</div>
 					) : null}
 				</div>
-				{currentItem.action_type === "plano" &&
+				{currentItem.action_type === "plano" && currentItem.configured &&
 					(
-						<div className="flex flex-col mt-10 gap-2">
-							{!currentItem.configured &&
-								(
-									<p>
-										O Status da Ação só poderá ser alterado após preencher e salvar os campos acima!
-									</p>
-								)
-							}
-							<div className="flex flex-col gap-2 items-center md:flex-row">
-								<p className="font-bold text-base text-center md:text-lg">
-									Status da Ação:
-								</p>
-								<Select
-									className="w-[250px]"
-									options={currentItem.configured ? STATUS_OPTIONS : STATUS_OPTIONS_DISABLED}
-									placeholder="Status"
-									value={status}
-									onChange={setStatus}
-								/>
-							</div>
+						<div className="flex flex-col gap-2 items-center mt-10 md:flex-row">
+							<p className="font-bold text-base text-center md:text-lg">
+								Status da Ação:
+							</p>
+							<Select
+								className="w-[250px]"
+								options={STATUS_OPTIONS}
+								placeholder="Status"
+								value={status}
+								onChange={setStatus}
+							/>
 						</div>
 					)
 				}
