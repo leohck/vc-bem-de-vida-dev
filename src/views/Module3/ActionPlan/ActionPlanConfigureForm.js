@@ -17,10 +17,6 @@ function ActionPlanConfigureForm() {
 	const action_plan_id = state.actionPlanItem.id;
 	const dispatch = useDispatch();
 	const [actionPlanItem, setActionPlanItem] = useState();
-	const { routine_actions_with_action_plan, refreshRoutineActions } = useRoutineActionList();
-	useEffect(() => {
-		refreshRoutineActions();
-	}, []);
 	
 	const handleAddItem = async (item) => {
 		await linkActionAndPlan(item.id, action_plan_id).then(
@@ -87,20 +83,6 @@ function ActionPlanConfigureForm() {
 			</div>
 			<div className="flex flex-col gap-10 justify-center md:flex-row">
 				<Action actionPlanID={action_plan_id} />
-				<div className="flex flex-col gap-2 h-[600px]">
-					<h6>Ações Cadastradas</h6>
-					<Card className="overflow-y-auto bg-gray-300 md:h-[600px] md:w-[450px]"
-					      bodyClass="grid grid-cols-1 divide-y gap-2"
-					>
-						{routine_actions_with_action_plan.filter(
-							ra => !ra.action_plan.includes(action_plan_id)
-						).map(
-							item => (
-								<RoutineActionItem key={item.id} item={item} />
-							)
-						)}
-					</Card>
-				</div>
 			</div>
 		</div>
 	);

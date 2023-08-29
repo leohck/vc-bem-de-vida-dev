@@ -23,6 +23,7 @@ function ActionPlanItem({ item }) {
 					dispatch(delActionPlan(item.id));
 					toastFeedback("success",
 						"Plano de Ação Deletado");
+					window.location.reload();
 				}
 			);
 		} catch (e) {
