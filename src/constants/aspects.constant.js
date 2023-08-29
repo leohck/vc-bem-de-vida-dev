@@ -2,6 +2,7 @@ import { GiHealthNormal } from "react-icons/gi";
 import { RiCoinsLine, RiMentalHealthFill } from "react-icons/ri";
 import { MdGroups } from "react-icons/md";
 import { FaHandshake } from "react-icons/fa";
+import LifeAspectIcon from "../views/Icon";
 
 export const TEXT_NOT_RATED = "Não Avaliado";
 export const TEXT_VERY_LOW = "Muito Baixa";
@@ -205,27 +206,27 @@ export const LIFE_ASPECTS_OPTIONS = [
 	{
 		label: "Saúde Física",
 		value: "Saude Fisica",
-		icon: <GiHealthNormal size="2.5em" />
+		icon: <LifeAspectIcon life_aspect={'saude_fisica'}/>,
 	},
 	{
 		label: "Saúde Mental",
 		value: "Saude Mental",
-		icon: <RiMentalHealthFill size="2.5em" />
+		icon: <LifeAspectIcon life_aspect={'saude_mental'}/>,
 	},
 	{
 		label: "Vida Social",
 		value: "Vida Social",
-		icon: <MdGroups size="2.5em" />
+		icon: <LifeAspectIcon life_aspect={'vida_social'}/>,
 	},
 	{
 		label: "Vida Profissional",
 		value: "Vida Profissional",
-		icon: <FaHandshake size="2.5em" />
+		icon: <LifeAspectIcon life_aspect={'vida_profissional'}/>,
 	},
 	{
 		label: "Gestão Financeira",
 		value: "Gestao Financeira",
-		icon: <RiCoinsLine size="2.5em" />
+		icon: <LifeAspectIcon life_aspect={'gestao_financeira'}/>,
 	}
 ];
 

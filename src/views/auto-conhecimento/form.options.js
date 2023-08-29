@@ -22,6 +22,7 @@ import { TbPigMoney } from "react-icons/tb";
 import { MdFamilyRestroom, MdGroups, MdPets } from "react-icons/md";
 import { ImBriefcase } from "react-icons/im";
 import { IconContext } from "react-icons";
+import LifeAspectIconMicro from "../Icon/LifeAspectIconMicro";
 
 export const aptidoesOptions = [
 	{ value: "1", label: "Comunicação", color: "#00B8D9" },
@@ -67,35 +68,60 @@ export const lifeAspectOptions = [
 
 export const conquistasOptions = [
 	
-	{ life_aspect: "Saude Fisica", value: "1", label: <FaWeight size="2.5em" /> },
-	{ life_aspect: "Saude Fisica", value: "2", label: <GiStrong size="2.5em" /> },
-	{ life_aspect: "Saude Fisica", value: "3", label: <BsHeartPulseFill size="2.5em" /> },
+	{ life_aspect: "Saude Fisica", value: "1", label:
+			<LifeAspectIconMicro life_aspect={'saude_fisica'} icon={'peso'}/> },
+	{ life_aspect: "Saude Fisica", value: "2", label:
+			<LifeAspectIconMicro life_aspect={'saude_fisica'} icon={'disposicao'}/> },
+	{ life_aspect: "Saude Fisica", value: "3", label:
+			<LifeAspectIconMicro life_aspect={'saude_fisica'} icon={'vida_saudavel'}/> },
 	
-	{ life_aspect: "Saude Mental", value: "4", label: <FaPlaneDeparture size="2.5em" /> },
-	{ life_aspect: "Saude Mental", value: "5", label: <FaCarSide size="2.5em" /> },
-	{ life_aspect: "Saude Mental", value: "6", label: <FaHouseUser size="2.5em" /> },
-	{ life_aspect: "Saude Mental", value: "7", label: <FaBook size="2.5em" /> },
-	{ life_aspect: "Saude Mental", value: "8", label: <FaPrayingHands size="2.5em" /> },
-	{ life_aspect: "Saude Mental", value: "9", label: <FaTrophy size="2.5em" /> },
-	{ life_aspect: "Saude Mental", value: "10", label: <BsGiftFill size="2.5em" /> },
-	{ life_aspect: "Saude Mental", value: "11", label: <GiSailboat size="2.5em" /> },
+	{ life_aspect: "Saude Mental", value: "4",
+		label: <LifeAspectIconMicro life_aspect={'saude_mental'} icon={'viagem_aviao'}/> },
+	{ life_aspect: "Saude Mental", value: "5",
+		label: <LifeAspectIconMicro life_aspect={'saude_mental'} icon={'carro'}/> },
+	{ life_aspect: "Saude Mental", value: "6",
+		label: <LifeAspectIconMicro life_aspect={'saude_mental'} icon={'moradia'}/> },
+	{ life_aspect: "Saude Mental", value: "7",
+		label: <LifeAspectIconMicro life_aspect={'saude_mental'} icon={'conhecimento'}/> },
+	{ life_aspect: "Saude Mental", value: "8",
+		label: <LifeAspectIconMicro life_aspect={'saude_mental'} icon={'fe'}/> },
+	{ life_aspect: "Saude Mental", value: "9",
+		label: <LifeAspectIconMicro life_aspect={'saude_mental'} icon={'trofeu'}/> },
+	{ life_aspect: "Saude Mental", value: "10",
+		label: <LifeAspectIconMicro life_aspect={'saude_mental'} icon={'presente'}/> },
+	{ life_aspect: "Saude Mental", value: "11",
+		label: <LifeAspectIconMicro life_aspect={'saude_mental'} icon={'viagem_navio'}/> },
 	
-	{ life_aspect: "Gestao Financeira", value: "12", label: <GiReceiveMoney size="2.5em" /> },
-	{ life_aspect: "Gestao Financeira", value: "13", label: <TbPigMoney size="2.5em" /> },
-	{ life_aspect: "Gestao Financeira", value: "14", label: <GiPayMoney size="2.5em" /> },
+	{ life_aspect: "Gestao Financeira", value: "12",
+		label: <LifeAspectIconMicro life_aspect={'gestao_financeira'} icon={'fonte_renda'}/> },
+	{ life_aspect: "Gestao Financeira", value: "13",
+		label: <LifeAspectIconMicro life_aspect={'gestao_financeira'} icon={'fundo_renda'}/> },
+	{ life_aspect: "Gestao Financeira", value: "14",
+		label: <LifeAspectIconMicro life_aspect={'gestao_financeira'} icon={'controle_despesa'}/> },
 	
-	{ life_aspect: "Vida Social", value: "15", label: <FaBabyCarriage size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "16", label: <BsPersonHearts size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "17", label: <FaHandHoldingHeart size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "18", label: <MdPets size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "19", label: <MdFamilyRestroom size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "20", label: <MdGroups size="2.5em" /> },
-	{ life_aspect: "Vida Social", value: "21", label: <FaUserFriends size="2.5em" /> },
+	{ life_aspect: "Vida Social", value: "15",
+		label: <LifeAspectIconMicro life_aspect={'vida_social'} icon={'filhos'}/> },
+	{ life_aspect: "Vida Social", value: "16",
+		label: <LifeAspectIconMicro life_aspect={'vida_social'} icon={'relacao_amorosa'}/> },
+	{ life_aspect: "Vida Social", value: "17",
+		label: <LifeAspectIconMicro life_aspect={'vida_social'} icon={'doacao'}/> },
+	{ life_aspect: "Vida Social", value: "18",
+		label: <LifeAspectIconMicro life_aspect={'vida_social'} icon={'pets'}/> },
+	{ life_aspect: "Vida Social", value: "19",
+		label: <LifeAspectIconMicro life_aspect={'vida_social'} icon={'familia'}/> },
+	{ life_aspect: "Vida Social", value: "20",
+		label: <LifeAspectIconMicro life_aspect={'vida_social'} icon={'comunidade'}/> },
+	{ life_aspect: "Vida Social", value: "21",
+		label: <LifeAspectIconMicro life_aspect={'vida_social'} icon={'amigos'}/> },
 	
-	{ life_aspect: "Vida Profissional", value: "22", label: <ImBriefcase size="2.5em" /> },
-	{ life_aspect: "Vida Profissional", value: "23", label: <FaTrophy size="2.5em" /> },
-	{ life_aspect: "Vida Profissional", value: "24", label: <GrCertificate size="2.5em" fill="gray" /> },
-	{ life_aspect: "Vida Profissional", value: "25", label: <FaGraduationCap size="2.5em" /> }
+	{ life_aspect: "Vida Profissional", value: "22",
+		label: <LifeAspectIconMicro life_aspect={'vida_profissional'} icon={'trabalho'}/> },
+	{ life_aspect: "Vida Profissional", value: "23",
+		label: <LifeAspectIconMicro life_aspect={'vida_profissional'} icon={'reconhecimento'}/> },
+	{ life_aspect: "Vida Profissional", value: "24",
+		label: <LifeAspectIconMicro life_aspect={'vida_profissional'} icon={'certificacao'}/> },
+	{ life_aspect: "Vida Profissional", value: "25",
+		label: <LifeAspectIconMicro life_aspect={'vida_profissional'} icon={'graduacao'}/> }
 
 ];
 

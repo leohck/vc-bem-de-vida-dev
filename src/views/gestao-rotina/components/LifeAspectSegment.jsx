@@ -2,36 +2,33 @@ import React from 'react'
 import { SegmentItemOption } from 'components/shared'
 import { Segment } from 'components/ui'
 
-import { GiHealthNormal } from 'react-icons/gi'
-import { RiMentalHealthFill, RiCoinsLine } from 'react-icons/ri'
-import { MdGroups } from 'react-icons/md'
-import { FaHandshake } from 'react-icons/fa'
+import LifeAspectIcon from "../../Icon";
 
 const life_aspect_options = [
     {
         label: 'Saúde Física',
         value: 'Saude Fisica',
-        icon: <GiHealthNormal />,
+        icon: <LifeAspectIcon life_aspect={'saude_fisica'}/>,
     },
     {
         label: 'Saúde Mental',
         value: 'Saude Mental',
-        icon: <RiMentalHealthFill />,
+        icon: <LifeAspectIcon life_aspect={'saude_mental'}/>,
     },
     {
         label: 'Vida Social',
         value: 'Vida Social',
-        icon: <MdGroups />,
+        icon: <LifeAspectIcon life_aspect={'vida_social'}/>,
     },
     {
         label: 'Vida Profissional',
         value: 'Vida Profissional',
-        icon: <FaHandshake />,
+        icon: <LifeAspectIcon life_aspect={'vida_profissional'}/>,
     },
     {
         label: 'Gestão Financeira',
         value: 'Gestao Financeira',
-        icon: <RiCoinsLine />,
+        icon: <LifeAspectIcon life_aspect={'gestao_financeira'}/>,
     },
 ]
 
@@ -61,9 +58,9 @@ const LifeAspectSegment = ({ value, onChange, singleOption, vertical }) => {
                                     className="bg-white dark:bg-gray-800 w-[230px] h-16"
                                 >
                                     <div className="flex items-center gap-3">
-                                        <span className="text-2xl">
+                                        <div>
                                             {item.icon}
-                                        </span>
+                                        </div>
                                         <h6>{item.label}</h6>
                                     </div>
                                 </SegmentItemOption>
