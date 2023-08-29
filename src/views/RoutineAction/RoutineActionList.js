@@ -22,15 +22,15 @@ const RoutineActionList = () => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	
-	const { routine_actions_no_action_plan } = useRoutineActionList();
-	const [routineActionList, setRoutineActionList] = useState(routine_actions_no_action_plan);
+	const { routine_actions } = useRoutineActionList();
+	const [routineActionList, setRoutineActionList] = useState(routine_actions);
 	const [lifeAspect, setLifeAspect] = useState(null);
 	const { windowWidth } = useResponsive();
 	useEffect(() => {
 		if (routineActionList.length <= 0) {
-			setRoutineActionList(routine_actions_no_action_plan);
+			setRoutineActionList(routine_actions);
 		}
-	}, [routine_actions_no_action_plan]);
+	}, [routine_actions]);
 	
 	const delRoutineAction = async (id) => {
 		try {
@@ -97,15 +97,15 @@ const RoutineActionList = () => {
 		if (e.value) {
 			setLifeAspect(e);
 			setRoutineActionList(
-				routine_actions_no_action_plan.filter(item => item.life_aspect.includes(e.value))
+				routine_actions.filter(item => item.life_aspect.includes(e.value))
 			);
 		} else {
-			setRoutineActionList(routine_actions_no_action_plan);
+			setRoutineActionList(routine_actions);
 		}
 	};
 	const cleanForm = () => {
 		setLifeAspect(null);
-		setRoutineActionList(routine_actions_no_action_plan);
+		setRoutineActionList(routine_actions);
 	};
 	
 	const headerExtraContent = (

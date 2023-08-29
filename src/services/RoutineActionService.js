@@ -2,7 +2,7 @@ import ApiService from "./ApiService";
 
 export async function getRoutineActionList(user_id) {
 	return ApiService.fetchData({
-		url: `/user_routine_action/?user_id=${user_id}`,
+		url: `/user_routine_action/?user_id=${user_id}&action_type=rotina`,
 		method: 'get',
 	})
 }
