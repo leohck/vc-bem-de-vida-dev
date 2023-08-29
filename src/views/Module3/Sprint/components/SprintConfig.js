@@ -78,7 +78,7 @@ function SprintConfig({ sprint }) {
 						Sprint Atual
 					</h6>
 					{sprint.running
-						? (
+						? sprint.can_finish && (
 							<Button
 								variant="twoTone"
 								color="green-600"
@@ -98,7 +98,7 @@ function SprintConfig({ sprint }) {
 						)
 					}
 				</div>
-				<Card className="overflow-y-auto mt-1 h-[400px] md:w-[600px] md:h-[600px] ">
+				<Card className="overflow-y-auto mt-1 h-[400px] md:w-[650px] md:h-[600px] ">
 					<Table>
 						<THead style={{ textAlign: "center" }}>
 							<Tr>
