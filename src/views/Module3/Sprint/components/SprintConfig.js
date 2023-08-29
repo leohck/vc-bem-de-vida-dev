@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Button, Card, Select, Table } from "../../../../components/ui";
 import { ESTIMATED_DAYS_DISABLED_OPTIONS, ESTIMATED_DAYS_OPTIONS, getEstimatedDaysObjectFromValue } from "../constants";
-import { finishSprint, StartStopSprint } from "../../../../services/Module3/SprintService";
+import { StartStopSprint } from "../../../../services/Module3/SprintService";
 import { toastFeedback } from "../../../../utils/actionFeedback";
 import SprintAction from "./SprintAction";
 import ActionPlanList from "./ActionPlanList";
+import SprintFinishDialog from "./SprintFinishDialog";
 
 const { Tr, Td, THead, TBody } = Table;
 
 function SprintConfig({ sprint }) {
+	const [dialogIsOpen, setDialogIsOpen] = useState(false);
+	
 	const [estimatedDays, setEstimatedDays] = useState(
 		getEstimatedDaysObjectFromValue(sprint.estimated_days)
 	);
@@ -40,17 +43,6 @@ function SprintConfig({ sprint }) {
 			});
 	}
 	
-	const handleFinishSprint = async () => {
-	    await finishSprint(sprint.id)
-		    .then(async (response) => {
-				const message1 = `Total de Ações : ${response.data.total_actions}`;
-				const message2 = `Total de Ações Concluida: ${response.data.done_actions}`;
-			    toastFeedback('success', message1 + "\n" + message2);
-			    await new Promise(r => setTimeout(r, 2000));
-			    window.location.reload();
-		    })
-	}
-	
 	const formatDate = (date) => {
 		const dt = new Date(date + " EDT");
 		return dt.toLocaleDateString("pt-BR");
@@ -73,19 +65,21 @@ function SprintConfig({ sprint }) {
 						<h6>{formatDate(sprint.conclusion_date)}</h6>
 					</div>
 				</div>
-				<div className="flex flex-row items-center justify-between  gap-10 mt-10 md:w-[600px]">
+				<div className="flex flex-row items-center justify-between mt-5 md:w-[650px]">
 					<h6>
 						Sprint Atual
 					</h6>
 					{sprint.running
 						? sprint.can_finish && (
-							<Button
-								variant="twoTone"
-								color="green-600"
-								onClick={handleFinishSprint}
-							>
-								CONCLUIR SPRINT
-							</Button>
+							<>
+								<Button
+									variant="twoTone"
+									color="green-600"
+									onClick={() => setDialogIsOpen(true)}
+								>
+									CONCLUIR SPRINT
+								</Button>
+							</>
 						)
 						: (
 							<Button
@@ -146,6 +140,11 @@ function SprintConfig({ sprint }) {
 					</Card>
 				</div>
 			)}
+			<SprintFinishDialog
+				sprintID={sprint.id}
+				dialogIsOpen={dialogIsOpen}
+				setIsOpen={setDialogIsOpen}
+			/>
 		</div>
 	);
 }
