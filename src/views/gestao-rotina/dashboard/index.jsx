@@ -15,20 +15,6 @@ const Dashboard = () => {
 	const [card2Value, setCard2Value] = useState({ value: 0, tagValue: 0 });
 	const [card3Value, setCard3Value] = useState({ value: { value: 0, percentage: 0 }, tagValue: 0 });
 	const [card4Value, setCard4Value] = useState({ value: 0, tagValue: 0 });
-	const [weeklyRoutineChartData, setWeeklyRoutineChartData] = useState({
-		categories: [
-			"Domingo",
-			"Segunda",
-			"Terça",
-			"Quarta",
-			"Quinta",
-			"Sexta",
-			"Sábado"
-		],
-		time_spent: [],
-		energy_spent: [],
-		average_energy_by_time: 0
-	});
 	const [actionResourceChartData, setActionResourceChartData] = useState({
 		top_5_ra_by_money: {
 			categories: [],
@@ -53,7 +39,6 @@ const Dashboard = () => {
 					hourly_active_income,
 					hourly_unprofitable_cost,
 					weekly_free_time,
-					weekly_routine_time_and_energy
 				} = resp.data;
 				setCard1Value({
 					value: monthly_financial_balance,
@@ -62,7 +47,6 @@ const Dashboard = () => {
 				setCard2Value({ value: hourly_active_income, tagValue: 0 });
 				setCard3Value({ value: weekly_free_time, tagValue: 0 });
 				setCard4Value({ value: hourly_unprofitable_cost, tagValue: 0 });
-				setWeeklyRoutineChartData(weekly_routine_time_and_energy);
 			}
 		} catch (errors) {
 			console.log(errors);
@@ -105,7 +89,7 @@ const Dashboard = () => {
 					card4Value={card4Value}
 				/>
 			</div>
-			<WeeklyRoutineChart data={weeklyRoutineChartData} />
+			<WeeklyRoutineChart />
 			<CostBenefitChart />
 			<ActionResourcesChart data={actionResourceChartData} />
 		</div>

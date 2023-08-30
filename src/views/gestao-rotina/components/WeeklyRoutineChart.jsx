@@ -1,24 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Chart from "react-apexcharts";
 import { Card } from "../../../components/ui";
 import useResponsive from "../../../utils/hooks/useResponsive";
+import { useUserID } from "../../../hooks/useUserID";
+import { useQuery } from "@tanstack/react-query";
+import { getDashboard22 } from "../../../services/Module2/Dashboard";
 
-const WeeklyRoutineChart = (props) => {
-	const { data } = props;
-	const {windowWidth} = useResponsive();
+const WeeklyRoutineChart = () => {
+	const { userID } = useUserID();
+	const { windowWidth } = useResponsive();
+	
+	const { isLoading, isError, error, data } = useQuery({
+		queryKey: ["Dashboard22Data", userID],
+		queryFn: () => getDashboard22(userID),
+		refetchOnMount: true
+	});
+	if (isLoading) return "Loading...";
+	if (isError) return "An error has occurred: " + error.message;
+	
+	const charRawData = data.data;
 	
 	const chartID = "weekly_time_and_energy_spent_chart";
-	const time_spent = {
-		name: "Tempo Consumido",
-		data: data.time_spent
+	const routine_actions_time_spent = {
+		name: "Horas Consumidas Ações de Rotina",
+		data: charRawData.routine_actions_time_spent
 	};
 	
-	const energy_spent = {
-		name: "Energia Consumida",
-		data: data.energy_spent
+	const plan_actions_time_spent = {
+		name: "Horas Consumidas Ações de Plano",
+		data: charRawData.plan_actions_time_spent
 	};
 	
-	const chartData = [time_spent, energy_spent];
+	const weekly_free_time = {
+		name: "Tempo Livre",
+		data: charRawData.weekly_free_time
+	};
+	
+	const chartData = [
+		routine_actions_time_spent,
+		plan_actions_time_spent,
+		weekly_free_time
+	];
+	console.log(chartData);
 	
 	return (
 		<div>
@@ -28,7 +51,7 @@ const WeeklyRoutineChart = (props) => {
 					<div className="flex flex-row max-h-[60px] max-w-[250px]">
 						<h6>
 							Media de Energia / Tempo:{" "}
-							{100 * data.average_energy_by_time}%
+							{100 * charRawData.average_energy_by_time}%
 						</h6>
 					</div>
 				</Card>
@@ -36,7 +59,7 @@ const WeeklyRoutineChart = (props) => {
 			
 			<Chart
 				series={chartData}
-				height={windowWidth > 640 ? 350 : 600 }
+				height={windowWidth > 640 ? 350 : 600}
 				type="bar"
 				options={{
 					chart: {
@@ -46,7 +69,7 @@ const WeeklyRoutineChart = (props) => {
 						},
 						zoom: {
 							enabled: false
-						},
+						}
 					},
 					legend: {
 						show: true
@@ -55,14 +78,14 @@ const WeeklyRoutineChart = (props) => {
 						bar: {
 							borderRadius: 4,
 							horizontal: false,
-							columnWidth: windowWidth > 640 ? "65%" : "100%" ,
+							columnWidth: windowWidth > 640 ? "65%" : "100%",
 							endingShape: "rounded",
 							dataLabels: {
 								position: "top"
 							}
 						}
 					},
-					colors: ["#2563eb", "#f59e0b"],
+					colors: ["#2563eb", "#f59e0b", "#079f1f"],
 					dataLabels: {
 						enabled: true,
 						formatter: function(val) {
@@ -75,7 +98,7 @@ const WeeklyRoutineChart = (props) => {
 						colors: ["transparent"]
 					},
 					xaxis: {
-						categories: data.categories
+						categories: charRawData.categories
 					},
 					yaxis: {
 						title: {
