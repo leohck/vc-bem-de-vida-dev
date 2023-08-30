@@ -7,10 +7,10 @@ function Trophies(props) {
 	const {
 		achievementList
 	} = props;
-	const img_src_path = "/img/module3/";
-	const img_src = img_src_path + "prateleira.jpeg";
+	const img_src_path = "/img/module3/WishCloud/";
+	const img_src = img_src_path + "prateleira.png";
 	const { windowWidth } = useResponsive();
-	const width = windowWidth > 640 ? 400 : 340;
+	const width = windowWidth > 640 ? 600 : 340;
 	const height = windowWidth > 640 ? 180 : 150;
 	
 	return (
@@ -26,12 +26,9 @@ function Trophies(props) {
 			     }}
 			>
 				<div className={classNames(
-					"grid gap-y-1 gap-x-2",
-					"grid-cols-10",
-					`mb-20`,
-					"ml-5",
-					`h-[${height / 2}px] w-[${width}px] p-5`,
-					`max-h-[${height / 2}px]`
+					"grid gap-y-1 gap-x-4 mb-14",
+					"grid-cols-5",
+					"max-w-[200px] max-h-[400px]"
 				)}
 				>
 					{achievementList && achievementList.map(
