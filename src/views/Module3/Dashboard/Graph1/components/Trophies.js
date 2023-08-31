@@ -10,14 +10,14 @@ function Trophies(props) {
 	const img_src_path = "/img/module3/WishCloud/";
 	const img_src = img_src_path + "prateleira.png";
 	const { windowWidth } = useResponsive();
-	const width = windowWidth > 640 ? 600 : 340;
-	const height = windowWidth > 640 ? 180 : 150;
+	const width = windowWidth > 640 ? 600 : 500;
+	const height = windowWidth > 640 ? 300 : 300;
 	
 	return (
 		<div className="flex flex-row justify-center items-center">
 			<div id="trophies"
 			     className={classNames(
-				     `h-[${height}px] w-[${width}px]`,
+				     `max-h-[200px] md:max-h-[300px] md:h-[${height}px] w-[${width}px]`,
 				     "bg-contain bg-no-repeat bg-center",
 				     "flex flex-row items-center justify-center"
 			     )}
@@ -26,9 +26,10 @@ function Trophies(props) {
 			     }}
 			>
 				<div className={classNames(
-					"grid gap-y-1 gap-x-4 mb-14",
-					"grid-cols-5",
-					"max-w-[200px] max-h-[400px]"
+					"grid md:gap-y-1 gap-x-1 md:gap-x-3",
+					"grid-cols-6 md:grid-cols-10",
+					"mb-10 md:mb-20 px-4",
+					"max-w-[400px] md:max-w-[500px]"
 				)}
 				>
 					{achievementList && achievementList.map(

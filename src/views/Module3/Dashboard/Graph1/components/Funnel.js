@@ -9,11 +9,11 @@ function Funnel(props) {
 	const img_src_path = "/img/module3/WishCloud/";
 	const img_src = img_src_path + "seta.png";
 	return (
-		<div className="flex flex-col gap-1 items-center">
+		<div className="flex flex-col gap-1 items-center absolute top-36">
 			<div className={classNames(
 				     "h-[250px] w-[350px] md:w-[800px]",
 				     "bg-contain bg-no-repeat bg-center",
-				     "flex flex-row items-center justify-center"
+				     "flex flex-row items-center justify-center mt-5"
 			     )}
 			     style={{
 				     backgroundImage: `url(${img_src})`
