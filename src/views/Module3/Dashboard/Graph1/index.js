@@ -28,7 +28,7 @@ function Graph1() {
 				"flex flex-col items-center"
 			)}>
 			<div>
-				<WishCloud wishList={data.data["wishes"]} />
+				{/*<WishCloud wishList={data.data["wishes"]} />*/}
 			</div>
 			<div>
 				<Funnel goalList={data.data["goals"]} />
