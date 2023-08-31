@@ -27,9 +27,9 @@ function Trophies(props) {
 			>
 				<div className={classNames(
 					"grid md:gap-y-1 gap-x-1 md:gap-x-3",
-					"grid-cols-6 md:grid-cols-10",
+					"grid-cols-6 md:grid-cols-9",
 					"mb-10 md:mb-20 px-4",
-					"max-w-[400px] md:max-w-[500px]"
+					"max-w-[400px] md:max-w-[500px]",
 				)}
 				>
 					{achievementList && achievementList.map(

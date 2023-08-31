@@ -32,7 +32,7 @@ function Graph1() {
 				<WishCloud wishList={data.data["wishes"]} />
 				<Funnel goalList={data.data["goals"]} />
 			</div>
-			<div className="mt-60 md:mt-32">
+			<div className="mt-60 md:mt-40">
 				<Trophies achievementList={data.data["achievements"]} />
 			</div>
 		</Card>

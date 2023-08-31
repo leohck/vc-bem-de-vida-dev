@@ -45,11 +45,9 @@ function Graph3() {
 			headerClass="border-none"
 		>
 			<div className="flex flex-col items-center">
-				<div>
-					<PieChart
-						type={graphType[0]}
-						data={graph_data} />
-				</div>
+				<PieChart
+					type={graphType[0]}
+					data={graph_data} />
 			</div>
 		</Card>
 	);
