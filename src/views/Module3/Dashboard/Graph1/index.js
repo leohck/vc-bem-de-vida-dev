@@ -25,14 +25,13 @@ function Graph1() {
 			}
 			headerClass="border-none"
 			bodyClass={classNames(
-				"flex flex-col items-center",
-				"bg-gray-800"
+				"flex flex-col items-center"
 			)}>
 			<div className="flex flex-col items-center relative">
 				<WishCloud wishList={data.data["wishes"]} />
 				<Funnel goalList={data.data["goals"]} />
 			</div>
-			<div className="mt-60 md:mt-40">
+			<div className="mt-64 md:mt-44">
 				<Trophies achievementList={data.data["achievements"]} />
 			</div>
 		</Card>

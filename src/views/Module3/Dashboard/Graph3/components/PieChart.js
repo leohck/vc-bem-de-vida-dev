@@ -1,10 +1,9 @@
 import React from "react";
 import { Chart } from "../../../../../components/shared";
 import useResponsive from "../../../../../utils/hooks/useResponsive";
-import convertToReal from "../../../../../utils/moneyWrapper";
 
 
-function PieChart({ type, data }) {
+function PieChart({ data }) {
 	const { windowWidth } = useResponsive();
 	const chartWidth = windowWidth > 640 ? 400 : 370;
 	const chartHeight = windowWidth > 640 ? 400 : 400;
@@ -27,11 +26,7 @@ function PieChart({ type, data }) {
 			enabled: true,
 			y: {
 				formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
-					if (type === "time_spent") {
-						return timeFormatter(value)
-					} else {
-						return convertToReal(value);
-					}
+					return timeFormatter(value);
 				}
 			}
 		},
@@ -54,18 +49,6 @@ function PieChart({ type, data }) {
 		dataLabels: {
 			enabled: false
 		},
-		tooltip: {
-			enabled: true,
-			y: {
-				formatter: function(value, { series, seriesIndex, dataPointIndex, w }) {
-					if (type === "time_spent") {
-						return timeFormatter(value)
-					} else {
-						return convertToReal(value);
-					}
-				}
-			}
-		},
 		colors: ["#ef0c1d", "#fde80b", "#079f1f", "#7c580c", "#656464"],
 		labels: [
 			"Não Iniciada",
@@ -76,61 +59,37 @@ function PieChart({ type, data }) {
 		]
 	};
 	return (
-		<>
-			{type === "time_spent" && (
-				<div className="flex flex-row items-center justify-between">
-					<div className="flex flex-col items-center">
-						<Chart
-							width={chartWidth}
-							height={chartHeight}
-							type="donut"
-							options={lifeAspectChartOptions}
-							series={data.life_aspect_time_spent_pie}
-						/>
-						<h5>ASPECTOS DE VIDA</h5>
-					</div>
-					<div className="flex flex-col items-center">
-						<div className="flex flex-col items-center relative">
-							<Chart
-								width={chartWidth - 100}
-								height={chartHeight - 100}
-								type="donut"
-								options={statusChartOptions}
-								series={data.status_time_spent_pie}
-							/>
-							 <h5>PROGRESSÃO DA SPRINT {data.sprint_completion}%</h5>
-						</div>
-					</div>
+		<div className="flex flex-col md:flex-row items-center justify-between">
+			<div className="flex flex-col items-center">
+				<Chart
+					width={chartWidth}
+					height={chartHeight}
+					type="donut"
+					options={lifeAspectChartOptions}
+					series={data.life_aspect_time_spent_pie}
+				/>
+				{data.life_aspect_time_spent_pie && (
+					<h5>ASPECTOS DE VIDA</h5>
+				)}
+			</div>
+			<div className="flex flex-col items-center">
+				<div className="flex flex-col items-center relative">
+					<Chart
+						width={chartWidth - 100}
+						height={chartHeight - 100}
+						type="donut"
+						options={statusChartOptions}
+						series={data.status_actions_count_pie}
+					/>
+					{data.status_actions_count_pie && (
+						<>
+							<h2>{data.sprint_completion}%</h2>
+							<h5>PROGRESSÃO DA SPRINT</h5>
+						</>
+					)}
 				</div>
-			)}
-			{type === "money_spent" && (
-				<div className="flex flex-row items-center justify-between">
-					<div className="flex flex-col items-center">
-						<Chart
-							width={chartWidth}
-							height={chartHeight}
-							type="donut"
-							options={lifeAspectChartOptions}
-							series={data.life_aspect_money_spent_pie}
-						/>
-						<h5>ASPECTOS DE VIDA</h5>
-					</div>
-					<div className="flex flex-col items-center">
-						<div className="flex flex-col items-center relative">
-							<Chart
-								width={chartWidth - 100}
-								height={chartHeight - 100}
-								type="donut"
-								options={statusChartOptions}
-								series={data.status_money_spent_pie}
-							/>
-							<h5>PROGRESSÃO DA SPRINT {data.sprint_completion}%</h5>
-						</div>
-					</div>
-				</div>
-			)}
-		
-		</>
+			</div>
+		</div>
 	);
 }
 

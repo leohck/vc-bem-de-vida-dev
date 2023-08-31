@@ -1,6 +1,5 @@
-import React, { useState, useCallback } from "react";
-import { Card, Segment, Tooltip } from "../../../../components/ui";
-import convertToReal from "../../../../utils/moneyWrapper";
+import React from "react";
+import { Card } from "../../../../components/ui";
 import { useUserID } from "../../../../hooks/useUserID";
 import { useQuery } from "@tanstack/react-query";
 import { getDashboard33Data } from "../../../../services/Module3/Dashboard";
@@ -8,11 +7,6 @@ import PieChart from "./components/PieChart";
 
 function Graph3() {
 	const { userID } = useUserID();
-	
-	const [graphType, setGraphType] = useState(["time_spent"]);
-	const handleGraphTypeChange = useCallback((val) => {
-		setGraphType(val);
-	}, []);
 	
 	const { isLoading, error, data } = useQuery({
 		queryKey: ["Dashboard33Data"],
@@ -23,31 +17,15 @@ function Graph3() {
 	
 	const graph_data = data.data;
 	
-	const headerExtraContent = (
-		<span className="flex items-center">
-			<Segment
-				onChange={handleGraphTypeChange}
-				value={graphType}
-				size="xs"
-			>
-				<Segment.Item value="time_spent">Tempo</Segment.Item>
-				<Segment.Item value="money_spent">Dinheiro</Segment.Item>
-			</Segment>
-        </span>
-	);
-	
 	return (
 		<Card
 			header={
 				<h6>Investimento em Mudança</h6>
 			}
-			headerExtra={headerExtraContent}
 			headerClass="border-none"
 		>
 			<div className="flex flex-col items-center">
-				<PieChart
-					type={graphType[0]}
-					data={graph_data} />
+				<PieChart data={graph_data} />
 			</div>
 		</Card>
 	);
