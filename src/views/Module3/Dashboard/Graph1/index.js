@@ -21,17 +21,19 @@ function Graph1() {
 	return (
 		<Card
 			header={
-				<h6>Desejos Metas e Conquistas</h6>
+				<h6>Desejos, Metas e Conquistas</h6>
 			}
 			headerClass="border-none"
 			bodyClass={classNames(
 				"flex flex-col items-center"
-			)}>
+			)}
+			className="h-full"
+		>
 			<div className="flex flex-col items-center relative">
 				<WishCloud wishList={data.data["wishes"]} />
 				<Funnel goalList={data.data["goals"]} />
 			</div>
-			<div className="mt-64 md:mt-44">
+			<div className="mt-52 md:mt-32">
 				<Trophies achievementList={data.data["achievements"]} />
 			</div>
 		</Card>

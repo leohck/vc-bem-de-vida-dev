@@ -19,7 +19,7 @@ const WishCloud = (props) => {
 			     backgroundImage: `url(${img_src})`
 		     }}
 		>
-			<div className="grid grid-cols-4 gap-2 mt-6">
+			<div className="grid grid-cols-5 gap-1 mt-6">
 				{wishList && wishList.map(
 					wish => (
 						<GraphIcon item={wish} key={wish.id} />
