@@ -10,15 +10,15 @@ function AreaChart({ type, data }) {
 	const getColor = (aspect) => {
 		switch (aspect) {
 			case "Saude Fisica":
-				return "#0048ff";
+				return "#f59e0b";
 			case "Saude Mental":
-				return "#0adc93";
+				return "#16a34a";
 			case "Vida Social":
-				return "#f5ab1d";
+				return "#6d28d9";
 			case "Vida Profissional":
-				return "#FF4560";
+				return "#1d4ed8";
 			case "Gestao Financeira":
-				return "#8875de";
+				return "#facc15";
 		}
 	};
 	let points = [];
