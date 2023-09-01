@@ -36,6 +36,19 @@ export async function postRoutineAction(data, id = null) {
 	})
 }
 
+export async function putRoutineAction(data, id) {
+	const url = `/user_routine_action/${id}/`
+	console.log(url);
+	console.log(data);
+	
+	
+	return ApiService.fetchData({
+		url: url,
+		method: 'put',
+		data,
+	})
+}
+
 export async function getWeeklyHoursSpent(id){
 	return ApiService.fetchData({
 		url: `/weekly_hours_spent/${id}/`,

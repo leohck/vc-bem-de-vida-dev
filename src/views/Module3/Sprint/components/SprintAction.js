@@ -6,7 +6,7 @@ import { MdDeleteForever } from "react-icons/md";
 import { deleteSprintAction } from "../../../../services/Module3/SprintService";
 import { useNavigate } from "react-router-dom";
 import { getStatusObjectFromValue, STATUS_OPTIONS } from "../../../../constants/action.constant";
-import { postRoutineAction } from "../../../../services/RoutineActionService";
+import { putRoutineAction } from "../../../../services/RoutineActionService";
 
 const { Tr, Td } = Table;
 
@@ -32,19 +32,23 @@ function SprintAction({ isSprintRunning, action }) {
 		);
 	};
 	
-	const handleSaveStatus = async () => {
-		if (status.value !== action.status) {
-			await postRoutineAction(
+	const handleSaveStatus = async (e) => {
+		console.log(e);
+		if (e.value) {
+			await putRoutineAction(
 				{
 					value: action.action_name,
-					status: status.value
+					status: e.value
 				},
 				action.action_id,
 			).then(
 				() => {
 					toastFeedback("success", "Status Alterado!");
+					setStatus(e);
 				}
-			);
+			).catch((e) => {
+				console.log(e);
+			});
 		}
 	};
 	
@@ -75,8 +79,7 @@ function SprintAction({ isSprintRunning, action }) {
 					options={STATUS_OPTIONS}
 					placeholder="Status"
 					value={status}
-					onChange={setStatus}
-					onBlur={handleSaveStatus}
+					onChange={handleSaveStatus}
 				/>
 			</Td>
 			<Td>
