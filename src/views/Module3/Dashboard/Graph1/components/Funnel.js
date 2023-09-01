@@ -11,7 +11,7 @@ function Funnel(props) {
 	return (
 		<div className="flex flex-col gap-1 items-center absolute top-40">
 			<div className={classNames(
-				     "h-[250px] w-[350px] md:w-[800px]",
+				     "h-[250px] w-[350px] md:w-[500px]",
 				     "bg-contain bg-no-repeat bg-center",
 				     "flex flex-row items-center justify-center mt-5"
 			     )}
