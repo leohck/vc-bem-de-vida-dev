@@ -36,7 +36,7 @@ function Graph1() {
 	
 	useEffect(() => {
 		if (windowWidth > 640) {
-			if (lifeAspect.length === 0 || lifeAspect.length === 5) {
+			if (lifeAspect.length === 0) {
 				setChartData(chartMainData["all"]);
 			} else if (lifeAspect.length === 1) {
 				setChartData(chartMainData[lifeAspect[0]]);
