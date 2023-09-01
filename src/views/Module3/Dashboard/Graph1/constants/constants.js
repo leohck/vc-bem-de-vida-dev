@@ -75,3 +75,12 @@ export const getLifeAspectRatingBgColor = (aspectRating) => {
 			return 'gray';
 	}
 };
+
+export const lifeAspectOptions = [
+	{ value: "all", label: "Todos" },
+	{ value: "Saude Fisica", label: "Saude Fisica" },
+	{ value: "Saude Mental", label: "Saude Mental" },
+	{ value: "Vida Social", label: "Vida Social" },
+	{ value: "Vida Profissional", label: "Vida Profissional" },
+	{ value: "Gestao Financeira", label: "Gestão Financeira" }
+];
