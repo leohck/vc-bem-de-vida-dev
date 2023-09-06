@@ -24,9 +24,18 @@ function Graph3() {
 			}
 			headerClass="border-none"
 		>
-			<div className="flex flex-col items-center">
-				<PieChart data={graph_data} />
-			</div>
+			{graph_data.has_active_sprint
+				? (
+					<div className="flex flex-col items-center">
+						<PieChart data={graph_data} />
+					</div>
+				)
+				: (
+					<div className="flex flex-col items-center">
+						<h3>Sprint ainda não iniciada</h3>
+					</div>
+				)
+			}
 		</Card>
 	);
 }
