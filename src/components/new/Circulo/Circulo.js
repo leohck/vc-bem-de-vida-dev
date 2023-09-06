@@ -23,7 +23,7 @@ const Circulo = ({ title, icon }) => {
 					response => {
 						const { questions } = response.data;
 						questions.sort((a, b) => {
-							return a - b;
+							return a.order - b.order;
 						});
 						setQuestionsValue(questions);
 					}
