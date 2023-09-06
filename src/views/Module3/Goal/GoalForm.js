@@ -53,6 +53,11 @@ function GoalForm() {
 		setIsOpen(false);
 	};
 	
+	const handleIconChange = (e) => {
+	    setIcon(e);
+		setLifeAspect(e.life_aspect);
+	}
+	
 	const handleStatusChange = (e) => {
 		if (e.value === "cancelada" || e.value === "concluida") {
 			openDialog();
@@ -192,14 +197,14 @@ function GoalForm() {
 							        isSearchable={false}
 							        options={conquistasOptions}
 							        value={icon}
-							        onChange={(e) => setIcon(e)}
+							        onChange={handleIconChange}
 							/>
 						</InputLabel>
 					</div>
 					
 					<div className="flex flex-row items-center justify-start">
 						<InputLabel label="Aspecto de Vida Relacionado">
-							<LifeAspectSegment value={lifeAspect} onChange={setLifeAspect} singleOption />
+							<LifeAspectSegment value={lifeAspect} onChange={setLifeAspect} singleOption isDisabled={true}/>
 						</InputLabel>
 					</div>
 					

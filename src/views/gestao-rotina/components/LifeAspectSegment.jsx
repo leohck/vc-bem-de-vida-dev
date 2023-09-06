@@ -32,7 +32,7 @@ const life_aspect_options = [
     },
 ]
 
-const LifeAspectSegment = ({ value, onChange, singleOption, vertical }) => {
+const LifeAspectSegment = ({ value, onChange, singleOption, vertical, isDisabled }) => {
     const className = vertical ? "flex flex-col justify-between" : "flex flex-col md:flex-row items-center gap-4"
     return (
         <Segment
@@ -45,7 +45,7 @@ const LifeAspectSegment = ({ value, onChange, singleOption, vertical }) => {
                     <Segment.Item
                         value={item.value}
                         key={item.value}
-                        disabled={item.disabled}
+                        disabled={isDisabled ? isDisabled : item.disabled}
                     >
                         {({ ref, active, onSegmentItemClick, disabled }) => {
                             return (
